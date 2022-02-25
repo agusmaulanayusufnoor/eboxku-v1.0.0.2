@@ -4,39 +4,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-
+  @auth
+  <meta name="idKantor" content="{{ auth()->user()->kantor_id }}" />
+  @endauth
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
 
   <title>{{ config('app.name', 'Laravel') }}</title>
-  
 
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper" id="app">
 
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
-      </li>
-    </ul>
 
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fa fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
+   <!-- navbar -->
+   @include('layouts.nav-header')
 
-  </nav>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
@@ -51,7 +37,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-        <router-link to="/profile">
+        {{-- <router-link to="/profile">
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
               <div class="image">
                 <img src="{{ auth()->user()->photo }}" class="img-circle elevation-2" alt="User Image">
@@ -64,8 +50,18 @@
                   </span>
               </div>
           </div>
-        </router-link>
-
+        </router-link> --}}
+        <!-- SidebarSearch Form -->
+        <div class="form-inline">
+            <div class="input-group" data-widget="sidebar-search">
+            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+                <button class="btn btn-sidebar">
+                <i class="fas fa-search fa-fw"></i>
+                </button>
+            </div>
+            </div>
+        </div>
       <!-- Sidebar Menu -->
       @include('layouts.sidebar-menu')
       <!-- /.sidebar-menu -->
@@ -76,10 +72,10 @@
   {{-- Content Wrapper. Contains page content --}}
   <div class="content-wrapper">
     {{-- Main content --}}
-    
+
     <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
+    {{-- <div class="content-header"> --}}
+      {{-- <div class="container-fluid"> --}}
         {{-- <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0 text-dark"></h1>
@@ -91,8 +87,8 @@
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row --> --}}
-      </div><!-- /.container-fluid -->
-    </div>
+      {{-- </div><!-- /.container-fluid --> --}}
+    {{-- </div> --}}
     <!-- /.content-header -->
 
     <!-- Main content -->
@@ -108,19 +104,22 @@
   <footer class="main-footer">
     {{-- To the right --}}
     <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.0.0
+      <b>Version</b> 1.0.0.2
     </div>
     {{-- Default to the left --}}
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2022 <a href="https://bprku.com">BPRKU</a>.</strong>
+    CODE BY SUGA
   </footer>
 </div>
 {{-- ./wrapper --}}
 
 @auth
 <script>
-    window.user = @json(auth()->user())
+    window.user = @json(auth()->user());
+    //console.log(window.userlogin);
 </script>
 @endauth
 <script src="{{ mix('/js/app.js') }}"></script>
+{{-- <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script> --}}
 </body>
 </html>

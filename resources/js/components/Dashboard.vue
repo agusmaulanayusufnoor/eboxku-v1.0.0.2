@@ -1,6 +1,11 @@
 <template>
     <section class="content">
         <div class="container-fluid">
+            <div class="row">
+            <div class="col-12">
+                <h1>PT BPR KARYA UTAMA JABAR</h1>
+                </div>
+            </div>
             <div class="row ">
                 <div class="col-12 col-sm-6 col-md-3">
                     <div class="info-box">

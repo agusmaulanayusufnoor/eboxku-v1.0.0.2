@@ -6,6 +6,9 @@ use App\Http\Requests\Users\UserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
+
 
 
 class UserController extends BaseController
@@ -32,9 +35,16 @@ class UserController extends BaseController
         }
         // $this->authorize('isAdmin');
 
-        $users = User::latest()->paginate(10);
+        //$users = User::all();
+        $users = DB::table('users')
+                ->join('kode_kantors', 'users.kantor_id', '=', 'kode_kantors.id')
+                ->select('users.id','users.type','users.name','users.username',
+                'users.kantor_id','kode_kantors.nama_kantor')->get();
+                // ->paginate(10);
 
+       // dd($users);
         return $this->sendResponse($users, 'Users list');
+        //return datatables($users)->toJson();;
     }
 
     /**
@@ -49,14 +59,21 @@ class UserController extends BaseController
      */
     public function store(UserRequest $request)
     {
-        $user = User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'type' => $request['type'],
-        ]);
+        // $user = User::create([
+        //     'name' => $request['name'],
+        //     'email' => $request['email'],
+        //     'password' => Hash::make($request['password']),
+        //     'type' => $request['type'],
+        // ]);
 
-        return $this->sendResponse($user, 'User Created Successfully');
+        $user = User::create([
+            'name'      => $request['name'],
+            'username'  => $request['username'],
+            'password'  => Hash::make($request['password']),
+            'type'      => $request['type'],
+            'kantor_id' => $request['kantor_id'],
+        ]);
+        return $this->sendResponse($user, 'User Ditambahkan');
     }
 
     /**
@@ -71,14 +88,14 @@ class UserController extends BaseController
     public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
-
+        //dd($request->all());
         if (!empty($request->password)) {
             $request->merge(['password' => Hash::make($request['password'])]);
         }
 
         $user->update($request->all());
 
-        return $this->sendResponse($user, 'User Information has been updated');
+        return $this->sendResponse($user, 'Data User Diubah!');
     }
 
     /**
@@ -97,6 +114,6 @@ class UserController extends BaseController
 
         $user->delete();
 
-        return $this->sendResponse([$user], 'User has been Deleted');
+        return $this->sendResponse([$user], 'User sudah dihapus!');
     }
 }

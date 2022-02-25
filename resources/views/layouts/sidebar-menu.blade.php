@@ -9,25 +9,19 @@
         </router-link>
       </li>
 
-      <li class="nav-item">
-        <router-link to="/products" class="nav-link">
-          <i class="nav-icon fas fa-list orange"></i>
-          <p>
-            Product
-          </p>
-        </router-link>
-      </li>
-
-      @can('isAdmin')
+     @can('isAdmin')
         <li class="nav-item">
           <router-link to="/users" class="nav-link">
-            <i class="fa fa-users nav-icon blue"></i>
+            <i class="nav-icon fa fa-users fa-beat green"></i>
             <p>Users</p>
           </router-link>
         </li>
       @endcan
+      @if((auth()->user()->type=='admin') or (auth()->user()->type=='pelayanan'))
+            <!--  menu pelayanan  -->
+            @include('layouts.menu.menu-pelayanan')
+      @endif
 
-      
 
       @can('isAdmin')
       <li class="nav-item has-treeview">
@@ -56,7 +50,7 @@
               </p>
             </router-link>
           </li>
-          
+
             <li class="nav-item">
               <router-link to="/developer" class="nav-link">
                   <i class="nav-icon fas fa-cogs white"></i>
@@ -69,20 +63,7 @@
       </li>
 
       @endcan
-      
-      
 
-      <li class="nav-item">
-        <a href="#" class="nav-link" onclick="event.preventDefault();
-          document.getElementById('logout-form').submit();">
-          <i class="nav-icon fas fa-power-off red"></i>
-          <p>
-            {{ __('Logout') }}
-          </p>
-        </a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-          @csrf
-        </form>
-      </li>
+
     </ul>
   </nav>

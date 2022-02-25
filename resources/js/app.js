@@ -1,13 +1,15 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
+
+import "datatables.net-dt/js/dataTables.dataTables"
+import "datatables.net-dt/css/jquery.dataTables.min.css"
+import vuetify from '../plugins/vuetify'
+
+
 
 window.Vue = require('vue');
 import moment from 'moment';
+import format from 'date-fns';
+
 
 import { Form, HasError, AlertError } from 'vform';
 window.Form = Form;
@@ -49,6 +51,7 @@ Vue.component(AlertError.name, AlertError)
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 import routes from './routes';
+import Vuetify from "vuetify/lib";
 
 const router = new VueRouter({
     mode: 'history',
@@ -63,7 +66,7 @@ const router = new VueRouter({
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
- 
+
 // Components
 Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('dashboard', require('./components/Dashboard.vue'));
@@ -100,7 +103,13 @@ Vue.filter('yesno', value => (value ? '<i class="fas fa-check green"></i>' : '<i
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
+//ambil id_kantor dari auth meta
+Vue.prototype.$kantor_id = document.querySelector("meta[name='idKantor']").getAttribute('content');
+
+Vue.config.productionTip = false
 const app = new Vue({
+
+    vuetify,
     el: '#app',
     router
 });

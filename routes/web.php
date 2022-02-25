@@ -13,10 +13,12 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/',[LoginController::class,'showLoginForm'])->name('showLoginForm');
 
 Auth::routes(['verify' => true]);
 

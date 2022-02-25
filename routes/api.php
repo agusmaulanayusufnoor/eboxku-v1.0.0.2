@@ -33,11 +33,14 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('tag/list', 'TagController@list');
     Route::get('category/list', 'CategoryController@list');
     Route::post('product/upload', 'ProductController@upload');
+    Route::get('bakas/download/{baka}', 'BakasController@downloadfile');
+    //Route::post('pelayanan/upload', 'ProductController@upload');
 
     Route::apiResources([
-        'user' => 'UserController',
-        'product' => 'ProductController',
-        'category' => 'CategoryController',
-        'tag' => 'TagController',
+        'user'      => 'UserController',
+        'bakas'     => 'BakasController',
+        'product'   => 'ProductController',
+        'category'  => 'CategoryController',
+        'tag'       => 'TagController',
     ]);
 });

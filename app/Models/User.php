@@ -18,9 +18,16 @@ class User extends Authenticatable // implements MustVerifyEmail
      *
      * @var array
      */
+    protected $table = 'users';
     protected $fillable = [
-        'name', 'email', 'password', 'type'
+        'name',
+        'username',
+        'email',
+        'password',
+        'type',
+        'kantor_id',
     ];
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -39,6 +46,9 @@ class User extends Authenticatable // implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function kantor(){
+        return $this->belongsTo(kode_kantor::class);
+    }
 
      /**
      * Get the profile photo URL attribute.
@@ -73,5 +83,9 @@ class User extends Authenticatable // implements MustVerifyEmail
     public function isUser()
     {
         return $this->roles()->where('name', 'User')->exists();
+    }
+    public function isPelayanan()
+    {
+        return $this->roles()->where('name', 'Pelayanan')->exists();
     }
 }
