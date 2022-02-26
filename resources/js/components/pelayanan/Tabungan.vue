@@ -1,302 +1,534 @@
 <template>
-  <section class="content">
-    <div class="container-fluid">
-        <div class="row">
-
-          <div class="col-12">
-
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">File Tabungan</h3>
-
-                <div class="card-tools">
-
-                  <button type="button" class="btn btn-sm btn-primary" @click="newModal">
-                      <i class="fa fa-plus-square"></i>
-                      Add New
-                  </button>
-                </div>
-              </div>
+<v-app>
+    <v-container fluid>
+        <v-row no-gutters class="justify-content-md-center">
+          <v-col cols="11">
+            <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isPelayanan()">
+              <v-toolbar color="grey lighten-1" dark>
+                <v-toolbar-title>
+                    File Tabungan
+                </v-toolbar-title>
+                <v-spacer></v-spacer>
+                  <v-btn small color="indigo" dark @click="newModal">
+                     <v-icon>mdi-file-upload</v-icon> Upload File
+                  </v-btn>
+              </v-toolbar>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Description</th>
-                      <th>Category</th>
-                      <th>Price</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                     <tr v-for="product in products.data" :key="product.id">
+                <v-data-table
+                :headers="headers"
+                :items="tabungan"
+                :search="search"
+                justify="center"
+                dense
+                class="elevation-3">
 
-                      <td>{{product.id}}</td>
-                      <td>{{product.name}}</td>
-                      <td>{{product.description | truncate(30, '...')}}</td>
-                      <td>{{product.category.name}}</td>
-                      <td>{{product.price}}</td>
-                      <!-- <td><img v-bind:src="'/' + product.photo" width="100" alt="product"></td> -->
-                      <td>
+                <template v-slot:item.index="{ index }">
+                    {{ index + 1 }}
+                </template>
 
-                        <a href="#" @click="editModal(product)">
-                            <i class="fa fa-edit blue"></i>
-                        </a>
-                        /
-                        <a href="#" @click="deleteProduct(product.id)">
-                            <i class="fa fa-trash red"></i>
-                        </a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                <template v-slot:top>
+                <v-toolbar flat >
+                    <v-spacer></v-spacer>
+                    <v-spacer></v-spacer>
+                    <v-spacer></v-spacer>
+                    <v-spacer></v-spacer>
+                    <v-text-field
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                    label="Cari File"
+                    single-line
+                    hide-details
+                    loading="grey"
+                ></v-text-field>
+                </v-toolbar>
+                </template>
+
+                <!-- tombol download -->
+                <template v-slot:item.file="{ item }">
+                    <v-card-actions class="justify-center">
+                        <v-icon
+                            small
+                            color="blue"
+                            class="mr-4"
+                            @click="downloadFile(item.id,item.file)"
+                        >
+                            mdi-download
+                        </v-icon>
+                    </v-card-actions>
+                </template>
+
+                <!-- tombol hapus -->
+                <template v-slot:item.actions="{ item }">
+                <v-icon
+                    small
+                    class="mr-4"
+                    color="red"
+                    right
+                    @click="deleteUser(item.id)"
+                >
+                    mdi-delete
+                </v-icon>
+                </template>
+
+               </v-data-table>
+             </div>
               <!-- /.card-body -->
-              <div class="card-footer">
-                  <pagination :data="products" @pagination-change-page="getResults"></pagination>
-              </div>
-            </div>
-            <!-- /.card -->
-          </div>
+              <!-- <div class="card-footer">
+                  <pagination :data="users" @pagination-change-page="getResults"></pagination>
+              </div> -->
+            </v-card>
+          </v-col>
+        </v-row>
+
+        <div v-if="!$gate.isAdmin() && !$gate.isPelayanan()">
+            <not-found></not-found>
         </div>
 
-        <!-- Modal -->
+  <!-- Modal -->
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNew" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" v-show="!editmode">Create New Product</h5>
-                    <h5 class="modal-title" v-show="editmode">Edit Product</h5>
+                    <h5 class="modal-title" v-show="!editmode">Upload File</h5>
+                    <h5 class="modal-title" v-show="editmode">Edit Data User</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
-                <form @submit.prevent="editmode ? updateProduct() : createProduct()">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input v-model="form.name" type="text" name="name"
-                                class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
-                            <has-error :form="form" field="name"></has-error>
-                        </div>
-                        <div class="form-group">
-                            <label>Description</label>
-                            <input v-model="form.description" type="text" name="description"
-                                class="form-control" :class="{ 'is-invalid': form.errors.has('description') }">
-                            <has-error :form="form" field="description"></has-error>
-                        </div>
-                        <div class="form-group">
-                            <label>Price</label>
-                            <input v-model="form.price" type="text" name="price"
-                                class="form-control" :class="{ 'is-invalid': form.errors.has('price') }">
-                            <has-error :form="form" field="price"></has-error>
-                        </div>
-                        <div class="form-group">
+                <v-form
+                @submit.prevent="createUser"
+                ref="form"
+                v-model="valid"
+                lazy-validation
+                >
 
-                            <label>Category</label>
-                            <select class="form-control" v-model="form.category_id">
-                              <option
-                                  v-for="(cat,index) in categories" :key="index"
-                                  :value="index"
-                                  :selected="index == form.category_id">{{ cat }}</option>
-                            </select>
-                            <has-error :form="form" field="category_id"></has-error>
+                <!-- <form @submit.prevent="editmode ? updateUser() : createUser()"> -->
+                    <div class="modal-body">
+                            <input v-model="kantor_id" type="hidden"
+                            name="kantor_id">
+                            <input v-model="csrf" type="hidden"
+                            name="_token">
+
+                        <div class="form-group input-group">
+                             <v-col
+                                cols="12"
+                                sm="12"
+                                md="12"
+                             >
+                             <v-text-field
+                                v-model="no_rekening"
+                                :rules="norekRules"
+                                name="no_rekening"
+                                label="Nomor Rekening Tabungan"
+                                placeholder="No. Rekening Tanpa Titik"
+                                counter
+                                maxlength="12"
+                                outlined
+                                required
+                                dense
+                                prepend-icon="mdi-file"
+                                @keydown="norekKeyboard($event)"
+                            ></v-text-field>
+                            <has-error :form="form" field="namafile"></has-error>
+                             <v-text-field
+                                v-model="namafile"
+                                :rules="nameRules"
+                                name="namafile"
+                                label="Nama File"
+                                placeholder="Nama File: 'nama_nasabah'"
+                                outlined
+                                required
+                                dense
+                                prepend-icon="mdi-file"
+                                @keydown="pencetKeyboard($event)"
+                            ></v-text-field>
+                            <has-error :form="form" field="namafile"></has-error>
+
+                        <!-- tanggal -->
+                        <template>
+                        <v-row>
+                            <v-col
+                            cols="12"
+                            sm="12"
+                            md="12"
+                            >
+                                <v-menu
+                                    ref="menu1"
+                                    v-model="menu1"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    transition="scale-transition"
+                                    offset-y
+                                    min-width="auto"
+                                >
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field
+                                        v-model="dateFormatted"
+                                        @blur="tanggal = parseDate(dateFormatted)"
+                                        :rules="tanggalRules"
+                                        label="Tanggal File"
+                                        placeholder="Tanggal Buka Rekening"
+                                        prepend-icon="mdi-calendar"
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        outlined
+                                        required
+                                        dense
+                                    ></v-text-field>
+                                </template>
+                                <v-date-picker
+                                    v-model="tanggal"
+                                    elevation="15"
+                                    @input="menu1 = false"
+                                    year-icon="calendar-blank"
+                                    locale="id-ID"
+                                ></v-date-picker>
+
+                                </v-menu>
+                            </v-col>
+                        </v-row>
+                        </template>
+                            <has-error :form="form" field="tanggal"></has-error>
+                        <!-- <input type="file" @change="uploadFile"> -->
+                         <template>
+
+                            <v-file-input
+                                v-model="file"
+                                :rules="fileRules"
+                                color="deep-purple accent-4"
+                                counter
+                                label="File input"
+                                required
+                                placeholder="Ambil File"
+                                prepend-icon="mdi-paperclip"
+                                outlined
+                                dense
+                                show-size
+                                accept=".zip"
+                            >
+                                <template v-slot:selection="{ index, text }">
+                                <v-chip
+                                    v-if="index < 2"
+                                    color="deep-purple accent-4"
+                                    dark
+                                    label
+                                    small
+                                >
+                                    {{ text }}
+                                </v-chip>
+
+                                <span
+                                    v-else-if="index === 2"
+                                    class="text-overline grey--text text--darken-3 mx-2"
+                                >
+                                    +{{ files.length - 2 }} File(s)
+                                </span>
+                                </template>
+                            </v-file-input>
+                            </template>
+                            <has-error :form="form" field="file"></has-error>
+
+                             </v-col>
                         </div>
-                        <div class="form-group">
-                            <label>Tags</label>
-                            <vue-tags-input
-                              v-model="form.tag"
-                              :tags="form.tags"
-                              :autocomplete-items="filteredItems"
-                              @tags-changed="newTags => form.tags = newTags"
-                            />
-                            <has-error :form="form" field="tags"></has-error>
-                        </div>
+
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
-                        <button v-show="!editmode" type="submit" class="btn btn-primary">Create</button>
+                        <v-btn color="error" elevation="2" type="button" data-dismiss="modal">
+                        <v-icon>mdi-file-cancel</v-icon>
+                            Batal
+                        </v-btn>
+                        <v-btn color="success" elevation="2" v-show="editmode" type="submit" >
+                            <v-icon>mdi-pencil</v-icon>
+                            Ubah
+                        </v-btn>
+                        <v-btn color="primary" elevation="2" v-show="!editmode" type="submit" >
+                            <v-icon>mdi-file-upload</v-icon>
+                            Upload
+                        </v-btn>
                     </div>
-                  </form>
+                  </v-form>
                 </div>
             </div>
         </div>
-    </div>
-  </section>
+    </v-container>
+</v-app>
 </template>
 
 <script>
-    import VueTagsInput from '@johmun/vue-tags-input';
 
-    export default {
-      components: {
-          VueTagsInput,
-        },
-        data () {
-            return {
-                editmode: false,
-                products : {},
-                form: new Form({
-                    id : '',
-                    category : '',
-                    name: '',
-                    description: '',
-                    tags:  [],
-                    photo: '',
-                    category_id: '',
-                    price: '',
-                    photoUrl: '',
-                }),
-                categories: [],
+  export default {
+    data: vm => ({
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      editmode: false,
+      dialog: false,
+      dialogDelete: false,
+      search:'',
+     tabungan:[],
+     valid:true,
+        file: null,
+        id : '',
+        kantor_id: '',
+        no_rekening: '',
+        norekRules: [
+        v => !!v || 'No Rekening Belum Diisi',
+      ],
+        namafile: '',
+        nameRules: [
+        v => !!v || 'Nama File Belum Diisi',
+      ],
+      menu1: false,
+      menu2:false,
 
-                tag:  '',
-                autocompleteItems: [],
+      dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+      tanggal:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+         tanggalRules: [
+        v => !!v || 'Tanggal file belum diisi',
+      ],
+       fileRules: [
+        v => !!v || 'File belum dimasukan',
+      ],
+        //file: '',
+    form: new Form({
+        id : '',
+        kantor_id: '',
+        namafile: '',
+        tanggal: '',
+        file: '',
+    }),
+
+    }),
+
+    computed: {
+        headers(){
+            let headers = [
+                {
+                text: 'No',
+                value: 'index',
+                align: 'center',
+                sortable: false
+                },
+                { text: 'No Rekening', value: 'no_rekening' },
+                { text: 'Tanggal File', value: 'tanggal' },
+                { text: 'Kantor', value: 'nama_kantor',align: 'start', },
+                {
+                text: 'Nama File',
+                value: 'namafile',
+                },
+
+      ]
+            headers.push({ text: 'Download File', value: 'file', sortable: false,align: 'center' })
+            if(this.$gate.isAdmin()){
+                headers.push({ text: 'Hapus', value: 'actions', sortable: false })
             }
+            return headers
         },
-        methods: {
+        computedDateFormatted () {
+            return this.formatDate(this.tanggal);
+        },
 
-          getResults(page = 1) {
+      formTitle () {
+        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+      },
 
-              this.$Progress.start();
+    },
 
-              axios.get('api/product?page=' + page).then(({ data }) => (this.products = data.data));
+    watch: {
+      tanggal (val) {
+        this.dateFormatted = this.formatDate(this.tanggal)
+      },
+      dialog (val) {
+        val || this.close()
+      },
+      dialogDelete (val) {
+        val || this.closeDelete()
+      },
+    },
+//     beforeCreate: function() {
 
-              this.$Progress.finish();
-          },
-          loadProducts(){
+//     console.log(this.$kantor_id)
+//   },
+    created () {
+        this.$Progress.start();
+        //console.log(this.kantor_id)
+      this.initialize()
+      this.$Progress.finish();
+    },
 
-            // if(this.$gate.isAdmin()){
-              axios.get("api/product").then(({ data }) => (this.products = data.data));
-            // }
-          },
-          loadCategories(){
-              axios.get("/api/category/list").then(({ data }) => (this.categories = data.data));
-          },
-          loadTags(){
-              axios.get("/api/tag/list").then(response => {
-                  this.autocompleteItems = response.data.data.map(a => {
-                      return { text: a.name, id: a.id };
-                  });
-              }).catch(() => console.warn('Oh. Something went wrong'));
-          },
-          editModal(product){
-              this.editmode = true;
-              this.form.reset();
-              $('#addNew').modal('show');
-              this.form.fill(product);
-          },
-          newModal(){
-              this.editmode = false;
-              this.form.reset();
-              $('#addNew').modal('show');
-          },
-          createProduct(){
-              this.$Progress.start();
+    methods: {
+    norekKeyboard: function(evt) {
+      evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      //nomer wungkul
+      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+      //tidak boleh tombol '/' dan '\'
+      //if (charCode === 191 || charCode===220) {
+        evt.preventDefault();;
+      } else {
+        return true;
+      }
+    },
+    pencetKeyboard: function(evt) {
+      evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      //nomer wungkul
+      //if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+      //tidak boleh tombol '/' dan '\'
+      if (charCode === 191 || charCode===220) {
+        evt.preventDefault();;
+      } else {
+        return true;
+      }
+    },
+    formatDate (tanggal) {
+        if (!tanggal) return null
 
-              this.form.post('api/product')
-              .then((data)=>{
-                if(data.data.success){
+        const [year, month, day] = tanggal.split('-')
+        return `${day}/${month}/${year}`
+      },
+       parseDate (tanggal) {
+        if (!tanggal) return null
+
+        const [day, month,  year] = tanggal.split('/')
+        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+      },
+      initialize() {
+         this.$Progress.start();
+
+            if(this.$gate.isAdmin() || this.$gate.isPelayanan() ){
+
+               //axios.get("api/user").then((response) => {(this.users = response.data.data)});
+             axios.get("api/tabungan")
+                .then((response) => {
+                this.tabungan = response.data.data;
+                this.kantor_id = this.$kantor_id;
+                // this.form.fill
+               // console.log(this.tabungan);
+               // console.log(this.kantor_id)
+                });
+            }
+
+           this.$Progress.finish();
+      },
+     editModal(item){
+                this.editmode = true;
+                this.$refs.form.reset()
+                $('#addNew').modal('show');
+                this.form.fill(item);
+            },
+    newModal(){
+        this.editmode = false;
+        $('#addNew').modal('show');
+        this.$refs.form.reset()
+        this.namafile = '';
+    },
+     createUser(){
+         this.$refs.form.validate();
+         this.$Progress.start();
+            // e.preventDefault();
+            const config = {
+                headers: { 'content-type': 'multipart/form-data' }
+            }
+            // //this.append('file', this.file);
+            const formData = new FormData
+            formData.set('kantor_id', this.kantor_id)
+            formData.set('no_rekening', this.no_rekening)
+            formData.set('namafile', this.namafile)
+            formData.set('tanggal', this.tanggal)
+            formData.set('file', this.file)
+            // formData.append('file', this.file);
+           // console.log(this.file);
+            axios.post('api/tabungan',formData,config)
+              .then((response)=>{
                   $('#addNew').modal('hide');
 
                   Toast.fire({
                         icon: 'success',
-                        title: data.data.message
+                        title: response.data.message
+                  });
+
+                  this.$Progress.finish();
+                  this.initialize();
+
+              })
+              .catch((response)=>{
+                  //Swal.fire("Failed!", data.message, "warning");
+                  Toast.fire({
+                      icon: 'error',
+                      title: 'Gagal upload file, ulangi!'
+                      //title: response.message
+                  });
+              })
+          },
+          downloadFile(id,file){
+              axios({
+                  url:'api/tabungan/download/'+id,
+                  method:'GET',
+                  responseType:'blob'
+              }).then((response) => {
+                var fileUrl     = window.URL.createObjectURL(new Blob([response.data]))
+                var fileLink    = document.createElement('a')
+                fileLink.href   = fileUrl
+
+                fileLink.setAttribute('download','tabfile.zip')
+                fileLink.download = file;
+                document.body.appendChild(fileLink)
+
+                fileLink.click()
+
+              }).catch(()=> {
+                                  Swal.fire("Gagal Download!", "File tidak ada...", "warning");
+                              });
+          },
+          updateUser(){
+                this.$Progress.start();
+                // console.log('Editing data');
+                this.form.put('api/tabungan/'+this.form.id)
+                .then((response) => {
+                    // success
+                    $('#addNew').modal('hide');
+                    Toast.fire({
+                      icon: 'success',
+                      title: response.data.message
                     });
-                  this.$Progress.finish();
-                  this.loadProducts();
+                    this.$Progress.finish();
+                        //  Fire.$emit('AfterCreate');
 
-                } else {
-                  Toast.fire({
-                      icon: 'error',
-                      title: 'Some error occured! Please try again'
-                  });
+                    this.initialize();
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+                });
 
-                  this.$Progress.failed();
-                }
-              })
-              .catch(()=>{
+            },
+          deleteUser(id){
+                Swal.fire({
+                    title: 'Yakin dihapus?',
+                    text: "Jika dihapus data hilang!",
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Hapus!'
+                    }).then((result) => {
 
-                  Toast.fire({
-                      icon: 'error',
-                      title: 'Some error occured! Please try again'
-                  });
-              })
-          },
-          updateProduct(){
-              this.$Progress.start();
-              this.form.put('api/product/'+this.form.id)
-              .then((response) => {
-                  // success
-                  $('#addNew').modal('hide');
-                  Toast.fire({
-                    icon: 'success',
-                    title: response.data.message
-                  });
-                  this.$Progress.finish();
-                      //  Fire.$emit('AfterCreate');
-
-                  this.loadProducts();
-              })
-              .catch(() => {
-                  this.$Progress.fail();
-              });
-
-          },
-          deleteProduct(id){
-              Swal.fire({
-                  title: 'Are you sure?',
-                  text: "You won't be able to revert this!",
-                  showCancelButton: true,
-                  confirmButtonColor: '#d33',
-                  cancelButtonColor: '#3085d6',
-                  confirmButtonText: 'Yes, delete it!'
-                  }).then((result) => {
-
-                      // Send request to the server
-                        if (result.value) {
-                              this.form.delete('api/product/'+id).then(()=>{
-                                      Swal.fire(
-                                      'Deleted!',
-                                      'Your file has been deleted.',
-                                      'success'
-                                      );
-                                  // Fire.$emit('AfterCreate');
-                                  this.loadProducts();
-                              }).catch((data)=> {
+                        // Send request to the server
+                         if (result.value) {
+                                this.form.delete('api/tabungan/'+id).then(()=>{
+                                        Swal.fire(
+                                        'Dihapus!',
+                                        'Data telah dihapus.',
+                                        'success'
+                                        );
+                                    // Fire.$emit('AfterCreate');
+                                    this.initialize();
+                                }).catch((data)=> {
                                   Swal.fire("Failed!", data.message, "warning");
                               });
-                        }
-                  })
-          },
-
-        },
-        mounted() {
-
-        },
-        created() {
-            this.$Progress.start();
-
-            this.loadProducts();
-            this.loadCategories();
-            this.loadTags();
-
-            this.$Progress.finish();
-        },
-        filters: {
-            truncate: function (text, length, suffix) {
-                return text.substring(0, length) + suffix;
+                         }
+                    })
             },
-        },
-        computed: {
-          filteredItems() {
-            return this.autocompleteItems.filter(i => {
-              return i.text.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1;
-            });
-          },
-        },
-    }
+
+    },
+  }
 </script>

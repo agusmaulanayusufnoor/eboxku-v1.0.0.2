@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Bakas;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use Laravel\Passport\Passport;
 
 class BakasController extends BaseController
 {
@@ -63,7 +61,7 @@ class BakasController extends BaseController
     {
         $request->validate([
 
-            'namafile' => 'required|unique:bakas,namafile',
+            'namafile' => 'required',
             'tanggal' => 'required',
             'file' => 'required|mimes:zip'
         ],[

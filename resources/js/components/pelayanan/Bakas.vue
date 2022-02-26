@@ -345,7 +345,7 @@
 //   },
     created () {
         this.$Progress.start();
-        //console.log(this.kantor_id)
+        console.log(this.kantor_id)
       this.initialize()
       this.$Progress.finish();
     },
@@ -442,7 +442,7 @@
                   //Swal.fire("Failed!", data.message, "warning");
                   Toast.fire({
                       icon: 'error',
-                      title: 'Nama file sudah ada, ulangi!'
+                      title: 'Gagal upload file, ulangi!'
                       //title: response.message
                   });
               })
