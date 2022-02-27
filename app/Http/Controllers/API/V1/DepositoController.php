@@ -60,11 +60,12 @@ class DepositoController extends BaseController
     public function store(Request $request)
     {
         $request->validate([
-            'no_rekening'  => 'required',
+            'no_rekening'  => 'required|unique:deposito',
             'namafile'     => 'required',
             'tanggal'      => 'required',
             'file'         => 'required|mimes:zip'
         ],[
+            'no_rekening.unique' => 'no rekening sudah ada dalam data',
             'no_rekening.required' => 'no rekening harus diisi',
             'namafile.required' => 'nama file harus diisi',
             'file.required' => 'nama file harus nama kantor (ex: cab-kpo.zip)',
@@ -158,4 +159,20 @@ class DepositoController extends BaseController
         }
 
     }
+    public function ceknorek(Request $request)
+    {
+      $norek = $request->no_rekening;
+      $deposito  = DB::table('deposito')
+      ->where('no_rekening', $norek)
+      ->select('deposito.no_rekening')
+      ->get();
+
+      if(!$deposito->isEmpty()){
+        return $this->sendResponse($deposito, 'adarek');
+      }else{
+        return $this->sendResponse($deposito, 'kosong');
+      }
+
+    }
+
 }

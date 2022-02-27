@@ -35,7 +35,9 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::post('product/upload', 'ProductController@upload');
     Route::get('bakas/download/{baka}', 'BakasController@downloadfile');
     Route::get('tabungan/download/{tabungan}', 'TabunganController@downloadfile');
+    Route::post('tabungan/ceknorek', 'TabunganController@ceknorek');
     Route::get('deposito/download/{deposito}', 'DepositoController@downloadfile');
+    Route::post('deposito/ceknorek', 'DepositoController@ceknorek');
     Route::get('teller/download/{teller}', 'TellerController@downloadfile');
     //Route::post('pelayanan/upload', 'ProductController@upload');
 

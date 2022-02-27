@@ -71,6 +71,7 @@ const router = new VueRouter({
 Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('dashboard', require('./components/Dashboard.vue'));
 
+
 Vue.component(
     'passport-clients',
     require('./components/passport/Clients.vue').default
@@ -102,6 +103,7 @@ Vue.filter('yesno', value => (value ? '<i class="fas fa-check green"></i>' : '<i
 // end Filter
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+
 
 //ambil id_kantor dari auth meta
 Vue.prototype.$kantor_id = document.querySelector("meta[name='idKantor']").getAttribute('content');

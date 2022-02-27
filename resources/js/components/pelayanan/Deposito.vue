@@ -130,6 +130,9 @@
                                 dense
                                 prepend-icon="mdi-file"
                                 @keydown="norekKeyboard($event)"
+                                hint=""
+                                persistent-hint :error-messages="pesaneror"
+                                @change="cekNorek()"
                             ></v-text-field>
                             <has-error :form="form" field="namafile"></has-error>
                              <v-text-field
@@ -274,10 +277,11 @@
         norekRules: [
         v => !!v || 'No Rekening Belum Diisi',
       ],
+        cekNorekData:[],
+        pesaneror:[],
         namafile: '',
         nameRules: [
         v => !!v || 'Nama File Belum Diisi',
-        v => v!=='agus' || 'Jangan Agus',
       ],
       menu1: false,
       menu2:false,
@@ -358,15 +362,40 @@
     },
 
     methods: {
+
+    async cekNorek (){
+      if(this.$gate.isAdmin() || this.$gate.isPelayanan() ){
+        const formData = new FormData
+        formData.set('no_rekening', this.no_rekening)
+        //const response = await axios.get('api/deposito/ceknama')
+          const response = await axios.post('api/deposito/ceknorek',formData)
+          //this.cekNorekData = response.data.data[0].no_rekening;
+          if (response.data.message=='adarek'){
+            this.cekNorekData = response.data.data[0].no_rekening;
+            this.pesaneror = 'No Rekening '+this.cekNorekData+' Sudah Ada'
+           
+           // console.log(this.cekNorekData);
+            
+            Toast.fire({
+                  icon: 'error',
+                  //title: response.data.message
+                  title: 'No Rekening '+response.data.data[0].no_rekening+' Sudah Ada Dalam Data'
+            });
+            this.initialize();
+          }//endif response
+
+      }//endif gate
+    },
     norekKeyboard: function(evt) {
       evt = (evt) ? evt : window.event;
       var charCode = (evt.which) ? evt.which : evt.keyCode;
       //nomer wungkul
-      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46 && charCode !== 68) {
+      if ((charCode > 31 && (charCode < 48 || charCode > 57 ) && (charCode < 95 || charCode > 105 )) && charCode !== 46 && charCode !== 68 ) {
       //tidak boleh tombol '/' dan '\'
       //if (charCode === 191 || charCode===220) {
-        evt.preventDefault();;
+        evt.preventDefault();
       } else {
+        this.no_rekening = this.no_rekening.toUpperCase();
         return true;
       }
     },
@@ -377,7 +406,7 @@
       //if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
       //tidak boleh tombol '/' dan '\'
       if (charCode === 191 || charCode===220) {
-        evt.preventDefault();;
+        evt.preventDefault();
       } else {
         return true;
       }
@@ -423,6 +452,8 @@
         $('#addNew').modal('show');
         this.$refs.form.reset()
         this.namafile = '';
+        this.no_rekening = '';
+        this.pesaneror = '';
     },
      createUser(){
          this.$refs.form.validate();
@@ -453,12 +484,12 @@
                   this.initialize();
 
               })
-              .catch((response)=>{
+              .catch(error =>{
                   //Swal.fire("Gagal Upload", "Cek data inputan!", "warning");
                   Toast.fire({
                       icon: 'error',
-                      title: 'Gagal Upload, Ulangi!'
-                      //title: response.message
+                      title: error.response.data.errors.no_rekening[0]
+                      //title : "Gagal upload, ulangi..."
                   });
               })
           },
