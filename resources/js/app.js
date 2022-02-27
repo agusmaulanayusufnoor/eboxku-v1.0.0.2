@@ -70,7 +70,10 @@ const router = new VueRouter({
 // Components
 Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('dashboard', require('./components/Dashboard.vue'));
-
+Vue.component(
+    'auto-logout',
+    require('./components/AutoLogout.vue').default
+);
 
 Vue.component(
     'passport-clients',

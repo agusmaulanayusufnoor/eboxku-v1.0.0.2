@@ -18,11 +18,23 @@
             Hai... {{ Auth::user()->name }}
         </a>
         </div>
-    </li>
+      </li>
+      
     </ul>
-
+    <ul class="navbar-nav ml-auto">
+    <li class="nav-item d-none d-sm-inline-block">
+        <div style="color: red;">
+        
+        @auth
+            <auto-logout></auto-logout>
+        @endauth
+        
+        </div>
+      </li>
+    </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+    
       <!-- Navbar Search -->
       <li class="nav-item">
         <a class="nav-link" data-widget="navbar-search" href="#" role="button">
