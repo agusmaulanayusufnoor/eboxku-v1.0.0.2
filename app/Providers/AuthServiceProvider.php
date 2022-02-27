@@ -58,5 +58,14 @@ class AuthServiceProvider extends ServiceProvider
             // for simplicity
             return $user->type === 'pelayanan';
         });
+
+        Gate::define('isKredit', function ($user) {
+            // if ($user->isUser()) {
+            //     return true;
+            // }
+
+            // for simplicity
+            return $user->type === 'kredit';
+        });
     }
 }

@@ -23,7 +23,7 @@
       <li class="nav-item">
         <router-link to="/bakas" class="nav-link">
           <i class="nav-icon fa-regular fa-file-lines"></i>
-          <p>Berita Acara Kas</p>
+          <p>File Berita Acara Kas</p>
         </a>
       </li>
       {{-- menu tabungan --}}
@@ -31,7 +31,7 @@
         <router-link to="/tabungan" class="nav-link">
           <i class="nav-icon fas fa-money-bill"></i>
           <p>
-            Tabungan
+            File Tabungan
           </p>
         </a>
       </li>
@@ -41,7 +41,7 @@
         <router-link to="/deposito" class="nav-link">
             <i class="nav-icon fa fa-file-invoice-dollar"></i>
             <p>
-              Deposito
+              File Deposito
             </p>
           </a>
       </li>
@@ -50,7 +50,7 @@
             <router-link to="/teller" class="nav-link">
                 <i class="nav-icon fas fa-cash-register"></i>
                 <p>
-                  Teller
+                  File Teller
                 </p>
               </a>
           </li>

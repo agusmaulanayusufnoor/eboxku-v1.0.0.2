@@ -7,8 +7,6 @@ export default [
     { path: '/tabungan', component: require('./components/pelayanan/Tabungan.vue').default },
     { path: '/deposito', component: require('./components/pelayanan/Deposito.vue').default },
     { path: '/teller', component: require('./components/pelayanan/Teller.vue').default },
-    { path: '/products', component: require('./components/product/Products.vue').default },
-    { path: '/product/tag', component: require('./components/product/Tag.vue').default },
-    { path: '/product/category', component: require('./components/product/Category.vue').default },
+    { path: '/kredit', component: require('./components/kredit/Kredit.vue').default },
     { path: '*', component: require('./components/NotFound.vue').default }
 ];

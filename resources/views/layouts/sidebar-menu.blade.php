@@ -22,6 +22,11 @@
             @include('layouts.menu.menu-pelayanan')
       @endif
 
+      @if((auth()->user()->type=='admin') or (auth()->user()->type=='kredit'))
+            <!--  menu kredit  -->
+            @include('layouts.menu.menu-kredit')
+      @endif
+
 
       @can('isAdmin')
       <li class="nav-item has-treeview">
