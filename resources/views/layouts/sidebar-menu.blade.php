@@ -27,6 +27,35 @@
             @include('layouts.menu.menu-kredit')
       @endif
 
+      @if((auth()->user()->type=='admin') or (auth()->user()->type=='akunting'))
+            <!--  menu umum dan akunting cabang  -->
+            @include('layouts.menu.menu-umum-akunting')
+      @endif
+
+      
+      @if((auth()->user()->type=='admin') or (auth()->user()->type=='umumpst'))
+            <!--  menu umum dan akunting cabang  -->
+            @include('layouts.menu.menu-umum-pusat')
+      @endif
+
+      
+      @if((auth()->user()->type=='admin') or (auth()->user()->type=='sekdir'))
+            <!--  menu umum dan akunting cabang  -->
+            @include('layouts.menu.menu-sekdir')
+      @endif
+
+      
+      @if((auth()->user()->type=='admin') or (auth()->user()->type=='skai'))
+            <!--  menu umum dan akunting cabang  -->
+            @include('layouts.menu.menu-skai')
+      @endif
+
+      @if((auth()->user()->type=='admin') or (auth()->user()->type=='sdm'))
+            <!--  menu umum dan akunting cabang  -->
+            @include('layouts.menu.menu-sdm')
+      @endif
+     
+
 
       @can('isAdmin')
       <li class="nav-item has-treeview">

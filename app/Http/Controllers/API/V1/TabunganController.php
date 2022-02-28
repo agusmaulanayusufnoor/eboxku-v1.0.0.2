@@ -83,7 +83,7 @@ class TabunganController extends BaseController
 
         $date       = implode("",$arr);
 
-        $file   = "01020101.600324.OP001UN-A".".00".$request->kantor_id.".".$request->namafile.".".$datefile.".".$nm->getClientOriginalName();
+        $file   = "00".$request->kantor_id.".".$request->no_rekening.".".$request->namafile.".".$datefile.".".$nm->getClientOriginalName();
         $tabungan = $this->tabungan->create([
             'kantor_id'     => $request->get('kantor_id'),
             'no_rekening'     => $request->get('no_rekening'),
@@ -161,15 +161,15 @@ class TabunganController extends BaseController
     public function ceknorek(Request $request)
     {
       $norek = $request->no_rekening;
-      $deposito  = DB::table('tabungan')
+      $tabungan  = DB::table('tabungan')
       ->where('no_rekening', $norek)
       ->select('tabungan.no_rekening')
       ->get();
 
-      if(!$deposito->isEmpty()){
-        return $this->sendResponse($deposito, 'adarek');
+      if(!$tabungan->isEmpty()){
+        return $this->sendResponse($tabungan, 'adarek');
       }else{
-        return $this->sendResponse($deposito, 'kosong');
+        return $this->sendResponse($tabungan, 'kosong');
       }
 
     }

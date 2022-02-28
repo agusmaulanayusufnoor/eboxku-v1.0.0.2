@@ -41,18 +41,27 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('kredit/download/{kredit}', 'KreditController@downloadfile');
     Route::post('kredit/ceknorek', 'KreditController@ceknorek');
     Route::get('teller/download/{teller}', 'TellerController@downloadfile');
-    //Route::post('pelayanan/upload', 'ProductController@upload');
+    Route::get('kaskecil/download/{kaskecil}', 'KaskecilController@downloadfile');
+    Route::get('overbooking/download/{overbooking}', 'OverbookingController@downloadfile');
+    Route::get('rekkoranaba/download/{rekkoranaba}', 'RekkoranabaController@downloadfile');
+    Route::get('skdir/download/{skdir}', 'SkdirController@downloadfile');
+    Route::post('skdir/ceknorek', 'SkdirController@ceknorek');
+    Route::get('sedir/download/{sedir}', 'SedirController@downloadfile');
+    Route::post('sedir/ceknorek', 'SedirController@ceknorek');
+    
 
     Route::apiResources([
-        'user'      => 'UserController',
-        'bakas'     => 'BakasController',
-        'tabungan'  => 'TabunganController',
-        'deposito'  => 'DepositoController',
-        'kredit'    => 'KreditController',
-        'teller'    => 'TellerController',
+        'user'        => 'UserController',
+        'bakas'       => 'BakasController',
+        'tabungan'    => 'TabunganController',
+        'deposito'    => 'DepositoController',
+        'kredit'      => 'KreditController',
+        'teller'      => 'TellerController',
+        'kaskecil'    => 'KaskecilController',
+        'overbooking' => 'OverbookingController',
+        'rekkoranaba' => 'RekkoranabaController',
+        'skdir'       => 'SkdirController',
+        'sedir'       => 'SedirController',
 
-        'product'   => 'ProductController',
-        'category'  => 'CategoryController',
-        'tag'       => 'TagController',
     ]);
 });

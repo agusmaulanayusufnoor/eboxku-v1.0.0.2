@@ -7,18 +7,7 @@
       </p>
     </a>
     <ul class="nav nav-treeview">
-      <!-- <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="far fa-plus-square nav-icon"></i>
-          <p>Tambah Stok</p>
-        </a>
-      </li> -->
-      <li class="nav-item">
-        <a href="/stock" class="nav-link">
-        <i class="nav-icon fas fa-database"></i>
-          <p>Data Stok</p>
-        </a>
-      </li>
+      
 {{-- menu BA Kas --}}
       <li class="nav-item">
         <router-link to="/bakas" class="nav-link">

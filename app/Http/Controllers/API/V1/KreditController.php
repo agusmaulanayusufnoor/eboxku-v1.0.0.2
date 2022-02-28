@@ -84,7 +84,7 @@ class KreditController extends BaseController
 
         $date       = implode("",$arr);
 
-        $file   = "01020101.600324.OP001UN-A".".00".$request->kantor_id.".".$request->namafile.".".$datefile.".".$nm->getClientOriginalName();
+        $file   = "00".$request->kantor_id.".".$request->no_rekening.".".$request->namafile.".".$datefile.".".$nm->getClientOriginalName();
         $kredit = $this->kredit->create([
             'kantor_id'     => $request->get('kantor_id'),
             'no_rekening'   => $request->get('no_rekening'),

@@ -118,6 +118,11 @@
                                 <option value="admin">Admin</option>
                                 <option value="pelayanan">Pelayanan</option>
                                 <option value="kredit">Kredit</option>
+                                <option value="akunting">Umum dan Akunting Cabang</option>
+                                <option value="umumpst">Umum Pusat</option>
+                                <option value="sekdir">Sekretaris Direktur</option>
+                                <option value="skai">SKAI</option>
+                                <option value="sdm">SDM</option>
                             </select>
                             <has-error :form="form" field="type"></has-error>
                         </div>

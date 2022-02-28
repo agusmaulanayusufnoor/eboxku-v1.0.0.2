@@ -1,5 +1,5 @@
 <template>
-    <div v-if="warningZone">Masih bekerja dengan E-Box?</div>
+    <div v-if="warningZone"><h4>Masih bekerja dengan E-Box?</h4></div>
 </template>
 
 <script>
