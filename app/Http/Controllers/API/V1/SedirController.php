@@ -62,13 +62,13 @@ class SedirController extends BaseController
             'no_se'  => 'required|unique:sedir',
             'namafile'     => 'required',
             'tanggal'      => 'required',
-            'file'         => 'required|mimes:zip'
+            'file'         => 'required|mimes:pdf'
         ],[
             'no_se.unique' => 'no sk sudah ada dalam data',
             'no_se.required' => 'no sk harus diisi',
             'namafile.required' => 'nama file harus diisi',
-            'file.required' => 'nama file harus nama kantor (ex: cab-kpo.zip)',
-            'file.mimes' => 'file yang di upload harus berbentuk .zip'
+            'file.required' => 'file belum di input',
+            'file.mimes' => 'file yang di upload harus berbentuk .pdf'
         ]);
 
 

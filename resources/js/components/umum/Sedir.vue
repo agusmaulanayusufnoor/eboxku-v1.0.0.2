@@ -208,7 +208,7 @@
                                 outlined
                                 dense
                                 show-size
-                                accept=".zip"
+                                accept=".pdf"
                             >
                                 <template v-slot:selection="{ index, text }">
                                 <v-chip
