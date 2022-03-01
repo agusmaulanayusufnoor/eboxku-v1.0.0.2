@@ -13,5 +13,9 @@ export default [
     { path: '/rekkoranaba', component: require('./components/akunting/Rekkoranaba.vue').default },
     { path: '/skdir', component: require('./components/umum/Skdir.vue').default },
     { path: '/sedir', component: require('./components/umum/Sedir.vue').default },
+    { path: '/akta', component: require('./components/umum/Akta.vue').default },
+    { path: '/legal', component: require('./components/umum/Legal.vue').default },
+    { path: '/sertifikat', component: require('./components/umum/Sertifikat.vue').default },
+    { path: '/pk', component: require('./components/umum/Pk.vue').default },
     { path: '*', component: require('./components/NotFound.vue').default }
 ];

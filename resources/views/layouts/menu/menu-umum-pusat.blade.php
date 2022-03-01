@@ -19,5 +19,53 @@
               <p>File SE Direktur</p>
             </a>
         </li>
+        <li class="nav-item">
+          <router-link to="/akta" class="nav-link">
+              <i class="fa fa-file-waveform nav-icon"></i>
+              <p>File AKTA</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <router-link to="/legal" class="nav-link">
+                <i class="fa fa-file-waveform nav-icon"></i>
+                <p>File Legalitas</p>
+              </a>
+        </li>
+        <li class="nav-item">
+            <router-link to="/sertifikat" class="nav-link">
+                <i class="fa fa-file-waveform nav-icon"></i>
+                <p>File Sertifikat</p>
+              </a>
+        </li>
+        <li class="nav-item">
+            <router-link to="/pk" class="nav-link">
+                <i class="fa fa-file-waveform nav-icon"></i>
+                <p>File Perjanjian Kerjasama</p>
+              </a>
+        </li>
+        <li class="nav-item">
+            <router-link to="/pjkbadan" class="nav-link">
+                <i class="fa fa-file-invoice-dollar nav-icon"></i>
+                <p>FIle Pajak Badan</p>
+              </a>
+        </li>
+        <li class="nav-item">
+            <router-link to="/pjksewa" class="nav-link">
+                <i class="fa fa-file-invoice-dollar nav-icon"></i>
+                <p>File Pajak Sewa</p>
+              </a>
+        </li>
+        <li class="nav-item">
+            <router-link to="/pjkpph21" class="nav-link">
+                <i class="fa fa-file-invoice-dollar nav-icon"></i>
+                <p>File Pajak PPH 21</p>
+              </a>
+        </li>
+        <li class="nav-item">
+            <router-link to="/pjkbunga" class="nav-link">
+                <i class="fa fa-file-invoice-dollar nav-icon"></i>
+                <p>File Pajak Bunga</p>
+              </a>
+        </li>
     </ul>
   </li>

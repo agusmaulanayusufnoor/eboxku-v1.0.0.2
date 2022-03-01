@@ -48,7 +48,15 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::post('skdir/ceknorek', 'SkdirController@ceknorek');
     Route::get('sedir/download/{sedir}', 'SedirController@downloadfile');
     Route::post('sedir/ceknorek', 'SedirController@ceknorek');
-    
+    Route::get('akta/download/{akta}', 'AktaController@downloadfile');
+    Route::post('akta/ceknorek', 'AktaController@ceknorek');
+    Route::get('legal/download/{legal}', 'LegalController@downloadfile');
+    Route::post('legal/ceknorek', 'LegalController@ceknorek');
+    Route::get('sertifikat/download/{sertifikat}', 'SertifController@downloadfile');
+    Route::post('sertifikat/ceknorek', 'SertifController@ceknorek');
+    Route::get('pk/download/{pk}', 'PkController@downloadfile');
+    Route::post('pk/ceknorek', 'PkController@ceknorek');
+
 
     Route::apiResources([
         'user'        => 'UserController',
@@ -62,6 +70,9 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'rekkoranaba' => 'RekkoranabaController',
         'skdir'       => 'SkdirController',
         'sedir'       => 'SedirController',
-
+        'akta'        => 'AktaController',
+        'legal'       => 'LegalController',
+        'sertifikat'  => 'SertifController',
+        'pk'  => 'PkController',
     ]);
 });

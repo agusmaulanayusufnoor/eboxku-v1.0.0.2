@@ -139,7 +139,7 @@
                                 :rules="nameRules"
                                 name="namafile"
                                 label="Nama File"
-                                placeholder="Nama File: 'nama_nasabah'"
+                                placeholder="Nama File: 'sk_namasurat'"
                                 outlined
                                 required
                                 dense
@@ -372,9 +372,9 @@
           if (response.data.message=='adarek'){
             this.cekNorekData = response.data.data[0].no_sk;
             this.pesaneror = 'No SK '+this.cekNorekData+' Sudah Ada'
-           
+
            // console.log(this.cekNorekData);
-            
+
             Toast.fire({
                   icon: 'error',
                   //title: response.data.message

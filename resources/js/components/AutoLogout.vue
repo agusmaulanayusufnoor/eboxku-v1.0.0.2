@@ -13,7 +13,7 @@
                 warningTimer: null,
                 logoutTimer: null,
                 warningZone: false
-            
+
             }
         },
 
@@ -35,9 +35,9 @@
 
         methods: {
             setTimers: function () {
-                this.warningTimer = setTimeout(this.warningMessage, 8 * 60 * 1000); // 4 detik (x 60 jika ingin ke menit)
-                this.logoutTimer = setTimeout(this.logoutUser, 10 * 60 * 1000); // 4 detik (x 60 jika ingin ke menit)
-            
+                this.warningTimer = setTimeout(this.warningMessage, 12 * 60 * 1000); // 4 detik (x 60 jika ingin ke menit)
+                this.logoutTimer = setTimeout(this.logoutUser, 15 * 60 * 1000); // 4 detik (x 60 jika ingin ke menit)
+
                 this.warningZone = false;
             },
 
