@@ -17,5 +17,9 @@ export default [
     { path: '/legal', component: require('./components/umum/Legal.vue').default },
     { path: '/sertifikat', component: require('./components/umum/Sertifikat.vue').default },
     { path: '/pk', component: require('./components/umum/Pk.vue').default },
+    { path: '/pjkbadan', component: require('./components/umum/Pjkbadan.vue').default },
+    { path: '/pjksewa', component: require('./components/umum/Pjksewa.vue').default },
+    { path: '/pjkpph21', component: require('./components/umum/Pjkpph21.vue').default },
+    { path: '/pjkbunga', component: require('./components/umum/Pjkbunga.vue').default },
     { path: '*', component: require('./components/NotFound.vue').default }
 ];

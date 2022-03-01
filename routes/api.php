@@ -56,8 +56,11 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::post('sertifikat/ceknorek', 'SertifController@ceknorek');
     Route::get('pk/download/{pk}', 'PkController@downloadfile');
     Route::post('pk/ceknorek', 'PkController@ceknorek');
-
-
+    Route::get('pjkbadan/download/{pjkbadan}', 'PjkbadanController@downloadfile');
+    Route::get('pjksewa/download/{pjksewa}', 'PjksewaController@downloadfile');
+    Route::get('pjkpph21/download/{pjkpph21}', 'Pjkpph21Controller@downloadfile');
+    Route::get('pjkbunga/download/{pjkbunga}', 'PjkbungaController@downloadfile');
+    
     Route::apiResources([
         'user'        => 'UserController',
         'bakas'       => 'BakasController',
@@ -73,6 +76,11 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'akta'        => 'AktaController',
         'legal'       => 'LegalController',
         'sertifikat'  => 'SertifController',
-        'pk'  => 'PkController',
+        'pk'          => 'PkController',
+        'pjkbadan'    => 'PjkbadanController',
+        'pjksewa'     => 'PjksewaController',
+        'pjkpph21'    => 'Pjkpph21Controller',
+        'pjkbunga'    => 'PjkbungaController',
+
     ]);
 });

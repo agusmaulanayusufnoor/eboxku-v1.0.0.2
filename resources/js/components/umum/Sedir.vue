@@ -4,7 +4,7 @@
         <v-row no-gutters class="justify-content-md-center">
           <v-col cols="11">
             <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isUM()">
-              <v-toolbar src="images/banner-yellow.jpg" dark>
+              <v-toolbar src="images/banner-yellow.jpg">
                 <v-toolbar-title>
                     File SE Direktur
                 </v-toolbar-title>
