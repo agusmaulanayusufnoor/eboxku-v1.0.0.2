@@ -4,7 +4,7 @@
         <v-row no-gutters class="justify-content-md-center">
           <v-col cols="11">
             <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isUM()">
-              <v-toolbar src="images/banner-yellow.jpg">
+              <v-toolbar src="images/banner-yellow.jpg" color="yellow" dark shaped>
                 <v-toolbar-title>
                     File Pajak Badan
                 </v-toolbar-title>
@@ -191,7 +191,7 @@
                                 outlined
                                 dense
                                 show-size
-                                accept=".zip"
+                                accept=".pdf"
                             >
                                 <template v-slot:selection="{ index, text }">
                                 <v-chip

@@ -62,11 +62,11 @@ class PjkbungaController extends BaseController
 
             'namafile' => 'required',
             'tanggal' => 'required',
-            'file' => 'required|mimes:zip'
+            'file' => 'required|mimes:pdf'
         ],[
             'namafile.required' => 'nama file harus diisi',
-            'file.required' => 'nama file harus nama kantor (ex: cab-kpo.zip)',
-            'file.mimes' => 'file yang di upload harus berbentuk .zip'
+            'file.required' => 'nama file harus nama kantor (ex: cab-kpo.pdf)',
+            'file.mimes' => 'file yang di upload harus berbentuk .pdf'
         ]);
 
 

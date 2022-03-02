@@ -21,5 +21,10 @@ export default [
     { path: '/pjksewa', component: require('./components/umum/Pjksewa.vue').default },
     { path: '/pjkpph21', component: require('./components/umum/Pjkpph21.vue').default },
     { path: '/pjkbunga', component: require('./components/umum/Pjkbunga.vue').default },
+    { path: '/asuransi', component: require('./components/umum/Asuransi.vue').default },
+    { path: '/sop', component: require('./components/umum/Sop.vue').default },
+    { path: '/peraturan', component: require('./components/umum/Peraturan.vue').default },
+    { path: '/lapkap', component: require('./components/umum/Lapkap.vue').default },
+    { path: '/lapkeu', component: require('./components/umum/Lapkeu.vue').default },
     { path: '*', component: require('./components/NotFound.vue').default }
 ];

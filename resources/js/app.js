@@ -2,6 +2,7 @@ require('./bootstrap');
 
 import "datatables.net-dt/js/dataTables.dataTables"
 import "datatables.net-dt/css/jquery.dataTables.min.css"
+import "admin-lte/plugins/overlayScrollbars/js/OverlayScrollbars.js";
 import vuetify from '../plugins/vuetify'
 
 

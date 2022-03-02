@@ -46,7 +46,7 @@
         <li class="nav-item">
             <router-link to="/pjkbadan" class="nav-link">
                 <i class="fa fa-file-invoice-dollar nav-icon"></i>
-                <p>FIle Pajak Badan</p>
+                <p>File Pajak Badan</p>
               </a>
         </li>
         <li class="nav-item">
@@ -65,6 +65,36 @@
             <router-link to="/pjkbunga" class="nav-link">
                 <i class="fa fa-file-invoice-dollar nav-icon"></i>
                 <p>File Pajak Bunga</p>
+              </a>
+        </li>
+        <li class="nav-item">
+            <router-link to="/asuransi" class="nav-link">
+                <i class="fa fa-file-invoice-dollar nav-icon"></i>
+                <p>File Asuransi</p>
+              </a>
+        </li>
+        <li class="nav-item">
+            <router-link to="/sop" class="nav-link">
+                <i class="fa fa-file-invoice-dollar nav-icon"></i>
+                <p>File SOP Kerja</p>
+              </a>
+        </li>
+        <li class="nav-item">
+            <router-link to="/peraturan" class="nav-link">
+                <i class="fa fa-file-invoice-dollar nav-icon"></i>
+                <p>Peraturan Perusahaan</p>
+              </a>
+        </li>
+        <li class="nav-item">
+            <router-link to="/lapkap" class="nav-link">
+                <i class="fa fa-file-invoice-dollar nav-icon"></i>
+                <p>Lap. KAP</p>
+              </a>
+        </li>
+        <li class="nav-item">
+            <router-link to="/lapkeu" class="nav-link">
+                <i class="fa fa-file-invoice-dollar nav-icon"></i>
+                <p>Lap. Keuangan Bulanan</p>
               </a>
         </li>
     </ul>

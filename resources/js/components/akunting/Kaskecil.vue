@@ -4,7 +4,8 @@
         <v-row no-gutters class="justify-content-md-center">
           <v-col cols="11">
             <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isAK()">
-              <v-toolbar color="rgb(39,154,187)" dark>
+              <v-toolbar src="images/banner-biru-akunting.jpg"
+              color="rgb(39,154,187)" dark shaped>
                 <v-toolbar-title>
                     File Kas Kecil
                 </v-toolbar-title>

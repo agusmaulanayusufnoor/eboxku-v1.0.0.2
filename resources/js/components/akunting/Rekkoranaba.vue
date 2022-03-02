@@ -4,7 +4,8 @@
         <v-row no-gutters class="justify-content-md-center">
           <v-col cols="11">
             <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isAK()">
-              <v-toolbar color="rgb(39,154,187)" dark>
+              <v-toolbar src="images/banner-biru-akunting.jpg"
+              color="rgb(39,154,187)" dark shaped>
                 <v-toolbar-title>
                     File Rekening Koran ABA
                 </v-toolbar-title>
@@ -365,7 +366,7 @@
           formData.set('no_rekening', this.no_rekening)
           //const response = await axios.get('api/rekkoranaba/ceknama')
             const response = await axios.post('api/rekkoranaba/ceknorek',formData)
-            
+
             if (response.data.message=='adarek'){
               this.cekNorekData = response.data.data[0].no_rekening;
               this.pesaneror = 'No Rekening '+this.cekNorekData+' Sudah Ada'

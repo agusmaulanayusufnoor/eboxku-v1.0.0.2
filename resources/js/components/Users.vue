@@ -4,12 +4,13 @@
         <v-row no-gutters class="justify-content-md-center">
           <v-col cols="11">
             <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin()">
-              <v-toolbar color="grey lighten-1" dark>
+              <v-toolbar src="images/banner-green.jpg"
+              color="grey lighten-1" dark shaped>
                 <v-toolbar-title>
                     Data User
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
-                  <v-btn small color="success" dark @click="newModal">
+                  <v-btn small color="primary" dark @click="newModal">
                      <v-icon>mdi-account-plus</v-icon>
                   </v-btn>
               </v-toolbar>
@@ -149,7 +150,7 @@
                             <v-icon>mdi-pencil</v-icon>
                             Ubah
                         </v-btn>
-                        <v-btn color="success" elevation="2" v-show="!editmode" type="submit" >
+                        <v-btn color="primary" elevation="2" v-show="!editmode" type="submit" >
                             <v-icon>mdi-account-plus</v-icon>
                             Tambah
                         </v-btn>

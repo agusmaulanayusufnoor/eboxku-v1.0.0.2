@@ -4,7 +4,7 @@
         <v-row no-gutters class="justify-content-md-center">
           <v-col cols="11">
             <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isUM()">
-              <v-toolbar src="images/banner-yellow.jpg">
+              <v-toolbar src="images/banner-yellow.jpg" color="yellow" dark shaped>
                 <v-toolbar-title>
                     File AKTA
                 </v-toolbar-title>

@@ -4,7 +4,8 @@
         <v-row no-gutters class="justify-content-md-center">
           <v-col cols="11">
             <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isPelayanan()">
-              <v-toolbar color="rgb(39,154,187)" dark>
+              <v-toolbar src="images/banner-biru-pelayanan.jpg"
+              color="rgb(39,154,187)" dark shaped>
                 <v-toolbar-title>
                     File Deposito
                 </v-toolbar-title>
@@ -373,9 +374,9 @@
           if (response.data.message=='adarek'){
             this.cekNorekData = response.data.data[0].no_rekening;
             this.pesaneror = 'No Rekening '+this.cekNorekData+' Sudah Ada'
-           
+
            // console.log(this.cekNorekData);
-            
+
             Toast.fire({
                   icon: 'error',
                   //title: response.data.message
