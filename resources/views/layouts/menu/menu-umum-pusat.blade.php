@@ -45,25 +45,25 @@
         </li>
         <li class="nav-item">
             <router-link to="/pjkbadan" class="nav-link">
-                <i class="fa fa-file-invoice-dollar nav-icon"></i>
+                <i class="fa fa-filter-circle-dollar nav-icon"></i>
                 <p>File Pajak Badan</p>
               </a>
         </li>
         <li class="nav-item">
             <router-link to="/pjksewa" class="nav-link">
-                <i class="fa fa-file-invoice-dollar nav-icon"></i>
+                <i class="fa fa-filter-circle-dollar nav-icon"></i>
                 <p>File Pajak Sewa</p>
               </a>
         </li>
         <li class="nav-item">
             <router-link to="/pjkpph21" class="nav-link">
-                <i class="fa fa-file-invoice-dollar nav-icon"></i>
+                <i class="fa fa-filter-circle-dollar nav-icon"></i>
                 <p>File Pajak PPH 21</p>
               </a>
         </li>
         <li class="nav-item">
             <router-link to="/pjkbunga" class="nav-link">
-                <i class="fa fa-file-invoice-dollar nav-icon"></i>
+                <i class="fa fa-filter-circle-dollar nav-icon"></i>
                 <p>File Pajak Bunga</p>
               </a>
         </li>
@@ -87,13 +87,13 @@
         </li>
         <li class="nav-item">
             <router-link to="/lapkap" class="nav-link">
-                <i class="fa fa-file-invoice-dollar nav-icon"></i>
+                <i class="fa fa-chart-column nav-icon"></i>
                 <p>Lap. KAP</p>
               </a>
         </li>
         <li class="nav-item">
             <router-link to="/lapkeu" class="nav-link">
-                <i class="fa fa-file-invoice-dollar nav-icon"></i>
+                <i class="fa fa-chart-pie nav-icon"></i>
                 <p>Lap. Keuangan Bulanan</p>
               </a>
         </li>

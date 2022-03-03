@@ -65,17 +65,33 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('peraturan/download/{peraturan}', 'PeraturanController@downloadfile');
     Route::get('lapkap/download/{lapkap}', 'LapkapController@downloadfile');
     Route::get('lapkeu/download/{lapkeu}', 'LapkeuController@downloadfile');
+    Route::get('suratmasuk/download/{suratmasuk}', 'SuratmasukController@downloadfile');
+    Route::post('suratmasuk/ceknorek', 'SuratmasukController@ceknorek');
+    Route::get('suratkeluar/download/{suratkeluar}', 'SuratkeluarController@downloadfile');
+    Route::post('suratkeluar/ceknorek', 'SuratkeluarController@ceknorek');
+    Route::get('notulen/download/{notulen}', 'NotulenController@downloadfile');
+    Route::get('polis/download/{polis}', 'PolisController@downloadfile');
+    Route::get('monitor/download/{monitor}', 'MonitorController@downloadfile');
+    Route::get('periksa/download/{periksa}', 'PeriksaController@downloadfile');
+
 
     Route::apiResources([
         'user'        => 'UserController',
+        //pelayanan
         'bakas'       => 'BakasController',
         'tabungan'    => 'TabunganController',
         'deposito'    => 'DepositoController',
-        'kredit'      => 'KreditController',
         'teller'      => 'TellerController',
+
+        //kredit
+        'kredit'      => 'KreditController',
+
+        //akunting
         'kaskecil'    => 'KaskecilController',
         'overbooking' => 'OverbookingController',
         'rekkoranaba' => 'RekkoranabaController',
+
+        // umum pusat
         'skdir'       => 'SkdirController',
         'sedir'       => 'SedirController',
         'akta'        => 'AktaController',
@@ -91,6 +107,16 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'peraturan'   => 'PeraturanController',
         'lapkap'      => 'LapkapController',
         'lapkeu'      => 'LapkeuController',
+
+        //sekdir
+        'suratmasuk'  => 'SuratmasukController',
+        'suratkeluar' => 'SuratkeluarController',
+        'notulen'     => 'NotulenController',
+        'polis'       => 'PolisController',
+        
+        // skai
+        'monitor'     => 'MonitorController',
+        'periksa'       => 'PeriksaController',
 
     ]);
 });

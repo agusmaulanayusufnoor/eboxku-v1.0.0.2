@@ -26,5 +26,11 @@ export default [
     { path: '/peraturan', component: require('./components/umum/Peraturan.vue').default },
     { path: '/lapkap', component: require('./components/umum/Lapkap.vue').default },
     { path: '/lapkeu', component: require('./components/umum/Lapkeu.vue').default },
+    { path: '/suratmasuk', component: require('./components/sekdir/Suratmasuk.vue').default },
+    { path: '/suratkeluar', component: require('./components/sekdir/Suratkeluar.vue').default },
+    { path: '/notulen', component: require('./components/sekdir/Notulen.vue').default },
+    { path: '/polis', component: require('./components/sekdir/Polis.vue').default },
+    { path: '/monitor', component: require('./components/skai/Monitor.vue').default },
+    { path: '/periksa', component: require('./components/skai/Periksa.vue').default },
     { path: '*', component: require('./components/NotFound.vue').default }
 ];

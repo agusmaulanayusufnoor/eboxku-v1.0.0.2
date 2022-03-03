@@ -38,7 +38,7 @@
           </li>
           <li class="nav-item">
             <router-link to="/polis" class="nav-link">
-              <i class="fas fa-paste nav-icon"></i>
+              <i class="fas fa-clipboard-list nav-icon"></i>
               <p>Polis Asuransi Jabatan </p>
             </a>
           </li>
