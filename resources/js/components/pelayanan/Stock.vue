@@ -2,7 +2,7 @@
 <v-app>
     <v-container fluid>
         <v-row no-gutters class="justify-content-md-center">
-          <v-col cols="11">
+          <v-col cols="12">
             <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isPelayanan()">
               <v-toolbar src="images/banner-biru-pelayanan.jpg"
               color="rgb(39,154,187)" dark shaped>
@@ -11,7 +11,7 @@
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
                   <v-btn small color="indigo" dark @click="newModal">
-                     <v-icon>mdi-file-upload</v-icon> Upload File
+                     <v-icon>mdi-archive-plus</v-icon> Tambah Stok
                   </v-btn>
               </v-toolbar>
               <!-- /.card-header -->
@@ -34,10 +34,11 @@
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
+                    <v-spacer></v-spacer>
                     <v-text-field
                     v-model="search"
                     append-icon="mdi-magnify"
-                    label="Cari File"
+                    label="Cari Data Stok"
                     single-line
                     hide-details
                     loading="grey"
@@ -45,27 +46,26 @@
                 </v-toolbar>
                 </template>
 
-                <!-- tombol download -->
-                <template v-slot:item.file="{ item }">
+                <!-- tombol edit -->
+                <template v-slot:item.edit="{ item }">
                     <v-card-actions class="justify-center">
-                        <v-icon
-                            small
-                            color="blue"
-                            class="mr-4"
-                            @click="downloadFile(item.id,item.file)"
+                     <v-icon
+                        small
+                        color="green"
+                        @click="editModal(item)"
                         >
-                            mdi-download
-                        </v-icon>
+                        mdi-pencil
+                    </v-icon>
                     </v-card-actions>
                 </template>
 
                 <!-- tombol hapus -->
                 <template v-slot:item.actions="{ item }">
+
                 <v-icon
                     small
-                    class="mr-4"
                     color="red"
-                    right
+
                     @click="deleteUser(item.id)"
                 >
                     mdi-delete
@@ -91,8 +91,8 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" v-show="!editmode">Upload File</h5>
-                    <h5 class="modal-title" v-show="editmode">Edit Data User</h5>
+                    <h5 class="modal-title" v-show="!editmode">Tambah Stok</h5>
+                    <h5 class="modal-title" v-show="editmode">Edit Stok</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -112,33 +112,14 @@
                             <input v-model="csrf" type="hidden"
                             name="_token">
 
-                        <div class="form-group input-group">
-                             <v-col
-                                cols="12"
-                                sm="12"
-                                md="12"
-                             >
-                             <v-text-field
-                                v-model="namafile"
-                                :rules="nameRules"
-                                name="namafile"
-                                label="Nama File"
-                                placeholder="Nama File"
-                                outlined
-                                required
-                                dense
-                                prepend-icon="mdi-file"
-                                @keydown="pencetKeyboard($event)"
-                            ></v-text-field>
-                            <has-error :form="form" field="namafile"></has-error>
 
-                        <!-- tanggal -->
-                        <template>
-                        <v-row>
+                             <!-- tanggal -->
+                        <v-container>
+                            <v-row>
                             <v-col
                             cols="12"
-                            sm="12"
-                            md="12"
+                            sm="6"
+                            md="6"
                             >
                                 <v-menu
                                     ref="menu1"
@@ -154,7 +135,7 @@
                                         v-model="dateFormatted"
                                         @blur="tanggal = parseDate(dateFormatted)"
                                         :rules="tanggalRules"
-                                        label="Tanggal File"
+                                        label="Tanggal Stok"
                                         placeholder="dd/mm/yyyy"
                                         prepend-icon="mdi-calendar"
                                         v-bind="attrs"
@@ -174,50 +155,115 @@
 
                                 </v-menu>
                             </v-col>
-                        </v-row>
-                        </template>
-                            <has-error :form="form" field="tanggal"></has-error>
-                        <!-- <input type="file" @change="uploadFile"> -->
-                         <template>
-
-                            <v-file-input
-                                v-model="file"
-                                :rules="fileRules"
-                                color="deep-purple accent-4"
-                                counter
-                                label="File input"
-                                required
-                                placeholder="Ambil File"
-                                prepend-icon="mdi-paperclip"
-                                outlined
-                                dense
-                                show-size
-                                accept=".zip"
+                            <v-col
+                                cols="12"
+                                sm="6"
                             >
-                                <template v-slot:selection="{ index, text }">
-                                <v-chip
-                                    v-if="index < 2"
-                                    color="deep-purple accent-4"
-                                    dark
-                                    label
-                                    small
-                                >
-                                    {{ text }}
-                                </v-chip>
+                                <v-combobox
+                                label="Jenis"
+                                append-outer-icon="mdi-map"
+                                :items="jenisStok"
+                                placeholder="Jenis"
+                                dense
+                                outlined
+                                ></v-combobox>
+                            </v-col>
 
-                                <span
-                                    v-else-if="index === 2"
-                                    class="text-overline grey--text text--darken-3 mx-2"
-                                >
-                                    +{{ files.length - 2 }} File(s)
-                                </span>
-                                </template>
-                            </v-file-input>
-                            </template>
-                            <has-error :form="form" field="file"></has-error>
+                            <v-col cols="12" sm="6" md="6">
+                               <v-text-field
+                                v-model="jml_stok_awal"
+                                :rules="jmlstokawalRules"
+                                name="jml_stok_awal"
+                                label="Jumlah Stok Awal"
+                                placeholder="input nilai angka"
+                                prepend-icon="mdi-calendar"
+                                outlined
+                                required
+                                dense
 
-                             </v-col>
-                        </div>
+                                @keydown="pencetKeyboard($event)"
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="6">
+                               <v-text-field
+                                v-model="tambahan_stok"
+                                :rules="tambahanStokRules"
+                                name="tambahan_stok"
+                                label="Tambahan Stok"
+                                placeholder="input nilai angka"
+                                append-outer-icon="mdi-calendar"
+                                outlined
+                                required
+                                dense
+
+                                @keydown="pencetKeyboard($event)"
+                                ></v-text-field>
+                            </v-col>
+
+                            <v-col cols="12" sm="6" md="6">
+                               <v-text-field
+                                v-model="jml_digunakan"
+                                :rules="jmlDigunakanRules"
+                                name="jml_digunakan"
+                                label="Jml Digunakan"
+                                placeholder="input nilai angka"
+                                prepend-icon="mdi-calendar"
+                                outlined
+                                required
+                                dense
+
+                                @keydown="pencetKeyboard($event)"
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="6">
+                               <v-text-field
+                                v-model="jml_rusak"
+                                :rules="jmlRusakRules"
+                                name="jml_rusak"
+                                label="Jumlah Rusak"
+                                placeholder="input nilai angka"
+                                append-outer-icon="mdi-calendar"
+                                outlined
+                                required
+                                dense
+
+                                @keydown="pencetKeyboard($event)"
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="6">
+                               <v-text-field
+                                v-model="jml_hilang"
+                                :rules="jmlHilangRules"
+                                name="jml_hilang"
+                                label="Jumlah Hilang"
+                                placeholder="input nilai angka"
+                                prepend-icon="mdi-calendar"
+                                outlined
+                                required
+                                dense
+
+                                @keydown="pencetKeyboard($event)"
+                                ></v-text-field>
+                            </v-col>
+
+                            <v-col cols="12" sm="6" md="6">
+                               <v-text-field
+                                v-model="jml_stok_akhir"
+                                :rules="jmlStokakhirRules"
+                                name="jml_stok_akhir"
+                                label="Jml Stok Akhir"
+                                placeholder="input nilai angka"
+                                append-outer-icon="mdi-calendar"
+                                outlined
+                                 required
+                                dense
+
+                                @keydown="pencetKeyboard($event)"
+                                ></v-text-field>
+                            </v-col>
+
+                            </v-row>
+                        </v-container>
 
                     </div>
                     <div class="modal-footer">
@@ -230,8 +276,8 @@
                             Ubah
                         </v-btn>
                         <v-btn color="primary" elevation="2" v-show="!editmode" type="submit" >
-                            <v-icon>mdi-file-upload</v-icon>
-                            Upload
+                            <v-icon>mdi-archive-plus</v-icon>
+                            Tambah
                         </v-btn>
                     </div>
                   </v-form>
@@ -250,30 +296,37 @@
       editmode: false,
       dialog: false,
       dialogDelete: false,
+      select: [],
+      jenisStok:['Tabungan','Deposito'],
       search:'',
-    //   headers: [
-    //     {
-    //     text: 'No',
-    //     value: 'index',
-    //     },
-    //     { text: 'Kantor', value: 'nama_kantor',align: 'start', },
-    //     {
-    //       text: 'Nama File',
-    //       value: 'namafile',
-    //     },
-    //     { text: 'Tanggal File', value: 'tanggal' },
-    //     { text: 'Download File', value: 'file', sortable: false,align: 'center'  },
-
-    //     { text: 'Hapus', value: 'actions', sortable: false },
-    //   ],
      stock:[],
      valid:true,
         file: null,
         id : '',
         kantor_id: '',
-        namafile: '',
-        nameRules: [
-        v => !!v || 'Nama file belum diisi',
+        jml_stok_awal: '',
+        jmlstokawalRules: [
+        v => !!v || 'harus diisi angka',
+      ],
+      tambahan_stok: '',
+        tambahanStokRules: [
+        v => !!v || 'harus diisi angka',
+      ],
+       jml_digunakan: '',
+        jmlDigunakanRules: [
+        v => !!v || 'harus diisi angka',
+      ],
+      jml_rusak: '',
+        jmlRusakRules: [
+        v => !!v || 'harus diisi angka',
+      ],
+      jml_hilang: '',
+        jmlHilangRules: [
+        v => !!v || 'harus diisi angka',
+      ],
+      jml_stok_akhir: '',
+        jmlStokakhirRules: [
+        v => !!v || 'harus diisi angka',
       ],
       menu1: false,
       menu2:false,
@@ -308,13 +361,19 @@
                 },
                 { text: 'Jenis Stok', value: 'jenis',align: 'start', },
                 { text: 'Kantor', value: 'nama_kantor',align: 'start', },
-                { text: 'Tanggal File', value: 'tanggal' },
-                { text: 'Jml Stok AWal', value: 'jml_stok_awal',align: 'center' },
+                { text: 'Tanggal Stok', value: 'tanggal' },
+                { text: 'Jumlah StokAwal', value: 'jml_stok_awal',align: 'center' },
                 { text: 'Tambahan Stok', value: 'tambahan_stok',align: 'center' },
+                { text: 'Jumlah Digunakan', value: 'jml_digunakan',align: 'center' },
+                { text: 'JumlahRusak', value: 'jml_rusak',align: 'center' },
+                { text: 'JumlahHilang', value: 'jml_hilang',align: 'center' },
+                { text: 'Jumlah StokAkhir', value: 'jml_stok_akhir',align: 'center' },
       ]
-            headers.push({ text: 'Download File', value: 'file', sortable: false,align: 'center' })
+
             if(this.$gate.isAdmin()){
-                headers.push({ text: 'Hapus', value: 'actions', sortable: false })
+                headers.push({ text: 'Edit', value: 'edit', sortable: false,align: 'center' })
+
+                headers.push({ text: 'Hapus', value: 'actions', sortable: false, align: 'center' })
             }
             return headers
         },
@@ -355,9 +414,9 @@
       evt = (evt) ? evt : window.event;
       var charCode = (evt.which) ? evt.which : evt.keyCode;
       //nomer wungkul
-      //if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
       //tidak boleh tombol '/' dan '\'
-      if (charCode === 191 || charCode===220) {
+      //if (charCode === 191 || charCode===220) {
         evt.preventDefault();;
       } else {
         return true;
@@ -442,7 +501,7 @@
                   //Swal.fire("Failed!", data.message, "warning");
                   Toast.fire({
                       icon: 'error',
-                      title: 'Gagal upload file, ulangi!'
+                      title: 'Gagal tambah stok, ulangi!'
                       //title: response.message
                   });
               })

@@ -18,8 +18,8 @@ class Stock extends Model
         'jml_hilang',
         'jml_stok_akhir'
     ];
-    //protected $guarded = [];
-    //protected $dates = ['tanggal'];
+    protected $guarded = [];
+    protected $dates = ['tanggal'];
 
 
     public function kantor(){

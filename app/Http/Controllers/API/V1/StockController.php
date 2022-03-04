@@ -111,6 +111,14 @@ class StockController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        $this->authorize('isAdmin');
+
+        $stock = $this->stock->findOrFail($id);
+
+        $stock->delete();
+
+        return $this->sendResponse($stock, 'File sudah dihapus!');
+
+
     }
 }

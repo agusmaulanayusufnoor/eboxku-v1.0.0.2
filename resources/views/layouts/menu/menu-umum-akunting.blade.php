@@ -7,7 +7,7 @@
       </p>
     </a>
     <ul class="nav nav-treeview">
-     
+
       <li class="nav-item">
       <router-link to="/kaskecil" class="nav-link">
         <i class="nav-icon fas fa-box"></i>
@@ -35,7 +35,7 @@
           <p>Stok Butab & Bilyet</p>
         </a>
       </li>
-      
+
       <li class="nav-item">
       <router-link to="/stockctk" class="nav-link">
         <i class="nav-icon fas fa-database"></i>
@@ -46,7 +46,7 @@
       <li class="nav-item">
       <router-link to="/stockpromo" class="nav-link">
         <i class="nav-icon fas fa-database"></i>
-          <p>Stock Barang Promosi</p>
+          <p>Stok Barang Promosi</p>
         </a>
       </li>
 
