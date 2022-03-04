@@ -30,21 +30,21 @@
       </li>
 
       <li class="nav-item">
-        <a href="/stock" class="nav-link">
+      <router-link to="/stock" class="nav-link">
         <i class="nav-icon fas fa-database"></i>
           <p>Stok Butab & Bilyet</p>
         </a>
       </li>
       
       <li class="nav-item">
-        <a href="/stock" class="nav-link">
+      <router-link to="/stockctk" class="nav-link">
         <i class="nav-icon fas fa-database"></i>
           <p>Stok Barang Cetak</p>
         </a>
       </li>
 
       <li class="nav-item">
-        <a href="/stock" class="nav-link">
+      <router-link to="/stockpromo" class="nav-link">
         <i class="nav-icon fas fa-database"></i>
           <p>Stock Barang Promosi</p>
         </a>

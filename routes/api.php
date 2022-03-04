@@ -73,6 +73,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('polis/download/{polis}', 'PolisController@downloadfile');
     Route::get('monitor/download/{monitor}', 'MonitorController@downloadfile');
     Route::get('periksa/download/{periksa}', 'PeriksaController@downloadfile');
+    Route::get('stock?{any}', 'StockController@index')->name('api.stock');
 
 
     Route::apiResources([
@@ -90,6 +91,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'kaskecil'    => 'KaskecilController',
         'overbooking' => 'OverbookingController',
         'rekkoranaba' => 'RekkoranabaController',
+        'stock'       => 'StockController',
 
         // umum pusat
         'skdir'       => 'SkdirController',
@@ -117,6 +119,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         // skai
         'monitor'     => 'MonitorController',
         'periksa'       => 'PeriksaController',
+        
 
     ]);
 });

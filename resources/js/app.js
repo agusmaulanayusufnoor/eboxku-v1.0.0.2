@@ -1,7 +1,12 @@
 require('./bootstrap');
+import $ from 'jquery';
+window.$ = window.jQuery = $;
 
-import "datatables.net-dt/js/dataTables.dataTables"
-import "datatables.net-dt/css/jquery.dataTables.min.css"
+import 'admin-lte/plugins/datatables/jquery.dataTables.min.js';
+import 'admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js';
+import 'admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js';
+import 'admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js';
+import 'admin-lte/plugins/select2/js/select2.full.min.js';
 import "admin-lte/plugins/overlayScrollbars/js/OverlayScrollbars.js";
 import vuetify from '../plugins/vuetify'
 
