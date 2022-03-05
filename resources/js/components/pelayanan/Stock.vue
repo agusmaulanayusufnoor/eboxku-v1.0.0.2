@@ -160,12 +160,15 @@
                                 sm="6"
                             >
                                 <v-combobox
+                                v-model="jenisKode"
                                 label="Jenis"
                                 append-outer-icon="mdi-map"
                                 :items="jenisStok"
                                 placeholder="Jenis"
                                 dense
                                 outlined
+                                :return-object="false"
+                                persistent-hint :error-messages="pesaneror"
                                 ></v-combobox>
                             </v-col>
 
@@ -176,12 +179,15 @@
                                 name="jml_stok_awal"
                                 label="Jumlah Stok Awal"
                                 placeholder="input nilai angka"
-                                prepend-icon="mdi-calendar"
+                                prepend-icon="mdi-numeric-1-box-multiple"
                                 outlined
                                 required
                                 dense
-
+                                counter
+                                maxlength="6"
+                                type="number"
                                 @keydown="pencetKeyboard($event)"
+                                @change="inputStokAkhir"
                                 ></v-text-field>
                             </v-col>
                             <v-col cols="12" sm="6" md="6">
@@ -191,12 +197,15 @@
                                 name="tambahan_stok"
                                 label="Tambahan Stok"
                                 placeholder="input nilai angka"
-                                append-outer-icon="mdi-calendar"
+                                append-outer-icon="mdi-numeric-2-box-multiple"
                                 outlined
                                 required
                                 dense
-
+                                counter
+                                maxlength="6" 
+                                type="number" 
                                 @keydown="pencetKeyboard($event)"
+                                @change="inputStokAkhir"
                                 ></v-text-field>
                             </v-col>
 
@@ -207,12 +216,15 @@
                                 name="jml_digunakan"
                                 label="Jml Digunakan"
                                 placeholder="input nilai angka"
-                                prepend-icon="mdi-calendar"
+                                prepend-icon="mdi-numeric-3-box-multiple"
                                 outlined
                                 required
                                 dense
-
+                                counter
+                                maxlength="6"
+                                type="number"
                                 @keydown="pencetKeyboard($event)"
+                                @change="inputStokAkhir"
                                 ></v-text-field>
                             </v-col>
                             <v-col cols="12" sm="6" md="6">
@@ -222,12 +234,15 @@
                                 name="jml_rusak"
                                 label="Jumlah Rusak"
                                 placeholder="input nilai angka"
-                                append-outer-icon="mdi-calendar"
+                                append-outer-icon="mdi-numeric-4-box-multiple"
                                 outlined
                                 required
                                 dense
-
+                                counter
+                                maxlength="6"
+                                type="number"
                                 @keydown="pencetKeyboard($event)"
+                                @change="inputStokAkhir"
                                 ></v-text-field>
                             </v-col>
                             <v-col cols="12" sm="6" md="6">
@@ -237,28 +252,35 @@
                                 name="jml_hilang"
                                 label="Jumlah Hilang"
                                 placeholder="input nilai angka"
-                                prepend-icon="mdi-calendar"
+                                prepend-icon="mdi-numeric-5-box-multiple"
                                 outlined
                                 required
                                 dense
-
+                                counter
+                                maxlength="6"
+                                type="number"
+                                
                                 @keydown="pencetKeyboard($event)"
+                                @change="inputStokAkhir"
                                 ></v-text-field>
                             </v-col>
 
                             <v-col cols="12" sm="6" md="6">
                                <v-text-field
                                 v-model="jml_stok_akhir"
-                                :rules="jmlStokakhirRules"
                                 name="jml_stok_akhir"
                                 label="Jml Stok Akhir"
                                 placeholder="input nilai angka"
-                                append-outer-icon="mdi-calendar"
+                                append-outer-icon="mdi-numeric-6-box-multiple"
                                 outlined
-                                 required
+                                required
                                 dense
-
+                                readonly
+                                disabled
+                                maxlength="6"
+                                type="number"
                                 @keydown="pencetKeyboard($event)"
+                                @change="inputStokAkhir"
                                 ></v-text-field>
                             </v-col>
 
@@ -296,56 +318,60 @@
       editmode: false,
       dialog: false,
       dialogDelete: false,
-      select: [],
-      jenisStok:['Tabungan','Deposito'],
+      jenis: '',
+      jenisStok:[{'text':'tabungan','value':'1'},{'text':'deposito','value':'2'}],
       search:'',
      stock:[],
      valid:true,
-        file: null,
         id : '',
         kantor_id: '',
-        jml_stok_awal: '',
+        jml_stok_awal: 0,
         jmlstokawalRules: [
         v => !!v || 'harus diisi angka',
+        v => v>-1 || 'angka tidak boleh minus'
       ],
-      tambahan_stok: '',
+      tambahan_stok: 0,
         tambahanStokRules: [
-        v => !!v || 'harus diisi angka',
+       
+        v => v>-1 || 'angka tidak boleh minus'
       ],
-       jml_digunakan: '',
+       jml_digunakan: 0,
         jmlDigunakanRules: [
-        v => !!v || 'harus diisi angka',
+      
+        v => v>-1 || 'angka tidak boleh minus'
       ],
-      jml_rusak: '',
+      jml_rusak: 0,
         jmlRusakRules: [
-        v => !!v || 'harus diisi angka',
+        
+        v => v>-1 || 'angka tidak boleh minus'
       ],
-      jml_hilang: '',
+      jml_hilang: 0,
         jmlHilangRules: [
-        v => !!v || 'harus diisi angka',
+        
+        v => v>-1 || 'angka tidak boleh minus'
       ],
       jml_stok_akhir: '',
-        jmlStokakhirRules: [
-        v => !!v || 'harus diisi angka',
-      ],
+        
       menu1: false,
       menu2:false,
 
-      dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+      dateFormatted: '',
       tanggal:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
          tanggalRules: [
         v => !!v || 'Tanggal file belum diisi',
       ],
-       fileRules: [
-        v => !!v || 'File belum dimasukan',
-      ],
-        //file: '',
+     pesaneror:'',
     form: new Form({
         id : '',
         kantor_id: '',
-        namafile: '',
+        jenis: '',
         tanggal: '',
-        file: '',
+        jml_stok_awal: '',
+        tambahan_stok:'',
+        jml_digunakan: '',
+        jml_rusak: '',
+        jml_hilang: '',
+        jml_stok_akhir: '',
     }),
 
     }),
@@ -380,7 +406,18 @@
         computedDateFormatted () {
             return this.formatDate(this.tanggal);
         },
-
+        jenisKode: {
+          get: function() {
+            // find the code if it exist, else, just return the typed input
+            const kode = this.jenisStok.find(
+              kode => kode.value === this.jenis
+            );
+            return kode || this.jenis;
+          },
+          set: function(value) {
+            this.jenis = value;
+          }
+        },
       formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
       },
@@ -414,13 +451,17 @@
       evt = (evt) ? evt : window.event;
       var charCode = (evt.which) ? evt.which : evt.keyCode;
       //nomer wungkul
-      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+      if ((charCode > 31 && (charCode < 48 || charCode > 57) && (charCode < 95 || charCode > 105 )) && charCode !== 46)  {
       //tidak boleh tombol '/' dan '\'
       //if (charCode === 191 || charCode===220) {
         evt.preventDefault();;
       } else {
         return true;
       }
+      
+    },
+    inputStokAkhir() {
+      this.jml_stok_akhir = parseInt(this.jml_stok_awal)+parseInt(this.tambahan_stok)-parseInt(this.jml_digunakan)-parseInt(this.jml_rusak)-parseInt(this.jml_hilang);
     },
     formatDate (tanggal) {
         if (!tanggal) return null
@@ -428,7 +469,7 @@
         const [year, month, day] = tanggal.split('-')
         return `${day}/${month}/${year}`
       },
-       parseDate (tanggal) {
+    parseDate (tanggal) {
         if (!tanggal) return null
 
         const [day, month,  year] = tanggal.split('/')
@@ -452,23 +493,33 @@
 
            this.$Progress.finish();
       },
-     editModal(item){
-                this.editmode = true;
-                this.$refs.form.reset()
-                $('#addNew').modal('show');
-                this.form.fill(item);
-            },
-    newModal(){
+      editModal(item){
+   
+       //console.log(item);
+         this.editmode = true;
+         //this.$refs.form.reset()
+         $('#addNew').modal('show');
+        
+                        
+        this.tanggal                  = this.parseDate(item.tanggal);
+        //this.dateFormatted.value      = this.formatDate(this.tanggal);
+        this.jenis              = item.jenis;
+        this.jml_stok_awal      = item.jml_stok_awal;
+        this.tambahan_stok      = item.tambahan_stok;
+        this.jml_digunakan      = item.jml_digunakan;
+        this.jml_rusak          = item.jml_rusak;
+        this.jml_hilang         = item.jml_hilang;
+        this.jml_stok_akhir     = item.jml_stok_akhir;
+        
+        console.log(this.formatDate(this.tanggal));
+      },
+      newModal(){
         this.editmode = false;
         $('#addNew').modal('show');
         this.$refs.form.reset()
-        this.namafile = '';
-    },
-    // uploadFile(e){
-    //         // `files` is always an array because the file input may be in multiple mode
-    //         console.log(e);
-    //         this.file = e.target.files[0];
-    // },
+        //this.namafile = '';
+      },
+    
      createUser(){
          this.$refs.form.validate();
          this.$Progress.start();
@@ -476,13 +527,20 @@
             const config = {
                 headers: { 'content-type': 'multipart/form-data' }
             }
-            // //this.append('file', this.file);
+            
+            
             const formData = new FormData
             formData.set('kantor_id', this.kantor_id)
-            formData.set('namafile', this.namafile)
+            formData.set('jenis', this.jenis)
             formData.set('tanggal', this.tanggal)
-            formData.set('file', this.file)
-            // formData.append('file', this.file);
+            formData.set('jml_stok_awal', this.jml_stok_awal)
+            formData.set('tambahan_stok', this.tambahan_stok)
+            formData.set('jml_digunakan', this.jml_digunakan)
+            formData.set('jml_rusak', this.jml_rusak)
+            formData.set('jml_hilang', this.jml_hilang)
+            formData.set('jml_stok_akhir', parseInt(this.jml_stok_awal)+parseInt(this.tambahan_stok)-parseInt(this.jml_digunakan)-parseInt(this.jml_rusak)-parseInt(this.jml_hilang))
+
+             //formData.append('jml_stok_akhir', this.jml_stok_awal);
            // console.log(this.file);
             axios.post('api/stock',formData,config)
               .then((response)=>{

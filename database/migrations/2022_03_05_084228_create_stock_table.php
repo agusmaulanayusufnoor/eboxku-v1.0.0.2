@@ -16,8 +16,8 @@ class CreateStockTable extends Migration
         Schema::create('stock', function (Blueprint $table) {
             $table->id();
             $table->foreignId('jenis');
-            $table->foreignId('sandi_kantor');
-            $table->timestamp('tanggal');
+            $table->foreignId('kantor_id');
+            $table->string('tanggal',10);
             $table->bigInteger('jml_stok_awal');
             $table->bigInteger('tambahan_stok');
             $table->bigInteger('jml_digunakan');

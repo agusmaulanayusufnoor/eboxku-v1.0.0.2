@@ -36,36 +36,27 @@ class StockController extends BaseController
        $stock= $this->stock->latest()->get();
         if($levelLogin === 'admin'){
             $stock  = DB::table('stock')
-            ->join('kode_kantors', 'stock.sandi_kantor', '=', 'kode_kantors.id')
+            ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
             ->join('stock_jenis', 'stock.jenis', '=', 'stock_jenis.id')
             ->select('stock.id','stock.tanggal','stock.jml_stok_awal','stock.tambahan_stok','stock.jml_digunakan',
             'stock.jml_rusak','stock.jml_hilang','stock.jml_stok_akhir',
             'stock.jenis','stock_jenis.jenis',
-            'stock.sandi_kantor','kode_kantors.nama_kantor')
+            'stock.kantor_id','kode_kantors.nama_kantor')
             ->orderBy('stock.id','desc')
             ->get();
         }else{
             $stock  = DB::table('stock')
-            ->join('kode_kantors', 'stock.sandi_kantor', '=', 'kode_kantors.id')
+            ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
             ->join('stock_jenis', 'stock.jenis', '=', 'stock_jenis.id')
             ->select('stock.id','stock.tanggal','stock.jml_stok_awal','stock.tambahan_stok','stock.jml_digunakan',
             'stock.jml_rusak','stock.jml_hilang','stock.jml_stok_akhir',
             'stock.jenis','stock_jenis.jenis',
-            'stock.sandi_kantor','kode_kantors.nama_kantor')
+            'stock.kantor_id','kode_kantors.nama_kantor')
             ->orderBy('stock.id','desc')
             ->get();
         }
         //dd($stock);
-        return datatables()->of($stock)
-                        ->addColumn('action', function($data){
-                            $button = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-xs edit-post"><i class="far fa-edit"></i></a>';
-                            $button .= '&nbsp;&nbsp;';
-                            $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-xs"><i class="far fa-trash-alt"></i></button>';
-                            return $button;
-                        })
-                        ->rawColumns(['action'])
-                        ->addIndexColumn()
-                        ->make(true);
+      
         return $this->sendResponse($stock, 'stock list');
     }
 
@@ -77,7 +68,49 @@ class StockController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'jenis'             => 'required',
+            'tanggal'           => 'required',
+            'jml_stok_awal'     => 'required',
+            'tambahan_stok'     => 'required',
+            'jml_digunakan'     => 'required',
+            'jml_rusak'         => 'required',
+            'jml_hilang'        => 'required',
+            'jml_stok_akhir'    => 'required'
+        ],[
+            'jenis.required'            => 'jenis belum dipilih',
+            'tanggal.required'          => 'tanggal belum dipilih',
+            'jml_stok_awal.required'    => 'jumlah stok awal belum diisi',
+            'tambahan_stok.required'    => 'tambahan stok belum diisi',
+            'jml_digunakan.required'    => 'jumlah digunakan belum diisi',
+            'jml_rusak.required'        => 'jumlah rusak belum diisi',
+            'jml_hilang.required'       => 'jumlah hilang awal belum diisi',
+            'jml_stok_akhir.required'   => 'jumlah stok akhir awal belum diisi'
+        ]);
+
+
+        $hari       = substr($request->tanggal,8,2);
+        $bulan      = substr($request->tanggal,5,2);
+        $tahun      = substr($request->tanggal,0,4);
+        $arr        = array($hari,"/",$bulan,"/",$tahun);
+        $arrnamefile        = array($hari,$bulan,$tahun);
+        $datefile   = implode("",$arrnamefile);
+
+        $date       = implode("",$arr);
+        $stock = $this->stock->create([
+            'jenis'             => $request->get('jenis'),
+            'kantor_id'         => $request->get('kantor_id'),
+            'tanggal'           => $date,
+            'jml_stok_awal'     => $request->get('jml_stok_awal'),
+            'tambahan_stok'     => $request->get('tambahan_stok'),
+            'jml_digunakan'     => $request->get('jml_digunakan'),
+            'jml_rusak'         => $request->get('jml_rusak'),
+            'jml_hilang'        => $request->get('jml_hilang'),
+            'jml_stok_akhir'    => $request->get('jml_stok_akhir'),
+        ]);
+       
+
+        return $this->sendResponse($stock, 'File telah diupload...');
     }
 
     /**

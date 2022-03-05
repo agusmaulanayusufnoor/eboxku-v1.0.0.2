@@ -9,7 +9,7 @@ class Stock extends Model
     protected $table = "stock";
     protected $fillable = [
         'jenis',
-        'sandi_kantor',
+        'kantor_id',
         'tanggal',
         'jml_stok_awal',
         'tambahan_stok',
@@ -18,12 +18,12 @@ class Stock extends Model
         'jml_hilang',
         'jml_stok_akhir'
     ];
-    protected $guarded = [];
-    protected $dates = ['tanggal'];
+    //protected $guarded = [];
+    //protected $date = ['tanggal'];
 
 
     public function kantor(){
-        return $this->belongsTo(kode_kantor::class,'sandi_kantor');
+        return $this->belongsTo(kode_kantor::class,'kantor_id');
     }
     public function jenisstok(){
         return $this->belongsTo(stock_jenis::class,'jenis');
