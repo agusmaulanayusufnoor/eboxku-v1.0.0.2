@@ -14,7 +14,6 @@ import vuetify from '../plugins/vuetify'
 
 window.Vue = require('vue');
 import moment from 'moment';
-import format from 'date-fns';
 
 
 import { Form, HasError, AlertError } from 'vform';
@@ -25,6 +24,9 @@ Vue.prototype.$gate = new Gate(window.user);
 
 import Swal from 'sweetalert2';
 
+import JsonExcel from "vue-json-excel";
+
+Vue.component("downloadExcel", JsonExcel);
 
 const Toast = Swal.mixin({
     toast: true,
@@ -44,7 +46,7 @@ import VueProgressBar from 'vue-progressbar'
 Vue.use(VueProgressBar, {
     color: 'rgb(143, 255, 199)',
     failedColor: 'red',
-    height: '3px'
+    height: '4px'
   });
 
 Vue.component(HasError.name, HasError)

@@ -19,7 +19,8 @@ class Stock extends Model
         'jml_stok_akhir'
     ];
     //protected $guarded = [];
-    //protected $date = ['tanggal'];
+    protected $fromtgl = ['fromtgl'];
+    protected $totgl = ['totgl'];
 
 
     public function kantor(){

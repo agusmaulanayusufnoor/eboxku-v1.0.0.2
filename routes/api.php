@@ -73,7 +73,8 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('polis/download/{polis}', 'PolisController@downloadfile');
     Route::get('monitor/download/{monitor}', 'MonitorController@downloadfile');
     Route::get('periksa/download/{periksa}', 'PeriksaController@downloadfile');
-    Route::get('stock?{any}', 'StockController@index')->name('api.stock');
+    Route::post('stock/{stock}', 'StockController@updateData');
+    Route::get('stock/filtertanggal', 'StockController@filtertanggal');
 
 
     Route::apiResources([
