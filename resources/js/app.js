@@ -24,10 +24,10 @@ Vue.prototype.$gate = new Gate(window.user);
 
 import Swal from 'sweetalert2';
 
-import JsonExcel from "vue-json-excel";
 
-Vue.component("downloadExcel", JsonExcel);
-
+import VueExcelXlsx from "vue-excel-xlsx";
+Vue.use(VueExcelXlsx);   
+ 
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',

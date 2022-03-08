@@ -20,6 +20,11 @@
                 :headers="headers"
                 :items="stock"
                 :search="search"
+                :items-per-page="10"
+                :footer-props="{
+                  'items-per-page-options': [5,10,14, 140, -1],
+                  'items-per-page-text':'baris per halaman'
+                }"
                 justify="center"
                 dense
                 class="elevation-3">
@@ -46,10 +51,17 @@
 
                 <template v-slot:top>
                 <v-toolbar flat >
-                  <download-excel escapeCsv :data="stock" name="OP003-A.xls" :fields="fieldExcel" class="btn btn-success btn-sm">
-                    <i class="fa-solid fa-file-excel"></i>
-                      Export Excel
-                  </download-excel>
+                 <vue-excel-xlsx
+                        :data="stock"
+                        :columns="columnsExcel"
+                        :file-name="'OP003-A'"
+                        :file-type="'xls'"
+                        :sheet-name="'stock'"
+                        class="btn btn-success btn-sm"
+                        >
+                        <i class="fa-solid fa-file-excel"></i>
+                        Excel
+                    </vue-excel-xlsx>
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
@@ -58,7 +70,7 @@
                       <v-col 
                       cols="12"
                       sm="6"
-                      md="4"
+                      md="5"
                       >
                     <v-menu
                      ref="menu2"
@@ -94,7 +106,7 @@
                       <v-col 
                       cols="12"
                       sm="6"
-                      md="4"
+                      md="5"
                       >
                     <v-menu
                      ref="menu3"
@@ -145,7 +157,7 @@
                       </v-col>
                       
                     </v-row>
-                    
+                    <v-spacer></v-spacer>
                     
                     <v-text-field
                     v-model="search"
@@ -498,17 +510,24 @@ import moment from 'moment';
         jml_hilang: '',
         jml_stok_akhir: '',
     }),
-    fieldExcel: {
-      "jenis":"jenis",
-      "kode_kantor":"kode_kantor",
-      "tanggal":"tanggal",
-      "jml_stok_awal":"jml_stok_awal",
-      "tambahan_stok":"tambahan_stok",
-      "jml_digunakan":"jml_digunakan",
-      "jml_rusak":"jml_rusak",
-      "jml_hilang":"jml_hilang",
-      "jml_stok_akhir":"jml_stok_akhir"
-    },
+    columnsExcel : [
+                
+                { label: 'Jenis Stok', field: 'jenis'},
+                { label: 'Sandi Kantor', field: 'kode_kantor',align: 'start', },
+                { label: 'Tanggal Stok', field: 'tanggal' },
+                { label: 'Jumlah Stok Awal',field: 'jml_stok_awal' },
+                { label: 'Tambahan Stok', field: 'tambahan_stok' },
+                { label: 'Jumlah Digunakan', field: 'jml_digunakan' },
+                { label: 'Jumlah Rusak', field: 'jml_rusak' },
+                { label: 'Jumlah Hilang', field: 'jml_hilang' },
+                { label: 'Jumlah Stok Akhir', field: 'jml_stok_akhir' },
+      ],
+    json_meta: [
+          [{
+            " key ": " charset ",
+            " value ": " utf- 8 "
+          }]
+        ],
     
     }),
 
@@ -571,7 +590,6 @@ import moment from 'moment';
       },
 
     },
-
     watch: {
       date (val) {
         this.editedItem.tanggal = this.formatDate(this.date)
