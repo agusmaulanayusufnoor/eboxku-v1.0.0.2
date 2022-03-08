@@ -1,12 +1,12 @@
 <template>
     <section class="content">
-        <div class="container-fluid">
-            <div class="row">
+        <v-container fluid>
+            <v-row>
             <div class="col-12">
                 <h1>PT BPR KARYA UTAMA JABAR</h1>
                 </div>
-            </div>
-            <div class="row ">
+            </v-row>
+            <v-row>
                 <div class="col-12 col-sm-6 col-md-3">
                     <div class="info-box">
                         <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
@@ -66,14 +66,10 @@
                     <!-- /.info-box -->
                 </div>
             <!-- /.col -->
-            </div>
-            <!-- /.row -->
 
-           
-            <!-- /.col -->
-            </div>
+           </v-row>
             <!-- /.row -->
-        </div><!--/. container-fluid -->
+        </v-container><!--/. container-fluid -->
     </section>
 </template>
 
