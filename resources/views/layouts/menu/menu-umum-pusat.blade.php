@@ -43,30 +43,9 @@
                 <p>File Perjanjian Kerjasama</p>
               </a>
         </li>
-        <li class="nav-item">
-            <router-link to="/pjkbadan" class="nav-link">
-                <i class="fa fa-filter-circle-dollar nav-icon"></i>
-                <p>File Pajak Badan</p>
-              </a>
-        </li>
-        <li class="nav-item">
-            <router-link to="/pjksewa" class="nav-link">
-                <i class="fa fa-filter-circle-dollar nav-icon"></i>
-                <p>File Pajak Sewa</p>
-              </a>
-        </li>
-        <li class="nav-item">
-            <router-link to="/pjkpph21" class="nav-link">
-                <i class="fa fa-filter-circle-dollar nav-icon"></i>
-                <p>File Pajak PPH 21</p>
-              </a>
-        </li>
-        <li class="nav-item">
-            <router-link to="/pjkbunga" class="nav-link">
-                <i class="fa fa-filter-circle-dollar nav-icon"></i>
-                <p>File Pajak Bunga</p>
-              </a>
-        </li>
+        
+       
+        
         <li class="nav-item">
             <router-link to="/asuransi" class="nav-link">
                 <i class="fa fa-file-invoice-dollar nav-icon"></i>
@@ -79,9 +58,45 @@
                 <p>File SOP Kerja</p>
               </a>
         </li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+            <i class="fa fa-filter-circle-dollar nav-icon"></i>
+              <p>Pajak
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+            <li class="small">
+            <router-link to="/pjkbadan" class="nav-link">
+                <i class="fa fa-filter-circle-dollar nav-icon"></i>
+                <p>File Pajak Badan</p>
+              </a>
+            </li>
+            <li class="small">
+            <router-link to="/pjksewa" class="nav-link">
+                <i class="fa fa-filter-circle-dollar nav-icon"></i>
+                <p>File Pajak Sewa</p>
+              </a>
+            </li>
+            <li class="small">
+                <router-link to="/pjkpph21" class="nav-link">
+                    <i class="fa fa-filter-circle-dollar nav-icon"></i>
+                    <p>File Pajak PPH 21</p>
+                  </a>
+            </li>
+            <li class="small">
+                <router-link to="/pjkbunga" class="nav-link">
+                    <i class="fa fa-filter-circle-dollar nav-icon"></i>
+                    <p>File Pajak Bunga</p>
+                  </a>
+            </li>
+            </ul>
+        </li>
+
         <li class="nav-item">
             <router-link to="/peraturan" class="nav-link">
-                <i class="fa fa-file-invoice-dollar nav-icon"></i>
+                <i class="fa fa-building nav-icon"></i>
                 <p>Peraturan Perusahaan</p>
               </a>
         </li>
