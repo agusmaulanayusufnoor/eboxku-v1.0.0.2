@@ -11,6 +11,7 @@
   <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
   <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
 
+
   <title>{{ config('app.name', 'Laravel') }}</title>
   {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css"> --}}
   {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.1/css/OverlayScrollbars.min.css"> --}}
