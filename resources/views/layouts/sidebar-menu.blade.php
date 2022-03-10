@@ -1,5 +1,5 @@
 <nav class="mt-2">
-    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="true">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <li class="nav-item">
         <router-link to="/dashboard" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt blue"></i>
@@ -32,19 +32,19 @@
             @include('layouts.menu.menu-umum-akunting')
       @endif
 
-      
+
       @if((auth()->user()->type=='admin') or (auth()->user()->type=='umumpst'))
             <!--  menu umum dan akunting cabang  -->
             @include('layouts.menu.menu-umum-pusat')
       @endif
 
-      
+
       @if((auth()->user()->type=='admin') or (auth()->user()->type=='sekdir'))
             <!--  menu umum dan akunting cabang  -->
             @include('layouts.menu.menu-sekdir')
       @endif
 
-      
+
       @if((auth()->user()->type=='admin') or (auth()->user()->type=='skai'))
             <!--  menu umum dan akunting cabang  -->
             @include('layouts.menu.menu-skai')
@@ -54,7 +54,7 @@
             <!--  menu umum dan akunting cabang  -->
             @include('layouts.menu.menu-sdm')
       @endif
-     
+
 
 
       @can('isAdmin')
