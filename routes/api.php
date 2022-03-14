@@ -78,6 +78,9 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
 
 
     Route::apiResources([
+        //setting
+        'satuan'      => 'SatuanController',
+
         'user'        => 'UserController',
         //pelayanan
         'bakas'       => 'BakasController',
@@ -116,11 +119,11 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'suratkeluar' => 'SuratkeluarController',
         'notulen'     => 'NotulenController',
         'polis'       => 'PolisController',
-        
+
         // skai
         'monitor'     => 'MonitorController',
         'periksa'       => 'PeriksaController',
-        
+
 
     ]);
 });

@@ -9,10 +9,10 @@ export default [
     { path: '/tabungan', component: require('./components/pelayanan/Tabungan.vue').default },
     { path: '/deposito', component: require('./components/pelayanan/Deposito.vue').default },
     { path: '/teller', component: require('./components/pelayanan/Teller.vue').default },
-   
+
 
     { path: '/kredit', component: require('./components/kredit/Kredit.vue').default },
-    
+
     { path: '/kaskecil', component: require('./components/akunting/Kaskecil.vue').default },
     { path: '/overbooking', component: require('./components/akunting/Overbooking.vue').default },
     { path: '/rekkoranaba', component: require('./components/akunting/Rekkoranaba.vue').default },
@@ -38,8 +38,10 @@ export default [
     { path: '/suratkeluar', component: require('./components/sekdir/Suratkeluar.vue').default },
     { path: '/notulen', component: require('./components/sekdir/Notulen.vue').default },
     { path: '/polis', component: require('./components/sekdir/Polis.vue').default },
-    
+
     { path: '/monitor', component: require('./components/skai/Monitor.vue').default },
     { path: '/periksa', component: require('./components/skai/Periksa.vue').default },
+
+    { path: '/satuan', component: require('./components/setting/Satuan.vue').default },
     { path: '*', component: require('./components/NotFound.vue').default }
 ];
