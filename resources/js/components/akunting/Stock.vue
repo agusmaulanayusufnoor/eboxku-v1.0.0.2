@@ -67,7 +67,7 @@
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
                     <v-row>
-                      <v-col 
+                      <v-col
                       cols="12"
                       sm="6"
                       md="5"
@@ -101,9 +101,9 @@
                     >
                     </v-date-picker>
                     </v-menu>
-                    
+
                       </v-col>
-                      <v-col 
+                      <v-col
                       cols="12"
                       sm="6"
                       md="5"
@@ -137,7 +137,7 @@
                     >
                     </v-date-picker>
                     </v-menu>
-                    
+
                       </v-col>
                       <v-col>
                         <v-btn
@@ -155,10 +155,10 @@
                       </v-icon>
                       </v-btn>
                       </v-col>
-                      
+
                     </v-row>
                     <v-spacer></v-spacer>
-                    
+
                     <v-text-field
                     v-model="search"
                     append-icon="mdi-magnify"
@@ -328,8 +328,8 @@
                                 required
                                 dense
                                 counter
-                                maxlength="6" 
-                                type="number" 
+                                maxlength="6"
+                                type="number"
                                 @keydown="pencetKeyboard($event)"
                                 @change="inputStokAkhir"
                                 ></v-text-field>
@@ -385,7 +385,7 @@
                                 counter
                                 maxlength="6"
                                 type="number"
-                                
+
                                 @keydown="pencetKeyboard($event)"
                                 @change="inputStokAkhir"
                                 ></v-text-field>
@@ -456,7 +456,7 @@ import moment from 'moment';
      editedItem: {
         id : '',
         kantor_id: '',
-        
+
         tanggal: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
         tanggalRules: [
           v => !!v || 'Tanggal stok belum diisi',
@@ -468,27 +468,27 @@ import moment from 'moment';
       ],
       tambahan_stok: 0,
         tambahanStokRules: [
-       
+
         v => v>-1 || 'angka tidak boleh minus'
       ],
        jml_digunakan: 0,
         jmlDigunakanRules: [
-      
+
         v => v>-1 || 'angka tidak boleh minus'
       ],
       jml_rusak: 0,
         jmlRusakRules: [
-        
+
         v => v>-1 || 'angka tidak boleh minus'
       ],
       jml_hilang: 0,
         jmlHilangRules: [
-        
+
         v => v>-1 || 'angka tidak boleh minus'
       ],
       jml_stok_akhir: '',
-     
-      
+
+
       jenis: '',
       jenisStok:['1','2'],
      },
@@ -496,8 +496,8 @@ import moment from 'moment';
       menu2: false,
       menu3: false,
       pesaneror:'',
-      
-      
+
+
     form: new Form({
         id : '',
         kantor_id: '',
@@ -511,7 +511,7 @@ import moment from 'moment';
         jml_stok_akhir: '',
     }),
     columnsExcel : [
-                
+
                 { label: 'Jenis Stok', field: 'jenis'},
                 { label: 'Sandi Kantor', field: 'kode_kantor',align: 'start', },
                 { label: 'Tanggal Stok', field: 'tanggal' },
@@ -528,7 +528,7 @@ import moment from 'moment';
             " value ": " utf- 8 "
           }]
         ],
-    
+
     }),
 
     computed: {
@@ -562,11 +562,11 @@ import moment from 'moment';
             return headers
         },
         fromTglText () {
-        
+
         return this.fromTgl ? moment(this.fromTgl).format('DD/MM/YYYY') : '';
         },
         toTglText () {
-        
+
         return this.toTgl ? moment(this.toTgl).format('DD/MM/YYYY') : '';
         },
         computedDateFormatted () {
@@ -607,7 +607,7 @@ import moment from 'moment';
 //   },
     created () {
         this.$Progress.start();
-        
+
       this.initialize()
       this.$Progress.finish();
     },
@@ -624,7 +624,7 @@ import moment from 'moment';
       } else {
         return true;
       }
-      
+
     },
     inputStokAkhir() {
       this.editedItem.jml_stok_akhir = parseInt(this.editedItem.jml_stok_awal)+parseInt(this.editedItem.tambahan_stok)-parseInt(this.editedItem.jml_digunakan)-parseInt(this.editedItem.jml_rusak)-parseInt(this.editedItem.jml_hilang);
@@ -712,15 +712,15 @@ import moment from 'moment';
            this.$Progress.finish();
       },
       editModal(item){
-   
-       
+
+
          this.editmode = true;
          //this.$refs.form.reset()
          $('#addNew').modal('show');
          this.editedIndex = this.stock.indexOf(item)
        // this.editedItem = Object.assign({}, item)
-        
-        this.editedItem.kantor_id = this.$kantor_id;            
+
+        this.editedItem.kantor_id = this.$kantor_id;
         this.editedItem.tanggal                  = item.tanggal;
         //this.editedItem.dateFormatted      = this.formatDate(this.tanggal);
         this.editedItem.id                 = item.id;
@@ -731,7 +731,7 @@ import moment from 'moment';
         this.editedItem.jml_rusak          = item.jml_rusak;
         this.editedItem.jml_hilang         = item.jml_hilang;
         this.editedItem.jml_stok_akhir     = item.jml_stok_akhir;
-        
+
         //  console.log(item.id);
           console.log(this.$kantor_id);
       },
@@ -741,7 +741,7 @@ import moment from 'moment';
         this.$refs.form.reset()
         //this.namafile = '';
       },
-    
+
      createUser(){
          this.$refs.form.validate();
          this.$Progress.start();
@@ -749,8 +749,8 @@ import moment from 'moment';
             const config = {
                 headers: { 'content-type': 'multipart/form-data' }
             }
-            
-            
+
+
             const formData = new FormData
             formData.set('kantor_id', this.editedItem.kantor_id)
             formData.set('jenis', this.editedItem.jenis)
@@ -808,10 +808,10 @@ import moment from 'moment';
           },
           updateUser(){
             const config = {
-                headers: { 
+                headers: {
                   'accept': 'application/json',
                   'Accept-Language': 'en-US,en;q=0.8',
-                  'content-type': 'multipart/form-data' 
+                  'content-type': 'multipart/form-data'
                   }
                // headers: {'X-Custom-Header': 'value'}
             }

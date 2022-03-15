@@ -66,7 +66,21 @@ class SatuanController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
+       $satuan = Satuan::findOrFail($id);
+       // dd($request->namasatuan);
+
+       $satuan->update($request->all());
+
+        return $this->sendResponse($satuan, 'Data Satuan Diubah!');
+    }
+    public function updateData(Request $request, $id)
+    {
+        $satuan = Satuan::findOrFail($id);
+       // dd($request->namasatuan);
+
+       $satuan->update($request->namasatuan);
+
+        return $this->sendResponse($satuan, 'Data Satuan Diubah!');
     }
 
     /**

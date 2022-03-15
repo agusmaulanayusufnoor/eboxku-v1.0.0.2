@@ -75,6 +75,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('periksa/download/{periksa}', 'PeriksaController@downloadfile');
     Route::post('stock/{stock}', 'StockController@updateData');
     Route::get('stock/filtertanggal', 'StockController@filtertanggal');
+    Route::post('satuan/{stock}', 'SatuanController@updateData');
 
 
     Route::apiResources([

@@ -57,7 +57,54 @@
                 </v-icon>
                 </template>
 
+                <!-- edit table -->
+                <template v-slot:item.namasatuan="{ item }">
+                     <v-edit-dialog
+
+                        @save="save"
+                        @cancel="cancel"
+                        @open="open(item)"
+                        @close="close"
+
+                        >
+                        {{ item.namasatuan }}
+                        <template v-slot:input>
+                            <div class="mt-4 text-h6">
+                            Edit Satuan
+                            </div>
+                            <v-text-field
+                            v-model="editedItem.namasatuan"
+                            :rules="[max25chars]"
+                            label="Edit"
+                            single-line
+                            counter
+                            ></v-text-field>
+                        </template>
+                        </v-edit-dialog>
+                    </template>
+
+      <!-- end edit table -->
                </v-data-table>
+
+               <v-snackbar
+                v-model="snack"
+                :timeout="4000"
+                :color="snackColor"
+                :multi-line="multiLine"
+                position: absolute
+                >
+                {{ snackText }}
+
+                <template v-slot:action="{ attrs }">
+                    <v-btn
+                    v-bind="attrs"
+                    text
+                    @click="snack = false"
+                    >
+                    Close
+                    </v-btn>
+                </template>
+                </v-snackbar>
              </div>
               <!-- /.card-body -->
               <!-- <div class="card-footer">
@@ -104,8 +151,8 @@
                                 md="12"
                              >
                              <v-text-field
-                                v-model="namasatuan"
-                                :rules="satuanRules"
+                                v-model="editedItem.namasatuan"
+                                :rules="editedItem.satuanRules"
                                 label="Satuan"
                                 name="namasatuan"
                                 placeholder="Satuan"
@@ -145,23 +192,37 @@
 <script>
 
   export default {
+
     data: () => ({
+       // props: ["namasatuan"],
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       editmode: false,
       dialog: false,
       dialogDelete: false,
       search:'',
+      snack: false,
+      multiLine: true,
+        snackColor: '',
+        snackText: '',
+        max25chars: v => v.length <= 25 || 'Input too long!',
      satuan:[],
-     namasatuan:'',
-     valid:true,
+    editedIndex: -1,
+    editedItem : {
         id : '',
-        kantor_id: '',
+        namasatuan:'',
+        namasatuanEdit:'',
         satuanRules: [
         v => !!v || 'Nama satuan belum diisi',
       ],
+    },
+
+     valid:true,
+
+        kantor_id: '',
+
     form: new Form({
         id : '',
-        satuan: '',
+        namasatuan: '',
     }),
 
 
@@ -202,6 +263,30 @@
     },
 
     methods: {
+        save () {
+        this.snack = true
+        this.snackColor = 'success'
+        this.snackText = 'Data disimpan'
+        this.updateUser()
+      },
+      cancel () {
+        this.snack = true
+        this.snackColor = 'error'
+        this.snackText = 'Dibatalkan'
+      },
+      open (item) {
+        this.snack = true
+        this.snackColor = 'info'
+        this.snackText = 'Enter = Simpan'
+        this.editedItem.id = item.id
+        this.editedItem.namasatuan = item.namasatuan
+
+        //console.log(this.item.namasatuan);
+        //alert(this.item.id)
+      },
+      close () {
+        console.log('Dialog closed')
+      },
         pencetKeyboard: function(evt) {
       evt = (evt) ? evt : window.event;
       var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -233,17 +318,20 @@
 
            this.$Progress.finish();
       },
-     editModal(item){
-                this.editmode = true;
-                this.$refs.form.reset()
-                $('#addNew').modal('show');
-                this.form.fill(item);
+     editSatuan(item){
+
+        this.editedIndex = this.satuan.indexOf(item)
+        this.item.id = item.id
+        this.item.namasatuan = item.namasatuan
+
+        console.log(this.item.id);
+        //alert(this.item.id)
             },
     newModal(){
         this.editmode = false;
         $('#addNew').modal('show');
         this.$refs.form.reset()
-        this.namasatuan = '';
+        this.editedItem.namasatuan = '';
     },
 
      createUser(){
@@ -255,7 +343,7 @@
             }
             // //this.append('file', this.file);
             const formData = new FormData
-            formData.set('namasatuan', this.namasatuan)
+            formData.set('namasatuan', this.editedItem.namasatuan)
 
             axios.post('api/satuan',formData,config)
               .then((response)=>{
@@ -281,9 +369,21 @@
           },
 
           updateUser(){
+               const config = {
+                headers: {
+                  'accept': 'application/json',
+                  'Accept-Language': 'en-US,en;q=0.8',
+                  'content-type': 'multipart/form-data'
+                  }
+               // headers: {'X-Custom-Header': 'value'}
+                }
+
                 this.$Progress.start();
-                // console.log('Editing data');
-                this.form.put('api/satuan/'+this.form.id)
+                //alert(this.editedItem.namasatuan);
+                 const formData = new FormData
+            formData.set('namasatuan', this.editedItem.namasatuan)
+            formData.append("_method", "PUT");
+                axios.post('api/satuan/'+this.editedItem.id,formData)
                 .then((response) => {
                     // success
                     $('#addNew').modal('hide');
