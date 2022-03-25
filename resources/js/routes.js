@@ -17,6 +17,7 @@ export default [
     { path: '/overbooking', component: require('./components/akunting/Overbooking.vue').default },
     { path: '/rekkoranaba', component: require('./components/akunting/Rekkoranaba.vue').default },
     { path: '/stock', component: require('./components/akunting/Stock.vue').default },
+    { path: '/stockctk', component: require('./components/akunting/Stockctk.vue').default },
 
     { path: '/skdir', component: require('./components/umum/Skdir.vue').default },
     { path: '/sedir', component: require('./components/umum/Sedir.vue').default },
@@ -43,5 +44,6 @@ export default [
     { path: '/periksa', component: require('./components/skai/Periksa.vue').default },
 
     { path: '/satuan', component: require('./components/setting/Satuan.vue').default },
+    { path: '/barang', component: require('./components/setting/Barang.vue').default },
     { path: '*', component: require('./components/NotFound.vue').default }
 ];

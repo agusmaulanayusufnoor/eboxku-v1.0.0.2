@@ -171,8 +171,8 @@
                                         v-model="dateFormatted"
                                         @blur="tanggal = parseDate(dateFormatted)"
                                         :rules="tanggalRules"
-                                        label="Tanggal File"
-                                        placeholder="Tanggal Buka Rekening"
+                                        label="Tanggal Realisasi Kredit"
+                                        placeholder="Tanggal Realisasi"
                                         prepend-icon="mdi-calendar"
                                         v-bind="attrs"
                                         v-on="on"
@@ -289,7 +289,7 @@
       dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
       tanggal:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
          tanggalRules: [
-        v => !!v || 'Tanggal file belum diisi',
+        v => !!v || 'Tanggal realisasi belum diisi',
       ],
        fileRules: [
         v => !!v || 'File belum dimasukan',

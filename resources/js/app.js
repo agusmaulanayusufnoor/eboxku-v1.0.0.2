@@ -14,6 +14,7 @@ import vuetify from '../plugins/vuetify'
 
 window.Vue = require('vue');
 import moment from 'moment';
+require('moment/locale/id');
 
 
 import { Form, HasError, AlertError } from 'vform';
@@ -26,8 +27,8 @@ import Swal from 'sweetalert2';
 
 
 import VueExcelXlsx from "vue-excel-xlsx";
-Vue.use(VueExcelXlsx);   
- 
+Vue.use(VueExcelXlsx);
+
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',

@@ -84,6 +84,14 @@
                   </p>
               </router-link>
             </li>
+            <li class="nav-item">
+                <router-link to="/barang" class="nav-link">
+                    <i class="nav-icon fas fa-cart-plus white"></i>
+                    <p>
+                        Barang
+                    </p>
+                </router-link>
+              </li>
         </ul>
       </li>
 

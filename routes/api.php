@@ -76,11 +76,14 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::post('stock/{stock}', 'StockController@updateData');
     Route::get('stock/filtertanggal', 'StockController@filtertanggal');
     Route::post('satuan/{stock}', 'SatuanController@updateData');
+    Route::post('barang/{stock}', 'BarangController@updateData');
+    Route::get('stockctk/getbarang', 'BarangController@index');
 
 
     Route::apiResources([
         //setting
         'satuan'      => 'SatuanController',
+        'barang'      => 'BarangController',
 
         'user'        => 'UserController',
         //pelayanan
@@ -97,6 +100,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'overbooking' => 'OverbookingController',
         'rekkoranaba' => 'RekkoranabaController',
         'stock'       => 'StockController',
+        'stockctk'    => 'StokbarangctkController',
 
         // umum pusat
         'skdir'       => 'SkdirController',

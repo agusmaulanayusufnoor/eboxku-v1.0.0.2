@@ -86,12 +86,24 @@
       <!-- end edit table -->
                </v-data-table>
 
-               <v-snackbar
+
+             </div>
+
+              <!-- /.card-body -->
+              <!-- <div class="card-footer">
+                  <pagination :data="users" @pagination-change-page="getResults"></pagination>
+              </div> -->
+            </v-card>
+
+          </v-col>
+          <v-col cols="4">
+             <v-snackbar
                 v-model="snack"
                 :timeout="4000"
                 :color="snackColor"
                 :multi-line="multiLine"
-                position: absolute
+                position: absolute right
+                style="margin-bottom=230px"
                 >
                 {{ snackText }}
 
@@ -104,15 +116,10 @@
                     Close
                     </v-btn>
                 </template>
-                </v-snackbar>
-             </div>
-              <!-- /.card-body -->
-              <!-- <div class="card-footer">
-                  <pagination :data="users" @pagination-change-page="getResults"></pagination>
-              </div> -->
-            </v-card>
+            </v-snackbar>
           </v-col>
         </v-row>
+
 
         <div v-if="!$gate.isAdmin()">
             <not-found></not-found>
