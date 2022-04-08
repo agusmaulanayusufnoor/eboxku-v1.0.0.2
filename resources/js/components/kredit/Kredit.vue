@@ -139,7 +139,7 @@
                                 v-model="namafile"
                                 :rules="nameRules"
                                 name="namafile"
-                                label="Nama File"
+                                label="Nama Nasabah"
                                 placeholder="Nama File: 'nama_nasabah'"
                                 outlined
                                 required
@@ -178,6 +178,7 @@
                                         v-on="on"
                                         outlined
                                         required
+                                        readonly
                                         dense
                                     ></v-text-field>
                                 </template>

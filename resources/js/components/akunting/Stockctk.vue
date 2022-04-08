@@ -291,8 +291,10 @@
                                 <v-combobox
                                 v-model="editedItem.barang_id"
                                 label="Nama Barang"
-                                append-outer-icon="mdi-map"
+                                append-outer-icon="mdi-cart-variant"
                                 :items="editedItem.namaBarang"
+                                item-value="id"
+                                item-text="namabarang"
                                 placeholder="Daftar Barang"
                                 dense
                                 outlined
@@ -301,7 +303,26 @@
                                 @click="getBarang()"
                                 ></v-combobox>
                             </v-col>
-
+                            <v-col
+                                cols="12"
+                                sm="6"
+                                md="6"
+                            >
+                                <v-combobox
+                                v-model="editedItem.satuan_id"
+                                label="Satuan"
+                                append-outer-icon="mdi-scale"
+                                :items="editedItem.namasatuan"
+                                item-value="id"
+                                item-text="namasatuan"
+                                placeholder="Pilih Satuan"
+                                dense
+                                outlined
+                                :return-object="false"
+                                persistent-hint :error-messages="pesaneror"
+                                @click="getSatuan()"
+                                ></v-combobox>
+                            </v-col>
                             <v-col cols="12" sm="6" md="6">
                                <v-text-field
                                 v-model="editedItem.jml_stok_awal"
@@ -499,7 +520,9 @@ import moment from 'moment';
       stok_akhir: '',
       nom_akhir: '',
       barang_id: '',
-      namaBarang:[{"id":"id","namabarang":"namabarang"}],
+      namaBarang:[],
+      satuan_id: '',
+      namaSatuan:[],
      },
       menu1: false,
       menu2: false,
@@ -705,7 +728,6 @@ import moment from 'moment';
         this.$Progress.finish();
       },
       getBarang() {
-       //  this.$Progress.start();
 
             if(this.$gate.isAdmin() || this.$gate.isAK() ){
 
@@ -714,16 +736,30 @@ import moment from 'moment';
                 .then((response) => {
 
                 this.editedItem.namaBarang = response.data.data
-                //this.editedItem.kantor_id = this.$kantor_id;
-                // this.form.fill
-                console.log(this.editedItem.namaBarang);
+
+                //console.log(this.editedItem.namaBarang);
                 //console.log(this.kantor_id)
                 }).catch((error)=>{
                 console.log(error.response.data);
                   });
             }
+      },
+      getSatuan() {
 
-          // this.$Progress.finish();
+            if(this.$gate.isAdmin() || this.$gate.isAK() ){
+
+               //axios.get("api/user").then((response) => {(this.users = response.data.data)});
+             axios.get("api/stockctk/getsatuan")
+                .then((response) => {
+
+                this.editedItem.namaSatuan = response.data.data
+
+                //console.log(this.editedItem.namaBarang);
+                //console.log(this.kantor_id)
+                }).catch((error)=>{
+                console.log(error.response.data);
+                  });
+            }
       },
       initialize() {
          this.$Progress.start();
