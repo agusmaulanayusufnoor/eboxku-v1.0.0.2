@@ -258,6 +258,7 @@
                                     <v-text-field
                                         v-model="editedItem.periode"
                                         :value="periodeMomentJS"
+                                        @blur="editedItem.periode = periodeMomentJS"
                                         :rules="editedItem.periodeRules"
                                         label="Periode"
                                         placeholder="periode bulan"
@@ -267,6 +268,7 @@
                                         outlined
                                         required
                                         dense
+                                        clearable
                                         readonly
                                         @click:clear="date = null"
                                     ></v-text-field>
@@ -311,7 +313,7 @@
                                 <v-combobox
                                 v-model="editedItem.satuan_id"
                                 label="Satuan"
-                                append-outer-icon="mdi-scale"
+                                prepend-icon="mdi-scale"
                                 :items="editedItem.namasatuan"
                                 item-value="id"
                                 item-text="namasatuan"
