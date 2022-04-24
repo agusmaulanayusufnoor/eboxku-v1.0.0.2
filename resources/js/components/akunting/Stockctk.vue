@@ -314,7 +314,7 @@
                                 v-model="editedItem.satuan_id"
                                 label="Satuan"
                                 prepend-icon="mdi-scale"
-                                :items="editedItem.namasatuan"
+                                :items="editedItem.namaSatuan"
                                 item-value="id"
                                 item-text="namasatuan"
                                 placeholder="Pilih Satuan"
@@ -327,10 +327,26 @@
                             </v-col>
                             <v-col cols="12" sm="6" md="6">
                                <v-text-field
-                                v-model="editedItem.jml_stok_awal"
-                                :rules="editedItem.jmlstokawalRules"
-                                name="jml_stok_awal"
-                                label="Jumlah Stok Awal"
+                                v-model="editedItem.harga_satuan"
+                                :rules="editedItem.hargaSatuanRules"
+                                name="harga_satuan"
+                                label="Harga Satuan"
+                                placeholder="Harga Satuan"
+                                append-outer-icon="mdi-cash"
+                                outlined
+                                required
+                                dense
+                                counter
+                                maxlength="7"
+                                @keydown="pencetKeyboard($event)"
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="6">
+                               <v-text-field
+                                v-model="editedItem.stok_awal"
+                                :rules="editedItem.stokAwalRules"
+                                name="stok_awal"
+                                label="Stok Awal"
                                 placeholder="input nilai angka"
                                 prepend-icon="mdi-numeric-1-box-multiple"
                                 outlined
@@ -345,10 +361,10 @@
                             </v-col>
                             <v-col cols="12" sm="6" md="6">
                                <v-text-field
-                                v-model="editedItem.tambahan_stok"
-                                :rules="editedItem.tambahanStokRules"
-                                name="tambahan_stok"
-                                label="Tambahan Stok"
+                                v-model="editedItem.stok_masuk"
+                                :rules="editedItem.stokMasukRules"
+                                name="stok_masuk"
+                                label="Stok Masuk"
                                 placeholder="input nilai angka"
                                 append-outer-icon="mdi-numeric-2-box-multiple"
                                 outlined
@@ -364,10 +380,10 @@
 
                             <v-col cols="12" sm="6" md="6">
                                <v-text-field
-                                v-model="editedItem.jml_digunakan"
-                                :rules="editedItem.jmlDigunakanRules"
-                                name="jml_digunakan"
-                                label="Jml Digunakan"
+                                v-model="editedItem.stok_keluar"
+                                :rules="editedItem.stokKeluarRules"
+                                name="stok_keluar"
+                                label="Stok Keluar"
                                 placeholder="input nilai angka"
                                 prepend-icon="mdi-numeric-3-box-multiple"
                                 outlined
@@ -382,49 +398,11 @@
                             </v-col>
                             <v-col cols="12" sm="6" md="6">
                                <v-text-field
-                                v-model="editedItem.jml_rusak"
-                                :rules="editedItem.jmlRusakRules"
-                                name="jml_rusak"
-                                label="Jumlah Rusak"
+                                v-model="editedItem.stok_akhir"
+                                name="stok_akhir"
+                                label="Stok Akhir"
                                 placeholder="input nilai angka"
                                 append-outer-icon="mdi-numeric-4-box-multiple"
-                                outlined
-                                required
-                                dense
-                                counter
-                                maxlength="6"
-                                type="number"
-                                @keydown="pencetKeyboard($event)"
-                                @change="inputStokAkhir"
-                                ></v-text-field>
-                            </v-col>
-                            <v-col cols="12" sm="6" md="6">
-                               <v-text-field
-                                v-model="editedItem.jml_hilang"
-                                :rules="editedItem.jmlHilangRules"
-                                name="jml_hilang"
-                                label="Jumlah Hilang"
-                                placeholder="input nilai angka"
-                                prepend-icon="mdi-numeric-5-box-multiple"
-                                outlined
-                                required
-                                dense
-                                counter
-                                maxlength="6"
-                                type="number"
-
-                                @keydown="pencetKeyboard($event)"
-                                @change="inputStokAkhir"
-                                ></v-text-field>
-                            </v-col>
-
-                            <v-col cols="12" sm="6" md="6">
-                               <v-text-field
-                                v-model="editedItem.jml_stok_akhir"
-                                name="jml_stok_akhir"
-                                label="Jml Stok Akhir"
-                                placeholder="input nilai angka"
-                                append-outer-icon="mdi-numeric-6-box-multiple"
                                 outlined
                                 required
                                 dense
@@ -489,21 +467,26 @@ import moment from 'moment';
         periodeRules: [
           v => !!v || 'Bulan periode belum diisi',
         ],
+        harga_satuan: '',
+        hargaSatuanRules: [
+          v => !!v || 'Harga Satuan belum diisi',
+        ],
         stok_awal: 0,
-        stokawalRules: [
+        stokAwalRules: [
         v => !!v || 'harus diisi angka',
         v => v>-1 || 'angka tidak boleh minus'
       ],
       stok_masuk: 0,
         stokMasukRules: [
-
+          v => !!v || 'harus diisi angka',
         v => v>-1 || 'angka tidak boleh minus'
       ],
        stok_keluar: 0,
         stokKeluarRules: [
-
+          v => !!v || 'harus diisi angka',
         v => v>-1 || 'angka tidak boleh minus'
       ],
+      stok_akhir: 0,
       nom_awal: 0,
       nomAwalRules: [
 
@@ -554,12 +537,10 @@ import moment from 'moment';
                 { label: 'Jenis Stok', field: 'jenis'},
                 { label: 'Sandi Kantor', field: 'kode_kantor',align: 'start', },
                 { label: 'Tanggal Stok', field: 'tanggal' },
-                { label: 'Jumlah Stok Awal',field: 'jml_stok_awal' },
-                { label: 'Tambahan Stok', field: 'tambahan_stok' },
-                { label: 'Jumlah Digunakan', field: 'jml_digunakan' },
-                { label: 'Jumlah Rusak', field: 'jml_rusak' },
-                { label: 'Jumlah Hilang', field: 'jml_hilang' },
-                { label: 'Jumlah Stok Akhir', field: 'jml_stok_akhir' },
+                { label: 'Stok Awal',field: 'stok_awal' },
+                { label: 'Stok Masuk', field: 'stok_masuk' },
+                { label: 'Stok Keluar', field: 'stok_keluar' },
+                { label: 'Stok Akhir', field: 'stok_akhir' },
       ],
     json_meta: [
           [{
@@ -665,7 +646,7 @@ import moment from 'moment';
 
     },
     inputStokAkhir() {
-      this.editedItem.jml_stok_akhir = parseInt(this.editedItem.stok_awal)+parseInt(this.editedItem.stok_masuk)-parseInt(this.editedItem.stok_keluar);
+      this.editedItem.stok_akhir = parseInt(this.editedItem.stok_awal)+parseInt(this.editedItem.stok_masuk)-parseInt(this.editedItem.stok_keluar);
     },
     formatDate (date) {
         if (!date) return null
