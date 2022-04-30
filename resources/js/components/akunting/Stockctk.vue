@@ -10,9 +10,10 @@
                     Stok Barang Cetakan
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
-                  <v-btn small color="indigo" dark @click="newModal">
+                <v-btn small color="indigo" dark @click="newModal">
                      <v-icon>mdi-cart-plus</v-icon> Tambah Stok
                   </v-btn>
+
               </v-toolbar>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
@@ -212,10 +213,10 @@
 
   <!-- Modal -->
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNew" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
                 <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" v-show="!editmode">Tambah Stok</h5>
+                <div class="modal-header primary">
+                    <h5 class="modal-title" v-show="!editmode" style="color:white;">Tambah Stok</h5>
                     <h5 class="modal-title" v-show="editmode">Edit Stok</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -242,8 +243,8 @@
                             <v-row>
                             <v-col
                             cols="12"
-                            sm="6"
-                            md="6"
+                            sm="3"
+                            md="3"
                             >
                                 <v-menu
                                     ref="menu1"
@@ -288,7 +289,7 @@
                             </v-col>
                             <v-col
                                 cols="12"
-                                sm="6"
+                                sm="3"
                             >
                                 <v-combobox
                                 v-model="editedItem.barang_id"
@@ -307,8 +308,8 @@
                             </v-col>
                             <v-col
                                 cols="12"
-                                sm="6"
-                                md="6"
+                                sm="3"
+                                md="3"
                             >
                                 <v-combobox
                                 v-model="editedItem.satuan_id"
@@ -325,7 +326,7 @@
                                 @click="getSatuan()"
                                 ></v-combobox>
                             </v-col>
-                            <v-col cols="12" sm="6" md="6">
+                            <v-col cols="12" sm="3" md="3">
                                <v-text-field
                                 v-model="editedItem.harga_satuan"
                                 :rules="editedItem.hargaSatuanRules"
@@ -341,7 +342,7 @@
                                 @keydown="pencetKeyboard($event)"
                                 ></v-text-field>
                             </v-col>
-                            <v-col cols="12" sm="6" md="6">
+                            <v-col cols="12" sm="3" md="3">
                                <v-text-field
                                 v-model="editedItem.stok_awal"
                                 :rules="editedItem.stokAwalRules"
@@ -359,7 +360,7 @@
                                 @change="inputStokAkhir"
                                 ></v-text-field>
                             </v-col>
-                            <v-col cols="12" sm="6" md="6">
+                            <v-col cols="12" sm="3" md="3">
                                <v-text-field
                                 v-model="editedItem.stok_masuk"
                                 :rules="editedItem.stokMasukRules"
@@ -378,7 +379,7 @@
                                 ></v-text-field>
                             </v-col>
 
-                            <v-col cols="12" sm="6" md="6">
+                            <v-col cols="12" sm="3" md="3">
                                <v-text-field
                                 v-model="editedItem.stok_keluar"
                                 :rules="editedItem.stokKeluarRules"
@@ -396,7 +397,7 @@
                                 @change="inputStokAkhir"
                                 ></v-text-field>
                             </v-col>
-                            <v-col cols="12" sm="6" md="6">
+                            <v-col cols="12" sm="3" md="3">
                                <v-text-field
                                 v-model="editedItem.stok_akhir"
                                 name="stok_akhir"
@@ -412,6 +413,90 @@
                                 type="number"
                                 @keydown="pencetKeyboard($event)"
                                 @change="inputStokAkhir"
+                                ></v-text-field>
+                            </v-col>
+
+                            <v-col cols="12" sm="3" md="3">
+                               <v-text-field
+                                v-model="editedItem.nom_awal"
+                                :rules="editedItem.nomAwalRules"
+                                name="nominal_awal"
+                                label="Nominal Awal"
+                                placeholder="input nilai angka"
+                                prepend-icon="mdi-numeric-1-box-multiple"
+                                outlined
+                                required
+                                dense
+                                counter
+                                maxlength="6"
+                                @keydown="pencetKeyboard($event)"
+                                @change="inputNominalAkhir"
+                                ></v-text-field>
+                            </v-col>
+
+                            <v-col cols="12" sm="3" md="3">
+                               <v-text-field
+                                v-model="editedItem.nom_masuk"
+                                :rules="editedItem.nomMasukRules"
+                                name="nom_masuk"
+                                label="Nominal Masuk"
+                                placeholder="input nilai angka"
+                                append-outer-icon="mdi-numeric-2-box-multiple"
+                                outlined
+                                required
+                                dense
+                                counter
+                                maxlength="6"
+                                @keydown="pencetKeyboard($event)"
+                                @change="inputNominalAkhir"
+                                ></v-text-field>
+                            </v-col>
+
+                            <v-col cols="12" sm="3" md="3">
+                               <v-text-field
+                                v-model="editedItem.nom_keluar"
+                                :rules="editedItem.nomKeluarRules"
+                                name="nominal_keluar"
+                                label="Nominal Keluar"
+                                placeholder="input nilai angka"
+                                prepend-icon="mdi-numeric-3-box-multiple"
+                                outlined
+                                required
+                                dense
+                                counter
+                                maxlength="6"
+                                @keydown="pencetKeyboard($event)"
+                                @change="inputNominalAkhir"
+                                ></v-text-field>
+                            </v-col>
+
+                             <v-col cols="12" sm="3" md="3">
+                               <v-text-field
+                                v-model="editedItem.nom_akhir"
+                                name="nom_akhir"
+                                label="Nominal Akhir"
+                                placeholder="input nilai angka"
+                                append-outer-icon="mdi-numeric-4-box-multiple"
+                                outlined
+                                required
+                                dense
+                                readonly
+                                disabled
+                                maxlength="6"
+                                @keydown="pencetKeyboard($event)"
+                                @change="inputNominalAkhir"
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="12" md="12">
+                               <v-text-field
+                                v-model="editedItem.keterangan"
+                                name="keterangan"
+                                label="Keterangan"
+                                placeholder="Keterangan"
+                                prepend-icon="mdi-note"
+                                outlined
+                                required
+                                dense
                                 ></v-text-field>
                             </v-col>
 
@@ -461,7 +546,7 @@ import moment from 'moment';
      editedItem: {
         id : '',
         kantor_id: '',
-
+        keterangan: '',
         //periode: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
         periode: '',
         periodeRules: [
@@ -647,6 +732,9 @@ import moment from 'moment';
     },
     inputStokAkhir() {
       this.editedItem.stok_akhir = parseInt(this.editedItem.stok_awal)+parseInt(this.editedItem.stok_masuk)-parseInt(this.editedItem.stok_keluar);
+    },
+    inputNominalAkhir() {
+      this.editedItem.nom_akhir = parseInt(this.editedItem.nom_awal)+parseInt(this.editedItem.nom_masuk)-parseInt(this.editedItem.nom_keluar);
     },
     formatDate (date) {
         if (!date) return null
