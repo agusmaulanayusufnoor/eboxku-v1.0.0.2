@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\API\V1;
 
-use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
 use App\Models\Barang;
 use App\Models\Stokbarangctk;
 
-class StokbarangctkController extends Controller
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
+class StokbarangctkController extends BaseController
 {
     protected $stokbarangctk = '';
     //protected $barang = '';
@@ -31,7 +34,33 @@ class StokbarangctkController extends Controller
      */
     public function index()
     {
-        //
+        $id_kantor  = Auth::user()->kantor_id;
+        $levelLogin = Auth::user()->type;
+       // $stock=stock::all();
+       $stock= $this->stokbarangctk->latest()->get();
+        if($levelLogin === 'admin'){
+            $stock  = DB::table('stokbarangctk AS stock')
+            ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
+            ->select('stock.id','stock.periode','stock.barang_id','stock.satuan_id','stock.harga_satuan',
+            'stock.stok_awal','stock.stok_masuk','stock.stok_keluar','stock.stok_akhir',
+            'stock.nom_awal','stock.nom_masuk','stock.nom_keluar','stock.nom_akhir',
+            'stock.keterangan','stock.kantor_id','kode_kantors.kode_kantor')
+            ->orderBy('stock.id','desc')
+            ->get();
+        }else{
+            $stock  = DB::table('stokbarangctk AS stock')
+            ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
+            ->where('kantor_id', $id_kantor)
+            ->select('stock.id','stock.periode','stock.barang_id','stock.satuan_id','stock.harga_satuan',
+            'stock.stok_awal','stock.stok_masuk','stock.stok_keluar','stock.stok_akhir',
+            'stock.nom_awal','stock.nom_masuk','stock.nom_keluar','stock.nom_akhir',
+            'stock.keterangan','stock.kantor_id','kode_kantors.kode_kantor')
+            ->orderBy('stock.id','desc')
+            ->get();
+        }
+       // dd($stock);
+
+        return $this->sendResponse($stock, 'stock barang list');
     }
 
     /**
@@ -42,7 +71,55 @@ class StokbarangctkController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'barang_id'         => 'required',
+            'satuan_id'         => 'required',
+            'periode'           => 'required',
+            'harga_satuan'      => 'required',
+            'stok_awal'         => 'required',
+            'stok_masuk'        => 'required',
+            'stok_keluar'       => 'required',
+            'stok_akhir'        => 'required',
+            'nom_awal'          => 'required',
+            'nom_masuk'         => 'required',
+            'nom_keluar'        => 'required',
+            'nom_akhir'         => 'required'
+        ],[
+            'barang_id.required'        => 'barang belum dipilih',
+            'satuan_id.required'        => 'satuan belum dipilih',
+            'periode.required'          => 'periode belum dipilih',
+            'harga_Satuan.required'     => 'harga satuan belum diisi',
+            'stok_awal.required'        => 'stok awal belum diisi',
+            'stok_masuk.required'       => 'stok masuk belum diisi',
+            'stok_keluar.required'      => 'stok keluar belum diisi',
+            'stok_akhir.required'       => 'stok akhir belum diisi',
+            'nom_awal.required'         => 'nominal awal belum diisi',
+            'nom_masuk.required'        => 'nominal masuk belum diisi',
+            'nom_keluar.required'       => 'nominal keluar belum diisi',
+            'nom_akhir.required'        => 'nominal akhir belum diisi'
+        ]);
+
+
+
+        $stokbarangctk = $this->stokbarangctk->create([
+            'kantor_id'         => $request->get('kantor_id'),
+            'periode'           => $request->get('periode'),
+            'barang_id'         => $request->get('barang_id'),
+            'satuan_id'         => $request->get('satuan_id'),
+            'harga_satuan'      => $request->get('harga_satuan'),
+            'stok_awal'         => $request->get('stok_awal'),
+            'stok_masuk'        => $request->get('stok_masuk'),
+            'stok_keluar'       => $request->get('stok_keluar'),
+            'stok_akhir'        => $request->get('stok_akhir'),
+            'nom_awal'          => $request->get('nom_awal'),
+            'nom_masuk'         => $request->get('nom_masuk'),
+            'nom_keluar'        => $request->get('nom_keluar'),
+            'nom_akhir'         => $request->get('nom_akhir'),
+            'keterangan'        => $request->get('keterangan'),
+        ]);
+
+        //dd($stokbarangctk);
+        return $this->sendResponse($stokbarangctk, 'Data stok barang cetakan di input');
     }
 
     /**
@@ -76,7 +153,15 @@ class StokbarangctkController extends Controller
      */
     public function destroy($id)
     {
-        //
+       // $this->authorize('isAdmin');
+
+        $stokbarangctk = $this->stokbarangctk->findOrFail($id);
+
+        $stokbarangctk->delete();
+
+        return $this->sendResponse($stokbarangctk, 'stok sudah dihapus!');
+
+
     }
 
     public function listbarang()

@@ -53,7 +53,7 @@ class StockController extends BaseController
             ->get();
         }
         //dd($stock);
-      
+
         return $this->sendResponse($stock, 'stock list');
     }
 
@@ -106,7 +106,7 @@ class StockController extends BaseController
             'jml_hilang'        => $request->get('jml_hilang'),
             'jml_stok_akhir'    => $request->get('jml_stok_akhir'),
         ]);
-       
+
 
         return $this->sendResponse($stock, 'File telah diupload...');
     }
@@ -133,7 +133,7 @@ class StockController extends BaseController
     {
         $stock = Stock::findOrFail($id);
         dd($request->get('jml_stok_awal'));
-       
+
        // $stock->update($request->all());
 
         //return $this->sendResponse($stock, 'Data User Diubah!');
@@ -142,7 +142,7 @@ class StockController extends BaseController
     {
         $stock = Stock::findOrFail($id);
         //dd($request->all());
-       
+
         $stock->update($request->all());
 
         return $this->sendResponse($stock, 'Data User Diubah!');
@@ -162,7 +162,7 @@ class StockController extends BaseController
 
         $stock->delete();
 
-        return $this->sendResponse($stock, 'File sudah dihapus!');
+        return $this->sendResponse($stock, 'Stock sudah dihapus!');
 
 
     }
@@ -171,7 +171,7 @@ class StockController extends BaseController
         //dd($request->all());
          $fromtgl = $request->fromtgl;
          $totgl     = $request->totgl;
-   
+
 
     $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
@@ -198,7 +198,7 @@ class StockController extends BaseController
             ->get();
         }
         //dd($stock);
-      
+
         return $this->sendResponse($stock, 'stock list');
     }
 }

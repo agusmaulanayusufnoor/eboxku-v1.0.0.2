@@ -843,7 +843,7 @@ import moment from 'moment';
                 this.stock = response.data.data;
                 this.editedItem.kantor_id = this.$kantor_id;
                 // this.form.fill
-                //console.log(this.stock);
+                console.log(this.stock);
                 //console.log(this.kantor_id)
                 }).catch((error)=>{
                 console.log(error.response.data);
@@ -990,7 +990,7 @@ import moment from 'moment';
 
                         // Send request to the server
                          if (result.value) {
-                                this.form.delete('api/stock/'+id).then(()=>{
+                                this.form.delete('api/stockctk/'+id).then(()=>{
                                         Swal.fire(
                                         'Dihapus!',
                                         'Data telah dihapus.',
