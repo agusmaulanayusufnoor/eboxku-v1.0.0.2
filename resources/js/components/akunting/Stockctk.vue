@@ -29,7 +29,7 @@
                 justify="center"
                 dense
                 class="elevation-3">
-                <template v-slot:footer.prepend>
+                <template v-slot:[footer.prepend]>
                   <v-btn
                     color="success"
                     dark
@@ -69,9 +69,9 @@
                     <v-spacer></v-spacer>
                     <v-row>
                       <v-col
-                      cols="12"
-                      sm="6"
-                      md="5"
+                      cols="7"
+                      sm="7"
+                      md="7"
                       >
                     <v-menu
                      ref="menu2"
@@ -84,9 +84,9 @@
                     >
                     <template v-slot:activator="{ on, attrs }">
                     <v-text-field
-                    v-model="fromTglText"
+                    v-model="periodeTglText"
                       single-line
-                      label="Dari Tanggal"
+                      label="Periode"
                       append-icon="mdi-calendar"
                       hide-details
                       v-bind="attrs"
@@ -94,44 +94,9 @@
                     ></v-text-field>
                     </template>
                     <v-date-picker
-                      v-model="fromTgl"
+                      v-model="periodeTgl"
+                      type="month"
                       @input="menu2 = false"
-                      elevation="15"
-                      year-icon="calendar-blank"
-                      locale="id-ID"
-                    >
-                    </v-date-picker>
-                    </v-menu>
-
-                      </v-col>
-                      <v-col
-                      cols="12"
-                      sm="6"
-                      md="5"
-                      >
-                    <v-menu
-                     ref="menu3"
-                     v-model="menu3"
-                     :close-on-content-click="false"
-                     :nudge-right="40"
-                     transition="scale-transition"
-                     offset-y
-                     min-width="auto"
-                    >
-                    <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                    v-model="toTglText"
-                      single-line
-                      label="Sampai Tanggal"
-                      append-icon="mdi-calendar"
-                      hide-details
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-text-field>
-                    </template>
-                    <v-date-picker
-                      v-model="toTgl"
-                      @input="menu3 = false"
                       elevation="15"
                       year-icon="calendar-blank"
                       locale="id-ID"
@@ -534,8 +499,7 @@ import moment from 'moment';
       editmode: false,
       dialog: false,
       dialogDelete: false,
-      fromTgl: '',
-      toTgl: '',
+      periodeTgl: '',
       filterFormTgl:'',
       date: new Date().toISOString().substr(0, 7),
 
@@ -673,13 +637,9 @@ import moment from 'moment';
             // }
             return headers
         },
-        fromTglText () {
+        periodeTglText () {
 
-        return this.fromTgl ? moment(this.fromTgl).format('DD/MM/YYYY') : '';
-        },
-        toTglText () {
-
-        return this.toTgl ? moment(this.toTgl).format('DD/MM/YYYY') : '';
+        return this.periodeTgl ? moment(this.periodeTgl).format('MMMM YYYY') : '';
         },
         periodeMomentJS () {
 
@@ -757,14 +717,12 @@ import moment from 'moment';
       filterTanggal(){
         this.$Progress.start();
             const formData = new FormData
-                formData.set('fromtgl', this.fromTglText);
-                formData.set('totgl', this.toTglText);
-      if(this.fromTglText !='' && this.toTglText != ''){
+                formData.set('periodetgl', this.periodeTglText);
+      if(this.periodeTglText !=''){
         if(this.$gate.isAdmin() || this.$gate.isAK() ){
-         axios.get("api/stock/filtertanggal",{
+         axios.get("api/stockctk/filtertanggal",{
             params: {
-              fromtgl: this.fromTglText,
-              totgl: this.toTglText
+              periodetgl: this.periodeTglText
             }
           })
             .then((response) => {

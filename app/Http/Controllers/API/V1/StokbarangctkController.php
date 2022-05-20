@@ -170,4 +170,40 @@ class StokbarangctkController extends BaseController
 
         return $this->sendResponse($barang, 'List Barang');
     }
+
+    public function filtertanggal(Request $request)
+    {
+        //dd($request->all());
+         $periodetgl = $request->periodetgl;
+
+    $id_kantor  = Auth::user()->kantor_id;
+        $levelLogin = Auth::user()->type;
+       // $stock=stock::all();
+       $stock= $this->stokbarangctk->latest()->get();
+        if($levelLogin === 'admin'){
+            $stock  = DB::table('stokbarangctk AS stock')
+            ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
+            ->where('periode',$periodetgl)
+            ->select('stock.id','stock.periode','stock.barang_id','stock.satuan_id','stock.harga_satuan',
+            'stock.stok_awal','stock.stok_masuk','stock.stok_keluar','stock.stok_akhir',
+            'stock.nom_awal','stock.nom_masuk','stock.nom_keluar','stock.nom_akhir',
+            'stock.keterangan','stock.kantor_id','kode_kantors.kode_kantor')
+            ->orderBy('periode')
+            ->get();
+        }else{
+            $stock  = DB::table('stock')
+            ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
+            ->where('kantor_id', $id_kantor)
+            ->where('periode',$periodetgl)
+            ->select('stock.id','stock.periode','stock.barang_id','stock.satuan_id','stock.harga_satuan',
+            'stock.stok_awal','stock.stok_masuk','stock.stok_keluar','stock.stok_akhir',
+            'stock.nom_awal','stock.nom_masuk','stock.nom_keluar','stock.nom_akhir',
+            'stock.keterangan','stock.kantor_id','kode_kantors.kode_kantor')
+            ->orderBy('periode')
+            ->get();
+        }
+        //dd($stock);
+
+        return $this->sendResponse($stock, 'stock list');
+    }
 }
