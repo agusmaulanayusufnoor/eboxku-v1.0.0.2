@@ -29,7 +29,7 @@
                 justify="center"
                 dense
                 class="elevation-3">
-                <template v-slot:[footer.prepend]>
+                <template v-slot:footer.prepend>
                   <v-btn
                     color="success"
                     dark
@@ -65,7 +65,28 @@
                     </vue-excel-xlsx>
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
+
                     <v-spacer></v-spacer>
+                     <v-row v-if="$gate.isAdmin()">
+                        <v-col
+                                cols="8"
+                                sm="8"
+                                md="8"
+                            >
+                                <v-combobox
+                                v-model="editedItem.barang_id"
+                                label="Kantor"
+                                :items="editedItem.namaBarang"
+                                item-value="id"
+                                item-text="namabarang"
+                                placeholder="Pilih Kantor"
+                                single-line
+                                hide-details
+                                :return-object="false"
+                                @click="getBarang()"
+                                ></v-combobox>
+                            </v-col>
+                    </v-row>
                     <v-spacer></v-spacer>
                     <v-row>
                       <v-col
@@ -610,10 +631,10 @@ import moment from 'moment';
                 sortable: false
                 },
 
-                { text: 'Sandi Kantor', value: 'kode_kantor',align: 'start', },
+                { text: 'Kantor', value: 'nama_kantor',align: 'start', },
                 { text: 'Periode', value: 'periode' },
-                { text: 'Nama Barang', value: 'barang_id' },
-                { text: 'Satuan', value: 'satuan_id' },
+                { text: 'Nama Barang', value: 'namabarang' },
+                { text: 'Satuan', value: 'namasatuan' },
                 { text: 'Harga Satuan', value: 'harga_satuan' },
 
                 { text: 'Stok Awal', value: 'stok_awal',align: 'center' },

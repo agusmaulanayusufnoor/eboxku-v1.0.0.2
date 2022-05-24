@@ -41,20 +41,26 @@ class StokbarangctkController extends BaseController
         if($levelLogin === 'admin'){
             $stock  = DB::table('stokbarangctk AS stock')
             ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
+            ->join('barang','stock.barang_id', '=', 'barang.id')
+            ->join('satuan','stock.satuan_id', '=', 'satuan.id')
             ->select('stock.id','stock.periode','stock.barang_id','stock.satuan_id','stock.harga_satuan',
             'stock.stok_awal','stock.stok_masuk','stock.stok_keluar','stock.stok_akhir',
             'stock.nom_awal','stock.nom_masuk','stock.nom_keluar','stock.nom_akhir',
-            'stock.keterangan','stock.kantor_id','kode_kantors.kode_kantor')
+            'stock.keterangan','stock.kantor_id',
+            'kode_kantors.kode_kantor','kode_kantors.nama_kantor','barang.namabarang','satuan.namasatuan')
             ->orderBy('stock.id','desc')
             ->get();
         }else{
             $stock  = DB::table('stokbarangctk AS stock')
             ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
+            ->join('barang','stock.barang_id', '=', 'barang.id')
+            ->join('satuan','stock.satuan_id', '=', 'satuan.id')
             ->where('kantor_id', $id_kantor)
             ->select('stock.id','stock.periode','stock.barang_id','stock.satuan_id','stock.harga_satuan',
             'stock.stok_awal','stock.stok_masuk','stock.stok_keluar','stock.stok_akhir',
             'stock.nom_awal','stock.nom_masuk','stock.nom_keluar','stock.nom_akhir',
-            'stock.keterangan','stock.kantor_id','kode_kantors.kode_kantor')
+            'stock.keterangan','stock.kantor_id',
+            'kode_kantors.kode_kantor','kode_kantors.nama_kantor','barang.namabarang','satuan.namasatuan')
             ->orderBy('stock.id','desc')
             ->get();
         }
@@ -183,22 +189,28 @@ class StokbarangctkController extends BaseController
         if($levelLogin === 'admin'){
             $stock  = DB::table('stokbarangctk AS stock')
             ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
+            ->join('barang','stock.barang_id', '=', 'barang.id')
+            ->join('satuan','stock.satuan_id', '=', 'satuan.id')
             ->where('periode',$periodetgl)
             ->select('stock.id','stock.periode','stock.barang_id','stock.satuan_id','stock.harga_satuan',
             'stock.stok_awal','stock.stok_masuk','stock.stok_keluar','stock.stok_akhir',
             'stock.nom_awal','stock.nom_masuk','stock.nom_keluar','stock.nom_akhir',
-            'stock.keterangan','stock.kantor_id','kode_kantors.kode_kantor')
+            'stock.keterangan','stock.kantor_id',
+            'kode_kantors.kode_kantor','kode_kantors.nama_kantor','barang.namabarang','satuan.namasatuan')
             ->orderBy('periode')
             ->get();
         }else{
-            $stock  = DB::table('stock')
+            $stock  = DB::table('stokbarangctk AS stock')
             ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
+            ->join('barang','stock.barang_id', '=', 'barang.id')
+            ->join('satuan','stock.satuan_id', '=', 'satuan.id')
             ->where('kantor_id', $id_kantor)
             ->where('periode',$periodetgl)
             ->select('stock.id','stock.periode','stock.barang_id','stock.satuan_id','stock.harga_satuan',
             'stock.stok_awal','stock.stok_masuk','stock.stok_keluar','stock.stok_akhir',
             'stock.nom_awal','stock.nom_masuk','stock.nom_keluar','stock.nom_akhir',
-            'stock.keterangan','stock.kantor_id','kode_kantors.kode_kantor')
+            'stock.keterangan','stock.kantor_id',
+            'kode_kantors.kode_kantor','kode_kantors.nama_kantor','barang.namabarang','satuan.namasatuan')
             ->orderBy('periode')
             ->get();
         }
