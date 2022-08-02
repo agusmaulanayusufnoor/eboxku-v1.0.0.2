@@ -94,7 +94,7 @@ class BarangController extends BaseController
         $this->authorize('isAdmin');
 
         $barang = Barang::findOrFail($id);
-        // delete the barang
+        // delete data barang
 
         $barang->delete();
 

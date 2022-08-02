@@ -65,9 +65,7 @@
                     </vue-excel-xlsx>
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
-
-                    <v-spacer></v-spacer>
-                     <v-row v-if="$gate.isAdmin()">
+                      <v-row v-if="$gate.isAdmin()">
                         <v-col
                                 cols="8"
                                 sm="8"
@@ -80,6 +78,27 @@
                                 item-value="id"
                                 item-text="namabarang"
                                 placeholder="Pilih Kantor"
+                                single-line
+                                hide-details
+                                :return-object="false"
+                                @click="getBarang()"
+                                ></v-combobox>
+                            </v-col>
+                    </v-row>
+                    <v-spacer></v-spacer>
+                     <v-row v-if="$gate.isAdmin()">
+                        <v-col
+                                cols="8"
+                                sm="8"
+                                md="8"
+                            >
+                                <v-combobox
+                                v-model="editedItem.barang_id"
+                                label="Barang"
+                                :items="editedItem.namaBarang"
+                                item-value="id"
+                                item-text="namabarang"
+                                placeholder="Pilih Barang"
                                 single-line
                                 hide-details
                                 :return-object="false"
@@ -786,6 +805,23 @@ import moment from 'moment';
                 .then((response) => {
 
                 this.editedItem.namaBarang = response.data.data
+
+                //console.log(this.editedItem.namaBarang);
+                //console.log(this.kantor_id)
+                }).catch((error)=>{
+                console.log(error.response.data);
+                  });
+            }
+      },
+      getKantor() {
+
+            if(this.$gate.isAdmin()){
+
+               //axios.get("api/user").then((response) => {(this.users = response.data.data)});
+             axios.get("api/stockctk/getkantor")
+                .then((response) => {
+
+                this.editedItem.namaKantor = response.data.data
 
                 //console.log(this.editedItem.namaBarang);
                 //console.log(this.kantor_id)

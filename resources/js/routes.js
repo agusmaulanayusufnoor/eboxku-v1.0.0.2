@@ -43,6 +43,7 @@ export default [
     { path: '/monitor', component: require('./components/skai/Monitor.vue').default },
     { path: '/periksa', component: require('./components/skai/Periksa.vue').default },
 
+    { path: '/kantor', component: require('./components/setting/Kantor.vue').default },
     { path: '/satuan', component: require('./components/setting/Satuan.vue').default },
     { path: '/barang', component: require('./components/setting/Barang.vue').default },
     { path: '*', component: require('./components/NotFound.vue').default }

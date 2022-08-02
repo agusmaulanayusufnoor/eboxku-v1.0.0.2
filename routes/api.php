@@ -77,6 +77,8 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('stock/filtertanggal', 'StockController@filtertanggal');
     Route::post('satuan/{stock}', 'SatuanController@updateData');
     Route::post('barang/{stock}', 'BarangController@updateData');
+    Route::post('kantor/{stock}', 'Kode_kantorController@updateData');
+    Route::get('stockctk/getkantor', 'Kode_kantorController@index');
     Route::get('stockctk/getbarang', 'BarangController@index');
     Route::get('stockctk/getsatuan', 'SatuanController@index');
     Route::get('stockctk/filtertanggal', 'StokbarangctkController@filtertanggal');
@@ -86,6 +88,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         //setting
         'satuan'      => 'SatuanController',
         'barang'      => 'BarangController',
+        'kantor'      => 'Kode_kantorController',
 
         'user'        => 'UserController',
         //pelayanan

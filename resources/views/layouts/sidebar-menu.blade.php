@@ -77,6 +77,14 @@
               </router-link>
             </li>
             <li class="nav-item">
+              <router-link to="/kantor" class="nav-link">
+                  <i class="nav-icon fas fa-building white"></i>
+                  <p>
+                      Kantor
+                  </p>
+              </router-link>
+            </li>
+            <li class="nav-item">
               <router-link to="/satuan" class="nav-link">
                   <i class="nav-icon fas fa-scale-balanced white"></i>
                   <p>
