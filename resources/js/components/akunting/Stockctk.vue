@@ -72,16 +72,16 @@
                                 md="8"
                             >
                                 <v-combobox
-                                v-model="editedItem.barang_id"
+                                v-model="editedItem.id_kantor"
                                 label="Kantor"
-                                :items="editedItem.namaBarang"
-                                item-value="id"
-                                item-text="namabarang"
+                                :items="editedItem.namaKantor"
+                                item-value="nama_kantor"
+                                item-text="nama_kantor"
                                 placeholder="Pilih Kantor"
                                 single-line
                                 hide-details
                                 :return-object="false"
-                                @click="getBarang()"
+                                @click="getKantor()"
                                 ></v-combobox>
                             </v-col>
                     </v-row>
@@ -597,6 +597,8 @@ import moment from 'moment';
       namaBarang:[],
       satuan_id: '',
       namaSatuan:[],
+      id_kantor: '',
+      namaKantor:[],
      },
       menu1: false,
       menu2: false,
@@ -815,7 +817,7 @@ import moment from 'moment';
       },
       getKantor() {
 
-            if(this.$gate.isAdmin()){
+            if(this.$gate.isAdmin() || this.$gate.isAK()){
 
                //axios.get("api/user").then((response) => {(this.users = response.data.data)});
              axios.get("api/stockctk/getkantor")
@@ -823,7 +825,7 @@ import moment from 'moment';
 
                 this.editedItem.namaKantor = response.data.data
 
-                //console.log(this.editedItem.namaBarang);
+                //console.log(this.editedItem.namaKantor);
                 //console.log(this.kantor_id)
                 }).catch((error)=>{
                 console.log(error.response.data);
