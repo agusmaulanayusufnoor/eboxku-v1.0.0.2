@@ -82,6 +82,8 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('stockctk/getbarang', 'BarangController@index');
     Route::get('stockctk/getsatuan', 'SatuanController@index');
     Route::get('stockctk/filtertanggal', 'StokbarangctkController@filtertanggal');
+    Route::get('stockctk/filterkantor', 'StokbarangctkController@filterkantor');
+    Route::get('stockctk/filterbarang', 'StokbarangctkController@filterbarang');
 
 
     Route::apiResources([

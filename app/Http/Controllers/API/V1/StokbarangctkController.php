@@ -218,4 +218,66 @@ class StokbarangctkController extends BaseController
 
         return $this->sendResponse($stock, 'stock list');
     }
+
+    public function filterkantor(Request $request)
+    {
+        //dd($request->all());
+         $kantor_id = $request->kantor_id;
+
+
+    $id_kantor  = Auth::user()->kantor_id;
+        $levelLogin = Auth::user()->type;
+       // $stock=stock::all();
+       $stock= $this->stokbarangctk->latest()->get();
+        if($levelLogin === 'admin'){
+
+            $stock  = DB::table('stokbarangctk AS stock')
+            ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
+            ->join('barang','stock.barang_id', '=', 'barang.id')
+            ->join('satuan','stock.satuan_id', '=', 'satuan.id')
+            ->where('kantor_id',$kantor_id)
+            ->select('stock.id','stock.periode','stock.barang_id','stock.satuan_id','stock.harga_satuan',
+            'stock.stok_awal','stock.stok_masuk','stock.stok_keluar','stock.stok_akhir',
+            'stock.nom_awal','stock.nom_masuk','stock.nom_keluar','stock.nom_akhir',
+            'stock.keterangan','stock.kantor_id',
+            'kode_kantors.kode_kantor','kode_kantors.nama_kantor','barang.namabarang','satuan.namasatuan')
+            ->orderBy('kantor_id')
+            ->get();
+
+        }
+        //dd($stock);
+
+        return $this->sendResponse($stock, 'stock list');
+    }
+
+    public function filterbarang(Request $request)
+    {
+        //dd($request->all());
+         $barang_id = $request->barang_id;
+
+
+    $id_kantor  = Auth::user()->kantor_id;
+        $levelLogin = Auth::user()->type;
+       // $stock=stock::all();
+       $stock= $this->stokbarangctk->latest()->get();
+        if($levelLogin === 'admin'){
+
+            $stock  = DB::table('stokbarangctk AS stock')
+            ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
+            ->join('barang','stock.barang_id', '=', 'barang.id')
+            ->join('satuan','stock.satuan_id', '=', 'satuan.id')
+            ->where('barang_id',$barang_id)
+            ->select('stock.id','stock.periode','stock.barang_id','stock.satuan_id','stock.harga_satuan',
+            'stock.stok_awal','stock.stok_masuk','stock.stok_keluar','stock.stok_akhir',
+            'stock.nom_awal','stock.nom_masuk','stock.nom_keluar','stock.nom_akhir',
+            'stock.keterangan','stock.kantor_id',
+            'kode_kantors.kode_kantor','kode_kantors.nama_kantor','barang.namabarang','satuan.namasatuan')
+            ->orderBy('barang_id')
+            ->get();
+
+        }
+        //dd($stock);
+
+        return $this->sendResponse($stock, 'stock list');
+    }
 }

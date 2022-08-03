@@ -75,12 +75,14 @@
                                 v-model="editedItem.id_kantor"
                                 label="Kantor"
                                 :items="editedItem.namaKantor"
-                                item-value="nama_kantor"
+                                item-value="id"
                                 item-text="nama_kantor"
                                 placeholder="Pilih Kantor"
                                 single-line
                                 hide-details
                                 :return-object="false"
+                                ref="CBKantor"
+                                @change="filterKantor()"
                                 @click="getKantor()"
                                 ></v-combobox>
                             </v-col>
@@ -102,6 +104,8 @@
                                 single-line
                                 hide-details
                                 :return-object="false"
+                                ref="CBBarang"
+                                @change="filterBarang()"
                                 @click="getBarang()"
                                 ></v-combobox>
                             </v-col>
@@ -131,6 +135,7 @@
                       hide-details
                       v-bind="attrs"
                       v-on="on"
+                      ref="tfPeriode"
                     ></v-text-field>
                     </template>
                     <v-date-picker
@@ -756,6 +761,90 @@ import moment from 'moment';
         const [year, month, day] = date.split('-')
         return `${day}/${month}/${year} ~ ${day}/${month}/${year}`
       },
+      filterKantor(){
+        this.$Progress.start();
+            const formData = new FormData
+                formData.set('kantor_id', this.editedItem.id_kantor);
+      if(this.editedItem.id_kantor !=''){
+        if(this.$gate.isAdmin() || this.$gate.isAK() ){
+         axios.get("api/stockctk/filterkantor",{
+            params: {
+              kantor_id: this.editedItem.id_kantor
+            }
+          })
+            .then((response) => {
+                this.stock = response.data.data;
+                this.editedItem.kantor_id = this.$kantor_id;
+                // this.form.fill
+                //console.log(this.stock);
+                //console.log(this.kantor_id)
+                }).catch((error)=>{
+                console.log(error.response.data);
+                  });
+        }
+      }else{
+        //Swal.fire("Gagal Filter", "Filter Tanggal Belum Dipilih...!", "warning");
+        Swal.fire({
+          icon: 'error',
+          title: 'Error Filter',
+          text: 'Filter Tanggal Belum Dipilih...! ',
+          width: 600,
+          padding: '3em',
+          color: '#ff0000',
+          background: '#ff0000 url(/images/kayu.jpg)',
+          backdrop: `
+            rgba(255,0,64,0.4)
+            url("/images/nyan-cat.gif")
+            left top
+            no-repeat
+          `
+        })
+      }
+
+        this.$Progress.finish();
+      },
+       filterBarang(){
+        this.$Progress.start();
+            const formData = new FormData
+                formData.set('barang_id', this.editedItem.barang_id);
+      if(this.editedItem.barang_id !=''){
+        if(this.$gate.isAdmin() || this.$gate.isAK() ){
+         axios.get("api/stockctk/filterbarang",{
+            params: {
+              barang_id: this.editedItem.barang_id
+            }
+          })
+            .then((response) => {
+                this.stock = response.data.data;
+                this.editedItem.kantor_id = this.$kantor_id;
+                // this.form.fill
+                //console.log(this.stock);
+                //console.log(this.kantor_id)
+                }).catch((error)=>{
+                console.log(error.response.data);
+                  });
+        }
+      }else{
+        //Swal.fire("Gagal Filter", "Filter Tanggal Belum Dipilih...!", "warning");
+        Swal.fire({
+          icon: 'error',
+          title: 'Error Filter',
+          text: 'Filter Tanggal Belum Dipilih...! ',
+          width: 600,
+          padding: '3em',
+          color: '#ff0000',
+          background: '#ff0000 url(/images/kayu.jpg)',
+          backdrop: `
+            rgba(255,0,64,0.4)
+            url("/images/nyan-cat.gif")
+            left top
+            no-repeat
+          `
+        })
+      }
+
+        this.$Progress.finish();
+      },
       filterTanggal(){
         this.$Progress.start();
             const formData = new FormData
@@ -865,8 +954,11 @@ import moment from 'moment';
                 }).catch((error)=>{
                 console.log(error.response.data);
                   });
-            }
 
+            }
+           this.$refs.CBKantor.reset();
+           this.$refs.CBBarang.reset();
+           this.$refs.tfPeriode.reset();
            this.$Progress.finish();
       },
       editModal(item){
