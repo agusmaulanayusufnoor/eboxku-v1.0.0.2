@@ -55,9 +55,9 @@
                  <vue-excel-xlsx
                         :data="stock"
                         :columns="columnsExcel"
-                        :file-name="'stockbarang'"
+                        :file-name="'stok_barang_cetak'"
                         :file-type="'xlsx'"
-                        :sheet-name="'stock'"
+                        :sheet-name="'stok'"
                         class="btn btn-success btn-sm"
                         >
                         <i class="fa-solid fa-file-excel"></i>
@@ -630,13 +630,22 @@ import moment from 'moment';
     }),
     columnsExcel : [
 
-                { label: 'Jenis Stok', field: 'jenis'},
-                { label: 'Sandi Kantor', field: 'kode_kantor',align: 'start', },
-                { label: 'Tanggal Stok', field: 'tanggal' },
-                { label: 'Stok Awal',field: 'stok_awal' },
+                { label: 'Kode Kantor', field: 'kode_kantor',align: 'start', },
+                { label: 'Kantor', field: 'nama_kantor' },
+                { label: 'Periode', field: 'periode' },
+                { label: 'Barang',field: 'barang_id' },
+                { label: 'Satuan', field: 'satuan_id' },
+                { label: 'Harga Satuan', field: 'harga_satuan' },
+                { label: 'Stok Awal', field: 'stok_awal' },
                 { label: 'Stok Masuk', field: 'stok_masuk' },
                 { label: 'Stok Keluar', field: 'stok_keluar' },
                 { label: 'Stok Akhir', field: 'stok_akhir' },
+                { label: 'Nominal Awal', field: 'nom_awal' },
+                { label: 'Nominal Masuk', field: 'nom_masuk' },
+                { label: 'Nominal Keluar', field: 'nom_keluar' },
+                { label: 'Nominal Akhir', field: 'nom_akhir' },
+                { label: 'Keterangan', field: 'keterangan' },
+
       ],
     json_meta: [
           [{
