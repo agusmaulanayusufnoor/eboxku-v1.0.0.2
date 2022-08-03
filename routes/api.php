@@ -84,6 +84,12 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('stockctk/filtertanggal', 'StokbarangctkController@filtertanggal');
     Route::get('stockctk/filterkantor', 'StokbarangctkController@filterkantor');
     Route::get('stockctk/filterbarang', 'StokbarangctkController@filterbarang');
+    Route::get('stockpromosi/getkantor', 'Kode_kantorController@index');
+    Route::get('stockpromosi/getbarang', 'BarangController@index');
+    Route::get('stockpromosi/getsatuan', 'SatuanController@index');
+    Route::get('stockpromosi/filtertanggal', 'StokbarangpromosiController@filtertanggal');
+    Route::get('stockpromosi/filterkantor', 'StokbarangpromosiController@filterkantor');
+    Route::get('stockpromosi/filterbarang', 'StokbarangpromosiController@filterbarang');
 
 
     Route::apiResources([
@@ -103,11 +109,12 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'kredit'      => 'KreditController',
 
         //akunting
-        'kaskecil'    => 'KaskecilController',
-        'overbooking' => 'OverbookingController',
-        'rekkoranaba' => 'RekkoranabaController',
-        'stock'       => 'StockController',
-        'stockctk'    => 'StokbarangctkController',
+        'kaskecil'      => 'KaskecilController',
+        'overbooking'   => 'OverbookingController',
+        'rekkoranaba'   => 'RekkoranabaController',
+        'stock'         => 'StockController',
+        'stockctk'      => 'StokbarangctkController',
+        'stockpromosi'  => 'StokbarangpromosiController',
 
         // umum pusat
         'skdir'       => 'SkdirController',

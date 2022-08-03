@@ -226,7 +226,7 @@
             <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                 <div class="modal-header primary">
-                    <h5 class="modal-title" v-show="!editmode" style="color:white;">Tambah Stok</h5>
+                    <h5 class="modal-title" v-show="!editmode" style="color:white;"><i class="nav-icon fas fa-cart-plus"></i> Tambah Stok</h5>
                     <h5 class="modal-title" v-show="editmode">Edit Stok</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -348,7 +348,7 @@
                                 required
                                 dense
                                 counter
-                                maxlength="7"
+                                maxlength="10"
                                 @keydown="pencetKeyboard($event)"
                                 ></v-text-field>
                             </v-col>
@@ -364,10 +364,9 @@
                                 required
                                 dense
                                 counter
-                                maxlength="6"
-                                type="number"
+                                maxlength="10"
                                 @keydown="pencetKeyboard($event)"
-                                @change="inputStokAkhir"
+                                @change="inputStokAwal"
                                 ></v-text-field>
                             </v-col>
                             <v-col cols="12" sm="3" md="3">
@@ -382,10 +381,9 @@
                                 required
                                 dense
                                 counter
-                                maxlength="6"
-                                type="number"
+                                maxlength="10"
                                 @keydown="pencetKeyboard($event)"
-                                @change="inputStokAkhir"
+                                @change="inputStokMasuk"
                                 ></v-text-field>
                             </v-col>
 
@@ -401,8 +399,7 @@
                                 required
                                 dense
                                 counter
-                                maxlength="6"
-                                type="number"
+                                maxlength="10"
                                 @keydown="pencetKeyboard($event)"
                                 @change="inputStokAkhir"
                                 ></v-text-field>
@@ -419,8 +416,7 @@
                                 dense
                                 readonly
                                 disabled
-                                maxlength="6"
-                                type="number"
+                                maxlength="10"
                                 @keydown="pencetKeyboard($event)"
                                 @change="inputStokAkhir"
                                 ></v-text-field>
@@ -438,9 +434,9 @@
                                 required
                                 dense
                                 counter
-                                maxlength="6"
+                                maxlength="10"
                                 @keydown="pencetKeyboard($event)"
-                                @change="inputNominalAkhir"
+                                @change="inputNominalAwal"
                                 ></v-text-field>
                             </v-col>
 
@@ -456,9 +452,9 @@
                                 required
                                 dense
                                 counter
-                                maxlength="6"
+                                maxlength="10"
                                 @keydown="pencetKeyboard($event)"
-                                @change="inputNominalAkhir"
+                                @change="inputNominalMasuk"
                                 ></v-text-field>
                             </v-col>
 
@@ -474,7 +470,7 @@
                                 required
                                 dense
                                 counter
-                                maxlength="6"
+                                maxlength="10"
                                 @keydown="pencetKeyboard($event)"
                                 @change="inputNominalAkhir"
                                 ></v-text-field>
@@ -492,7 +488,7 @@
                                 dense
                                 readonly
                                 disabled
-                                maxlength="6"
+                                maxlength="10"
                                 @keydown="pencetKeyboard($event)"
                                 @change="inputNominalAkhir"
                                 ></v-text-field>
@@ -502,12 +498,14 @@
                                 v-model="editedItem.keterangan"
                                 name="keterangan"
                                 label="Keterangan"
-                                placeholder="Keterangan"
                                 prepend-icon="mdi-note"
                                 outlined
-                                required
                                 dense
+                                hint="input spasi jika tidak ada keterangan"
+                                persistent-hint
+                                value=" "
                                 ></v-text-field>
+                           
                             </v-col>
 
                             </v-row>
@@ -580,7 +578,7 @@ import moment from 'moment';
           v => !!v || 'harus diisi angka',
         v => v>-1 || 'angka tidak boleh minus'
       ],
-      stok_akhir: 0,
+      //stok_akhir: 0,
       nom_awal: 0,
       nomAwalRules: [
 
@@ -596,8 +594,8 @@ import moment from 'moment';
 
         v => v>-1 || 'angka tidak boleh minus'
       ],
-      stok_akhir: '',
-      nom_akhir: '',
+      stok_akhir: 0,
+      nom_akhir: 0,
       barang_id: '',
       namaBarang:[],
       satuan_id: '',
@@ -633,18 +631,18 @@ import moment from 'moment';
                 { label: 'Kode Kantor', field: 'kode_kantor',align: 'start', },
                 { label: 'Kantor', field: 'nama_kantor' },
                 { label: 'Periode', field: 'periode' },
-                { label: 'Barang',field: 'barang_id' },
-                { label: 'Satuan', field: 'satuan_id' },
-                { label: 'Harga Satuan', field: 'harga_satuan' },
-                { label: 'Stok Awal', field: 'stok_awal' },
-                { label: 'Stok Masuk', field: 'stok_masuk' },
-                { label: 'Stok Keluar', field: 'stok_keluar' },
-                { label: 'Stok Akhir', field: 'stok_akhir' },
-                { label: 'Nominal Awal', field: 'nom_awal' },
-                { label: 'Nominal Masuk', field: 'nom_masuk' },
-                { label: 'Nominal Keluar', field: 'nom_keluar' },
-                { label: 'Nominal Akhir', field: 'nom_akhir' },
-                { label: 'Keterangan', field: 'keterangan' },
+                { label: 'NAMA BARANG',field: 'namabarang' },
+                { label: 'SATUAN', field: 'namasatuan' },
+                { label: 'HARGA SATUAN', field: 'harga_satuan' },
+                { label: 'STOK AWAL', field: 'stok_awal' },
+                { label: 'STOK MASUK', field: 'stok_masuk' },
+                { label: 'STOK KELUAR', field: 'stok_keluar' },
+                { label: 'STOK AKHIR', field: 'stok_akhir' },
+                { label: 'NOMINAL AWAL', field: 'nom_awal' },
+                { label: 'NOMINAL MASUK', field: 'nom_masuk' },
+                { label: 'NOMINAL KELUAR', field: 'nom_keluar' },
+                { label: 'NOMINAL AKHIR', field: 'nom_akhir' },
+                { label: 'KETERANGAN', field: 'keterangan' },
 
       ],
     json_meta: [
@@ -746,8 +744,20 @@ import moment from 'moment';
       }
 
     },
+    inputStokAwal() {
+      this.editedItem.stok_akhir = parseInt(this.editedItem.stok_awal);
+    },
+    inputStokMasuk() {
+      this.editedItem.stok_akhir = parseInt(this.editedItem.stok_awal)+parseInt(this.editedItem.stok_masuk);
+    },
     inputStokAkhir() {
       this.editedItem.stok_akhir = parseInt(this.editedItem.stok_awal)+parseInt(this.editedItem.stok_masuk)-parseInt(this.editedItem.stok_keluar);
+    },
+    inputNominalAwal() {
+      this.editedItem.nom_akhir = parseInt(this.editedItem.nom_awal);
+    },
+    inputNominalMasuk() {
+      this.editedItem.nom_akhir = parseInt(this.editedItem.nom_awal)+parseInt(this.editedItem.nom_masuk);
     },
     inputNominalAkhir() {
       this.editedItem.nom_akhir = parseInt(this.editedItem.nom_awal)+parseInt(this.editedItem.nom_masuk)-parseInt(this.editedItem.nom_keluar);
@@ -1041,12 +1051,12 @@ import moment from 'moment';
 
               })
               .catch((response)=>{
-                  //Swal.fire("Failed!", data.message, "warning");
-                  Toast.fire({
-                      icon: 'error',
-                      title: 'Gagal tambah stok, ulangi!'
-                      //title: response.message
-                  });
+                  Swal.fire("Failed!", data.message, "warning");
+                  // Toast.fire({
+                  //     icon: 'error',
+                  //     title: 'Gagal tambah stok, ulangi!'
+                  //     //title: response.message
+                  // });
               })
           },
 

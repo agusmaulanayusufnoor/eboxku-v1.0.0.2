@@ -18,6 +18,8 @@ export default [
     { path: '/rekkoranaba', component: require('./components/akunting/Rekkoranaba.vue').default },
     { path: '/stock', component: require('./components/akunting/Stock.vue').default },
     { path: '/stockctk', component: require('./components/akunting/Stockctk.vue').default },
+    { path: '/stockpromosi', component: require('./components/akunting/Stockpromosi.vue').default },
+
 
     { path: '/skdir', component: require('./components/umum/Skdir.vue').default },
     { path: '/sedir', component: require('./components/umum/Sedir.vue').default },

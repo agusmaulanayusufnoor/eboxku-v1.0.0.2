@@ -28,7 +28,7 @@ class CreateStokbarangctkTable extends Migration
             $table->bigInteger('nom_masuk');
             $table->bigInteger('nom_keluar');
             $table->bigInteger('nom_akhir');
-            $table->string('keterangan',100);
+            $table->string('keterangan',150)->nullable()->change();
             $table->timestamps();
         });
     }

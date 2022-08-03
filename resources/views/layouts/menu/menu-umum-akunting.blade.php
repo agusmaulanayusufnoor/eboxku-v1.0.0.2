@@ -44,7 +44,7 @@
       </li>
 
       <li class="nav-item">
-      <router-link to="/stockpromo" class="nav-link">
+      <router-link to="/stockpromosi" class="nav-link">
         <i class="nav-icon fas fa-database"></i>
           <p>Stok Barang Promosi</p>
         </a>
