@@ -33,7 +33,7 @@ export default class Gate{
     isSdm(){
         return this.user.type === 'sdm';
     }
-    
+
     isAdminOrUser(){
         if(this.user.type === 'sdm' || this.user.type === 'skai' || this.user.type === 'sekdir' || this.user.type === 'umumpst' || this.user.type === 'akunting' || this.user.type === 'kredit' || this.user.type === 'pelayanan' || this.user.type === 'user' || this.user.type === 'admin'){
             return true;
