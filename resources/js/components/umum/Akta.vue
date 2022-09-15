@@ -3,7 +3,7 @@
     <v-container fluid>
         <v-row no-gutters class="justify-content-md-center">
           <v-col cols="11">
-            <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isUM()">
+            <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isUM() || $gate.isSekdir()">
               <v-toolbar src="images/banner-yellow.jpg" color="yellow" dark shaped>
                 <v-toolbar-title>
                     File AKTA
@@ -81,7 +81,7 @@
           </v-col>
         </v-row>
 
-        <div v-if="!$gate.isAdmin() && !$gate.isUM()">
+        <div v-if="!$gate.isAdmin() && !$gate.isUM() && !$gate.isSekdir() ">
             <not-found></not-found>
         </div>
 
@@ -363,7 +363,7 @@
     methods: {
 
     async cekNorek (){
-      if(this.$gate.isAdmin() || this.$gate.isUM() ){
+      if(this.$gate.isAdmin() || this.$gate.isUM() || this.$gate.isSekdir() ){
         const formData = new FormData
         formData.set('no_akta', this.no_akta)
         //const response = await axios.get('api/akta/ceknama')
@@ -425,7 +425,7 @@
       initialize() {
          this.$Progress.start();
 
-            if(this.$gate.isAdmin() || this.$gate.isUM() ){
+            if(this.$gate.isAdmin() || this.$gate.isUM() || this.$gate.isSekdir() ){
 
              axios.get("api/akta")
                 .then((response) => {

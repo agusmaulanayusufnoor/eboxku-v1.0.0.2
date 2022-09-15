@@ -3,7 +3,7 @@
     <v-container fluid>
         <v-row no-gutters class="justify-content-md-center">
           <v-col cols="11">
-            <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isUM()">
+            <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isUM() || $gate.isSekdir()">
               <v-toolbar src="images/banner-yellow.jpg" color="yellow" dark shaped>
                 <v-toolbar-title>
                     File Asuransi
@@ -81,7 +81,7 @@
           </v-col>
         </v-row>
 
-        <div v-if="!$gate.isAdmin() && !$gate.isUM()">
+        <div v-if="!$gate.isAdmin() && !$gate.isUM() && !$gate.isSekdir()">
             <not-found></not-found>
         </div>
 
@@ -378,7 +378,7 @@
       initialize() {
          this.$Progress.start();
 
-            if(this.$gate.isAdmin() || this.$gate.isUM() ){
+            if(this.$gate.isAdmin() || this.$gate.isUM() || this.$gate.isSekdir()){
 
                //axios.get("api/user").then((response) => {(this.users = response.data.data)});
              axios.get("api/asuransi")
