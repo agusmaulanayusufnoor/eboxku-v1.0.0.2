@@ -42,6 +42,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::post('kredit/ceknorek', 'KreditController@ceknorek');
     Route::get('teller/download/{teller}', 'TellerController@downloadfile');
     Route::get('kaskecil/download/{kaskecil}', 'KaskecilController@downloadfile');
+    Route::get('kaskecil/getotorisator', 'OtorisatorController@index');
     Route::get('overbooking/download/{overbooking}', 'OverbookingController@downloadfile');
     Route::get('rekkoranaba/download/{rekkoranaba}', 'RekkoranabaController@downloadfile');
     Route::get('skdir/download/{skdir}', 'SkdirController@downloadfile');
@@ -77,6 +78,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('stock/filtertanggal', 'StockController@filtertanggal');
     Route::post('satuan/{stock}', 'SatuanController@updateData');
     Route::post('barang/{stock}', 'BarangController@updateData');
+    Route::post('otorisator/{stock}', 'OtorisatorController@updateData');
     Route::post('kantor/{stock}', 'Kode_kantorController@updateData');
     Route::get('stockctk/getkantor', 'Kode_kantorController@index');
     Route::get('stockctk/getbarang', 'BarangController@index');
@@ -96,6 +98,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         //setting
         'satuan'      => 'SatuanController',
         'barang'      => 'BarangController',
+        'otorisator'  => 'OtorisatorController',
         'kantor'      => 'Kode_kantorController',
 
         'user'        => 'UserController',

@@ -48,5 +48,6 @@ export default [
     { path: '/kantor', component: require('./components/setting/Kantor.vue').default },
     { path: '/satuan', component: require('./components/setting/Satuan.vue').default },
     { path: '/barang', component: require('./components/setting/Barang.vue').default },
+    { path: '/otorisator', component: require('./components/setting/Otorisator.vue').default },
     { path: '*', component: require('./components/NotFound.vue').default }
 ];

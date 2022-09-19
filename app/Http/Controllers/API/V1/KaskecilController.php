@@ -35,16 +35,18 @@ class KaskecilController extends BaseController
         if($levelLogin === 'admin'){
             $kaskecil  = DB::table('kaskecil')
             ->join('kode_kantors', 'kaskecil.kantor_id', '=', 'kode_kantors.id')
+            ->join('otorisator','kaskecil.otorisator_id', '=', 'otorisator.id')
             ->select('kaskecil.id','kaskecil.namafile','kaskecil.tanggal','kaskecil.file',
-            'kaskecil.kantor_id','kode_kantors.nama_kantor')
+            'kaskecil.kantor_id','kode_kantors.nama_kantor','otorisator.namaotorisator')
             ->orderBy('id','desc')
             ->get();
         }else{
             $kaskecil  = DB::table('kaskecil')
             ->join('kode_kantors', 'kaskecil.kantor_id', '=', 'kode_kantors.id')
+            ->join('otorisator','kaskecil.otorisator_id', '=', 'otorisator.id')
             ->where('kantor_id', $id_kantor)
             ->select('kaskecil.id','kaskecil.namafile','kaskecil.tanggal','kaskecil.file',
-            'kaskecil.kantor_id','kode_kantors.nama_kantor')
+            'kaskecil.kantor_id','kode_kantors.nama_kantor','otorisator.namaotorisator')
             ->orderBy('id','desc')
             ->get();
         }
@@ -88,6 +90,7 @@ class KaskecilController extends BaseController
             'kantor_id'     => $request->get('kantor_id'),
             'namafile'      => $request->get('namafile'),
             'tanggal'       => $date,
+            'otorisator_id' => $request->get('otorisator_id'),
             'file'          => $file,
         ]);
         $nm->move(public_path().'/file/kk', $file);

@@ -13,6 +13,7 @@ class Kaskecil extends Model
         'kantor_id',
         'namafile',
         'tanggal',
+        'otorisator_id',
         'file',
     ];
     public function kantor(){

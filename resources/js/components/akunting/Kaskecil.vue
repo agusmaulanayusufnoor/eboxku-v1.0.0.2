@@ -174,6 +174,27 @@
 
                                 </v-menu>
                             </v-col>
+                            <v-col
+                                cols="12"
+                                sm="12"
+                                md="12"
+                            >
+                                <v-combobox
+                                v-model="otorisator_id"
+                                label="Nama Otorisator"
+                                prepend-icon="nav-icon fas fa-user-secret"
+                                :items="namaOtorisator"
+                                item-value="id"
+                                item-text="namaotorisator"
+                                placeholder="Daftar Otorisator"
+                                outlined
+                                required
+                                dense
+                                :return-object="false"
+                                persistent-hint :error-messages="pesaneror"
+                                @click="getOtorisator()"
+                                ></v-combobox>
+                            </v-col>
                         </v-row>
                         </template>
                             <has-error :form="form" field="tanggal"></has-error>
@@ -266,11 +287,14 @@
 
     //     { text: 'Hapus', value: 'actions', sortable: false },
     //   ],
+     pesaneror:'',
      kaskecil:[],
+     namaOtorisator:[],
      valid:true,
         file: null,
         id : '',
         kantor_id: '',
+        otorisator_id: '',
         namafile: '',
         nameRules: [
         v => !!v || 'Nama file belum diisi',
@@ -312,6 +336,7 @@
                 value: 'namafile',
                 },
                 { text: 'Tanggal File', value: 'tanggal' },
+                { text: 'Otorisator', value: 'namaotorisator' },
       ]
             headers.push({ text: 'Download File', value: 'file', sortable: false,align: 'center' })
             if(this.$gate.isAdmin()){
@@ -376,6 +401,23 @@
         const [day, month,  year] = tanggal.split('/')
         return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
       },
+    getOtorisator() {
+
+        if(this.$gate.isAdmin() || this.$gate.isAK() ){
+
+        //axios.get("api/user").then((response) => {(this.users = response.data.data)});
+        axios.get("api/kaskecil/getotorisator")
+            .then((response) => {
+
+            this.namaOtorisator = response.data.data
+
+            //console.log(this.editedItem.namaBarang);
+            //console.log(this.kantor_id)
+            }).catch((error)=>{
+            console.log(error.response.data);
+            });
+        }
+    },
       initialize() {
          this.$Progress.start();
 
@@ -423,6 +465,7 @@
             formData.set('kantor_id', this.kantor_id)
             formData.set('namafile', this.namafile)
             formData.set('tanggal', this.tanggal)
+            formData.set('otorisator_id', this.otorisator_id)
             formData.set('file', this.file)
             // formData.append('file', this.file);
            // console.log(this.file);
