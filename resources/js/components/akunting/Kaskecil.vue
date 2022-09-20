@@ -316,6 +316,7 @@
         kantor_id: '',
         namafile: '',
         tanggal: '',
+        otorisator_id: '',
         file: '',
     }),
 

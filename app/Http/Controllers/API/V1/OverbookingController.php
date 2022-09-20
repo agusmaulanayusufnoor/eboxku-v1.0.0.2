@@ -34,16 +34,18 @@ class OverbookingController extends BaseController
         if($levelLogin === 'admin'){
             $overbooking  = DB::table('overbooking')
             ->join('kode_kantors', 'overbooking.kantor_id', '=', 'kode_kantors.id')
+            ->join('otorisator','overbooking.otorisator_id', '=', 'otorisator.id')
             ->select('overbooking.id','overbooking.namafile','overbooking.tanggal','overbooking.file',
-            'overbooking.kantor_id','kode_kantors.nama_kantor')
+            'overbooking.kantor_id','kode_kantors.nama_kantor','otorisator.namaotorisator')
             ->orderBy('id','desc')
             ->get();
         }else{
             $overbooking  = DB::table('overbooking')
             ->join('kode_kantors', 'overbooking.kantor_id', '=', 'kode_kantors.id')
+            ->join('otorisator','overbooking.otorisator_id', '=', 'otorisator.id')
             ->where('kantor_id', $id_kantor)
             ->select('overbooking.id','overbooking.namafile','overbooking.tanggal','overbooking.file',
-            'overbooking.kantor_id','kode_kantors.nama_kantor')
+            'overbooking.kantor_id','kode_kantors.nama_kantor','otorisator.namaotorisator')
             ->orderBy('id','desc')
             ->get();
         }
@@ -87,6 +89,7 @@ class OverbookingController extends BaseController
             'kantor_id'     => $request->get('kantor_id'),
             'namafile'      => $request->get('namafile'),
             'tanggal'       => $date,
+            'otorisator_id' => $request->get('otorisator_id'),
             'file'          => $file,
         ]);
         $nm->move(public_path().'/file/ob', $file);
