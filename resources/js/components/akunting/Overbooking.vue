@@ -418,7 +418,7 @@
             console.log(error.response.data);
             });
         }
-        },
+       },
       initialize() {
          this.$Progress.start();
 

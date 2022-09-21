@@ -41,6 +41,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('kredit/download/{kredit}', 'KreditController@downloadfile');
     Route::post('kredit/ceknorek', 'KreditController@ceknorek');
     Route::get('teller/download/{teller}', 'TellerController@downloadfile');
+    Route::get('teller/getotorisator', 'OtorisatorController@index');
     Route::get('kaskecil/download/{kaskecil}', 'KaskecilController@downloadfile');
     Route::get('kaskecil/getotorisator', 'OtorisatorController@index');
     Route::get('overbooking/download/{overbooking}', 'OverbookingController@downloadfile');

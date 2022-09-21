@@ -35,16 +35,18 @@ class TellerController extends BaseController
         if($levelLogin === 'admin'){
             $teller  = DB::table('teller')
             ->join('kode_kantors', 'teller.kantor_id', '=', 'kode_kantors.id')
+            ->join('otorisator','teller.otorisator_id', '=', 'otorisator.id')
             ->select('teller.id','teller.namafile','teller.tanggal','teller.file',
-            'teller.kantor_id','kode_kantors.nama_kantor')
+            'teller.kantor_id','kode_kantors.nama_kantor','otorisator.namaotorisator')
             ->orderBy('id','desc')
             ->get();
         }else{
             $teller  = DB::table('teller')
             ->join('kode_kantors', 'teller.kantor_id', '=', 'kode_kantors.id')
+            ->join('otorisator','teller.otorisator_id', '=', 'otorisator.id')
             ->where('kantor_id', $id_kantor)
             ->select('teller.id','teller.namafile','teller.tanggal','teller.file',
-            'teller.kantor_id','kode_kantors.nama_kantor')
+            'teller.kantor_id','kode_kantors.nama_kantor','otorisator.namaotorisator')
             ->orderBy('id','desc')
             ->get();
         }
@@ -87,6 +89,7 @@ class TellerController extends BaseController
             'kantor_id'     => $request->get('kantor_id'),
             'namafile'      => $request->get('namafile'),
             'tanggal'       => $date,
+            'otorisator_id' => $request->get('otorisator_id'),
             'file'          => $file,
         ]);
         $nm->move(public_path().'/file/teller', $file);
