@@ -404,7 +404,7 @@
       },
       getOtorisator() {
 
-        if(this.$gate.isAdmin() || this.$gate.isAK() ){
+        if(this.$gate.isAdmin() || this.$gate.isPelayanan() ){
 
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
         axios.get("api/teller/getotorisator")
