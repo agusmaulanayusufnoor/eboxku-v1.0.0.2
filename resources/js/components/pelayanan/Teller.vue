@@ -425,7 +425,7 @@
             if(this.$gate.isAdmin() || this.$gate.isPelayanan() ){
 
                //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-             axios.get("api/teller/getotorisator")
+             axios.get("api/teller")
                 .then((response) => {
                 this.teller = response.data.data;
                 this.kantor_id = this.$kantor_id;
