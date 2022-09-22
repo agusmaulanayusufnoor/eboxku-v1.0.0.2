@@ -407,7 +407,7 @@
         if(this.$gate.isAdmin() || this.$gate.isAK() ){
 
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/kaskecil/getotorisator")
+        axios.get("api/teller/getotorisator")
             .then((response) => {
 
             this.namaOtorisator = response.data.data

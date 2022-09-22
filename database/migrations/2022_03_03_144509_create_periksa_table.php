@@ -16,9 +16,9 @@ class CreatePeriksaTable extends Migration
         Schema::create('periksa', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kantor_id');
-            $table->string('namafile',100);
+            $table->string('namafile',200);
             $table->string('tanggal',30);
-            $table->string('file',100);
+            $table->string('file',200);
             $table->timestamps();
         });
     }

@@ -18,8 +18,8 @@ class CreateRekkoranabaTable extends Migration
             $table->foreignId('kantor_id');
             $table->string('no_rekening',25);
             $table->string('tanggal',20);
-            $table->string('namafile',100);
-            $table->string('file',100);
+            $table->string('namafile',200);
+            $table->string('file',200);
             $table->timestamps();
         });
     }

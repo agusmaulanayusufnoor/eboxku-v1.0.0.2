@@ -34,6 +34,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('category/list', 'CategoryController@list');
     Route::post('product/upload', 'ProductController@upload');
     Route::get('bakas/download/{baka}', 'BakasController@downloadfile');
+    Route::get('feedback/download/{feedback}', 'FeedbackController@downloadfile');
     Route::get('tabungan/download/{tabungan}', 'TabunganController@downloadfile');
     Route::post('tabungan/ceknorek', 'TabunganController@ceknorek');
     Route::get('deposito/download/{deposito}', 'DepositoController@downloadfile');
@@ -54,7 +55,6 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('akta/download/{akta}', 'AktaController@downloadfile');
     Route::post('akta/ceknorek', 'AktaController@ceknorek');
     Route::get('legal/download/{legal}', 'LegalController@downloadfile');
-    Route::post('legal/ceknorek', 'LegalController@ceknorek');
     Route::get('sertifikat/download/{sertifikat}', 'SertifController@downloadfile');
     Route::post('sertifikat/ceknorek', 'SertifController@ceknorek');
     Route::get('pk/download/{pk}', 'PkController@downloadfile');
@@ -106,6 +106,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'user'        => 'UserController',
         //pelayanan
         'bakas'       => 'BakasController',
+        'feedback'    => 'BakasController',
         'tabungan'    => 'TabunganController',
         'deposito'    => 'DepositoController',
         'teller'      => 'TellerController',
@@ -146,7 +147,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
 
         // skai
         'monitor'     => 'MonitorController',
-        'periksa'       => 'PeriksaController',
+        'periksa'     => 'PeriksaController',
 
 
     ]);

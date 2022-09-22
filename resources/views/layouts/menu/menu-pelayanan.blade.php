@@ -7,12 +7,18 @@
       </p>
     </a>
     <ul class="nav nav-treeview">
-      
+
 {{-- menu BA Kas --}}
       <li class="nav-item">
         <router-link to="/bakas" class="nav-link">
           <i class="nav-icon fa-regular fa-file-lines"></i>
           <p>File Berita Acara Kas</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <router-link to="/bakas" class="nav-link">
+          <i class="nav-icon fa-regular fa-comment-dots"></i>
+          <p>File Feedback Nasabah</p>
         </a>
       </li>
       {{-- menu tabungan --}}

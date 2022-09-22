@@ -6,6 +6,7 @@ export default [
     { path: '/users', component: require('./components/Users.vue').default },
 
     { path: '/bakas', component: require('./components/pelayanan/Bakas.vue').default },
+    { path: '/feedback', component: require('./components/pelayanan/Feedback.vue').default },
     { path: '/tabungan', component: require('./components/pelayanan/Tabungan.vue').default },
     { path: '/deposito', component: require('./components/pelayanan/Deposito.vue').default },
     { path: '/teller', component: require('./components/pelayanan/Teller.vue').default },
