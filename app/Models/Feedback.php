@@ -15,6 +15,7 @@ class Feedback extends Model
         'namafile',
         'tanggal',
         'file',
+        'view',
     ];
     public function kantor(){
         return $this->belongsTo(kode_kantor::class,'kantor_id');

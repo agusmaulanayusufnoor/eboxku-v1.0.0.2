@@ -7,7 +7,7 @@
               <v-toolbar src="images/banner-biru-pelayanan.jpg"
               color="rgb(39,154,187)" dark shaped>
                 <v-toolbar-title>
-                    File Berita Acara Kas
+                    File Feedback Nasabah
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
                   <v-btn small color="indigo" dark @click="newModal">
@@ -18,7 +18,7 @@
               <div class="card-body table-responsive p-0">
                 <v-data-table
                 :headers="headers"
-                :items="bakas"
+                :items="feedback"
                 :search="search"
                 justify="center"
                 dense
@@ -59,6 +59,37 @@
                     </v-card-actions>
                 </template>
 
+
+                <!-- tombol lihat gambar -->
+
+                <template v-slot:item.view="{ item }">
+                    <v-card-actions class="justify-center">
+                       <v-icon
+                            small
+                            color="blue"
+                            class="mr-4"
+                            @click="viewGambar()"
+                        >
+                            mdi-eye
+                        </v-icon>
+                    </v-card-actions>
+                     <!-- Modal view image -->
+        <div class="modal fade" id="viewImg" tabindex="-1" role="dialog" aria-labelledby="viewImg" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <!-- <v-img
+                            lazy-src="file\fb\img_feedback1.gambar survei.30092022.photo_2022-09-21_15-04-46.jpg"
+
+                            src="file\fb\img_feedback1.gambar survei.30092022.photo_2022-09-21_15-04-46.jpg"
+                            ></v-img>  -->
+                            <v-img v-bind:src="'file/fb/'+item.view"
+                            ></v-img>
+                            </div>
+                            </div>
+            </div>
+                </template>
+
+
                 <!-- tombol hapus -->
                 <template v-slot:item.actions="{ item }">
                 <v-icon
@@ -85,6 +116,8 @@
         <div v-if="!$gate.isAdmin() && !$gate.isPelayanan()">
             <not-found></not-found>
         </div>
+
+
 
   <!-- Modal -->
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNew" aria-hidden="true">
@@ -185,14 +218,14 @@
                                 :rules="fileRules"
                                 color="deep-purple accent-4"
                                 counter
-                                label="File input"
+                                label="Pilih Gambar"
                                 required
                                 placeholder="Ambil File"
                                 prepend-icon="mdi-paperclip"
                                 outlined
                                 dense
                                 show-size
-                                accept=".zip"
+                                accept=".jpg"
                             >
                                 <template v-slot:selection="{ index, text }">
                                 <v-chip
@@ -266,9 +299,11 @@
 
     //     { text: 'Hapus', value: 'actions', sortable: false },
     //   ],
-     bakas:[],
+     feedback:[],
      valid:true,
+     dialog:false,
         file: null,
+        view: null,
         id : '',
         kantor_id: '',
         namafile: '',
@@ -293,6 +328,7 @@
         namafile: '',
         tanggal: '',
         file: '',
+        view: '',
     }),
 
     }),
@@ -313,7 +349,8 @@
                 },
                 { text: 'Tanggal File', value: 'tanggal' },
       ]
-            headers.push({ text: 'Download File', value: 'file', sortable: false,align: 'center' })
+            headers.push({ text: 'Download', value: 'file', sortable: false,align: 'center' })
+            headers.push({ text: 'Lihat', value: 'view', sortable: false,align: 'center' })
             if(this.$gate.isAdmin()){
                 headers.push({ text: 'Hapus', value: 'actions', sortable: false })
             }
@@ -382,12 +419,12 @@
             if(this.$gate.isAdmin() || this.$gate.isPelayanan() ){
 
                //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-             axios.get("api/bakas")
+             axios.get("api/feedback")
                 .then((response) => {
-                this.bakas = response.data.data;
+                this.feedback = response.data.data;
                 this.kantor_id = this.$kantor_id;
                 // this.form.fill
-                //console.log(this.bakas);
+                //console.log(this.feedback);
                 //console.log(this.kantor_id)
                 });
             }
@@ -405,6 +442,9 @@
         $('#addNew').modal('show');
         this.$refs.form.reset()
         this.namafile = '';
+    },
+    viewGambar(){
+        $('#viewImg').modal('show');
     },
     // uploadFile(e){
     //         // `files` is always an array because the file input may be in multiple mode
@@ -424,9 +464,10 @@
             formData.set('namafile', this.namafile)
             formData.set('tanggal', this.tanggal)
             formData.set('file', this.file)
+            formData.set('view', this.file)
             // formData.append('file', this.file);
            // console.log(this.file);
-            axios.post('api/bakas',formData,config)
+            axios.post('api/feedback',formData,config)
               .then((response)=>{
                   $('#addNew').modal('hide');
 
@@ -450,7 +491,7 @@
           },
           downloadFile(id,file){
               axios({
-                  url:'api/bakas/download/'+id,
+                  url:'api/feedback/download/'+id,
                   method:'GET',
                   responseType:'blob'
               }).then((response) => {
@@ -458,7 +499,7 @@
                 var fileLink    = document.createElement('a')
                 fileLink.href   = fileUrl
 
-                fileLink.setAttribute('download','bakas.zip')
+                fileLink.setAttribute('download','feedback.jpg')
                 fileLink.download = file;
                 document.body.appendChild(fileLink)
 
@@ -471,7 +512,7 @@
           updateUser(){
                 this.$Progress.start();
                 // console.log('Editing data');
-                this.form.put('api/bakas/'+this.form.id)
+                this.form.put('api/feedback/'+this.form.id)
                 .then((response) => {
                     // success
                     $('#addNew').modal('hide');
@@ -501,7 +542,7 @@
 
                         // Send request to the server
                          if (result.value) {
-                                this.form.delete('api/bakas/'+id).then(()=>{
+                                this.form.delete('api/feedback/'+id).then(()=>{
                                         Swal.fire(
                                         'Dihapus!',
                                         'Data telah dihapus.',

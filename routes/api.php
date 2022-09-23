@@ -106,7 +106,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'user'        => 'UserController',
         //pelayanan
         'bakas'       => 'BakasController',
-        'feedback'    => 'BakasController',
+        'feedback'    => 'FeedbackController',
         'tabungan'    => 'TabunganController',
         'deposito'    => 'DepositoController',
         'teller'      => 'TellerController',

@@ -16,7 +16,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <router-link to="/bakas" class="nav-link">
+        <router-link to="/feedback" class="nav-link">
           <i class="nav-icon fa-regular fa-comment-dots"></i>
           <p>File Feedback Nasabah</p>
         </a>
