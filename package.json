@@ -33,6 +33,8 @@
         "@johmun/vue-tags-input": "^2.1.0",
         "admin-lte": "^3.1.0",
         "admin-lte-scss-only": "^3.1.0",
+        "babel-plugin-dynamic-import-webpack": "^1.1.0",
+        "babel-plugin-syntax-dynamic-import": "^6.18.0",
         "laravel-vue-pagination": "^2.3.1",
         "moment": "^2.29.1",
         "sweetalert2": "^11.4.4",

@@ -57,6 +57,7 @@ Vue.component(AlertError.name, AlertError)
 /**
  * Routes imports and assigning
  */
+import {createRouter, createWebHistory} from 'vue-router';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 import routes from './routes';
