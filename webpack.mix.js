@@ -35,6 +35,6 @@ mix.config.webpackConfig.output = {
     publicPath: '/',
 };
 
-mix.js('resources/js/app.js', 'public/js').sourceMaps(productionSourceMaps, 'eval-source-map')
+mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
    .version();
