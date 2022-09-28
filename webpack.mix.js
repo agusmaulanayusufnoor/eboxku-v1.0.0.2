@@ -29,11 +29,12 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css').sourceMaps()
     .js('node_modules/popper.js/dist/popper.js', 'public/js').sourceMaps();
 */
+let productionSourceMaps = false;
 mix.config.webpackConfig.output = {
     chunkFilename: 'js/[name].koplox.js',
     publicPath: '/',
 };
 
-mix.js('resources/js/app.js', 'public/js').sourceMaps()
-   .sass('resources/sass/app.scss', 'public/css').sourceMaps()
+mix.js('resources/js/app.js', 'public/js').sourceMaps(productionSourceMaps, 'eval-source-map')
+   .sass('resources/sass/app.scss', 'public/css')
    .version();
