@@ -8,7 +8,458 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  data: function data() {\n    return {\n      // props: [\"nama_kantor\"],\n      csrf: document.querySelector('meta[name=\"csrf-token\"]').getAttribute('content'),\n      editmode: false,\n      dialog: false,\n      dialogDelete: false,\n      search: '',\n      snack: false,\n      multiLine: true,\n      snackColor: '',\n      snackText: '',\n      max100chars: function max100chars(v) {\n        return v.length <= 100 || 'Input too long!';\n      },\n      kantor: [],\n      editedIndex: -1,\n      editedItem: {\n        id: '',\n        nama_kantor: '',\n        nama_kantorEdit: '',\n        kantorRules: [function (v) {\n          return !!v || 'Nama kantor belum diisi';\n        }],\n        kodeRules: [function (v) {\n          return !!v || 'kode kantor belum diisi';\n        }]\n      },\n      valid: true,\n      kantor_id: '',\n      form: new Form({\n        id: '',\n        kode_kantor: '',\n        kode_kantor_slik: '',\n        nama_kantor: ''\n      })\n    };\n  },\n  computed: {\n    headers: function headers() {\n      var headers = [{\n        text: 'No',\n        value: 'index',\n        align: 'center',\n        sortable: false\n      }, {\n        text: 'kode kantor',\n        value: 'kode_kantor'\n      }, {\n        text: 'kantor',\n        value: 'nama_kantor'\n      }];\n\n      if (this.$gate.isAdmin()) {\n        headers.push({\n          text: 'Hapus',\n          value: 'actions',\n          sortable: false\n        });\n      }\n\n      return headers;\n    },\n    formTitle: function formTitle() {\n      return this.editedIndex === -1 ? 'New Item' : 'Edit Item';\n    }\n  },\n  created: function created() {\n    this.$Progress.start();\n    this.initialize();\n    this.$Progress.finish();\n  },\n  methods: {\n    save: function save() {\n      this.snack = true;\n      this.snackColor = 'success';\n      this.snackText = 'Data disimpan';\n      this.updateUser();\n    },\n    cancel: function cancel() {\n      this.snack = true;\n      this.snackColor = 'error';\n      this.snackText = 'Dibatalkan';\n    },\n    open: function open(item) {\n      this.snack = true;\n      this.snackColor = 'info';\n      this.snackText = 'Enter = Simpan';\n      this.editedItem.id = item.id;\n      this.editedItem.nama_kantor = item.nama_kantor; //console.log(this.item.nama_kantor);\n      //alert(this.item.id)\n    },\n    close: function close() {\n      console.log('Dialog closed');\n    },\n    pencetKeyboard: function pencetKeyboard(evt) {\n      evt = evt ? evt : window.event;\n      var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul\n      //if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {\n      //tidak boleh tombol '/' dan '\\'\n\n      if (charCode === 191 || charCode === 220) {\n        evt.preventDefault();\n        ;\n      } else {\n        return true;\n      }\n    },\n    initialize: function initialize() {\n      var _this = this;\n\n      this.$Progress.start();\n\n      if (this.$gate.isAdmin()) {\n        //axios.get(\"api/user\").then((response) => {(this.users = response.data.data)});\n        axios.get(\"api/kantor\").then(function (response) {\n          _this.kantor = response.data.data; // this.kantor_id = this.$kantor_id;\n          // this.form.fill\n          //console.log(this.kantor);\n          //console.log(this.kantor_id)\n        });\n      }\n\n      this.$Progress.finish();\n    },\n    editkantor: function editkantor(item) {\n      this.editedIndex = this.kantor.indexOf(item);\n      this.item.id = item.id;\n      this.item.nama_kantor = item.nama_kantor;\n      console.log(this.item.id); //alert(this.item.id)\n    },\n    newModal: function newModal() {\n      this.editmode = false;\n      $('#addNew').modal('show');\n      this.$refs.form.reset();\n      this.editedItem.nama_kantor = '';\n    },\n    createUser: function createUser() {\n      var _this2 = this;\n\n      this.$refs.form.validate();\n      this.$Progress.start(); // e.preventDefault();\n\n      var config = {\n        headers: {\n          'content-type': 'multipart/form-data'\n        }\n      }; // //this.append('file', this.file);\n\n      var formData = new FormData();\n      formData.set('kode_kantor', this.editedItem.kode_kantor);\n      formData.set('kode_kantor_slik', this.editedItem.kode_kantor_slik);\n      formData.set('nama_kantor', this.editedItem.nama_kantor);\n      axios.post('api/kantor', formData, config).then(function (response) {\n        $('#addNew').modal('hide'); //  console.log(this.nama_kantor);\n\n        Toast.fire({\n          icon: 'success',\n          title: response.data.message\n        });\n\n        _this2.$Progress.finish();\n\n        _this2.initialize();\n      })[\"catch\"](function (response) {\n        //Swal.fire(\"Failed!\", data.message, \"warning\");\n        Toast.fire({\n          icon: 'error',\n          title: 'Gagal tambah kantor, ulangi!' //title: response.message\n\n        });\n      });\n    },\n    updateUser: function updateUser() {\n      var _this3 = this;\n\n      var config = {\n        headers: {\n          'accept': 'application/json',\n          'Accept-Language': 'en-US,en;q=0.8',\n          'content-type': 'multipart/form-data'\n        } // headers: {'X-Custom-Header': 'value'}\n\n      };\n      this.$Progress.start(); //alert(this.editedItem.nama_kantor);\n\n      var formData = new FormData();\n      formData.set('nama_kantor', this.editedItem.nama_kantor);\n      formData.append(\"_method\", \"PUT\");\n      axios.post('api/kantor/' + this.editedItem.id, formData).then(function (response) {\n        // success\n        $('#addNew').modal('hide');\n        Toast.fire({\n          icon: 'success',\n          title: response.data.message\n        });\n\n        _this3.$Progress.finish(); //  Fire.$emit('AfterCreate');\n\n\n        _this3.initialize();\n      })[\"catch\"](function () {\n        _this3.$Progress.fail();\n      });\n    },\n    deleteUser: function deleteUser(id) {\n      var _this4 = this;\n\n      Swal.fire({\n        title: 'Yakin dihapus?',\n        text: \"Jika dihapus data hilang!\",\n        showCancelButton: true,\n        confirmButtonColor: '#d33',\n        cancelButtonColor: '#3085d6',\n        confirmButtonText: 'Ya, Hapus!'\n      }).then(function (result) {\n        // Send request to the server\n        if (result.value) {\n          _this4.form[\"delete\"]('api/kantor/' + id).then(function () {\n            Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');\n\n            _this4.initialize();\n          })[\"catch\"](function (data) {\n            Swal.fire(\"Failed!\", data.message, \"warning\");\n          });\n        }\n      });\n    }\n  }\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vcmVzb3VyY2VzL2pzL2NvbXBvbmVudHMvc2V0dGluZy9LYW50b3IudnVlPzYzMDAiXSwibmFtZXMiOlsiZGF0YSIsImNzcmYiLCJlZGl0bW9kZSIsImRpYWxvZyIsImRpYWxvZ0RlbGV0ZSIsInNlYXJjaCIsInNuYWNrIiwibXVsdGlMaW5lIiwic25hY2tDb2xvciIsInNuYWNrVGV4dCIsIm1heDEwMGNoYXJzIiwia2FudG9yIiwiZWRpdGVkSW5kZXgiLCJlZGl0ZWRJdGVtIiwiaWQiLCJuYW1hX2thbnRvciIsIm5hbWFfa2FudG9yRWRpdCIsImthbnRvclJ1bGVzIiwia29kZVJ1bGVzIiwidmFsaWQiLCJrYW50b3JfaWQiLCJmb3JtIiwia29kZV9rYW50b3IiLCJrb2RlX2thbnRvcl9zbGlrIiwiY29tcHV0ZWQiLCJoZWFkZXJzIiwidGV4dCIsInZhbHVlIiwiYWxpZ24iLCJzb3J0YWJsZSIsImZvcm1UaXRsZSIsImNyZWF0ZWQiLCJtZXRob2RzIiwic2F2ZSIsImNhbmNlbCIsIm9wZW4iLCJpdGVtIiwiY2xvc2UiLCJjb25zb2xlIiwicGVuY2V0S2V5Ym9hcmQiLCJldnQiLCJpbml0aWFsaXplIiwiYXhpb3MiLCJ0aGVuIiwiZWRpdGthbnRvciIsIm5ld01vZGFsIiwiJCIsImNyZWF0ZVVzZXIiLCJmb3JtRGF0YSIsIlRvYXN0IiwiaWNvbiIsInRpdGxlIiwidXBkYXRlVXNlciIsImRlbGV0ZVVzZXIiLCJTd2FsIiwic2hvd0NhbmNlbEJ1dHRvbiIsImNvbmZpcm1CdXR0b25Db2xvciIsImNhbmNlbEJ1dHRvbkNvbG9yIiwiY29uZmlybUJ1dHRvblRleHQiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBOE5BO0FBRUFBO0FBQUE7QUFDQTtBQUNBQyxxRkFGQTtBQUdBQyxxQkFIQTtBQUlBQyxtQkFKQTtBQUtBQyx5QkFMQTtBQU1BQyxnQkFOQTtBQU9BQyxrQkFQQTtBQVFBQyxxQkFSQTtBQVNBQyxvQkFUQTtBQVVBQyxtQkFWQTtBQVdBQztBQUFBO0FBQUEsT0FYQTtBQVlBQyxnQkFaQTtBQWFBQyxxQkFiQTtBQWNBQztBQUNBQyxjQURBO0FBRUFDLHVCQUZBO0FBR0FDLDJCQUhBO0FBSUFDLHNCQUNBO0FBQUE7QUFBQSxTQURBLENBSkE7QUFPQUMsb0JBQ0E7QUFBQTtBQUFBLFNBREE7QUFQQSxPQWRBO0FBMEJBQyxpQkExQkE7QUE0QkFDLG1CQTVCQTtBQThCQUM7QUFDQVAsY0FEQTtBQUVBUSx1QkFGQTtBQUdBQyw0QkFIQTtBQUlBUjtBQUpBO0FBOUJBO0FBQUEsR0FGQTtBQXlDQVM7QUFDQUMsV0FEQSxxQkFDQTtBQUNBLHFCQUNBO0FBQ0FDLGtCQURBO0FBRUFDLHNCQUZBO0FBR0FDLHVCQUhBO0FBSUFDO0FBSkEsT0FEQSxFQU9BO0FBQ0FILDJCQURBO0FBRUFDO0FBRkEsT0FQQSxFQVdBO0FBQ0FELHNCQURBO0FBRUFDO0FBRkEsT0FYQTs7QUFrQkE7QUFDQUY7QUFBQUM7QUFBQUM7QUFBQUU7QUFBQTtBQUNBOztBQUNBO0FBQ0EsS0F4QkE7QUEwQkFDLGFBMUJBLHVCQTBCQTtBQUNBO0FBQ0E7QUE1QkEsR0F6Q0E7QUF5RUFDLFNBekVBLHFCQXlFQTtBQUNBO0FBRUE7QUFDQTtBQUNBLEdBOUVBO0FBZ0ZBQztBQUNBQyxRQURBLGtCQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxLQU5BO0FBT0FDLFVBUEEsb0JBT0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxLQVhBO0FBWUFDLFFBWkEsZ0JBWUFDLElBWkEsRUFZQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EscURBTEEsQ0FPQTtBQUNBO0FBQ0EsS0FyQkE7QUFzQkFDLFNBdEJBLG1CQXNCQTtBQUNBQztBQUNBLEtBeEJBO0FBeUJBQztBQUNBQztBQUNBLHlEQUZBLENBR0E7QUFDQTtBQUNBOztBQUNBO0FBQ0FBO0FBQUE7QUFDQSxPQUZBLE1BRUE7QUFDQTtBQUNBO0FBQ0EsS0FwQ0E7QUFzQ0FDLGNBdENBLHdCQXNDQTtBQUFBOztBQUNBOztBQUVBO0FBRUE7QUFDQUMsZ0NBQ0FDLElBREEsQ0FDQTtBQUNBLDRDQURBLENBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQSxTQVBBO0FBUUE7O0FBRUE7QUFDQSxLQXZEQTtBQXdEQUMsY0F4REEsc0JBd0RBUixJQXhEQSxFQXdEQTtBQUVBO0FBQ0E7QUFDQTtBQUVBRSxnQ0FOQSxDQU9BO0FBQ0EsS0FoRUE7QUFpRUFPLFlBakVBLHNCQWlFQTtBQUNBO0FBQ0FDO0FBQ0E7QUFDQTtBQUNBLEtBdEVBO0FBd0VBQyxjQXhFQSx3QkF3RUE7QUFBQTs7QUFDQTtBQUNBLDZCQUZBLENBR0E7O0FBQ0E7QUFDQXRCO0FBQUE7QUFBQTtBQURBLFFBSkEsQ0FPQTs7QUFDQTtBQUNBdUI7QUFDQUE7QUFDQUE7QUFFQU4saURBQ0FDLElBREEsQ0FDQTtBQUNBRyxtQ0FEQSxDQUVBOztBQUNBRztBQUNBQyx5QkFEQTtBQUVBQztBQUZBOztBQUtBOztBQUNBO0FBRUEsT0FaQSxXQWFBO0FBQ0E7QUFDQUY7QUFDQUMsdUJBREE7QUFFQUMsK0NBRkEsQ0FHQTs7QUFIQTtBQUtBLE9BcEJBO0FBcUJBLEtBMUdBO0FBNEdBQyxjQTVHQSx3QkE0R0E7QUFBQTs7QUFDQTtBQUNBM0I7QUFDQSxzQ0FEQTtBQUVBLDZDQUZBO0FBR0E7QUFIQSxTQURBLENBTUE7O0FBTkE7QUFTQSw2QkFWQSxDQVdBOztBQUNBO0FBQ0F1QjtBQUNBQTtBQUNBTiwrREFDQUMsSUFEQSxDQUNBO0FBQ0E7QUFDQUc7QUFDQUc7QUFDQUMseUJBREE7QUFFQUM7QUFGQTs7QUFJQSxrQ0FQQSxDQVFBOzs7QUFFQTtBQUNBLE9BWkEsV0FhQTtBQUNBO0FBQ0EsT0FmQTtBQWlCQSxLQTVJQTtBQTZJQUUsY0E3SUEsc0JBNklBdkMsRUE3SUEsRUE2SUE7QUFBQTs7QUFDQXdDO0FBQ0FILCtCQURBO0FBRUF6Qix5Q0FGQTtBQUdBNkIsOEJBSEE7QUFJQUMsa0NBSkE7QUFLQUMsb0NBTEE7QUFNQUM7QUFOQSxTQU9BZixJQVBBLENBT0E7QUFFQTtBQUNBO0FBQ0E7QUFDQVcsc0JBQ0EsVUFEQSxFQUVBLHFCQUZBLEVBR0EsU0FIQSxFQURBLENBTUE7O0FBQ0E7QUFDQSxXQVJBLFdBUUE7QUFDQUE7QUFDQSxXQVZBO0FBV0E7QUFDQSxPQXZCQTtBQXdCQTtBQXRLQTtBQWhGQSIsImZpbGUiOiIuL25vZGVfbW9kdWxlcy9iYWJlbC1sb2FkZXIvbGliL2luZGV4LmpzPyEuL25vZGVfbW9kdWxlcy92dWUtbG9hZGVyL2xpYi9pbmRleC5qcz8hLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9zZXR0aW5nL0thbnRvci52dWU/dnVlJnR5cGU9c2NyaXB0Jmxhbmc9anMmLmpzIiwic291cmNlc0NvbnRlbnQiOlsiPHRlbXBsYXRlPlxyXG48di1hcHA+XHJcbiAgICA8di1jb250YWluZXIgZmx1aWQ+XHJcbiAgICAgICAgPHYtcm93IG5vLWd1dHRlcnMgY2xhc3M9XCJqdXN0aWZ5LWNvbnRlbnQtbWQtY2VudGVyXCI+XHJcbiAgICAgICAgICA8di1jb2wgY29scz1cIjdcIj5cclxuICAgICAgICAgICAgPHYtY2FyZCBjbGFzcz1cInBhLTIgbXgtYXV0b1wiIHYtaWY9XCIkZ2F0ZS5pc0FkbWluKClcIj5cclxuICAgICAgICAgICAgICA8di10b29sYmFyIGNvbG9yPVwiZ3JlZW4gbGlnaHRlbi0xXCIgZGFyayBzaGFwZWQ+XHJcbiAgICAgICAgICAgICAgICA8di10b29sYmFyLXRpdGxlPlxyXG4gICAgICAgICAgICAgICAgICAgIE1hc3RlciBLYW50b3JcclxuICAgICAgICAgICAgICAgIDwvdi10b29sYmFyLXRpdGxlPlxyXG4gICAgICAgICAgICAgICAgPHYtc3BhY2VyPjwvdi1zcGFjZXI+XHJcbiAgICAgICAgICAgICAgICAgIDx2LWJ0biBzbWFsbCBjb2xvcj1cImluZGlnb1wiIGRhcmsgQGNsaWNrPVwibmV3TW9kYWxcIj5cclxuICAgICAgICAgICAgICAgICAgICAgPHYtaWNvbj5tZGktcGx1cy1ib3g8L3YtaWNvbj4gVGFtYmFoXHJcbiAgICAgICAgICAgICAgICAgIDwvdi1idG4+XHJcbiAgICAgICAgICAgICAgPC92LXRvb2xiYXI+XHJcbiAgICAgICAgICAgICAgPCEtLSAvLmNhcmQtaGVhZGVyIC0tPlxyXG4gICAgICAgICAgICAgIDxkaXYgY2xhc3M9XCJjYXJkLWJvZHkgdGFibGUtcmVzcG9uc2l2ZSBwLTBcIj5cclxuICAgICAgICAgICAgICAgIDx2LWRhdGEtdGFibGVcclxuICAgICAgICAgICAgICAgIDpoZWFkZXJzPVwiaGVhZGVyc1wiXHJcbiAgICAgICAgICAgICAgICA6aXRlbXM9XCJrYW50b3JcIlxyXG4gICAgICAgICAgICAgICAgOnNlYXJjaD1cInNlYXJjaFwiXHJcbiAgICAgICAgICAgICAgICBqdXN0aWZ5PVwiY2VudGVyXCJcclxuICAgICAgICAgICAgICAgIGRlbnNlXHJcbiAgICAgICAgICAgICAgICBjbGFzcz1cImVsZXZhdGlvbi0zXCI+XHJcblxyXG4gICAgICAgICAgICAgICAgPHRlbXBsYXRlIHYtc2xvdDppdGVtLmluZGV4PVwieyBpbmRleCB9XCI+XHJcbiAgICAgICAgICAgICAgICAgICAge3sgaW5kZXggKyAxIH19XHJcbiAgICAgICAgICAgICAgICA8L3RlbXBsYXRlPlxyXG5cclxuICAgICAgICAgICAgICAgIDx0ZW1wbGF0ZSB2LXNsb3Q6dG9wPlxyXG4gICAgICAgICAgICAgICAgPHYtdG9vbGJhciBmbGF0ID5cclxuICAgICAgICAgICAgICAgICAgICA8di1zcGFjZXI+PC92LXNwYWNlcj5cclxuICAgICAgICAgICAgICAgICAgICA8di1zcGFjZXI+PC92LXNwYWNlcj5cclxuICAgICAgICAgICAgICAgICAgICA8di1zcGFjZXI+PC92LXNwYWNlcj5cclxuICAgICAgICAgICAgICAgICAgICA8di1zcGFjZXI+PC92LXNwYWNlcj5cclxuICAgICAgICAgICAgICAgICAgICA8di10ZXh0LWZpZWxkXHJcbiAgICAgICAgICAgICAgICAgICAgdi1tb2RlbD1cInNlYXJjaFwiXHJcbiAgICAgICAgICAgICAgICAgICAgYXBwZW5kLWljb249XCJtZGktbWFnbmlmeVwiXHJcbiAgICAgICAgICAgICAgICAgICAgbGFiZWw9XCJDYXJpIGthbnRvclwiXHJcbiAgICAgICAgICAgICAgICAgICAgc2luZ2xlLWxpbmVcclxuICAgICAgICAgICAgICAgICAgICBoaWRlLWRldGFpbHNcclxuICAgICAgICAgICAgICAgICAgICBsb2FkaW5nPVwiZ3JleVwiXHJcbiAgICAgICAgICAgICAgICA+PC92LXRleHQtZmllbGQ+XHJcbiAgICAgICAgICAgICAgICA8L3YtdG9vbGJhcj5cclxuICAgICAgICAgICAgICAgIDwvdGVtcGxhdGU+XHJcblxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgPCEtLSB0b21ib2wgaGFwdXMgLS0+XHJcbiAgICAgICAgICAgICAgICA8dGVtcGxhdGUgdi1zbG90Oml0ZW0uYWN0aW9ucz1cInsgaXRlbSB9XCI+XHJcbiAgICAgICAgICAgICAgICA8di1pY29uXHJcbiAgICAgICAgICAgICAgICAgICAgc21hbGxcclxuICAgICAgICAgICAgICAgICAgICBjbGFzcz1cIm1yLTRcIlxyXG4gICAgICAgICAgICAgICAgICAgIGNvbG9yPVwicmVkXCJcclxuICAgICAgICAgICAgICAgICAgICByaWdodFxyXG4gICAgICAgICAgICAgICAgICAgIEBjbGljaz1cImRlbGV0ZVVzZXIoaXRlbS5pZClcIlxyXG4gICAgICAgICAgICAgICAgPlxyXG4gICAgICAgICAgICAgICAgICAgIG1kaS1kZWxldGVcclxuICAgICAgICAgICAgICAgIDwvdi1pY29uPlxyXG4gICAgICAgICAgICAgICAgPC90ZW1wbGF0ZT5cclxuXHJcbiAgICAgICAgICAgICAgICA8IS0tIGVkaXQgdGFibGUgLS0+XHJcbiAgICAgICAgICAgICAgICA8dGVtcGxhdGUgdi1zbG90Oml0ZW0ubmFtYV9rYW50b3I9XCJ7IGl0ZW0gfVwiPlxyXG4gICAgICAgICAgICAgICAgICAgICA8di1lZGl0LWRpYWxvZ1xyXG5cclxuICAgICAgICAgICAgICAgICAgICAgICAgQHNhdmU9XCJzYXZlXCJcclxuICAgICAgICAgICAgICAgICAgICAgICAgQGNhbmNlbD1cImNhbmNlbFwiXHJcbiAgICAgICAgICAgICAgICAgICAgICAgIEBvcGVuPVwib3BlbihpdGVtKVwiXHJcbiAgICAgICAgICAgICAgICAgICAgICAgIEBjbG9zZT1cImNsb3NlXCJcclxuXHJcbiAgICAgICAgICAgICAgICAgICAgICAgID5cclxuICAgICAgICAgICAgICAgICAgICAgICAge3sgaXRlbS5uYW1hX2thbnRvciB9fVxyXG4gICAgICAgICAgICAgICAgICAgICAgICA8dGVtcGxhdGUgdi1zbG90OmlucHV0PlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzcz1cIm10LTQgdGV4dC1oNlwiPlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgRWRpdCBrYW50b3JcclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvZGl2PlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPHYtdGV4dC1maWVsZFxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgdi1tb2RlbD1cImVkaXRlZEl0ZW0ubmFtYV9rYW50b3JcIlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgOnJ1bGVzPVwiW21heDEwMGNoYXJzXVwiXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBsYWJlbD1cIkVkaXRcIlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgc2luZ2xlLWxpbmVcclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvdW50ZXJcclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgID48L3YtdGV4dC1maWVsZD5cclxuICAgICAgICAgICAgICAgICAgICAgICAgPC90ZW1wbGF0ZT5cclxuICAgICAgICAgICAgICAgICAgICAgICAgPC92LWVkaXQtZGlhbG9nPlxyXG4gICAgICAgICAgICAgICAgICAgIDwvdGVtcGxhdGU+XHJcblxyXG4gICAgICA8IS0tIGVuZCBlZGl0IHRhYmxlIC0tPlxyXG4gICAgICAgICAgICAgICA8L3YtZGF0YS10YWJsZT5cclxuXHJcblxyXG4gICAgICAgICAgICAgPC9kaXY+XHJcblxyXG4gICAgICAgICAgICAgIDwhLS0gLy5jYXJkLWJvZHkgLS0+XHJcbiAgICAgICAgICAgICAgPCEtLSA8ZGl2IGNsYXNzPVwiY2FyZC1mb290ZXJcIj5cclxuICAgICAgICAgICAgICAgICAgPHBhZ2luYXRpb24gOmRhdGE9XCJ1c2Vyc1wiIEBwYWdpbmF0aW9uLWNoYW5nZS1wYWdlPVwiZ2V0UmVzdWx0c1wiPjwvcGFnaW5hdGlvbj5cclxuICAgICAgICAgICAgICA8L2Rpdj4gLS0+XHJcbiAgICAgICAgICAgIDwvdi1jYXJkPlxyXG5cclxuICAgICAgICAgIDwvdi1jb2w+XHJcbiAgICAgICAgICA8di1jb2wgY29scz1cIjRcIj5cclxuICAgICAgICAgICAgIDx2LXNuYWNrYmFyXHJcbiAgICAgICAgICAgICAgICB2LW1vZGVsPVwic25hY2tcIlxyXG4gICAgICAgICAgICAgICAgOnRpbWVvdXQ9XCI0MDAwXCJcclxuICAgICAgICAgICAgICAgIDpjb2xvcj1cInNuYWNrQ29sb3JcIlxyXG4gICAgICAgICAgICAgICAgOm11bHRpLWxpbmU9XCJtdWx0aUxpbmVcIlxyXG4gICAgICAgICAgICAgICAgcG9zaXRpb246IGFic29sdXRlIHJpZ2h0XHJcbiAgICAgICAgICAgICAgICBzdHlsZT1cIm1hcmdpbi1ib3R0b209MjMwcHhcIlxyXG4gICAgICAgICAgICAgICAgPlxyXG4gICAgICAgICAgICAgICAge3sgc25hY2tUZXh0IH19XHJcblxyXG4gICAgICAgICAgICAgICAgPHRlbXBsYXRlIHYtc2xvdDphY3Rpb249XCJ7IGF0dHJzIH1cIj5cclxuICAgICAgICAgICAgICAgICAgICA8di1idG5cclxuICAgICAgICAgICAgICAgICAgICB2LWJpbmQ9XCJhdHRyc1wiXHJcbiAgICAgICAgICAgICAgICAgICAgdGV4dFxyXG4gICAgICAgICAgICAgICAgICAgIEBjbGljaz1cInNuYWNrID0gZmFsc2VcIlxyXG4gICAgICAgICAgICAgICAgICAgID5cclxuICAgICAgICAgICAgICAgICAgICBDbG9zZVxyXG4gICAgICAgICAgICAgICAgICAgIDwvdi1idG4+XHJcbiAgICAgICAgICAgICAgICA8L3RlbXBsYXRlPlxyXG4gICAgICAgICAgICA8L3Ytc25hY2tiYXI+XHJcbiAgICAgICAgICA8L3YtY29sPlxyXG4gICAgICAgIDwvdi1yb3c+XHJcblxyXG5cclxuICAgICAgICA8ZGl2IHYtaWY9XCIhJGdhdGUuaXNBZG1pbigpXCI+XHJcbiAgICAgICAgICAgIDxub3QtZm91bmQ+PC9ub3QtZm91bmQ+XHJcbiAgICAgICAgPC9kaXY+XHJcblxyXG4gIDwhLS0gTW9kYWwgLS0+XHJcbiAgICAgICAgPGRpdiBjbGFzcz1cIm1vZGFsIGZhZGVcIiBpZD1cImFkZE5ld1wiIHRhYmluZGV4PVwiLTFcIiByb2xlPVwiZGlhbG9nXCIgYXJpYS1sYWJlbGxlZGJ5PVwiYWRkTmV3XCIgYXJpYS1oaWRkZW49XCJ0cnVlXCI+XHJcbiAgICAgICAgICAgIDxkaXYgY2xhc3M9XCJtb2RhbC1kaWFsb2dcIiByb2xlPVwiZG9jdW1lbnRcIj5cclxuICAgICAgICAgICAgICAgIDxkaXYgY2xhc3M9XCJtb2RhbC1jb250ZW50XCI+XHJcbiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzPVwibW9kYWwtaGVhZGVyXCI+XHJcbiAgICAgICAgICAgICAgICAgICAgPGg1IGNsYXNzPVwibW9kYWwtdGl0bGVcIiB2LXNob3c9XCIhZWRpdG1vZGVcIj5UYW1iYWgga2FudG9yPC9oNT5cclxuICAgICAgICAgICAgICAgICAgICA8aDUgY2xhc3M9XCJtb2RhbC10aXRsZVwiIHYtc2hvdz1cImVkaXRtb2RlXCI+RWRpdCBEYXRhIFVzZXI8L2g1PlxyXG4gICAgICAgICAgICAgICAgICAgIDxidXR0b24gdHlwZT1cImJ1dHRvblwiIGNsYXNzPVwiY2xvc2VcIiBkYXRhLWRpc21pc3M9XCJtb2RhbFwiIGFyaWEtbGFiZWw9XCJDbG9zZVwiPlxyXG4gICAgICAgICAgICAgICAgICAgICAgICA8c3BhbiBhcmlhLWhpZGRlbj1cInRydWVcIj4mdGltZXM7PC9zcGFuPlxyXG4gICAgICAgICAgICAgICAgICAgIDwvYnV0dG9uPlxyXG4gICAgICAgICAgICAgICAgPC9kaXY+XHJcblxyXG4gICAgICAgICAgICAgICAgPHYtZm9ybVxyXG4gICAgICAgICAgICAgICAgQHN1Ym1pdC5wcmV2ZW50PVwiY3JlYXRlVXNlclwiXHJcbiAgICAgICAgICAgICAgICByZWY9XCJmb3JtXCJcclxuICAgICAgICAgICAgICAgIHYtbW9kZWw9XCJ2YWxpZFwiXHJcbiAgICAgICAgICAgICAgICBsYXp5LXZhbGlkYXRpb25cclxuICAgICAgICAgICAgICAgID5cclxuXHJcbiAgICAgICAgICAgICAgICA8IS0tIDxmb3JtIEBzdWJtaXQucHJldmVudD1cImVkaXRtb2RlID8gdXBkYXRlVXNlcigpIDogY3JlYXRlVXNlcigpXCI+IC0tPlxyXG4gICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3M9XCJtb2RhbC1ib2R5XCI+XHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8IS0tIDxpbnB1dCB2LW1vZGVsPVwia2FudG9yX2lkXCIgdHlwZT1cImhpZGRlblwiXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBuYW1lPVwia2FudG9yX2lkXCI+IC0tPlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPGlucHV0IHYtbW9kZWw9XCJjc3JmXCIgdHlwZT1cImhpZGRlblwiXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBuYW1lPVwiX3Rva2VuXCI+XHJcblxyXG4gICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzPVwiZm9ybS1ncm91cCBpbnB1dC1ncm91cFwiPlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx2LWNvbFxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbHM9XCIxMlwiXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc209XCIxMlwiXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbWQ9XCIxMlwiXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx2LXRleHQtZmllbGRcclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2LW1vZGVsPVwiZWRpdGVkSXRlbS5rb2RlX2thbnRvclwiXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOnJ1bGVzPVwiZWRpdGVkSXRlbS5rb2RlUnVsZXNcIlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxhYmVsPVwiS29kZSBLYW50b3IgU2xpa1wiXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbmFtZT1cImtvZGVfa2FudG9yXCJcclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwbGFjZWhvbGRlcj1cImlucHV0XCJcclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBvdXRsaW5lZFxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJlcXVpcmVkXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGVuc2VcclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwcmVwZW5kLWljb249XCJtZGktYmFyY29kZVwiXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA+PC92LXRleHQtZmllbGQ+XHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8di10ZXh0LWZpZWxkXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdi1tb2RlbD1cImVkaXRlZEl0ZW0ua29kZV9rYW50b3Jfc2xpa1wiXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOnJ1bGVzPVwiZWRpdGVkSXRlbS5rb2RlUnVsZXNcIlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxhYmVsPVwiS29kZSBLYW50b3IgU2xpa1wiXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbmFtZT1cImtvZGVfa2FudG9yX3NsaWtcIlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBsYWNlaG9sZGVyPVwiaW5wdXRcIlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG91dGxpbmVkXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVxdWlyZWRcclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkZW5zZVxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHByZXBlbmQtaWNvbj1cIm1kaS1iYXJjb2RlXCJcclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgID48L3YtdGV4dC1maWVsZD5cclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8di10ZXh0LWZpZWxkXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdi1tb2RlbD1cImVkaXRlZEl0ZW0ubmFtYV9rYW50b3JcIlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDpydWxlcz1cImVkaXRlZEl0ZW0ua2FudG9yUnVsZXNcIlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxhYmVsPVwiTmFtYSBrYW50b3JcIlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG5hbWU9XCJuYW1hX2thbnRvclwiXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGxhY2Vob2xkZXI9XCJpbnB1dFwiXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgb3V0bGluZWRcclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXF1aXJlZFxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRlbnNlXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcHJlcGVuZC1pY29uPVwibWRpLW9mZmljZS1idWlsZGluZy1jb2dcIlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPjwvdi10ZXh0LWZpZWxkPlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPCEtLSA8aGFzLWVycm9yIDpmb3JtPVwiZm9ybVwiIGZpZWxkPVwia2FudG9yXCI+PC9oYXMtZXJyb3I+IC0tPlxyXG5cclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3YtY29sPlxyXG4gICAgICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cclxuXHJcbiAgICAgICAgICAgICAgICAgICAgPC9kaXY+XHJcbiAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzcz1cIm1vZGFsLWZvb3RlclwiPlxyXG4gICAgICAgICAgICAgICAgICAgICAgICA8di1idG4gY29sb3I9XCJlcnJvclwiIGVsZXZhdGlvbj1cIjJcIiB0eXBlPVwiYnV0dG9uXCIgZGF0YS1kaXNtaXNzPVwibW9kYWxcIj5cclxuICAgICAgICAgICAgICAgICAgICAgICAgPHYtaWNvbj5tZGktY2FuY2VsPC92LWljb24+XHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBCYXRhbFxyXG4gICAgICAgICAgICAgICAgICAgICAgICA8L3YtYnRuPlxyXG4gICAgICAgICAgICAgICAgICAgICAgICA8di1idG4gY29sb3I9XCJzdWNjZXNzXCIgZWxldmF0aW9uPVwiMlwiIHYtc2hvdz1cImVkaXRtb2RlXCIgdHlwZT1cInN1Ym1pdFwiID5cclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx2LWljb24+bWRpLXBlbmNpbDwvdi1pY29uPlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgVWJhaFxyXG4gICAgICAgICAgICAgICAgICAgICAgICA8L3YtYnRuPlxyXG4gICAgICAgICAgICAgICAgICAgICAgICA8di1idG4gY29sb3I9XCJwcmltYXJ5XCIgZWxldmF0aW9uPVwiMlwiIHYtc2hvdz1cIiFlZGl0bW9kZVwiIHR5cGU9XCJzdWJtaXRcIiA+XHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8di1pY29uPm1kaS1wbHVzLWJveDwvdi1pY29uPlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgVGFtYmFoXHJcbiAgICAgICAgICAgICAgICAgICAgICAgIDwvdi1idG4+XHJcbiAgICAgICAgICAgICAgICAgICAgPC9kaXY+XHJcbiAgICAgICAgICAgICAgICAgIDwvdi1mb3JtPlxyXG4gICAgICAgICAgICAgICAgPC9kaXY+XHJcbiAgICAgICAgICAgIDwvZGl2PlxyXG4gICAgICAgIDwvZGl2PlxyXG4gICAgPC92LWNvbnRhaW5lcj5cclxuPC92LWFwcD5cclxuPC90ZW1wbGF0ZT5cclxuXHJcbjxzY3JpcHQ+XHJcblxyXG4gIGV4cG9ydCBkZWZhdWx0IHtcclxuXHJcbiAgICBkYXRhOiAoKSA9PiAoe1xyXG4gICAgICAgLy8gcHJvcHM6IFtcIm5hbWFfa2FudG9yXCJdLFxyXG4gICAgICBjc3JmOiBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCdtZXRhW25hbWU9XCJjc3JmLXRva2VuXCJdJykuZ2V0QXR0cmlidXRlKCdjb250ZW50JyksXHJcbiAgICAgIGVkaXRtb2RlOiBmYWxzZSxcclxuICAgICAgZGlhbG9nOiBmYWxzZSxcclxuICAgICAgZGlhbG9nRGVsZXRlOiBmYWxzZSxcclxuICAgICAgc2VhcmNoOicnLFxyXG4gICAgICBzbmFjazogZmFsc2UsXHJcbiAgICAgIG11bHRpTGluZTogdHJ1ZSxcclxuICAgICAgICBzbmFja0NvbG9yOiAnJyxcclxuICAgICAgICBzbmFja1RleHQ6ICcnLFxyXG4gICAgICAgIG1heDEwMGNoYXJzOiB2ID0+IHYubGVuZ3RoIDw9IDEwMHx8ICdJbnB1dCB0b28gbG9uZyEnLFxyXG4gICAgIGthbnRvcjpbXSxcclxuICAgIGVkaXRlZEluZGV4OiAtMSxcclxuICAgIGVkaXRlZEl0ZW0gOiB7XHJcbiAgICAgICAgaWQgOiAnJyxcclxuICAgICAgICBuYW1hX2thbnRvcjonJyxcclxuICAgICAgICBuYW1hX2thbnRvckVkaXQ6JycsXHJcbiAgICAgICAga2FudG9yUnVsZXM6IFtcclxuICAgICAgICB2ID0+ICEhdiB8fCAnTmFtYSBrYW50b3IgYmVsdW0gZGlpc2knLFxyXG4gICAgICBdLFxyXG4gICAgICBrb2RlUnVsZXM6IFtcclxuICAgICAgICB2ID0+ICEhdiB8fCAna29kZSBrYW50b3IgYmVsdW0gZGlpc2knLFxyXG4gICAgICBdLFxyXG4gICAgfSxcclxuXHJcbiAgICAgdmFsaWQ6dHJ1ZSxcclxuXHJcbiAgICAgICAga2FudG9yX2lkOiAnJyxcclxuXHJcbiAgICBmb3JtOiBuZXcgRm9ybSh7XHJcbiAgICAgICAgaWQgOiAnJyxcclxuICAgICAgICBrb2RlX2thbnRvcjogJycsXHJcbiAgICAgICAga29kZV9rYW50b3Jfc2xpazogJycsXHJcbiAgICAgICAgbmFtYV9rYW50b3I6ICcnLFxyXG4gICAgfSksXHJcblxyXG5cclxuICAgIH0pLFxyXG4gICAgY29tcHV0ZWQ6IHtcclxuICAgICAgICBoZWFkZXJzKCl7XHJcbiAgICAgICAgICAgIGxldCBoZWFkZXJzID0gW1xyXG4gICAgICAgICAgICAgICAge1xyXG4gICAgICAgICAgICAgICAgdGV4dDogJ05vJyxcclxuICAgICAgICAgICAgICAgIHZhbHVlOiAnaW5kZXgnLFxyXG4gICAgICAgICAgICAgICAgYWxpZ246ICdjZW50ZXInLFxyXG4gICAgICAgICAgICAgICAgc29ydGFibGU6IGZhbHNlXHJcbiAgICAgICAgICAgICAgICB9LFxyXG4gICAgICAgICAgICAgICAge1xyXG4gICAgICAgICAgICAgICAgdGV4dDogJ2tvZGUga2FudG9yJyxcclxuICAgICAgICAgICAgICAgIHZhbHVlOiAna29kZV9rYW50b3InLFxyXG4gICAgICAgICAgICAgICAgfSxcclxuICAgICAgICAgICAgICAgIHtcclxuICAgICAgICAgICAgICAgIHRleHQ6ICdrYW50b3InLFxyXG4gICAgICAgICAgICAgICAgdmFsdWU6ICduYW1hX2thbnRvcicsXHJcbiAgICAgICAgICAgICAgICB9LFxyXG5cclxuICAgICAgXVxyXG5cclxuICAgICAgICAgICAgaWYodGhpcy4kZ2F0ZS5pc0FkbWluKCkpe1xyXG4gICAgICAgICAgICAgICAgaGVhZGVycy5wdXNoKHsgdGV4dDogJ0hhcHVzJywgdmFsdWU6ICdhY3Rpb25zJywgc29ydGFibGU6IGZhbHNlIH0pXHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgcmV0dXJuIGhlYWRlcnNcclxuICAgICAgICB9LFxyXG5cclxuICAgICAgZm9ybVRpdGxlICgpIHtcclxuICAgICAgICByZXR1cm4gdGhpcy5lZGl0ZWRJbmRleCA9PT0gLTEgPyAnTmV3IEl0ZW0nIDogJ0VkaXQgSXRlbSdcclxuICAgICAgfSxcclxuXHJcbiAgICB9LFxyXG5cclxuICAgIGNyZWF0ZWQgKCkge1xyXG4gICAgICAgIHRoaXMuJFByb2dyZXNzLnN0YXJ0KCk7XHJcblxyXG4gICAgICB0aGlzLmluaXRpYWxpemUoKVxyXG4gICAgICB0aGlzLiRQcm9ncmVzcy5maW5pc2goKTtcclxuICAgIH0sXHJcblxyXG4gICAgbWV0aG9kczoge1xyXG4gICAgICAgIHNhdmUgKCkge1xyXG4gICAgICAgIHRoaXMuc25hY2sgPSB0cnVlXHJcbiAgICAgICAgdGhpcy5zbmFja0NvbG9yID0gJ3N1Y2Nlc3MnXHJcbiAgICAgICAgdGhpcy5zbmFja1RleHQgPSAnRGF0YSBkaXNpbXBhbidcclxuICAgICAgICB0aGlzLnVwZGF0ZVVzZXIoKVxyXG4gICAgICB9LFxyXG4gICAgICBjYW5jZWwgKCkge1xyXG4gICAgICAgIHRoaXMuc25hY2sgPSB0cnVlXHJcbiAgICAgICAgdGhpcy5zbmFja0NvbG9yID0gJ2Vycm9yJ1xyXG4gICAgICAgIHRoaXMuc25hY2tUZXh0ID0gJ0RpYmF0YWxrYW4nXHJcbiAgICAgIH0sXHJcbiAgICAgIG9wZW4gKGl0ZW0pIHtcclxuICAgICAgICB0aGlzLnNuYWNrID0gdHJ1ZVxyXG4gICAgICAgIHRoaXMuc25hY2tDb2xvciA9ICdpbmZvJ1xyXG4gICAgICAgIHRoaXMuc25hY2tUZXh0ID0gJ0VudGVyID0gU2ltcGFuJ1xyXG4gICAgICAgIHRoaXMuZWRpdGVkSXRlbS5pZCA9IGl0ZW0uaWRcclxuICAgICAgICB0aGlzLmVkaXRlZEl0ZW0ubmFtYV9rYW50b3IgPSBpdGVtLm5hbWFfa2FudG9yXHJcblxyXG4gICAgICAgIC8vY29uc29sZS5sb2codGhpcy5pdGVtLm5hbWFfa2FudG9yKTtcclxuICAgICAgICAvL2FsZXJ0KHRoaXMuaXRlbS5pZClcclxuICAgICAgfSxcclxuICAgICAgY2xvc2UgKCkge1xyXG4gICAgICAgIGNvbnNvbGUubG9nKCdEaWFsb2cgY2xvc2VkJylcclxuICAgICAgfSxcclxuICAgICAgICBwZW5jZXRLZXlib2FyZDogZnVuY3Rpb24oZXZ0KSB7XHJcbiAgICAgIGV2dCA9IChldnQpID8gZXZ0IDogd2luZG93LmV2ZW50O1xyXG4gICAgICB2YXIgY2hhckNvZGUgPSAoZXZ0LndoaWNoKSA/IGV2dC53aGljaCA6IGV2dC5rZXlDb2RlO1xyXG4gICAgICAvL25vbWVyIHd1bmdrdWxcclxuICAgICAgLy9pZiAoKGNoYXJDb2RlID4gMzEgJiYgKGNoYXJDb2RlIDwgNDggfHwgY2hhckNvZGUgPiA1NykpICYmIGNoYXJDb2RlICE9PSA0Nikge1xyXG4gICAgICAvL3RpZGFrIGJvbGVoIHRvbWJvbCAnLycgZGFuICdcXCdcclxuICAgICAgaWYgKGNoYXJDb2RlID09PSAxOTEgfHwgY2hhckNvZGU9PT0yMjApIHtcclxuICAgICAgICBldnQucHJldmVudERlZmF1bHQoKTs7XHJcbiAgICAgIH0gZWxzZSB7XHJcbiAgICAgICAgcmV0dXJuIHRydWU7XHJcbiAgICAgIH1cclxuICAgIH0sXHJcblxyXG4gICAgICBpbml0aWFsaXplKCkge1xyXG4gICAgICAgICB0aGlzLiRQcm9ncmVzcy5zdGFydCgpO1xyXG5cclxuICAgICAgICAgICAgaWYodGhpcy4kZ2F0ZS5pc0FkbWluKCkpe1xyXG5cclxuICAgICAgICAgICAgICAgLy9heGlvcy5nZXQoXCJhcGkvdXNlclwiKS50aGVuKChyZXNwb25zZSkgPT4geyh0aGlzLnVzZXJzID0gcmVzcG9uc2UuZGF0YS5kYXRhKX0pO1xyXG4gICAgICAgICAgICAgYXhpb3MuZ2V0KFwiYXBpL2thbnRvclwiKVxyXG4gICAgICAgICAgICAgICAgLnRoZW4oKHJlc3BvbnNlKSA9PiB7XHJcbiAgICAgICAgICAgICAgICB0aGlzLmthbnRvciA9IHJlc3BvbnNlLmRhdGEuZGF0YTtcclxuICAgICAgICAgICAgICAgIC8vIHRoaXMua2FudG9yX2lkID0gdGhpcy4ka2FudG9yX2lkO1xyXG4gICAgICAgICAgICAgICAgLy8gdGhpcy5mb3JtLmZpbGxcclxuICAgICAgICAgICAgICAgIC8vY29uc29sZS5sb2codGhpcy5rYW50b3IpO1xyXG4gICAgICAgICAgICAgICAgLy9jb25zb2xlLmxvZyh0aGlzLmthbnRvcl9pZClcclxuICAgICAgICAgICAgICAgIH0pO1xyXG4gICAgICAgICAgICB9XHJcblxyXG4gICAgICAgICAgIHRoaXMuJFByb2dyZXNzLmZpbmlzaCgpO1xyXG4gICAgICB9LFxyXG4gICAgIGVkaXRrYW50b3IoaXRlbSl7XHJcblxyXG4gICAgICAgIHRoaXMuZWRpdGVkSW5kZXggPSB0aGlzLmthbnRvci5pbmRleE9mKGl0ZW0pXHJcbiAgICAgICAgdGhpcy5pdGVtLmlkID0gaXRlbS5pZFxyXG4gICAgICAgIHRoaXMuaXRlbS5uYW1hX2thbnRvciA9IGl0ZW0ubmFtYV9rYW50b3JcclxuXHJcbiAgICAgICAgY29uc29sZS5sb2codGhpcy5pdGVtLmlkKTtcclxuICAgICAgICAvL2FsZXJ0KHRoaXMuaXRlbS5pZClcclxuICAgICAgICAgICAgfSxcclxuICAgIG5ld01vZGFsKCl7XHJcbiAgICAgICAgdGhpcy5lZGl0bW9kZSA9IGZhbHNlO1xyXG4gICAgICAgICQoJyNhZGROZXcnKS5tb2RhbCgnc2hvdycpO1xyXG4gICAgICAgIHRoaXMuJHJlZnMuZm9ybS5yZXNldCgpXHJcbiAgICAgICAgdGhpcy5lZGl0ZWRJdGVtLm5hbWFfa2FudG9yID0gJyc7XHJcbiAgICB9LFxyXG5cclxuICAgICBjcmVhdGVVc2VyKCl7XHJcbiAgICAgICAgIHRoaXMuJHJlZnMuZm9ybS52YWxpZGF0ZSgpO1xyXG4gICAgICAgICB0aGlzLiRQcm9ncmVzcy5zdGFydCgpO1xyXG4gICAgICAgICAgICAvLyBlLnByZXZlbnREZWZhdWx0KCk7XHJcbiAgICAgICAgICAgIGNvbnN0IGNvbmZpZyA9IHtcclxuICAgICAgICAgICAgICAgIGhlYWRlcnM6IHsgJ2NvbnRlbnQtdHlwZSc6ICdtdWx0aXBhcnQvZm9ybS1kYXRhJyB9XHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgLy8gLy90aGlzLmFwcGVuZCgnZmlsZScsIHRoaXMuZmlsZSk7XHJcbiAgICAgICAgICAgIGNvbnN0IGZvcm1EYXRhID0gbmV3IEZvcm1EYXRhXHJcbiAgICAgICAgICAgIGZvcm1EYXRhLnNldCgna29kZV9rYW50b3InLCB0aGlzLmVkaXRlZEl0ZW0ua29kZV9rYW50b3IpXHJcbiAgICAgICAgICAgIGZvcm1EYXRhLnNldCgna29kZV9rYW50b3Jfc2xpaycsIHRoaXMuZWRpdGVkSXRlbS5rb2RlX2thbnRvcl9zbGlrKVxyXG4gICAgICAgICAgICBmb3JtRGF0YS5zZXQoJ25hbWFfa2FudG9yJywgdGhpcy5lZGl0ZWRJdGVtLm5hbWFfa2FudG9yKVxyXG5cclxuICAgICAgICAgICAgYXhpb3MucG9zdCgnYXBpL2thbnRvcicsZm9ybURhdGEsY29uZmlnKVxyXG4gICAgICAgICAgICAgIC50aGVuKChyZXNwb25zZSk9PntcclxuICAgICAgICAgICAgICAgICAgJCgnI2FkZE5ldycpLm1vZGFsKCdoaWRlJyk7XHJcbiAgICAgICAgICAgICAgICAgICAgLy8gIGNvbnNvbGUubG9nKHRoaXMubmFtYV9rYW50b3IpO1xyXG4gICAgICAgICAgICAgICAgICBUb2FzdC5maXJlKHtcclxuICAgICAgICAgICAgICAgICAgICAgICAgaWNvbjogJ3N1Y2Nlc3MnLFxyXG4gICAgICAgICAgICAgICAgICAgICAgICB0aXRsZTogcmVzcG9uc2UuZGF0YS5tZXNzYWdlXHJcbiAgICAgICAgICAgICAgICAgIH0pO1xyXG5cclxuICAgICAgICAgICAgICAgICAgdGhpcy4kUHJvZ3Jlc3MuZmluaXNoKCk7XHJcbiAgICAgICAgICAgICAgICAgIHRoaXMuaW5pdGlhbGl6ZSgpO1xyXG5cclxuICAgICAgICAgICAgICB9KVxyXG4gICAgICAgICAgICAgIC5jYXRjaCgocmVzcG9uc2UpPT57XHJcbiAgICAgICAgICAgICAgICAgIC8vU3dhbC5maXJlKFwiRmFpbGVkIVwiLCBkYXRhLm1lc3NhZ2UsIFwid2FybmluZ1wiKTtcclxuICAgICAgICAgICAgICAgICAgVG9hc3QuZmlyZSh7XHJcbiAgICAgICAgICAgICAgICAgICAgICBpY29uOiAnZXJyb3InLFxyXG4gICAgICAgICAgICAgICAgICAgICAgdGl0bGU6ICdHYWdhbCB0YW1iYWgga2FudG9yLCB1bGFuZ2khJ1xyXG4gICAgICAgICAgICAgICAgICAgICAgLy90aXRsZTogcmVzcG9uc2UubWVzc2FnZVxyXG4gICAgICAgICAgICAgICAgICB9KTtcclxuICAgICAgICAgICAgICB9KVxyXG4gICAgICAgICAgfSxcclxuXHJcbiAgICAgICAgICB1cGRhdGVVc2VyKCl7XHJcbiAgICAgICAgICAgICAgIGNvbnN0IGNvbmZpZyA9IHtcclxuICAgICAgICAgICAgICAgIGhlYWRlcnM6IHtcclxuICAgICAgICAgICAgICAgICAgJ2FjY2VwdCc6ICdhcHBsaWNhdGlvbi9qc29uJyxcclxuICAgICAgICAgICAgICAgICAgJ0FjY2VwdC1MYW5ndWFnZSc6ICdlbi1VUyxlbjtxPTAuOCcsXHJcbiAgICAgICAgICAgICAgICAgICdjb250ZW50LXR5cGUnOiAnbXVsdGlwYXJ0L2Zvcm0tZGF0YSdcclxuICAgICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICAgICAvLyBoZWFkZXJzOiB7J1gtQ3VzdG9tLUhlYWRlcic6ICd2YWx1ZSd9XHJcbiAgICAgICAgICAgICAgICB9XHJcblxyXG4gICAgICAgICAgICAgICAgdGhpcy4kUHJvZ3Jlc3Muc3RhcnQoKTtcclxuICAgICAgICAgICAgICAgIC8vYWxlcnQodGhpcy5lZGl0ZWRJdGVtLm5hbWFfa2FudG9yKTtcclxuICAgICAgICAgICAgICAgICBjb25zdCBmb3JtRGF0YSA9IG5ldyBGb3JtRGF0YVxyXG4gICAgICAgICAgICBmb3JtRGF0YS5zZXQoJ25hbWFfa2FudG9yJywgdGhpcy5lZGl0ZWRJdGVtLm5hbWFfa2FudG9yKVxyXG4gICAgICAgICAgICBmb3JtRGF0YS5hcHBlbmQoXCJfbWV0aG9kXCIsIFwiUFVUXCIpO1xyXG4gICAgICAgICAgICAgICAgYXhpb3MucG9zdCgnYXBpL2thbnRvci8nK3RoaXMuZWRpdGVkSXRlbS5pZCxmb3JtRGF0YSlcclxuICAgICAgICAgICAgICAgIC50aGVuKChyZXNwb25zZSkgPT4ge1xyXG4gICAgICAgICAgICAgICAgICAgIC8vIHN1Y2Nlc3NcclxuICAgICAgICAgICAgICAgICAgICAkKCcjYWRkTmV3JykubW9kYWwoJ2hpZGUnKTtcclxuICAgICAgICAgICAgICAgICAgICBUb2FzdC5maXJlKHtcclxuICAgICAgICAgICAgICAgICAgICAgIGljb246ICdzdWNjZXNzJyxcclxuICAgICAgICAgICAgICAgICAgICAgIHRpdGxlOiByZXNwb25zZS5kYXRhLm1lc3NhZ2VcclxuICAgICAgICAgICAgICAgICAgICB9KTtcclxuICAgICAgICAgICAgICAgICAgICB0aGlzLiRQcm9ncmVzcy5maW5pc2goKTtcclxuICAgICAgICAgICAgICAgICAgICAgICAgLy8gIEZpcmUuJGVtaXQoJ0FmdGVyQ3JlYXRlJyk7XHJcblxyXG4gICAgICAgICAgICAgICAgICAgIHRoaXMuaW5pdGlhbGl6ZSgpO1xyXG4gICAgICAgICAgICAgICAgfSlcclxuICAgICAgICAgICAgICAgIC5jYXRjaCgoKSA9PiB7XHJcbiAgICAgICAgICAgICAgICAgICAgdGhpcy4kUHJvZ3Jlc3MuZmFpbCgpO1xyXG4gICAgICAgICAgICAgICAgfSk7XHJcblxyXG4gICAgICAgICAgICB9LFxyXG4gICAgICAgICAgZGVsZXRlVXNlcihpZCl7XHJcbiAgICAgICAgICAgICAgICBTd2FsLmZpcmUoe1xyXG4gICAgICAgICAgICAgICAgICAgIHRpdGxlOiAnWWFraW4gZGloYXB1cz8nLFxyXG4gICAgICAgICAgICAgICAgICAgIHRleHQ6IFwiSmlrYSBkaWhhcHVzIGRhdGEgaGlsYW5nIVwiLFxyXG4gICAgICAgICAgICAgICAgICAgIHNob3dDYW5jZWxCdXR0b246IHRydWUsXHJcbiAgICAgICAgICAgICAgICAgICAgY29uZmlybUJ1dHRvbkNvbG9yOiAnI2QzMycsXHJcbiAgICAgICAgICAgICAgICAgICAgY2FuY2VsQnV0dG9uQ29sb3I6ICcjMzA4NWQ2JyxcclxuICAgICAgICAgICAgICAgICAgICBjb25maXJtQnV0dG9uVGV4dDogJ1lhLCBIYXB1cyEnXHJcbiAgICAgICAgICAgICAgICAgICAgfSkudGhlbigocmVzdWx0KSA9PiB7XHJcblxyXG4gICAgICAgICAgICAgICAgICAgICAgICAvLyBTZW5kIHJlcXVlc3QgdG8gdGhlIHNlcnZlclxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHJlc3VsdC52YWx1ZSkge1xyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRoaXMuZm9ybS5kZWxldGUoJ2FwaS9rYW50b3IvJytpZCkudGhlbigoKT0+e1xyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgU3dhbC5maXJlKFxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJ0RpaGFwdXMhJyxcclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICdEYXRhIHRlbGFoIGRpaGFwdXMuJyxcclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICdzdWNjZXNzJ1xyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKTtcclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLy8gRmlyZS4kZW1pdCgnQWZ0ZXJDcmVhdGUnKTtcclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdGhpcy5pbml0aWFsaXplKCk7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSkuY2F0Y2goKGRhdGEpPT4ge1xyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgU3dhbC5maXJlKFwiRmFpbGVkIVwiLCBkYXRhLm1lc3NhZ2UsIFwid2FybmluZ1wiKTtcclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSk7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICAgICAgfSlcclxuICAgICAgICAgICAgfSxcclxuXHJcbiAgICB9LFxyXG4gIH1cclxuPC9zY3JpcHQ+XHJcbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Kantor.vue?vue&type=script&lang=js&\n");
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      // props: ["nama_kantor"],
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      editmode: false,
+      dialog: false,
+      dialogDelete: false,
+      search: '',
+      snack: false,
+      multiLine: true,
+      snackColor: '',
+      snackText: '',
+      max100chars: function max100chars(v) {
+        return v.length <= 100 || 'Input too long!';
+      },
+      kantor: [],
+      editedIndex: -1,
+      editedItem: {
+        id: '',
+        nama_kantor: '',
+        nama_kantorEdit: '',
+        kantorRules: [function (v) {
+          return !!v || 'Nama kantor belum diisi';
+        }],
+        kodeRules: [function (v) {
+          return !!v || 'kode kantor belum diisi';
+        }]
+      },
+      valid: true,
+      kantor_id: '',
+      form: new Form({
+        id: '',
+        kode_kantor: '',
+        kode_kantor_slik: '',
+        nama_kantor: ''
+      })
+    };
+  },
+  computed: {
+    headers: function headers() {
+      var headers = [{
+        text: 'No',
+        value: 'index',
+        align: 'center',
+        sortable: false
+      }, {
+        text: 'kode kantor',
+        value: 'kode_kantor'
+      }, {
+        text: 'kantor',
+        value: 'nama_kantor'
+      }];
+
+      if (this.$gate.isAdmin()) {
+        headers.push({
+          text: 'Hapus',
+          value: 'actions',
+          sortable: false
+        });
+      }
+
+      return headers;
+    },
+    formTitle: function formTitle() {
+      return this.editedIndex === -1 ? 'New Item' : 'Edit Item';
+    }
+  },
+  created: function created() {
+    this.$Progress.start();
+    this.initialize();
+    this.$Progress.finish();
+  },
+  methods: {
+    save: function save() {
+      this.snack = true;
+      this.snackColor = 'success';
+      this.snackText = 'Data disimpan';
+      this.updateUser();
+    },
+    cancel: function cancel() {
+      this.snack = true;
+      this.snackColor = 'error';
+      this.snackText = 'Dibatalkan';
+    },
+    open: function open(item) {
+      this.snack = true;
+      this.snackColor = 'info';
+      this.snackText = 'Enter = Simpan';
+      this.editedItem.id = item.id;
+      this.editedItem.nama_kantor = item.nama_kantor; //console.log(this.item.nama_kantor);
+      //alert(this.item.id)
+    },
+    close: function close() {
+      console.log('Dialog closed');
+    },
+    pencetKeyboard: function pencetKeyboard(evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul
+      //if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+      //tidak boleh tombol '/' dan '\'
+
+      if (charCode === 191 || charCode === 220) {
+        evt.preventDefault();
+        ;
+      } else {
+        return true;
+      }
+    },
+    initialize: function initialize() {
+      var _this = this;
+
+      this.$Progress.start();
+
+      if (this.$gate.isAdmin()) {
+        //axios.get("api/user").then((response) => {(this.users = response.data.data)});
+        axios.get("api/kantor").then(function (response) {
+          _this.kantor = response.data.data; // this.kantor_id = this.$kantor_id;
+          // this.form.fill
+          //console.log(this.kantor);
+          //console.log(this.kantor_id)
+        });
+      }
+
+      this.$Progress.finish();
+    },
+    editkantor: function editkantor(item) {
+      this.editedIndex = this.kantor.indexOf(item);
+      this.item.id = item.id;
+      this.item.nama_kantor = item.nama_kantor;
+      console.log(this.item.id); //alert(this.item.id)
+    },
+    newModal: function newModal() {
+      this.editmode = false;
+      $('#addNew').modal('show');
+      this.$refs.form.reset();
+      this.editedItem.nama_kantor = '';
+    },
+    createUser: function createUser() {
+      var _this2 = this;
+
+      this.$refs.form.validate();
+      this.$Progress.start(); // e.preventDefault();
+
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      }; // //this.append('file', this.file);
+
+      var formData = new FormData();
+      formData.set('kode_kantor', this.editedItem.kode_kantor);
+      formData.set('kode_kantor_slik', this.editedItem.kode_kantor_slik);
+      formData.set('nama_kantor', this.editedItem.nama_kantor);
+      axios.post('api/kantor', formData, config).then(function (response) {
+        $('#addNew').modal('hide'); //  console.log(this.nama_kantor);
+
+        Toast.fire({
+          icon: 'success',
+          title: response.data.message
+        });
+
+        _this2.$Progress.finish();
+
+        _this2.initialize();
+      })["catch"](function (response) {
+        //Swal.fire("Failed!", data.message, "warning");
+        Toast.fire({
+          icon: 'error',
+          title: 'Gagal tambah kantor, ulangi!' //title: response.message
+
+        });
+      });
+    },
+    updateUser: function updateUser() {
+      var _this3 = this;
+
+      var config = {
+        headers: {
+          'accept': 'application/json',
+          'Accept-Language': 'en-US,en;q=0.8',
+          'content-type': 'multipart/form-data'
+        } // headers: {'X-Custom-Header': 'value'}
+
+      };
+      this.$Progress.start(); //alert(this.editedItem.nama_kantor);
+
+      var formData = new FormData();
+      formData.set('nama_kantor', this.editedItem.nama_kantor);
+      formData.append("_method", "PUT");
+      axios.post('api/kantor/' + this.editedItem.id, formData).then(function (response) {
+        // success
+        $('#addNew').modal('hide');
+        Toast.fire({
+          icon: 'success',
+          title: response.data.message
+        });
+
+        _this3.$Progress.finish(); //  Fire.$emit('AfterCreate');
+
+
+        _this3.initialize();
+      })["catch"](function () {
+        _this3.$Progress.fail();
+      });
+    },
+    deleteUser: function deleteUser(id) {
+      var _this4 = this;
+
+      Swal.fire({
+        title: 'Yakin dihapus?',
+        text: "Jika dihapus data hilang!",
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Ya, Hapus!'
+      }).then(function (result) {
+        // Send request to the server
+        if (result.value) {
+          _this4.form["delete"]('api/kantor/' + id).then(function () {
+            Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
+
+            _this4.initialize();
+          })["catch"](function (data) {
+            Swal.fire("Failed!", data.message, "warning");
+          });
+        }
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -20,7 +471,640 @@ eval("__webpack_require__.r(__webpack_exports__);\n//\n//\n//\n//\n//\n//\n//\n/
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return render; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"staticRenderFns\", function() { return staticRenderFns; });\nvar render = function () {\n  var _vm = this\n  var _h = _vm.$createElement\n  var _c = _vm._self._c || _h\n  return _c(\n    \"v-app\",\n    [\n      _c(\n        \"v-container\",\n        { attrs: { fluid: \"\" } },\n        [\n          _c(\n            \"v-row\",\n            {\n              staticClass: \"justify-content-md-center\",\n              attrs: { \"no-gutters\": \"\" },\n            },\n            [\n              _c(\n                \"v-col\",\n                { attrs: { cols: \"7\" } },\n                [\n                  _vm.$gate.isAdmin()\n                    ? _c(\n                        \"v-card\",\n                        { staticClass: \"pa-2 mx-auto\" },\n                        [\n                          _c(\n                            \"v-toolbar\",\n                            {\n                              attrs: {\n                                color: \"green lighten-1\",\n                                dark: \"\",\n                                shaped: \"\",\n                              },\n                            },\n                            [\n                              _c(\"v-toolbar-title\", [\n                                _vm._v(\n                                  \"\\r\\n                    Master Kantor\\r\\n                \"\n                                ),\n                              ]),\n                              _vm._v(\" \"),\n                              _c(\"v-spacer\"),\n                              _vm._v(\" \"),\n                              _c(\n                                \"v-btn\",\n                                {\n                                  attrs: {\n                                    small: \"\",\n                                    color: \"indigo\",\n                                    dark: \"\",\n                                  },\n                                  on: { click: _vm.newModal },\n                                },\n                                [\n                                  _c(\"v-icon\", [_vm._v(\"mdi-plus-box\")]),\n                                  _vm._v(\" Tambah\\r\\n                  \"),\n                                ],\n                                1\n                              ),\n                            ],\n                            1\n                          ),\n                          _vm._v(\" \"),\n                          _c(\n                            \"div\",\n                            { staticClass: \"card-body table-responsive p-0\" },\n                            [\n                              _c(\"v-data-table\", {\n                                staticClass: \"elevation-3\",\n                                attrs: {\n                                  headers: _vm.headers,\n                                  items: _vm.kantor,\n                                  search: _vm.search,\n                                  justify: \"center\",\n                                  dense: \"\",\n                                },\n                                scopedSlots: _vm._u(\n                                  [\n                                    {\n                                      key: \"item.index\",\n                                      fn: function (ref) {\n                                        var index = ref.index\n                                        return [\n                                          _vm._v(\n                                            \"\\r\\n                    \" +\n                                              _vm._s(index + 1) +\n                                              \"\\r\\n                \"\n                                          ),\n                                        ]\n                                      },\n                                    },\n                                    {\n                                      key: \"top\",\n                                      fn: function () {\n                                        return [\n                                          _c(\n                                            \"v-toolbar\",\n                                            { attrs: { flat: \"\" } },\n                                            [\n                                              _c(\"v-spacer\"),\n                                              _vm._v(\" \"),\n                                              _c(\"v-spacer\"),\n                                              _vm._v(\" \"),\n                                              _c(\"v-spacer\"),\n                                              _vm._v(\" \"),\n                                              _c(\"v-spacer\"),\n                                              _vm._v(\" \"),\n                                              _c(\"v-text-field\", {\n                                                attrs: {\n                                                  \"append-icon\": \"mdi-magnify\",\n                                                  label: \"Cari kantor\",\n                                                  \"single-line\": \"\",\n                                                  \"hide-details\": \"\",\n                                                  loading: \"grey\",\n                                                },\n                                                model: {\n                                                  value: _vm.search,\n                                                  callback: function ($$v) {\n                                                    _vm.search = $$v\n                                                  },\n                                                  expression: \"search\",\n                                                },\n                                              }),\n                                            ],\n                                            1\n                                          ),\n                                        ]\n                                      },\n                                      proxy: true,\n                                    },\n                                    {\n                                      key: \"item.actions\",\n                                      fn: function (ref) {\n                                        var item = ref.item\n                                        return [\n                                          _c(\n                                            \"v-icon\",\n                                            {\n                                              staticClass: \"mr-4\",\n                                              attrs: {\n                                                small: \"\",\n                                                color: \"red\",\n                                                right: \"\",\n                                              },\n                                              on: {\n                                                click: function ($event) {\n                                                  return _vm.deleteUser(item.id)\n                                                },\n                                              },\n                                            },\n                                            [\n                                              _vm._v(\n                                                \"\\r\\n                    mdi-delete\\r\\n                \"\n                                              ),\n                                            ]\n                                          ),\n                                        ]\n                                      },\n                                    },\n                                    {\n                                      key: \"item.nama_kantor\",\n                                      fn: function (ref) {\n                                        var item = ref.item\n                                        return [\n                                          _c(\n                                            \"v-edit-dialog\",\n                                            {\n                                              on: {\n                                                save: _vm.save,\n                                                cancel: _vm.cancel,\n                                                open: function ($event) {\n                                                  return _vm.open(item)\n                                                },\n                                                close: _vm.close,\n                                              },\n                                              scopedSlots: _vm._u(\n                                                [\n                                                  {\n                                                    key: \"input\",\n                                                    fn: function () {\n                                                      return [\n                                                        _c(\n                                                          \"div\",\n                                                          {\n                                                            staticClass:\n                                                              \"mt-4 text-h6\",\n                                                          },\n                                                          [\n                                                            _vm._v(\n                                                              \"\\r\\n                            Edit kantor\\r\\n                            \"\n                                                            ),\n                                                          ]\n                                                        ),\n                                                        _vm._v(\" \"),\n                                                        _c(\"v-text-field\", {\n                                                          attrs: {\n                                                            rules: [\n                                                              _vm.max100chars,\n                                                            ],\n                                                            label: \"Edit\",\n                                                            \"single-line\": \"\",\n                                                            counter: \"\",\n                                                          },\n                                                          model: {\n                                                            value:\n                                                              _vm.editedItem\n                                                                .nama_kantor,\n                                                            callback: function (\n                                                              $$v\n                                                            ) {\n                                                              _vm.$set(\n                                                                _vm.editedItem,\n                                                                \"nama_kantor\",\n                                                                $$v\n                                                              )\n                                                            },\n                                                            expression:\n                                                              \"editedItem.nama_kantor\",\n                                                          },\n                                                        }),\n                                                      ]\n                                                    },\n                                                    proxy: true,\n                                                  },\n                                                ],\n                                                null,\n                                                true\n                                              ),\n                                            },\n                                            [\n                                              _vm._v(\n                                                \"\\r\\n                        \" +\n                                                  _vm._s(item.nama_kantor) +\n                                                  \"\\r\\n                        \"\n                                              ),\n                                            ]\n                                          ),\n                                        ]\n                                      },\n                                    },\n                                  ],\n                                  null,\n                                  false,\n                                  3225387762\n                                ),\n                              }),\n                            ],\n                            1\n                          ),\n                        ],\n                        1\n                      )\n                    : _vm._e(),\n                ],\n                1\n              ),\n              _vm._v(\" \"),\n              _c(\n                \"v-col\",\n                { attrs: { cols: \"4\" } },\n                [\n                  _c(\n                    \"v-snackbar\",\n                    {\n                      staticStyle: {},\n                      attrs: {\n                        timeout: 4000,\n                        color: _vm.snackColor,\n                        \"multi-line\": _vm.multiLine,\n                        \"position:\": \"\",\n                        absolute: \"\",\n                        right: \"\",\n                      },\n                      scopedSlots: _vm._u([\n                        {\n                          key: \"action\",\n                          fn: function (ref) {\n                            var attrs = ref.attrs\n                            return [\n                              _c(\n                                \"v-btn\",\n                                _vm._b(\n                                  {\n                                    attrs: { text: \"\" },\n                                    on: {\n                                      click: function ($event) {\n                                        _vm.snack = false\n                                      },\n                                    },\n                                  },\n                                  \"v-btn\",\n                                  attrs,\n                                  false\n                                ),\n                                [\n                                  _vm._v(\n                                    \"\\r\\n                    Close\\r\\n                    \"\n                                  ),\n                                ]\n                              ),\n                            ]\n                          },\n                        },\n                      ]),\n                      model: {\n                        value: _vm.snack,\n                        callback: function ($$v) {\n                          _vm.snack = $$v\n                        },\n                        expression: \"snack\",\n                      },\n                    },\n                    [\n                      _vm._v(\n                        \"\\r\\n                \" +\n                          _vm._s(_vm.snackText) +\n                          \"\\r\\n\\r\\n                \"\n                      ),\n                    ]\n                  ),\n                ],\n                1\n              ),\n            ],\n            1\n          ),\n          _vm._v(\" \"),\n          !_vm.$gate.isAdmin() ? _c(\"div\", [_c(\"not-found\")], 1) : _vm._e(),\n          _vm._v(\" \"),\n          _c(\n            \"div\",\n            {\n              staticClass: \"modal fade\",\n              attrs: {\n                id: \"addNew\",\n                tabindex: \"-1\",\n                role: \"dialog\",\n                \"aria-labelledby\": \"addNew\",\n                \"aria-hidden\": \"true\",\n              },\n            },\n            [\n              _c(\n                \"div\",\n                { staticClass: \"modal-dialog\", attrs: { role: \"document\" } },\n                [\n                  _c(\n                    \"div\",\n                    { staticClass: \"modal-content\" },\n                    [\n                      _c(\"div\", { staticClass: \"modal-header\" }, [\n                        _c(\n                          \"h5\",\n                          {\n                            directives: [\n                              {\n                                name: \"show\",\n                                rawName: \"v-show\",\n                                value: !_vm.editmode,\n                                expression: \"!editmode\",\n                              },\n                            ],\n                            staticClass: \"modal-title\",\n                          },\n                          [_vm._v(\"Tambah kantor\")]\n                        ),\n                        _vm._v(\" \"),\n                        _c(\n                          \"h5\",\n                          {\n                            directives: [\n                              {\n                                name: \"show\",\n                                rawName: \"v-show\",\n                                value: _vm.editmode,\n                                expression: \"editmode\",\n                              },\n                            ],\n                            staticClass: \"modal-title\",\n                          },\n                          [_vm._v(\"Edit Data User\")]\n                        ),\n                        _vm._v(\" \"),\n                        _c(\n                          \"button\",\n                          {\n                            staticClass: \"close\",\n                            attrs: {\n                              type: \"button\",\n                              \"data-dismiss\": \"modal\",\n                              \"aria-label\": \"Close\",\n                            },\n                          },\n                          [\n                            _c(\"span\", { attrs: { \"aria-hidden\": \"true\" } }, [\n                              _vm._v(\"×\"),\n                            ]),\n                          ]\n                        ),\n                      ]),\n                      _vm._v(\" \"),\n                      _c(\n                        \"v-form\",\n                        {\n                          ref: \"form\",\n                          attrs: { \"lazy-validation\": \"\" },\n                          on: {\n                            submit: function ($event) {\n                              $event.preventDefault()\n                              return _vm.createUser.apply(null, arguments)\n                            },\n                          },\n                          model: {\n                            value: _vm.valid,\n                            callback: function ($$v) {\n                              _vm.valid = $$v\n                            },\n                            expression: \"valid\",\n                          },\n                        },\n                        [\n                          _c(\"div\", { staticClass: \"modal-body\" }, [\n                            _c(\"input\", {\n                              directives: [\n                                {\n                                  name: \"model\",\n                                  rawName: \"v-model\",\n                                  value: _vm.csrf,\n                                  expression: \"csrf\",\n                                },\n                              ],\n                              attrs: { type: \"hidden\", name: \"_token\" },\n                              domProps: { value: _vm.csrf },\n                              on: {\n                                input: function ($event) {\n                                  if ($event.target.composing) {\n                                    return\n                                  }\n                                  _vm.csrf = $event.target.value\n                                },\n                              },\n                            }),\n                            _vm._v(\" \"),\n                            _c(\n                              \"div\",\n                              { staticClass: \"form-group input-group\" },\n                              [\n                                _c(\n                                  \"v-col\",\n                                  { attrs: { cols: \"12\", sm: \"12\", md: \"12\" } },\n                                  [\n                                    _c(\"v-text-field\", {\n                                      attrs: {\n                                        rules: _vm.editedItem.kodeRules,\n                                        label: \"Kode Kantor Slik\",\n                                        name: \"kode_kantor\",\n                                        placeholder: \"input\",\n                                        outlined: \"\",\n                                        required: \"\",\n                                        dense: \"\",\n                                        \"prepend-icon\": \"mdi-barcode\",\n                                      },\n                                      model: {\n                                        value: _vm.editedItem.kode_kantor,\n                                        callback: function ($$v) {\n                                          _vm.$set(\n                                            _vm.editedItem,\n                                            \"kode_kantor\",\n                                            $$v\n                                          )\n                                        },\n                                        expression: \"editedItem.kode_kantor\",\n                                      },\n                                    }),\n                                    _vm._v(\" \"),\n                                    _c(\"v-text-field\", {\n                                      attrs: {\n                                        rules: _vm.editedItem.kodeRules,\n                                        label: \"Kode Kantor Slik\",\n                                        name: \"kode_kantor_slik\",\n                                        placeholder: \"input\",\n                                        outlined: \"\",\n                                        required: \"\",\n                                        dense: \"\",\n                                        \"prepend-icon\": \"mdi-barcode\",\n                                      },\n                                      model: {\n                                        value: _vm.editedItem.kode_kantor_slik,\n                                        callback: function ($$v) {\n                                          _vm.$set(\n                                            _vm.editedItem,\n                                            \"kode_kantor_slik\",\n                                            $$v\n                                          )\n                                        },\n                                        expression:\n                                          \"editedItem.kode_kantor_slik\",\n                                      },\n                                    }),\n                                    _vm._v(\" \"),\n                                    _c(\"v-text-field\", {\n                                      attrs: {\n                                        rules: _vm.editedItem.kantorRules,\n                                        label: \"Nama kantor\",\n                                        name: \"nama_kantor\",\n                                        placeholder: \"input\",\n                                        outlined: \"\",\n                                        required: \"\",\n                                        dense: \"\",\n                                        \"prepend-icon\":\n                                          \"mdi-office-building-cog\",\n                                      },\n                                      model: {\n                                        value: _vm.editedItem.nama_kantor,\n                                        callback: function ($$v) {\n                                          _vm.$set(\n                                            _vm.editedItem,\n                                            \"nama_kantor\",\n                                            $$v\n                                          )\n                                        },\n                                        expression: \"editedItem.nama_kantor\",\n                                      },\n                                    }),\n                                  ],\n                                  1\n                                ),\n                              ],\n                              1\n                            ),\n                          ]),\n                          _vm._v(\" \"),\n                          _c(\n                            \"div\",\n                            { staticClass: \"modal-footer\" },\n                            [\n                              _c(\n                                \"v-btn\",\n                                {\n                                  attrs: {\n                                    color: \"error\",\n                                    elevation: \"2\",\n                                    type: \"button\",\n                                    \"data-dismiss\": \"modal\",\n                                  },\n                                },\n                                [\n                                  _c(\"v-icon\", [_vm._v(\"mdi-cancel\")]),\n                                  _vm._v(\n                                    \"\\r\\n                            Batal\\r\\n                        \"\n                                  ),\n                                ],\n                                1\n                              ),\n                              _vm._v(\" \"),\n                              _c(\n                                \"v-btn\",\n                                {\n                                  directives: [\n                                    {\n                                      name: \"show\",\n                                      rawName: \"v-show\",\n                                      value: _vm.editmode,\n                                      expression: \"editmode\",\n                                    },\n                                  ],\n                                  attrs: {\n                                    color: \"success\",\n                                    elevation: \"2\",\n                                    type: \"submit\",\n                                  },\n                                },\n                                [\n                                  _c(\"v-icon\", [_vm._v(\"mdi-pencil\")]),\n                                  _vm._v(\n                                    \"\\r\\n                            Ubah\\r\\n                        \"\n                                  ),\n                                ],\n                                1\n                              ),\n                              _vm._v(\" \"),\n                              _c(\n                                \"v-btn\",\n                                {\n                                  directives: [\n                                    {\n                                      name: \"show\",\n                                      rawName: \"v-show\",\n                                      value: !_vm.editmode,\n                                      expression: \"!editmode\",\n                                    },\n                                  ],\n                                  attrs: {\n                                    color: \"primary\",\n                                    elevation: \"2\",\n                                    type: \"submit\",\n                                  },\n                                },\n                                [\n                                  _c(\"v-icon\", [_vm._v(\"mdi-plus-box\")]),\n                                  _vm._v(\n                                    \"\\r\\n                            Tambah\\r\\n                        \"\n                                  ),\n                                ],\n                                1\n                              ),\n                            ],\n                            1\n                          ),\n                        ]\n                      ),\n                    ],\n                    1\n                  ),\n                ]\n              ),\n            ]\n          ),\n        ],\n        1\n      ),\n    ],\n    1\n  )\n}\nvar staticRenderFns = []\nrender._withStripped = true\n\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9zZXR0aW5nL0thbnRvci52dWU/OTJjZSJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxTQUFTLFNBQVMsWUFBWSxFQUFFO0FBQ2hDO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxzQkFBc0IsbUJBQW1CO0FBQ3pDLGFBQWE7QUFDYjtBQUNBO0FBQ0E7QUFDQSxpQkFBaUIsU0FBUyxZQUFZLEVBQUU7QUFDeEM7QUFDQTtBQUNBO0FBQ0E7QUFDQSx5QkFBeUIsOEJBQThCO0FBQ3ZEO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSwrQkFBK0I7QUFDL0IsNkJBQTZCO0FBQzdCO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsbUNBQW1DO0FBQ25DLHVDQUF1QyxzQkFBc0I7QUFDN0QsaUNBQWlDO0FBQ2pDO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLDZCQUE2QixnREFBZ0Q7QUFDN0U7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsaUNBQWlDO0FBQ2pDO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsdUNBQXVDO0FBQ3ZDLHFDQUFxQztBQUNyQztBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSw2Q0FBNkMsU0FBUyxXQUFXLEVBQUU7QUFDbkU7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxpREFBaUQ7QUFDakQ7QUFDQTtBQUNBO0FBQ0E7QUFDQSxtREFBbUQ7QUFDbkQ7QUFDQSxpREFBaUQ7QUFDakQsK0NBQStDO0FBQy9DO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsdUNBQXVDO0FBQ3ZDO0FBQ0EscUNBQXFDO0FBQ3JDO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsK0NBQStDO0FBQy9DO0FBQ0E7QUFDQTtBQUNBLGlEQUFpRDtBQUNqRCwrQ0FBK0M7QUFDL0MsNkNBQTZDO0FBQzdDO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsdUNBQXVDO0FBQ3ZDLHFDQUFxQztBQUNyQztBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLGlEQUFpRDtBQUNqRDtBQUNBLCtDQUErQztBQUMvQztBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsMkRBQTJEO0FBQzNEO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLDJEQUEyRDtBQUMzRDtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSw2REFBNkQ7QUFDN0Q7QUFDQTtBQUNBLDJEQUEyRDtBQUMzRCx5REFBeUQ7QUFDekQ7QUFDQSxxREFBcUQ7QUFDckQ7QUFDQSxtREFBbUQ7QUFDbkQ7QUFDQTtBQUNBO0FBQ0E7QUFDQSw2Q0FBNkM7QUFDN0M7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsdUNBQXVDO0FBQ3ZDLHFDQUFxQztBQUNyQztBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsK0JBQStCO0FBQy9CO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsaUJBQWlCLFNBQVMsWUFBWSxFQUFFO0FBQ3hDO0FBQ0E7QUFDQTtBQUNBO0FBQ0EscUNBQXFDO0FBQ3JDO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsdUJBQXVCO0FBQ3ZCO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsNENBQTRDLFdBQVc7QUFDdkQ7QUFDQTtBQUNBO0FBQ0EsdUNBQXVDO0FBQ3ZDLHFDQUFxQztBQUNyQyxtQ0FBbUM7QUFDbkM7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLDJCQUEyQjtBQUMzQix5QkFBeUI7QUFDekI7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLHlCQUF5QjtBQUN6QjtBQUNBLHVCQUF1QjtBQUN2QixxQkFBcUI7QUFDckI7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsZUFBZTtBQUNmLGFBQWE7QUFDYjtBQUNBO0FBQ0E7QUFDQSxpQkFBaUIsc0NBQXNDLG1CQUFtQixFQUFFO0FBQzVFO0FBQ0E7QUFDQTtBQUNBLHFCQUFxQiwrQkFBK0I7QUFDcEQ7QUFDQSxpQ0FBaUMsOEJBQThCO0FBQy9EO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLCtCQUErQjtBQUMvQjtBQUNBO0FBQ0EsMkJBQTJCO0FBQzNCO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLCtCQUErQjtBQUMvQjtBQUNBO0FBQ0EsMkJBQTJCO0FBQzNCO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSw2QkFBNkI7QUFDN0IsMkJBQTJCO0FBQzNCO0FBQ0Esd0NBQXdDLFNBQVMsd0JBQXdCLEVBQUU7QUFDM0U7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxrQ0FBa0Msd0JBQXdCO0FBQzFEO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsNkJBQTZCO0FBQzdCLDJCQUEyQjtBQUMzQjtBQUNBO0FBQ0E7QUFDQTtBQUNBLDZCQUE2QjtBQUM3QjtBQUNBLDJCQUEyQjtBQUMzQix5QkFBeUI7QUFDekI7QUFDQSxxQ0FBcUMsNEJBQTRCO0FBQ2pFO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsaUNBQWlDO0FBQ2pDO0FBQ0Esc0NBQXNDLGlDQUFpQztBQUN2RSx5Q0FBeUMsa0JBQWtCO0FBQzNEO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLGlDQUFpQztBQUNqQywrQkFBK0I7QUFDL0IsNkJBQTZCO0FBQzdCO0FBQ0E7QUFDQTtBQUNBLCtCQUErQix3Q0FBd0M7QUFDdkU7QUFDQTtBQUNBO0FBQ0EsbUNBQW1DLFNBQVMsaUNBQWlDLEVBQUU7QUFDL0U7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLHVDQUF1QztBQUN2QztBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EseUNBQXlDO0FBQ3pDO0FBQ0EsdUNBQXVDO0FBQ3ZDLHFDQUFxQztBQUNyQztBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsdUNBQXVDO0FBQ3ZDO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSx5Q0FBeUM7QUFDekM7QUFDQTtBQUNBLHVDQUF1QztBQUN2QyxxQ0FBcUM7QUFDckM7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsdUNBQXVDO0FBQ3ZDO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSx5Q0FBeUM7QUFDekM7QUFDQSx1Q0FBdUM7QUFDdkMscUNBQXFDO0FBQ3JDO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsNkJBQTZCLDhCQUE4QjtBQUMzRDtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxtQ0FBbUM7QUFDbkMsaUNBQWlDO0FBQ2pDO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLHFDQUFxQztBQUNyQztBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsbUNBQW1DO0FBQ25DLGlDQUFpQztBQUNqQztBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxxQ0FBcUM7QUFDckM7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLG1DQUFtQztBQUNuQyxpQ0FBaUM7QUFDakM7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSIsImZpbGUiOiIuL25vZGVfbW9kdWxlcy92dWUtbG9hZGVyL2xpYi9sb2FkZXJzL3RlbXBsYXRlTG9hZGVyLmpzPyEuL25vZGVfbW9kdWxlcy92dWUtbG9hZGVyL2xpYi9pbmRleC5qcz8hLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9zZXR0aW5nL0thbnRvci52dWU/dnVlJnR5cGU9dGVtcGxhdGUmaWQ9NzQwODE5NDkmLmpzIiwic291cmNlc0NvbnRlbnQiOlsidmFyIHJlbmRlciA9IGZ1bmN0aW9uICgpIHtcbiAgdmFyIF92bSA9IHRoaXNcbiAgdmFyIF9oID0gX3ZtLiRjcmVhdGVFbGVtZW50XG4gIHZhciBfYyA9IF92bS5fc2VsZi5fYyB8fCBfaFxuICByZXR1cm4gX2MoXG4gICAgXCJ2LWFwcFwiLFxuICAgIFtcbiAgICAgIF9jKFxuICAgICAgICBcInYtY29udGFpbmVyXCIsXG4gICAgICAgIHsgYXR0cnM6IHsgZmx1aWQ6IFwiXCIgfSB9LFxuICAgICAgICBbXG4gICAgICAgICAgX2MoXG4gICAgICAgICAgICBcInYtcm93XCIsXG4gICAgICAgICAgICB7XG4gICAgICAgICAgICAgIHN0YXRpY0NsYXNzOiBcImp1c3RpZnktY29udGVudC1tZC1jZW50ZXJcIixcbiAgICAgICAgICAgICAgYXR0cnM6IHsgXCJuby1ndXR0ZXJzXCI6IFwiXCIgfSxcbiAgICAgICAgICAgIH0sXG4gICAgICAgICAgICBbXG4gICAgICAgICAgICAgIF9jKFxuICAgICAgICAgICAgICAgIFwidi1jb2xcIixcbiAgICAgICAgICAgICAgICB7IGF0dHJzOiB7IGNvbHM6IFwiN1wiIH0gfSxcbiAgICAgICAgICAgICAgICBbXG4gICAgICAgICAgICAgICAgICBfdm0uJGdhdGUuaXNBZG1pbigpXG4gICAgICAgICAgICAgICAgICAgID8gX2MoXG4gICAgICAgICAgICAgICAgICAgICAgICBcInYtY2FyZFwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgeyBzdGF0aWNDbGFzczogXCJwYS0yIG14LWF1dG9cIiB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgW1xuICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBcInYtdG9vbGJhclwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGF0dHJzOiB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiBcImdyZWVuIGxpZ2h0ZW4tMVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkYXJrOiBcIlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzaGFwZWQ6IFwiXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXCJ2LXRvb2xiYXItdGl0bGVcIiwgW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uX3YoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJcXHJcXG4gICAgICAgICAgICAgICAgICAgIE1hc3RlciBLYW50b3JcXHJcXG4gICAgICAgICAgICAgICAgXCJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF0pLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFwiIFwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFwidi1zcGFjZXJcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uX3YoXCIgXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwidi1idG5cIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGF0dHJzOiB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzbWFsbDogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiBcImluZGlnb1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGFyazogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG9uOiB7IGNsaWNrOiBfdm0ubmV3TW9kYWwgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFwidi1pY29uXCIsIFtfdm0uX3YoXCJtZGktcGx1cy1ib3hcIildKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uX3YoXCIgVGFtYmFoXFxyXFxuICAgICAgICAgICAgICAgICAgXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBdLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIF0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgMVxuICAgICAgICAgICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uX3YoXCIgXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBcImRpdlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIHsgc3RhdGljQ2xhc3M6IFwiY2FyZC1ib2R5IHRhYmxlLXJlc3BvbnNpdmUgcC0wXCIgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBbXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcInYtZGF0YS10YWJsZVwiLCB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0YXRpY0NsYXNzOiBcImVsZXZhdGlvbi0zXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGF0dHJzOiB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaGVhZGVyczogX3ZtLmhlYWRlcnMsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaXRlbXM6IF92bS5rYW50b3IsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2VhcmNoOiBfdm0uc2VhcmNoLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGp1c3RpZnk6IFwiY2VudGVyXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGVuc2U6IFwiXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNjb3BlZFNsb3RzOiBfdm0uX3UoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBrZXk6IFwiaXRlbS5pbmRleFwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmbjogZnVuY3Rpb24gKHJlZikge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhciBpbmRleCA9IHJlZi5pbmRleFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiBbXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uX3YoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiXFxyXFxuICAgICAgICAgICAgICAgICAgICBcIiArXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl9zKGluZGV4ICsgMSkgK1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiXFxyXFxuICAgICAgICAgICAgICAgIFwiXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGtleTogXCJ0b3BcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZm46IGZ1bmN0aW9uICgpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwidi10b29sYmFyXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHsgYXR0cnM6IHsgZmxhdDogXCJcIiB9IH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcInYtc3BhY2VyXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5fdihcIiBcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXCJ2LXNwYWNlclwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uX3YoXCIgXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFwidi1zcGFjZXJcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFwiIFwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcInYtc3BhY2VyXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5fdihcIiBcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXCJ2LXRleHQtZmllbGRcIiwge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYXR0cnM6IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJhcHBlbmQtaWNvblwiOiBcIm1kaS1tYWduaWZ5XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxhYmVsOiBcIkNhcmkga2FudG9yXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwic2luZ2xlLWxpbmVcIjogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJoaWRlLWRldGFpbHNcIjogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbG9hZGluZzogXCJncmV5XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbW9kZWw6IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFsdWU6IF92bS5zZWFyY2gsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNhbGxiYWNrOiBmdW5jdGlvbiAoJCR2KSB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLnNlYXJjaCA9ICQkdlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBleHByZXNzaW9uOiBcInNlYXJjaFwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9KSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBdXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHByb3h5OiB0cnVlLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAga2V5OiBcIml0ZW0uYWN0aW9uc1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmbjogZnVuY3Rpb24gKHJlZikge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhciBpdGVtID0gcmVmLml0ZW1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwidi1pY29uXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdGF0aWNDbGFzczogXCJtci00XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYXR0cnM6IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNtYWxsOiBcIlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29sb3I6IFwicmVkXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByaWdodDogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG9uOiB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjbGljazogZnVuY3Rpb24gKCRldmVudCkge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gX3ZtLmRlbGV0ZVVzZXIoaXRlbS5pZClcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5fdihcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiXFxyXFxuICAgICAgICAgICAgICAgICAgICBtZGktZGVsZXRlXFxyXFxuICAgICAgICAgICAgICAgIFwiXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBdXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBrZXk6IFwiaXRlbS5uYW1hX2thbnRvclwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmbjogZnVuY3Rpb24gKHJlZikge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhciBpdGVtID0gcmVmLml0ZW1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwidi1lZGl0LWRpYWxvZ1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgb246IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNhdmU6IF92bS5zYXZlLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY2FuY2VsOiBfdm0uY2FuY2VsLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgb3BlbjogZnVuY3Rpb24gKCRldmVudCkge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gX3ZtLm9wZW4oaXRlbSlcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjbG9zZTogX3ZtLmNsb3NlLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2NvcGVkU2xvdHM6IF92bS5fdShcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGtleTogXCJpbnB1dFwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZuOiBmdW5jdGlvbiAoKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcImRpdlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0YXRpY0NsYXNzOlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIm10LTQgdGV4dC1oNlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIlxcclxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBFZGl0IGthbnRvclxcclxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBdXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5fdihcIiBcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFwidi10ZXh0LWZpZWxkXCIsIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhdHRyczoge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcnVsZXM6IFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLm1heDEwMGNoYXJzLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxhYmVsOiBcIkVkaXRcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwic2luZ2xlLWxpbmVcIjogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvdW50ZXI6IFwiXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBtb2RlbDoge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFsdWU6XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5lZGl0ZWRJdGVtXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLm5hbWFfa2FudG9yLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY2FsbGJhY2s6IGZ1bmN0aW9uIChcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJCR2XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICApIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLiRzZXQoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLmVkaXRlZEl0ZW0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJuYW1hX2thbnRvclwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICQkdlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICApXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZXhwcmVzc2lvbjpcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJlZGl0ZWRJdGVtLm5hbWFfa2FudG9yXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBdXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwcm94eTogdHJ1ZSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBudWxsLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdHJ1ZVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uX3YoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIlxcclxcbiAgICAgICAgICAgICAgICAgICAgICAgIFwiICtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl9zKGl0ZW0ubmFtYV9rYW50b3IpICtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJcXHJcXG4gICAgICAgICAgICAgICAgICAgICAgICBcIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBdLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG51bGwsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFsc2UsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMzIyNTM4Nzc2MlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgXSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAxXG4gICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICBdLFxuICAgICAgICAgICAgICAgICAgICAgICAgMVxuICAgICAgICAgICAgICAgICAgICAgIClcbiAgICAgICAgICAgICAgICAgICAgOiBfdm0uX2UoKSxcbiAgICAgICAgICAgICAgICBdLFxuICAgICAgICAgICAgICAgIDFcbiAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgX3ZtLl92KFwiIFwiKSxcbiAgICAgICAgICAgICAgX2MoXG4gICAgICAgICAgICAgICAgXCJ2LWNvbFwiLFxuICAgICAgICAgICAgICAgIHsgYXR0cnM6IHsgY29sczogXCI0XCIgfSB9LFxuICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgIF9jKFxuICAgICAgICAgICAgICAgICAgICBcInYtc25hY2tiYXJcIixcbiAgICAgICAgICAgICAgICAgICAge1xuICAgICAgICAgICAgICAgICAgICAgIHN0YXRpY1N0eWxlOiB7fSxcbiAgICAgICAgICAgICAgICAgICAgICBhdHRyczoge1xuICAgICAgICAgICAgICAgICAgICAgICAgdGltZW91dDogNDAwMCxcbiAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiBfdm0uc25hY2tDb2xvcixcbiAgICAgICAgICAgICAgICAgICAgICAgIFwibXVsdGktbGluZVwiOiBfdm0ubXVsdGlMaW5lLFxuICAgICAgICAgICAgICAgICAgICAgICAgXCJwb3NpdGlvbjpcIjogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgIGFic29sdXRlOiBcIlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgcmlnaHQ6IFwiXCIsXG4gICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICBzY29wZWRTbG90czogX3ZtLl91KFtcbiAgICAgICAgICAgICAgICAgICAgICAgIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAga2V5OiBcImFjdGlvblwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICBmbjogZnVuY3Rpb24gKHJlZikge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhciBhdHRycyA9IHJlZi5hdHRyc1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiBbXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJ2LWJ0blwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uX2IoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYXR0cnM6IHsgdGV4dDogXCJcIiB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgb246IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY2xpY2s6IGZ1bmN0aW9uICgkZXZlbnQpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uc25hY2sgPSBmYWxzZVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwidi1idG5cIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhdHRycyxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWxzZVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBbXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJcXHJcXG4gICAgICAgICAgICAgICAgICAgIENsb3NlXFxyXFxuICAgICAgICAgICAgICAgICAgICBcIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgXVxuICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICBdKSxcbiAgICAgICAgICAgICAgICAgICAgICBtb2RlbDoge1xuICAgICAgICAgICAgICAgICAgICAgICAgdmFsdWU6IF92bS5zbmFjayxcbiAgICAgICAgICAgICAgICAgICAgICAgIGNhbGxiYWNrOiBmdW5jdGlvbiAoJCR2KSB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5zbmFjayA9ICQkdlxuICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgIGV4cHJlc3Npb246IFwic25hY2tcIixcbiAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICBbXG4gICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFxuICAgICAgICAgICAgICAgICAgICAgICAgXCJcXHJcXG4gICAgICAgICAgICAgICAgXCIgK1xuICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uX3MoX3ZtLnNuYWNrVGV4dCkgK1xuICAgICAgICAgICAgICAgICAgICAgICAgICBcIlxcclxcblxcclxcbiAgICAgICAgICAgICAgICBcIlxuICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgIF1cbiAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgXSxcbiAgICAgICAgICAgICAgICAxXG4gICAgICAgICAgICAgICksXG4gICAgICAgICAgICBdLFxuICAgICAgICAgICAgMVxuICAgICAgICAgICksXG4gICAgICAgICAgX3ZtLl92KFwiIFwiKSxcbiAgICAgICAgICAhX3ZtLiRnYXRlLmlzQWRtaW4oKSA/IF9jKFwiZGl2XCIsIFtfYyhcIm5vdC1mb3VuZFwiKV0sIDEpIDogX3ZtLl9lKCksXG4gICAgICAgICAgX3ZtLl92KFwiIFwiKSxcbiAgICAgICAgICBfYyhcbiAgICAgICAgICAgIFwiZGl2XCIsXG4gICAgICAgICAgICB7XG4gICAgICAgICAgICAgIHN0YXRpY0NsYXNzOiBcIm1vZGFsIGZhZGVcIixcbiAgICAgICAgICAgICAgYXR0cnM6IHtcbiAgICAgICAgICAgICAgICBpZDogXCJhZGROZXdcIixcbiAgICAgICAgICAgICAgICB0YWJpbmRleDogXCItMVwiLFxuICAgICAgICAgICAgICAgIHJvbGU6IFwiZGlhbG9nXCIsXG4gICAgICAgICAgICAgICAgXCJhcmlhLWxhYmVsbGVkYnlcIjogXCJhZGROZXdcIixcbiAgICAgICAgICAgICAgICBcImFyaWEtaGlkZGVuXCI6IFwidHJ1ZVwiLFxuICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgfSxcbiAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgX2MoXG4gICAgICAgICAgICAgICAgXCJkaXZcIixcbiAgICAgICAgICAgICAgICB7IHN0YXRpY0NsYXNzOiBcIm1vZGFsLWRpYWxvZ1wiLCBhdHRyczogeyByb2xlOiBcImRvY3VtZW50XCIgfSB9LFxuICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgIF9jKFxuICAgICAgICAgICAgICAgICAgICBcImRpdlwiLFxuICAgICAgICAgICAgICAgICAgICB7IHN0YXRpY0NsYXNzOiBcIm1vZGFsLWNvbnRlbnRcIiB9LFxuICAgICAgICAgICAgICAgICAgICBbXG4gICAgICAgICAgICAgICAgICAgICAgX2MoXCJkaXZcIiwgeyBzdGF0aWNDbGFzczogXCJtb2RhbC1oZWFkZXJcIiB9LCBbXG4gICAgICAgICAgICAgICAgICAgICAgICBfYyhcbiAgICAgICAgICAgICAgICAgICAgICAgICAgXCJoNVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgZGlyZWN0aXZlczogW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBuYW1lOiBcInNob3dcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmF3TmFtZTogXCJ2LXNob3dcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFsdWU6ICFfdm0uZWRpdG1vZGUsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGV4cHJlc3Npb246IFwiIWVkaXRtb2RlXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIF0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RhdGljQ2xhc3M6IFwibW9kYWwtdGl0bGVcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgW192bS5fdihcIlRhbWJhaCBrYW50b3JcIildXG4gICAgICAgICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFwiIFwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgIF9jKFxuICAgICAgICAgICAgICAgICAgICAgICAgICBcImg1XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBkaXJlY3RpdmVzOiBbXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG5hbWU6IFwic2hvd1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByYXdOYW1lOiBcInYtc2hvd1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2YWx1ZTogX3ZtLmVkaXRtb2RlLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBleHByZXNzaW9uOiBcImVkaXRtb2RlXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIF0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RhdGljQ2xhc3M6IFwibW9kYWwtdGl0bGVcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgW192bS5fdihcIkVkaXQgRGF0YSBVc2VyXCIpXVxuICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgIF92bS5fdihcIiBcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICBfYyhcbiAgICAgICAgICAgICAgICAgICAgICAgICAgXCJidXR0b25cIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0YXRpY0NsYXNzOiBcImNsb3NlXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgYXR0cnM6IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHR5cGU6IFwiYnV0dG9uXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcImRhdGEtZGlzbWlzc1wiOiBcIm1vZGFsXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcImFyaWEtbGFiZWxcIjogXCJDbG9zZVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcInNwYW5cIiwgeyBhdHRyczogeyBcImFyaWEtaGlkZGVuXCI6IFwidHJ1ZVwiIH0gfSwgW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFwiw5dcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgXSksXG4gICAgICAgICAgICAgICAgICAgICAgICAgIF1cbiAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgXSksXG4gICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFwiIFwiKSxcbiAgICAgICAgICAgICAgICAgICAgICBfYyhcbiAgICAgICAgICAgICAgICAgICAgICAgIFwidi1mb3JtXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgIHJlZjogXCJmb3JtXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgIGF0dHJzOiB7IFwibGF6eS12YWxpZGF0aW9uXCI6IFwiXCIgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgb246IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdWJtaXQ6IGZ1bmN0aW9uICgkZXZlbnQpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICRldmVudC5wcmV2ZW50RGVmYXVsdCgpXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gX3ZtLmNyZWF0ZVVzZXIuYXBwbHkobnVsbCwgYXJndW1lbnRzKVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgIG1vZGVsOiB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFsdWU6IF92bS52YWxpZCxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBjYWxsYmFjazogZnVuY3Rpb24gKCQkdikge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLnZhbGlkID0gJCR2XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBleHByZXNzaW9uOiBcInZhbGlkXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgW1xuICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcImRpdlwiLCB7IHN0YXRpY0NsYXNzOiBcIm1vZGFsLWJvZHlcIiB9LCBbXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXCJpbnB1dFwiLCB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkaXJlY3RpdmVzOiBbXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBuYW1lOiBcIm1vZGVsXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmF3TmFtZTogXCJ2LW1vZGVsXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFsdWU6IF92bS5jc3JmLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGV4cHJlc3Npb246IFwiY3NyZlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGF0dHJzOiB7IHR5cGU6IFwiaGlkZGVuXCIsIG5hbWU6IFwiX3Rva2VuXCIgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRvbVByb3BzOiB7IHZhbHVlOiBfdm0uY3NyZiB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgb246IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaW5wdXQ6IGZ1bmN0aW9uICgkZXZlbnQpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAoJGV2ZW50LnRhcmdldC5jb21wb3NpbmcpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVyblxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uY3NyZiA9ICRldmVudC50YXJnZXQudmFsdWVcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgfSksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFwiIFwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiZGl2XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7IHN0YXRpY0NsYXNzOiBcImZvcm0tZ3JvdXAgaW5wdXQtZ3JvdXBcIiB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcInYtY29sXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgeyBhdHRyczogeyBjb2xzOiBcIjEyXCIsIHNtOiBcIjEyXCIsIG1kOiBcIjEyXCIgfSB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFwidi10ZXh0LWZpZWxkXCIsIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYXR0cnM6IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBydWxlczogX3ZtLmVkaXRlZEl0ZW0ua29kZVJ1bGVzLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxhYmVsOiBcIktvZGUgS2FudG9yIFNsaWtcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBuYW1lOiBcImtvZGVfa2FudG9yXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGxhY2Vob2xkZXI6IFwiaW5wdXRcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBvdXRsaW5lZDogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXF1aXJlZDogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkZW5zZTogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcInByZXBlbmQtaWNvblwiOiBcIm1kaS1iYXJjb2RlXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG1vZGVsOiB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFsdWU6IF92bS5lZGl0ZWRJdGVtLmtvZGVfa2FudG9yLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNhbGxiYWNrOiBmdW5jdGlvbiAoJCR2KSB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uJHNldChcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLmVkaXRlZEl0ZW0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwia29kZV9rYW50b3JcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJCR2XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICApXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBleHByZXNzaW9uOiBcImVkaXRlZEl0ZW0ua29kZV9rYW50b3JcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0pLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFwiIFwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFwidi10ZXh0LWZpZWxkXCIsIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYXR0cnM6IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBydWxlczogX3ZtLmVkaXRlZEl0ZW0ua29kZVJ1bGVzLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxhYmVsOiBcIktvZGUgS2FudG9yIFNsaWtcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBuYW1lOiBcImtvZGVfa2FudG9yX3NsaWtcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwbGFjZWhvbGRlcjogXCJpbnB1dFwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG91dGxpbmVkOiBcIlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJlcXVpcmVkOiBcIlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRlbnNlOiBcIlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwicHJlcGVuZC1pY29uXCI6IFwibWRpLWJhcmNvZGVcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbW9kZWw6IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2YWx1ZTogX3ZtLmVkaXRlZEl0ZW0ua29kZV9rYW50b3Jfc2xpayxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjYWxsYmFjazogZnVuY3Rpb24gKCQkdikge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLiRzZXQoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5lZGl0ZWRJdGVtLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcImtvZGVfa2FudG9yX3NsaWtcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJCR2XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICApXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBleHByZXNzaW9uOlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJlZGl0ZWRJdGVtLmtvZGVfa2FudG9yX3NsaWtcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0pLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFwiIFwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFwidi10ZXh0LWZpZWxkXCIsIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYXR0cnM6IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBydWxlczogX3ZtLmVkaXRlZEl0ZW0ua2FudG9yUnVsZXMsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbGFiZWw6IFwiTmFtYSBrYW50b3JcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBuYW1lOiBcIm5hbWFfa2FudG9yXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGxhY2Vob2xkZXI6IFwiaW5wdXRcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBvdXRsaW5lZDogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXF1aXJlZDogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkZW5zZTogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcInByZXBlbmQtaWNvblwiOlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJtZGktb2ZmaWNlLWJ1aWxkaW5nLWNvZ1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBtb2RlbDoge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhbHVlOiBfdm0uZWRpdGVkSXRlbS5uYW1hX2thbnRvcixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjYWxsYmFjazogZnVuY3Rpb24gKCQkdikge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLiRzZXQoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5lZGl0ZWRJdGVtLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIm5hbWFfa2FudG9yXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICQkdlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZXhwcmVzc2lvbjogXCJlZGl0ZWRJdGVtLm5hbWFfa2FudG9yXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9KSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBdLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDFcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgXSksXG4gICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5fdihcIiBcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiZGl2XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgeyBzdGF0aWNDbGFzczogXCJtb2RhbC1mb290ZXJcIiB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcInYtYnRuXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhdHRyczoge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29sb3I6IFwiZXJyb3JcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGVsZXZhdGlvbjogXCIyXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBcImJ1dHRvblwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJkYXRhLWRpc21pc3NcIjogXCJtb2RhbFwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcInYtaWNvblwiLCBbX3ZtLl92KFwibWRpLWNhbmNlbFwiKV0pLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5fdihcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiXFxyXFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIEJhdGFsXFxyXFxuICAgICAgICAgICAgICAgICAgICAgICAgXCJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBdLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFwiIFwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcInYtYnRuXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkaXJlY3RpdmVzOiBbXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG5hbWU6IFwic2hvd1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByYXdOYW1lOiBcInYtc2hvd1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2YWx1ZTogX3ZtLmVkaXRtb2RlLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBleHByZXNzaW9uOiBcImVkaXRtb2RlXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYXR0cnM6IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiBcInN1Y2Nlc3NcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGVsZXZhdGlvbjogXCIyXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBcInN1Ym1pdFwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcInYtaWNvblwiLCBbX3ZtLl92KFwibWRpLXBlbmNpbFwiKV0pLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5fdihcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiXFxyXFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIFViYWhcXHJcXG4gICAgICAgICAgICAgICAgICAgICAgICBcIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDFcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uX3YoXCIgXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwidi1idG5cIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRpcmVjdGl2ZXM6IFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbmFtZTogXCJzaG93XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJhd05hbWU6IFwidi1zaG93XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhbHVlOiAhX3ZtLmVkaXRtb2RlLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBleHByZXNzaW9uOiBcIiFlZGl0bW9kZVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBdLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGF0dHJzOiB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb2xvcjogXCJwcmltYXJ5XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBlbGV2YXRpb246IFwiMlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdHlwZTogXCJzdWJtaXRcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBbXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXCJ2LWljb25cIiwgW192bS5fdihcIm1kaS1wbHVzLWJveFwiKV0pLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5fdihcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiXFxyXFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIFRhbWJhaFxcclxcbiAgICAgICAgICAgICAgICAgICAgICAgIFwiXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBdLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIDFcbiAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgIF1cbiAgICAgICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgICAgICBdLFxuICAgICAgICAgICAgICAgICAgICAxXG4gICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgIF1cbiAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgIF1cbiAgICAgICAgICApLFxuICAgICAgICBdLFxuICAgICAgICAxXG4gICAgICApLFxuICAgIF0sXG4gICAgMVxuICApXG59XG52YXIgc3RhdGljUmVuZGVyRm5zID0gW11cbnJlbmRlci5fd2l0aFN0cmlwcGVkID0gdHJ1ZVxuXG5leHBvcnQgeyByZW5kZXIsIHN0YXRpY1JlbmRlckZucyB9Il0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Kantor.vue?vue&type=template&id=74081949&\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-app",
+    [
+      _c(
+        "v-container",
+        { attrs: { fluid: "" } },
+        [
+          _c(
+            "v-row",
+            {
+              staticClass: "justify-content-md-center",
+              attrs: { "no-gutters": "" },
+            },
+            [
+              _c(
+                "v-col",
+                { attrs: { cols: "7" } },
+                [
+                  _vm.$gate.isAdmin()
+                    ? _c(
+                        "v-card",
+                        { staticClass: "pa-2 mx-auto" },
+                        [
+                          _c(
+                            "v-toolbar",
+                            {
+                              attrs: {
+                                color: "green lighten-1",
+                                dark: "",
+                                shaped: "",
+                              },
+                            },
+                            [
+                              _c("v-toolbar-title", [
+                                _vm._v(
+                                  "\r\n                    Master Kantor\r\n                "
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c("v-spacer"),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    small: "",
+                                    color: "indigo",
+                                    dark: "",
+                                  },
+                                  on: { click: _vm.newModal },
+                                },
+                                [
+                                  _c("v-icon", [_vm._v("mdi-plus-box")]),
+                                  _vm._v(" Tambah\r\n                  "),
+                                ],
+                                1
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "card-body table-responsive p-0" },
+                            [
+                              _c("v-data-table", {
+                                staticClass: "elevation-3",
+                                attrs: {
+                                  headers: _vm.headers,
+                                  items: _vm.kantor,
+                                  search: _vm.search,
+                                  justify: "center",
+                                  dense: "",
+                                },
+                                scopedSlots: _vm._u(
+                                  [
+                                    {
+                                      key: "item.index",
+                                      fn: function (ref) {
+                                        var index = ref.index
+                                        return [
+                                          _vm._v(
+                                            "\r\n                    " +
+                                              _vm._s(index + 1) +
+                                              "\r\n                "
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                    {
+                                      key: "top",
+                                      fn: function () {
+                                        return [
+                                          _c(
+                                            "v-toolbar",
+                                            { attrs: { flat: "" } },
+                                            [
+                                              _c("v-spacer"),
+                                              _vm._v(" "),
+                                              _c("v-spacer"),
+                                              _vm._v(" "),
+                                              _c("v-spacer"),
+                                              _vm._v(" "),
+                                              _c("v-spacer"),
+                                              _vm._v(" "),
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  "append-icon": "mdi-magnify",
+                                                  label: "Cari kantor",
+                                                  "single-line": "",
+                                                  "hide-details": "",
+                                                  loading: "grey",
+                                                },
+                                                model: {
+                                                  value: _vm.search,
+                                                  callback: function ($$v) {
+                                                    _vm.search = $$v
+                                                  },
+                                                  expression: "search",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ]
+                                      },
+                                      proxy: true,
+                                    },
+                                    {
+                                      key: "item.actions",
+                                      fn: function (ref) {
+                                        var item = ref.item
+                                        return [
+                                          _c(
+                                            "v-icon",
+                                            {
+                                              staticClass: "mr-4",
+                                              attrs: {
+                                                small: "",
+                                                color: "red",
+                                                right: "",
+                                              },
+                                              on: {
+                                                click: function ($event) {
+                                                  return _vm.deleteUser(item.id)
+                                                },
+                                              },
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\r\n                    mdi-delete\r\n                "
+                                              ),
+                                            ]
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                    {
+                                      key: "item.nama_kantor",
+                                      fn: function (ref) {
+                                        var item = ref.item
+                                        return [
+                                          _c(
+                                            "v-edit-dialog",
+                                            {
+                                              on: {
+                                                save: _vm.save,
+                                                cancel: _vm.cancel,
+                                                open: function ($event) {
+                                                  return _vm.open(item)
+                                                },
+                                                close: _vm.close,
+                                              },
+                                              scopedSlots: _vm._u(
+                                                [
+                                                  {
+                                                    key: "input",
+                                                    fn: function () {
+                                                      return [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "mt-4 text-h6",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\r\n                            Edit kantor\r\n                            "
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            rules: [
+                                                              _vm.max100chars,
+                                                            ],
+                                                            label: "Edit",
+                                                            "single-line": "",
+                                                            counter: "",
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedItem
+                                                                .nama_kantor,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedItem,
+                                                                "nama_kantor",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedItem.nama_kantor",
+                                                          },
+                                                        }),
+                                                      ]
+                                                    },
+                                                    proxy: true,
+                                                  },
+                                                ],
+                                                null,
+                                                true
+                                              ),
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\r\n                        " +
+                                                  _vm._s(item.nama_kantor) +
+                                                  "\r\n                        "
+                                              ),
+                                            ]
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                  ],
+                                  null,
+                                  false,
+                                  3225387762
+                                ),
+                              }),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-col",
+                { attrs: { cols: "4" } },
+                [
+                  _c(
+                    "v-snackbar",
+                    {
+                      staticStyle: {},
+                      attrs: {
+                        timeout: 4000,
+                        color: _vm.snackColor,
+                        "multi-line": _vm.multiLine,
+                        "position:": "",
+                        absolute: "",
+                        right: "",
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "action",
+                          fn: function (ref) {
+                            var attrs = ref.attrs
+                            return [
+                              _c(
+                                "v-btn",
+                                _vm._b(
+                                  {
+                                    attrs: { text: "" },
+                                    on: {
+                                      click: function ($event) {
+                                        _vm.snack = false
+                                      },
+                                    },
+                                  },
+                                  "v-btn",
+                                  attrs,
+                                  false
+                                ),
+                                [
+                                  _vm._v(
+                                    "\r\n                    Close\r\n                    "
+                                  ),
+                                ]
+                              ),
+                            ]
+                          },
+                        },
+                      ]),
+                      model: {
+                        value: _vm.snack,
+                        callback: function ($$v) {
+                          _vm.snack = $$v
+                        },
+                        expression: "snack",
+                      },
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                " +
+                          _vm._s(_vm.snackText) +
+                          "\r\n\r\n                "
+                      ),
+                    ]
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          !_vm.$gate.isAdmin() ? _c("div", [_c("not-found")], 1) : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "modal fade",
+              attrs: {
+                id: "addNew",
+                tabindex: "-1",
+                role: "dialog",
+                "aria-labelledby": "addNew",
+                "aria-hidden": "true",
+              },
+            },
+            [
+              _c(
+                "div",
+                { staticClass: "modal-dialog", attrs: { role: "document" } },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "modal-content" },
+                    [
+                      _c("div", { staticClass: "modal-header" }, [
+                        _c(
+                          "h5",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: !_vm.editmode,
+                                expression: "!editmode",
+                              },
+                            ],
+                            staticClass: "modal-title",
+                          },
+                          [_vm._v("Tambah kantor")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "h5",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.editmode,
+                                expression: "editmode",
+                              },
+                            ],
+                            staticClass: "modal-title",
+                          },
+                          [_vm._v("Edit Data User")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "close",
+                            attrs: {
+                              type: "button",
+                              "data-dismiss": "modal",
+                              "aria-label": "Close",
+                            },
+                          },
+                          [
+                            _c("span", { attrs: { "aria-hidden": "true" } }, [
+                              _vm._v("×"),
+                            ]),
+                          ]
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "v-form",
+                        {
+                          ref: "form",
+                          attrs: { "lazy-validation": "" },
+                          on: {
+                            submit: function ($event) {
+                              $event.preventDefault()
+                              return _vm.createUser.apply(null, arguments)
+                            },
+                          },
+                          model: {
+                            value: _vm.valid,
+                            callback: function ($$v) {
+                              _vm.valid = $$v
+                            },
+                            expression: "valid",
+                          },
+                        },
+                        [
+                          _c("div", { staticClass: "modal-body" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.csrf,
+                                  expression: "csrf",
+                                },
+                              ],
+                              attrs: { type: "hidden", name: "_token" },
+                              domProps: { value: _vm.csrf },
+                              on: {
+                                input: function ($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.csrf = $event.target.value
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "form-group input-group" },
+                              [
+                                _c(
+                                  "v-col",
+                                  { attrs: { cols: "12", sm: "12", md: "12" } },
+                                  [
+                                    _c("v-text-field", {
+                                      attrs: {
+                                        rules: _vm.editedItem.kodeRules,
+                                        label: "Kode Kantor Slik",
+                                        name: "kode_kantor",
+                                        placeholder: "input",
+                                        outlined: "",
+                                        required: "",
+                                        dense: "",
+                                        "prepend-icon": "mdi-barcode",
+                                      },
+                                      model: {
+                                        value: _vm.editedItem.kode_kantor,
+                                        callback: function ($$v) {
+                                          _vm.$set(
+                                            _vm.editedItem,
+                                            "kode_kantor",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "editedItem.kode_kantor",
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("v-text-field", {
+                                      attrs: {
+                                        rules: _vm.editedItem.kodeRules,
+                                        label: "Kode Kantor Slik",
+                                        name: "kode_kantor_slik",
+                                        placeholder: "input",
+                                        outlined: "",
+                                        required: "",
+                                        dense: "",
+                                        "prepend-icon": "mdi-barcode",
+                                      },
+                                      model: {
+                                        value: _vm.editedItem.kode_kantor_slik,
+                                        callback: function ($$v) {
+                                          _vm.$set(
+                                            _vm.editedItem,
+                                            "kode_kantor_slik",
+                                            $$v
+                                          )
+                                        },
+                                        expression:
+                                          "editedItem.kode_kantor_slik",
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("v-text-field", {
+                                      attrs: {
+                                        rules: _vm.editedItem.kantorRules,
+                                        label: "Nama kantor",
+                                        name: "nama_kantor",
+                                        placeholder: "input",
+                                        outlined: "",
+                                        required: "",
+                                        dense: "",
+                                        "prepend-icon":
+                                          "mdi-office-building-cog",
+                                      },
+                                      model: {
+                                        value: _vm.editedItem.nama_kantor,
+                                        callback: function ($$v) {
+                                          _vm.$set(
+                                            _vm.editedItem,
+                                            "nama_kantor",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "editedItem.nama_kantor",
+                                      },
+                                    }),
+                                  ],
+                                  1
+                                ),
+                              ],
+                              1
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "modal-footer" },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    color: "error",
+                                    elevation: "2",
+                                    type: "button",
+                                    "data-dismiss": "modal",
+                                  },
+                                },
+                                [
+                                  _c("v-icon", [_vm._v("mdi-cancel")]),
+                                  _vm._v(
+                                    "\r\n                            Batal\r\n                        "
+                                  ),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.editmode,
+                                      expression: "editmode",
+                                    },
+                                  ],
+                                  attrs: {
+                                    color: "success",
+                                    elevation: "2",
+                                    type: "submit",
+                                  },
+                                },
+                                [
+                                  _c("v-icon", [_vm._v("mdi-pencil")]),
+                                  _vm._v(
+                                    "\r\n                            Ubah\r\n                        "
+                                  ),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: !_vm.editmode,
+                                      expression: "!editmode",
+                                    },
+                                  ],
+                                  attrs: {
+                                    color: "primary",
+                                    elevation: "2",
+                                    type: "submit",
+                                  },
+                                },
+                                [
+                                  _c("v-icon", [_vm._v("mdi-plus-box")]),
+                                  _vm._v(
+                                    "\r\n                            Tambah\r\n                        "
+                                  ),
+                                ],
+                                1
+                              ),
+                            ],
+                            1
+                          ),
+                        ]
+                      ),
+                    ],
+                    1
+                  ),
+                ]
+              ),
+            ]
+          ),
+        ],
+        1
+      ),
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
 
 /***/ }),
 
@@ -32,7 +1116,32 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Kantor_vue_vue_type_template_id_74081949___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Kantor.vue?vue&type=template&id=74081949& */ \"./resources/js/components/setting/Kantor.vue?vue&type=template&id=74081949&\");\n/* harmony import */ var _Kantor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Kantor.vue?vue&type=script&lang=js& */ \"./resources/js/components/setting/Kantor.vue?vue&type=script&lang=js&\");\n/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ \"./node_modules/vue-loader/lib/runtime/componentNormalizer.js\");\n\n\n\n\n\n/* normalize component */\n\nvar component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"])(\n  _Kantor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[\"default\"],\n  _Kantor_vue_vue_type_template_id_74081949___WEBPACK_IMPORTED_MODULE_0__[\"render\"],\n  _Kantor_vue_vue_type_template_id_74081949___WEBPACK_IMPORTED_MODULE_0__[\"staticRenderFns\"],\n  false,\n  null,\n  null,\n  null\n  \n)\n\n/* hot reload */\nif (false) { var api; }\ncomponent.options.__file = \"resources/js/components/setting/Kantor.vue\"\n/* harmony default export */ __webpack_exports__[\"default\"] = (component.exports);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9zZXR0aW5nL0thbnRvci52dWU/MDUyMCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFxRjtBQUMzQjtBQUNMOzs7QUFHckQ7QUFDZ0c7QUFDaEcsZ0JBQWdCLDJHQUFVO0FBQzFCLEVBQUUsNEVBQU07QUFDUixFQUFFLGlGQUFNO0FBQ1IsRUFBRSwwRkFBZTtBQUNqQjtBQUNBO0FBQ0E7QUFDQTs7QUFFQTs7QUFFQTtBQUNBLElBQUksS0FBVSxFQUFFLFlBaUJmO0FBQ0Q7QUFDZSxnRiIsImZpbGUiOiIuL3Jlc291cmNlcy9qcy9jb21wb25lbnRzL3NldHRpbmcvS2FudG9yLnZ1ZS5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IHJlbmRlciwgc3RhdGljUmVuZGVyRm5zIH0gZnJvbSBcIi4vS2FudG9yLnZ1ZT92dWUmdHlwZT10ZW1wbGF0ZSZpZD03NDA4MTk0OSZcIlxuaW1wb3J0IHNjcmlwdCBmcm9tIFwiLi9LYW50b3IudnVlP3Z1ZSZ0eXBlPXNjcmlwdCZsYW5nPWpzJlwiXG5leHBvcnQgKiBmcm9tIFwiLi9LYW50b3IudnVlP3Z1ZSZ0eXBlPXNjcmlwdCZsYW5nPWpzJlwiXG5cblxuLyogbm9ybWFsaXplIGNvbXBvbmVudCAqL1xuaW1wb3J0IG5vcm1hbGl6ZXIgZnJvbSBcIiEuLi8uLi8uLi8uLi9ub2RlX21vZHVsZXMvdnVlLWxvYWRlci9saWIvcnVudGltZS9jb21wb25lbnROb3JtYWxpemVyLmpzXCJcbnZhciBjb21wb25lbnQgPSBub3JtYWxpemVyKFxuICBzY3JpcHQsXG4gIHJlbmRlcixcbiAgc3RhdGljUmVuZGVyRm5zLFxuICBmYWxzZSxcbiAgbnVsbCxcbiAgbnVsbCxcbiAgbnVsbFxuICBcbilcblxuLyogaG90IHJlbG9hZCAqL1xuaWYgKG1vZHVsZS5ob3QpIHtcbiAgdmFyIGFwaSA9IHJlcXVpcmUoXCJEOlxcXFxsYXJhZ29uXFxcXHd3d1xcXFxlYm94a3VcXFxcbm9kZV9tb2R1bGVzXFxcXHZ1ZS1ob3QtcmVsb2FkLWFwaVxcXFxkaXN0XFxcXGluZGV4LmpzXCIpXG4gIGFwaS5pbnN0YWxsKHJlcXVpcmUoJ3Z1ZScpKVxuICBpZiAoYXBpLmNvbXBhdGlibGUpIHtcbiAgICBtb2R1bGUuaG90LmFjY2VwdCgpXG4gICAgaWYgKCFhcGkuaXNSZWNvcmRlZCgnNzQwODE5NDknKSkge1xuICAgICAgYXBpLmNyZWF0ZVJlY29yZCgnNzQwODE5NDknLCBjb21wb25lbnQub3B0aW9ucylcbiAgICB9IGVsc2Uge1xuICAgICAgYXBpLnJlbG9hZCgnNzQwODE5NDknLCBjb21wb25lbnQub3B0aW9ucylcbiAgICB9XG4gICAgbW9kdWxlLmhvdC5hY2NlcHQoXCIuL0thbnRvci52dWU/dnVlJnR5cGU9dGVtcGxhdGUmaWQ9NzQwODE5NDkmXCIsIGZ1bmN0aW9uICgpIHtcbiAgICAgIGFwaS5yZXJlbmRlcignNzQwODE5NDknLCB7XG4gICAgICAgIHJlbmRlcjogcmVuZGVyLFxuICAgICAgICBzdGF0aWNSZW5kZXJGbnM6IHN0YXRpY1JlbmRlckZuc1xuICAgICAgfSlcbiAgICB9KVxuICB9XG59XG5jb21wb25lbnQub3B0aW9ucy5fX2ZpbGUgPSBcInJlc291cmNlcy9qcy9jb21wb25lbnRzL3NldHRpbmcvS2FudG9yLnZ1ZVwiXG5leHBvcnQgZGVmYXVsdCBjb21wb25lbnQuZXhwb3J0cyJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/js/components/setting/Kantor.vue\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Kantor_vue_vue_type_template_id_74081949___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Kantor.vue?vue&type=template&id=74081949& */ "./resources/js/components/setting/Kantor.vue?vue&type=template&id=74081949&");
+/* harmony import */ var _Kantor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Kantor.vue?vue&type=script&lang=js& */ "./resources/js/components/setting/Kantor.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Kantor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Kantor_vue_vue_type_template_id_74081949___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Kantor_vue_vue_type_template_id_74081949___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/setting/Kantor.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
@@ -44,7 +1153,9 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Kan
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Kantor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Kantor.vue?vue&type=script&lang=js& */ \"./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Kantor.vue?vue&type=script&lang=js&\");\n/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__[\"default\"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Kantor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[\"default\"]); //# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9zZXR0aW5nL0thbnRvci52dWU/YWVmYyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUEsd0NBQTRMLENBQWdCLGtQQUFHLEVBQUMiLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9zZXR0aW5nL0thbnRvci52dWU/dnVlJnR5cGU9c2NyaXB0Jmxhbmc9anMmLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IG1vZCBmcm9tIFwiLSEuLi8uLi8uLi8uLi9ub2RlX21vZHVsZXMvYmFiZWwtbG9hZGVyL2xpYi9pbmRleC5qcz8/cmVmLS00LTAhLi4vLi4vLi4vLi4vbm9kZV9tb2R1bGVzL3Z1ZS1sb2FkZXIvbGliL2luZGV4LmpzPz92dWUtbG9hZGVyLW9wdGlvbnMhLi9LYW50b3IudnVlP3Z1ZSZ0eXBlPXNjcmlwdCZsYW5nPWpzJlwiOyBleHBvcnQgZGVmYXVsdCBtb2Q7IGV4cG9ydCAqIGZyb20gXCItIS4uLy4uLy4uLy4uL25vZGVfbW9kdWxlcy9iYWJlbC1sb2FkZXIvbGliL2luZGV4LmpzPz9yZWYtLTQtMCEuLi8uLi8uLi8uLi9ub2RlX21vZHVsZXMvdnVlLWxvYWRlci9saWIvaW5kZXguanM/P3Z1ZS1sb2FkZXItb3B0aW9ucyEuL0thbnRvci52dWU/dnVlJnR5cGU9c2NyaXB0Jmxhbmc9anMmXCIiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/js/components/setting/Kantor.vue?vue&type=script&lang=js&\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Kantor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Kantor.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Kantor.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Kantor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -56,7 +1167,13 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _nod
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Kantor_vue_vue_type_template_id_74081949___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Kantor.vue?vue&type=template&id=74081949& */ \"./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Kantor.vue?vue&type=template&id=74081949&\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Kantor_vue_vue_type_template_id_74081949___WEBPACK_IMPORTED_MODULE_0__[\"render\"]; });\n\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"staticRenderFns\", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Kantor_vue_vue_type_template_id_74081949___WEBPACK_IMPORTED_MODULE_0__[\"staticRenderFns\"]; });\n\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9zZXR0aW5nL0thbnRvci52dWU/NzA2YSJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEiLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9zZXR0aW5nL0thbnRvci52dWU/dnVlJnR5cGU9dGVtcGxhdGUmaWQ9NzQwODE5NDkmLmpzIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0ICogZnJvbSBcIi0hLi4vLi4vLi4vLi4vbm9kZV9tb2R1bGVzL3Z1ZS1sb2FkZXIvbGliL2xvYWRlcnMvdGVtcGxhdGVMb2FkZXIuanM/P3Z1ZS1sb2FkZXItb3B0aW9ucyEuLi8uLi8uLi8uLi9ub2RlX21vZHVsZXMvdnVlLWxvYWRlci9saWIvaW5kZXguanM/P3Z1ZS1sb2FkZXItb3B0aW9ucyEuL0thbnRvci52dWU/dnVlJnR5cGU9dGVtcGxhdGUmaWQ9NzQwODE5NDkmXCIiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/js/components/setting/Kantor.vue?vue&type=template&id=74081949&\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Kantor_vue_vue_type_template_id_74081949___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Kantor.vue?vue&type=template&id=74081949& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Kantor.vue?vue&type=template&id=74081949&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Kantor_vue_vue_type_template_id_74081949___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Kantor_vue_vue_type_template_id_74081949___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ })
 

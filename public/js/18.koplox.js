@@ -8,7 +8,426 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  data: function data() {\n    return {\n      // props: [\"namabarang\"],\n      csrf: document.querySelector('meta[name=\"csrf-token\"]').getAttribute('content'),\n      editmode: false,\n      dialog: false,\n      dialogDelete: false,\n      search: '',\n      snack: false,\n      multiLine: true,\n      snackColor: '',\n      snackText: '',\n      max100chars: function max100chars(v) {\n        return v.length <= 100 || 'Input too long!';\n      },\n      barang: [],\n      editedIndex: -1,\n      editedItem: {\n        id: '',\n        namabarang: '',\n        namabarangEdit: '',\n        barangRules: [function (v) {\n          return !!v || 'Nama barang belum diisi';\n        }]\n      },\n      valid: true,\n      kantor_id: '',\n      form: new Form({\n        id: '',\n        namabarang: ''\n      })\n    };\n  },\n  computed: {\n    headers: function headers() {\n      var headers = [{\n        text: 'No',\n        value: 'index',\n        align: 'center',\n        sortable: false\n      }, {\n        text: 'Barang',\n        value: 'namabarang'\n      }];\n\n      if (this.$gate.isAdmin()) {\n        headers.push({\n          text: 'Hapus',\n          value: 'actions',\n          sortable: false\n        });\n      }\n\n      return headers;\n    },\n    formTitle: function formTitle() {\n      return this.editedIndex === -1 ? 'New Item' : 'Edit Item';\n    }\n  },\n  created: function created() {\n    this.$Progress.start();\n    this.initialize();\n    this.$Progress.finish();\n  },\n  methods: {\n    save: function save() {\n      this.snack = true;\n      this.snackColor = 'success';\n      this.snackText = 'Data disimpan';\n      this.updateUser();\n    },\n    cancel: function cancel() {\n      this.snack = true;\n      this.snackColor = 'error';\n      this.snackText = 'Dibatalkan';\n    },\n    open: function open(item) {\n      this.snack = true;\n      this.snackColor = 'info';\n      this.snackText = 'Enter = Simpan';\n      this.editedItem.id = item.id;\n      this.editedItem.namabarang = item.namabarang; //console.log(this.item.namabarang);\n      //alert(this.item.id)\n    },\n    close: function close() {\n      console.log('Dialog closed');\n    },\n    pencetKeyboard: function pencetKeyboard(evt) {\n      evt = evt ? evt : window.event;\n      var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul\n      //if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {\n      //tidak boleh tombol '/' dan '\\'\n\n      if (charCode === 191 || charCode === 220) {\n        evt.preventDefault();\n        ;\n      } else {\n        return true;\n      }\n    },\n    initialize: function initialize() {\n      var _this = this;\n\n      this.$Progress.start();\n\n      if (this.$gate.isAdmin()) {\n        //axios.get(\"api/user\").then((response) => {(this.users = response.data.data)});\n        axios.get(\"api/barang\").then(function (response) {\n          _this.barang = response.data.data; // this.kantor_id = this.$kantor_id;\n          // this.form.fill\n          //console.log(this.barang);\n          //console.log(this.kantor_id)\n        });\n      }\n\n      this.$Progress.finish();\n    },\n    editBarang: function editBarang(item) {\n      this.editedIndex = this.barang.indexOf(item);\n      this.item.id = item.id;\n      this.item.namabarang = item.namabarang;\n      console.log(this.item.id); //alert(this.item.id)\n    },\n    newModal: function newModal() {\n      this.editmode = false;\n      $('#addNew').modal('show');\n      this.$refs.form.reset();\n      this.editedItem.namabarang = '';\n    },\n    createUser: function createUser() {\n      var _this2 = this;\n\n      this.$refs.form.validate();\n      this.$Progress.start(); // e.preventDefault();\n\n      var config = {\n        headers: {\n          'content-type': 'multipart/form-data'\n        }\n      }; // //this.append('file', this.file);\n\n      var formData = new FormData();\n      formData.set('namabarang', this.editedItem.namabarang);\n      axios.post('api/barang', formData, config).then(function (response) {\n        $('#addNew').modal('hide'); //  console.log(this.namabarang);\n\n        Toast.fire({\n          icon: 'success',\n          title: response.data.message\n        });\n\n        _this2.$Progress.finish();\n\n        _this2.initialize();\n      })[\"catch\"](function (response) {\n        //Swal.fire(\"Failed!\", data.message, \"warning\");\n        Toast.fire({\n          icon: 'error',\n          title: 'Gagal tambah barang, ulangi!' //title: response.message\n\n        });\n      });\n    },\n    updateUser: function updateUser() {\n      var _this3 = this;\n\n      var config = {\n        headers: {\n          'accept': 'application/json',\n          'Accept-Language': 'en-US,en;q=0.8',\n          'content-type': 'multipart/form-data'\n        } // headers: {'X-Custom-Header': 'value'}\n\n      };\n      this.$Progress.start(); //alert(this.editedItem.namabarang);\n\n      var formData = new FormData();\n      formData.set('namabarang', this.editedItem.namabarang);\n      formData.append(\"_method\", \"PUT\");\n      axios.post('api/barang/' + this.editedItem.id, formData).then(function (response) {\n        // success\n        $('#addNew').modal('hide');\n        Toast.fire({\n          icon: 'success',\n          title: response.data.message\n        });\n\n        _this3.$Progress.finish(); //  Fire.$emit('AfterCreate');\n\n\n        _this3.initialize();\n      })[\"catch\"](function () {\n        _this3.$Progress.fail();\n      });\n    },\n    deleteUser: function deleteUser(id) {\n      var _this4 = this;\n\n      Swal.fire({\n        title: 'Yakin dihapus?',\n        text: \"Jika dihapus data hilang!\",\n        showCancelButton: true,\n        confirmButtonColor: '#d33',\n        cancelButtonColor: '#3085d6',\n        confirmButtonText: 'Ya, Hapus!'\n      }).then(function (result) {\n        // Send request to the server\n        if (result.value) {\n          _this4.form[\"delete\"]('api/barang/' + id).then(function () {\n            Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');\n\n            _this4.initialize();\n          })[\"catch\"](function (data) {\n            Swal.fire(\"Failed!\", data.message, \"warning\");\n          });\n        }\n      });\n    }\n  }\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vcmVzb3VyY2VzL2pzL2NvbXBvbmVudHMvc2V0dGluZy9CYXJhbmcudnVlPzkxY2MiXSwibmFtZXMiOlsiZGF0YSIsImNzcmYiLCJlZGl0bW9kZSIsImRpYWxvZyIsImRpYWxvZ0RlbGV0ZSIsInNlYXJjaCIsInNuYWNrIiwibXVsdGlMaW5lIiwic25hY2tDb2xvciIsInNuYWNrVGV4dCIsIm1heDEwMGNoYXJzIiwiYmFyYW5nIiwiZWRpdGVkSW5kZXgiLCJlZGl0ZWRJdGVtIiwiaWQiLCJuYW1hYmFyYW5nIiwibmFtYWJhcmFuZ0VkaXQiLCJiYXJhbmdSdWxlcyIsInZhbGlkIiwia2FudG9yX2lkIiwiZm9ybSIsImNvbXB1dGVkIiwiaGVhZGVycyIsInRleHQiLCJ2YWx1ZSIsImFsaWduIiwic29ydGFibGUiLCJmb3JtVGl0bGUiLCJjcmVhdGVkIiwibWV0aG9kcyIsInNhdmUiLCJjYW5jZWwiLCJvcGVuIiwiaXRlbSIsImNsb3NlIiwiY29uc29sZSIsInBlbmNldEtleWJvYXJkIiwiZXZ0IiwiaW5pdGlhbGl6ZSIsImF4aW9zIiwidGhlbiIsImVkaXRCYXJhbmciLCJuZXdNb2RhbCIsIiQiLCJjcmVhdGVVc2VyIiwiZm9ybURhdGEiLCJUb2FzdCIsImljb24iLCJ0aXRsZSIsInVwZGF0ZVVzZXIiLCJkZWxldGVVc2VyIiwiU3dhbCIsInNob3dDYW5jZWxCdXR0b24iLCJjb25maXJtQnV0dG9uQ29sb3IiLCJjYW5jZWxCdXR0b25Db2xvciIsImNvbmZpcm1CdXR0b25UZXh0Il0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7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ZixJQVBBLENBT0E7QUFFQTtBQUNBO0FBQ0E7QUFDQVcsc0JBQ0EsVUFEQSxFQUVBLHFCQUZBLEVBR0EsU0FIQSxFQURBLENBTUE7O0FBQ0E7QUFDQSxXQVJBLFdBUUE7QUFDQUE7QUFDQSxXQVZBO0FBV0E7QUFDQSxPQXZCQTtBQXdCQTtBQXBLQTtBQXZFQSIsImZpbGUiOiIuL25vZGVfbW9kdWxlcy9iYWJlbC1sb2FkZXIvbGliL2luZGV4LmpzPyEuL25vZGVfbW9kdWxlcy92dWUtbG9hZGVyL2xpYi9pbmRleC5qcz8hLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9zZXR0aW5nL0JhcmFuZy52dWU/dnVlJnR5cGU9c2NyaXB0Jmxhbmc9anMmLmpzIiwic291cmNlc0NvbnRlbnQiOlsiPHRlbXBsYXRlPlxuPHYtYXBwPlxuICAgIDx2LWNvbnRhaW5lciBmbHVpZD5cbiAgICAgICAgPHYtcm93IG5vLWd1dHRlcnMgY2xhc3M9XCJqdXN0aWZ5LWNvbnRlbnQtbWQtY2VudGVyXCI+XG4gICAgICAgICAgPHYtY29sIGNvbHM9XCI3XCI+XG4gICAgICAgICAgICA8di1jYXJkIGNsYXNzPVwicGEtMiBteC1hdXRvXCIgdi1pZj1cIiRnYXRlLmlzQWRtaW4oKVwiPlxuICAgICAgICAgICAgICA8di10b29sYmFyIGNvbG9yPVwiZ3JlZW4gbGlnaHRlbi0xXCIgZGFyayBzaGFwZWQ+XG4gICAgICAgICAgICAgICAgPHYtdG9vbGJhci10aXRsZT5cbiAgICAgICAgICAgICAgICAgICAgTWFzdGVyIEJhcmFuZ1xuICAgICAgICAgICAgICAgIDwvdi10b29sYmFyLXRpdGxlPlxuICAgICAgICAgICAgICAgIDx2LXNwYWNlcj48L3Ytc3BhY2VyPlxuICAgICAgICAgICAgICAgICAgPHYtYnRuIHNtYWxsIGNvbG9yPVwiaW5kaWdvXCIgZGFyayBAY2xpY2s9XCJuZXdNb2RhbFwiPlxuICAgICAgICAgICAgICAgICAgICAgPHYtaWNvbj5tZGktcGx1cy1ib3g8L3YtaWNvbj4gVGFtYmFoXG4gICAgICAgICAgICAgICAgICA8L3YtYnRuPlxuICAgICAgICAgICAgICA8L3YtdG9vbGJhcj5cbiAgICAgICAgICAgICAgPCEtLSAvLmNhcmQtaGVhZGVyIC0tPlxuICAgICAgICAgICAgICA8ZGl2IGNsYXNzPVwiY2FyZC1ib2R5IHRhYmxlLXJlc3BvbnNpdmUgcC0wXCI+XG4gICAgICAgICAgICAgICAgPHYtZGF0YS10YWJsZVxuICAgICAgICAgICAgICAgIDpoZWFkZXJzPVwiaGVhZGVyc1wiXG4gICAgICAgICAgICAgICAgOml0ZW1zPVwiYmFyYW5nXCJcbiAgICAgICAgICAgICAgICA6c2VhcmNoPVwic2VhcmNoXCJcbiAgICAgICAgICAgICAgICBqdXN0aWZ5PVwiY2VudGVyXCJcbiAgICAgICAgICAgICAgICBkZW5zZVxuICAgICAgICAgICAgICAgIGNsYXNzPVwiZWxldmF0aW9uLTNcIj5cblxuICAgICAgICAgICAgICAgIDx0ZW1wbGF0ZSB2LXNsb3Q6aXRlbS5pbmRleD1cInsgaW5kZXggfVwiPlxuICAgICAgICAgICAgICAgICAgICB7eyBpbmRleCArIDEgfX1cbiAgICAgICAgICAgICAgICA8L3RlbXBsYXRlPlxuXG4gICAgICAgICAgICAgICAgPHRlbXBsYXRlIHYtc2xvdDp0b3A+XG4gICAgICAgICAgICAgICAgPHYtdG9vbGJhciBmbGF0ID5cbiAgICAgICAgICAgICAgICAgICAgPHYtc3BhY2VyPjwvdi1zcGFjZXI+XG4gICAgICAgICAgICAgICAgICAgIDx2LXNwYWNlcj48L3Ytc3BhY2VyPlxuICAgICAgICAgICAgICAgICAgICA8di1zcGFjZXI+PC92LXNwYWNlcj5cbiAgICAgICAgICAgICAgICAgICAgPHYtc3BhY2VyPjwvdi1zcGFjZXI+XG4gICAgICAgICAgICAgICAgICAgIDx2LXRleHQtZmllbGRcbiAgICAgICAgICAgICAgICAgICAgdi1tb2RlbD1cInNlYXJjaFwiXG4gICAgICAgICAgICAgICAgICAgIGFwcGVuZC1pY29uPVwibWRpLW1hZ25pZnlcIlxuICAgICAgICAgICAgICAgICAgICBsYWJlbD1cIkNhcmkgQmFyYW5nXCJcbiAgICAgICAgICAgICAgICAgICAgc2luZ2xlLWxpbmVcbiAgICAgICAgICAgICAgICAgICAgaGlkZS1kZXRhaWxzXG4gICAgICAgICAgICAgICAgICAgIGxvYWRpbmc9XCJncmV5XCJcbiAgICAgICAgICAgICAgICA+PC92LXRleHQtZmllbGQ+XG4gICAgICAgICAgICAgICAgPC92LXRvb2xiYXI+XG4gICAgICAgICAgICAgICAgPC90ZW1wbGF0ZT5cblxuICAgICAgICAgICAgICAgICAgICAgICAgIDwhLS0gdG9tYm9sIGhhcHVzIC0tPlxuICAgICAgICAgICAgICAgIDx0ZW1wbGF0ZSB2LXNsb3Q6aXRlbS5hY3Rpb25zPVwieyBpdGVtIH1cIj5cbiAgICAgICAgICAgICAgICA8di1pY29uXG4gICAgICAgICAgICAgICAgICAgIHNtYWxsXG4gICAgICAgICAgICAgICAgICAgIGNsYXNzPVwibXItNFwiXG4gICAgICAgICAgICAgICAgICAgIGNvbG9yPVwicmVkXCJcbiAgICAgICAgICAgICAgICAgICAgcmlnaHRcbiAgICAgICAgICAgICAgICAgICAgQGNsaWNrPVwiZGVsZXRlVXNlcihpdGVtLmlkKVwiXG4gICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAgICBtZGktZGVsZXRlXG4gICAgICAgICAgICAgICAgPC92LWljb24+XG4gICAgICAgICAgICAgICAgPC90ZW1wbGF0ZT5cblxuICAgICAgICAgICAgICAgIDwhLS0gZWRpdCB0YWJsZSAtLT5cbiAgICAgICAgICAgICAgICA8dGVtcGxhdGUgdi1zbG90Oml0ZW0ubmFtYWJhcmFuZz1cInsgaXRlbSB9XCI+XG4gICAgICAgICAgICAgICAgICAgICA8di1lZGl0LWRpYWxvZ1xuXG4gICAgICAgICAgICAgICAgICAgICAgICBAc2F2ZT1cInNhdmVcIlxuICAgICAgICAgICAgICAgICAgICAgICAgQGNhbmNlbD1cImNhbmNlbFwiXG4gICAgICAgICAgICAgICAgICAgICAgICBAb3Blbj1cIm9wZW4oaXRlbSlcIlxuICAgICAgICAgICAgICAgICAgICAgICAgQGNsb3NlPVwiY2xvc2VcIlxuXG4gICAgICAgICAgICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgICAgICAgICB7eyBpdGVtLm5hbWFiYXJhbmcgfX1cbiAgICAgICAgICAgICAgICAgICAgICAgIDx0ZW1wbGF0ZSB2LXNsb3Q6aW5wdXQ+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzcz1cIm10LTQgdGV4dC1oNlwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIEVkaXQgQmFyYW5nXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPHYtdGV4dC1maWVsZFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIHYtbW9kZWw9XCJlZGl0ZWRJdGVtLm5hbWFiYXJhbmdcIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIDpydWxlcz1cIlttYXgxMDBjaGFyc11cIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxhYmVsPVwiRWRpdFwiXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgc2luZ2xlLWxpbmVcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb3VudGVyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPjwvdi10ZXh0LWZpZWxkPlxuICAgICAgICAgICAgICAgICAgICAgICAgPC90ZW1wbGF0ZT5cbiAgICAgICAgICAgICAgICAgICAgICAgIDwvdi1lZGl0LWRpYWxvZz5cbiAgICAgICAgICAgICAgICAgICAgPC90ZW1wbGF0ZT5cblxuICAgICAgPCEtLSBlbmQgZWRpdCB0YWJsZSAtLT5cbiAgICAgICAgICAgICAgIDwvdi1kYXRhLXRhYmxlPlxuXG5cbiAgICAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgICAgICA8IS0tIC8uY2FyZC1ib2R5IC0tPlxuICAgICAgICAgICAgICA8IS0tIDxkaXYgY2xhc3M9XCJjYXJkLWZvb3RlclwiPlxuICAgICAgICAgICAgICAgICAgPHBhZ2luYXRpb24gOmRhdGE9XCJ1c2Vyc1wiIEBwYWdpbmF0aW9uLWNoYW5nZS1wYWdlPVwiZ2V0UmVzdWx0c1wiPjwvcGFnaW5hdGlvbj5cbiAgICAgICAgICAgICAgPC9kaXY+IC0tPlxuICAgICAgICAgICAgPC92LWNhcmQ+XG5cbiAgICAgICAgICA8L3YtY29sPlxuICAgICAgICAgIDx2LWNvbCBjb2xzPVwiNFwiPlxuICAgICAgICAgICAgIDx2LXNuYWNrYmFyXG4gICAgICAgICAgICAgICAgdi1tb2RlbD1cInNuYWNrXCJcbiAgICAgICAgICAgICAgICA6dGltZW91dD1cIjQwMDBcIlxuICAgICAgICAgICAgICAgIDpjb2xvcj1cInNuYWNrQ29sb3JcIlxuICAgICAgICAgICAgICAgIDptdWx0aS1saW5lPVwibXVsdGlMaW5lXCJcbiAgICAgICAgICAgICAgICBwb3NpdGlvbjogYWJzb2x1dGUgcmlnaHRcbiAgICAgICAgICAgICAgICBzdHlsZT1cIm1hcmdpbi1ib3R0b209MjMwcHhcIlxuICAgICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICB7eyBzbmFja1RleHQgfX1cblxuICAgICAgICAgICAgICAgIDx0ZW1wbGF0ZSB2LXNsb3Q6YWN0aW9uPVwieyBhdHRycyB9XCI+XG4gICAgICAgICAgICAgICAgICAgIDx2LWJ0blxuICAgICAgICAgICAgICAgICAgICB2LWJpbmQ9XCJhdHRyc1wiXG4gICAgICAgICAgICAgICAgICAgIHRleHRcbiAgICAgICAgICAgICAgICAgICAgQGNsaWNrPVwic25hY2sgPSBmYWxzZVwiXG4gICAgICAgICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICAgICAgQ2xvc2VcbiAgICAgICAgICAgICAgICAgICAgPC92LWJ0bj5cbiAgICAgICAgICAgICAgICA8L3RlbXBsYXRlPlxuICAgICAgICAgICAgPC92LXNuYWNrYmFyPlxuICAgICAgICAgIDwvdi1jb2w+XG4gICAgICAgIDwvdi1yb3c+XG5cblxuICAgICAgICA8ZGl2IHYtaWY9XCIhJGdhdGUuaXNBZG1pbigpXCI+XG4gICAgICAgICAgICA8bm90LWZvdW5kPjwvbm90LWZvdW5kPlxuICAgICAgICA8L2Rpdj5cblxuICA8IS0tIE1vZGFsIC0tPlxuICAgICAgICA8ZGl2IGNsYXNzPVwibW9kYWwgZmFkZVwiIGlkPVwiYWRkTmV3XCIgdGFiaW5kZXg9XCItMVwiIHJvbGU9XCJkaWFsb2dcIiBhcmlhLWxhYmVsbGVkYnk9XCJhZGROZXdcIiBhcmlhLWhpZGRlbj1cInRydWVcIj5cbiAgICAgICAgICAgIDxkaXYgY2xhc3M9XCJtb2RhbC1kaWFsb2dcIiByb2xlPVwiZG9jdW1lbnRcIj5cbiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzPVwibW9kYWwtY29udGVudFwiPlxuICAgICAgICAgICAgICAgIDxkaXYgY2xhc3M9XCJtb2RhbC1oZWFkZXJcIj5cbiAgICAgICAgICAgICAgICAgICAgPGg1IGNsYXNzPVwibW9kYWwtdGl0bGVcIiB2LXNob3c9XCIhZWRpdG1vZGVcIj5UYW1iYWggQmFyYW5nPC9oNT5cbiAgICAgICAgICAgICAgICAgICAgPGg1IGNsYXNzPVwibW9kYWwtdGl0bGVcIiB2LXNob3c9XCJlZGl0bW9kZVwiPkVkaXQgRGF0YSBVc2VyPC9oNT5cbiAgICAgICAgICAgICAgICAgICAgPGJ1dHRvbiB0eXBlPVwiYnV0dG9uXCIgY2xhc3M9XCJjbG9zZVwiIGRhdGEtZGlzbWlzcz1cIm1vZGFsXCIgYXJpYS1sYWJlbD1cIkNsb3NlXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICA8c3BhbiBhcmlhLWhpZGRlbj1cInRydWVcIj4mdGltZXM7PC9zcGFuPlxuICAgICAgICAgICAgICAgICAgICA8L2J1dHRvbj5cbiAgICAgICAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgICAgICAgIDx2LWZvcm1cbiAgICAgICAgICAgICAgICBAc3VibWl0LnByZXZlbnQ9XCJjcmVhdGVVc2VyXCJcbiAgICAgICAgICAgICAgICByZWY9XCJmb3JtXCJcbiAgICAgICAgICAgICAgICB2LW1vZGVsPVwidmFsaWRcIlxuICAgICAgICAgICAgICAgIGxhenktdmFsaWRhdGlvblxuICAgICAgICAgICAgICAgID5cblxuICAgICAgICAgICAgICAgIDwhLS0gPGZvcm0gQHN1Ym1pdC5wcmV2ZW50PVwiZWRpdG1vZGUgPyB1cGRhdGVVc2VyKCkgOiBjcmVhdGVVc2VyKClcIj4gLS0+XG4gICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3M9XCJtb2RhbC1ib2R5XCI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPCEtLSA8aW5wdXQgdi1tb2RlbD1cImthbnRvcl9pZFwiIHR5cGU9XCJoaWRkZW5cIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIG5hbWU9XCJrYW50b3JfaWRcIj4gLS0+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPGlucHV0IHYtbW9kZWw9XCJjc3JmXCIgdHlwZT1cImhpZGRlblwiXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgbmFtZT1cIl90b2tlblwiPlxuXG4gICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzPVwiZm9ybS1ncm91cCBpbnB1dC1ncm91cFwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8di1jb2xcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29scz1cIjEyXCJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc209XCIxMlwiXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG1kPVwiMTJcIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx2LXRleHQtZmllbGRcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdi1tb2RlbD1cImVkaXRlZEl0ZW0ubmFtYWJhcmFuZ1wiXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDpydWxlcz1cImVkaXRlZEl0ZW0uYmFyYW5nUnVsZXNcIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBsYWJlbD1cIk5hbWEgQmFyYW5nXCJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbmFtZT1cIm5hbWFiYXJhbmdcIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwbGFjZWhvbGRlcj1cImlucHV0XCJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgb3V0bGluZWRcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVxdWlyZWRcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGVuc2VcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcHJlcGVuZC1pY29uPVwibWRpLWNhcnQtcGx1c1wiXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPjwvdi10ZXh0LWZpZWxkPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwhLS0gPGhhcy1lcnJvciA6Zm9ybT1cImZvcm1cIiBmaWVsZD1cImJhcmFuZ1wiPjwvaGFzLWVycm9yPiAtLT5cblxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3YtY29sPlxuICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3M9XCJtb2RhbC1mb290ZXJcIj5cbiAgICAgICAgICAgICAgICAgICAgICAgIDx2LWJ0biBjb2xvcj1cImVycm9yXCIgZWxldmF0aW9uPVwiMlwiIHR5cGU9XCJidXR0b25cIiBkYXRhLWRpc21pc3M9XCJtb2RhbFwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgPHYtaWNvbj5tZGktY2FuY2VsPC92LWljb24+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgQmF0YWxcbiAgICAgICAgICAgICAgICAgICAgICAgIDwvdi1idG4+XG4gICAgICAgICAgICAgICAgICAgICAgICA8di1idG4gY29sb3I9XCJzdWNjZXNzXCIgZWxldmF0aW9uPVwiMlwiIHYtc2hvdz1cImVkaXRtb2RlXCIgdHlwZT1cInN1Ym1pdFwiID5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8di1pY29uPm1kaS1wZW5jaWw8L3YtaWNvbj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBVYmFoXG4gICAgICAgICAgICAgICAgICAgICAgICA8L3YtYnRuPlxuICAgICAgICAgICAgICAgICAgICAgICAgPHYtYnRuIGNvbG9yPVwicHJpbWFyeVwiIGVsZXZhdGlvbj1cIjJcIiB2LXNob3c9XCIhZWRpdG1vZGVcIiB0eXBlPVwic3VibWl0XCIgPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx2LWljb24+bWRpLXBsdXMtYm94PC92LWljb24+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgVGFtYmFoXG4gICAgICAgICAgICAgICAgICAgICAgICA8L3YtYnRuPlxuICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICAgIDwvdi1mb3JtPlxuICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgIDwvZGl2PlxuICAgIDwvdi1jb250YWluZXI+XG48L3YtYXBwPlxuPC90ZW1wbGF0ZT5cblxuPHNjcmlwdD5cblxuICBleHBvcnQgZGVmYXVsdCB7XG5cbiAgICBkYXRhOiAoKSA9PiAoe1xuICAgICAgIC8vIHByb3BzOiBbXCJuYW1hYmFyYW5nXCJdLFxuICAgICAgY3NyZjogZG9jdW1lbnQucXVlcnlTZWxlY3RvcignbWV0YVtuYW1lPVwiY3NyZi10b2tlblwiXScpLmdldEF0dHJpYnV0ZSgnY29udGVudCcpLFxuICAgICAgZWRpdG1vZGU6IGZhbHNlLFxuICAgICAgZGlhbG9nOiBmYWxzZSxcbiAgICAgIGRpYWxvZ0RlbGV0ZTogZmFsc2UsXG4gICAgICBzZWFyY2g6JycsXG4gICAgICBzbmFjazogZmFsc2UsXG4gICAgICBtdWx0aUxpbmU6IHRydWUsXG4gICAgICAgIHNuYWNrQ29sb3I6ICcnLFxuICAgICAgICBzbmFja1RleHQ6ICcnLFxuICAgICAgICBtYXgxMDBjaGFyczogdiA9PiB2Lmxlbmd0aCA8PSAxMDB8fCAnSW5wdXQgdG9vIGxvbmchJyxcbiAgICAgYmFyYW5nOltdLFxuICAgIGVkaXRlZEluZGV4OiAtMSxcbiAgICBlZGl0ZWRJdGVtIDoge1xuICAgICAgICBpZCA6ICcnLFxuICAgICAgICBuYW1hYmFyYW5nOicnLFxuICAgICAgICBuYW1hYmFyYW5nRWRpdDonJyxcbiAgICAgICAgYmFyYW5nUnVsZXM6IFtcbiAgICAgICAgdiA9PiAhIXYgfHwgJ05hbWEgYmFyYW5nIGJlbHVtIGRpaXNpJyxcbiAgICAgIF0sXG4gICAgfSxcblxuICAgICB2YWxpZDp0cnVlLFxuXG4gICAgICAgIGthbnRvcl9pZDogJycsXG5cbiAgICBmb3JtOiBuZXcgRm9ybSh7XG4gICAgICAgIGlkIDogJycsXG4gICAgICAgIG5hbWFiYXJhbmc6ICcnLFxuICAgIH0pLFxuXG5cbiAgICB9KSxcbiAgICBjb21wdXRlZDoge1xuICAgICAgICBoZWFkZXJzKCl7XG4gICAgICAgICAgICBsZXQgaGVhZGVycyA9IFtcbiAgICAgICAgICAgICAgICB7XG4gICAgICAgICAgICAgICAgdGV4dDogJ05vJyxcbiAgICAgICAgICAgICAgICB2YWx1ZTogJ2luZGV4JyxcbiAgICAgICAgICAgICAgICBhbGlnbjogJ2NlbnRlcicsXG4gICAgICAgICAgICAgICAgc29ydGFibGU6IGZhbHNlXG4gICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICB7XG4gICAgICAgICAgICAgICAgdGV4dDogJ0JhcmFuZycsXG4gICAgICAgICAgICAgICAgdmFsdWU6ICduYW1hYmFyYW5nJyxcbiAgICAgICAgICAgICAgICB9LFxuXG4gICAgICBdXG5cbiAgICAgICAgICAgIGlmKHRoaXMuJGdhdGUuaXNBZG1pbigpKXtcbiAgICAgICAgICAgICAgICBoZWFkZXJzLnB1c2goeyB0ZXh0OiAnSGFwdXMnLCB2YWx1ZTogJ2FjdGlvbnMnLCBzb3J0YWJsZTogZmFsc2UgfSlcbiAgICAgICAgICAgIH1cbiAgICAgICAgICAgIHJldHVybiBoZWFkZXJzXG4gICAgICAgIH0sXG5cbiAgICAgIGZvcm1UaXRsZSAoKSB7XG4gICAgICAgIHJldHVybiB0aGlzLmVkaXRlZEluZGV4ID09PSAtMSA/ICdOZXcgSXRlbScgOiAnRWRpdCBJdGVtJ1xuICAgICAgfSxcblxuICAgIH0sXG5cbiAgICBjcmVhdGVkICgpIHtcbiAgICAgICAgdGhpcy4kUHJvZ3Jlc3Muc3RhcnQoKTtcblxuICAgICAgdGhpcy5pbml0aWFsaXplKClcbiAgICAgIHRoaXMuJFByb2dyZXNzLmZpbmlzaCgpO1xuICAgIH0sXG5cbiAgICBtZXRob2RzOiB7XG4gICAgICAgIHNhdmUgKCkge1xuICAgICAgICB0aGlzLnNuYWNrID0gdHJ1ZVxuICAgICAgICB0aGlzLnNuYWNrQ29sb3IgPSAnc3VjY2VzcydcbiAgICAgICAgdGhpcy5zbmFja1RleHQgPSAnRGF0YSBkaXNpbXBhbidcbiAgICAgICAgdGhpcy51cGRhdGVVc2VyKClcbiAgICAgIH0sXG4gICAgICBjYW5jZWwgKCkge1xuICAgICAgICB0aGlzLnNuYWNrID0gdHJ1ZVxuICAgICAgICB0aGlzLnNuYWNrQ29sb3IgPSAnZXJyb3InXG4gICAgICAgIHRoaXMuc25hY2tUZXh0ID0gJ0RpYmF0YWxrYW4nXG4gICAgICB9LFxuICAgICAgb3BlbiAoaXRlbSkge1xuICAgICAgICB0aGlzLnNuYWNrID0gdHJ1ZVxuICAgICAgICB0aGlzLnNuYWNrQ29sb3IgPSAnaW5mbydcbiAgICAgICAgdGhpcy5zbmFja1RleHQgPSAnRW50ZXIgPSBTaW1wYW4nXG4gICAgICAgIHRoaXMuZWRpdGVkSXRlbS5pZCA9IGl0ZW0uaWRcbiAgICAgICAgdGhpcy5lZGl0ZWRJdGVtLm5hbWFiYXJhbmcgPSBpdGVtLm5hbWFiYXJhbmdcblxuICAgICAgICAvL2NvbnNvbGUubG9nKHRoaXMuaXRlbS5uYW1hYmFyYW5nKTtcbiAgICAgICAgLy9hbGVydCh0aGlzLml0ZW0uaWQpXG4gICAgICB9LFxuICAgICAgY2xvc2UgKCkge1xuICAgICAgICBjb25zb2xlLmxvZygnRGlhbG9nIGNsb3NlZCcpXG4gICAgICB9LFxuICAgICAgICBwZW5jZXRLZXlib2FyZDogZnVuY3Rpb24oZXZ0KSB7XG4gICAgICBldnQgPSAoZXZ0KSA/IGV2dCA6IHdpbmRvdy5ldmVudDtcbiAgICAgIHZhciBjaGFyQ29kZSA9IChldnQud2hpY2gpID8gZXZ0LndoaWNoIDogZXZ0LmtleUNvZGU7XG4gICAgICAvL25vbWVyIHd1bmdrdWxcbiAgICAgIC8vaWYgKChjaGFyQ29kZSA+IDMxICYmIChjaGFyQ29kZSA8IDQ4IHx8IGNoYXJDb2RlID4gNTcpKSAmJiBjaGFyQ29kZSAhPT0gNDYpIHtcbiAgICAgIC8vdGlkYWsgYm9sZWggdG9tYm9sICcvJyBkYW4gJ1xcJ1xuICAgICAgaWYgKGNoYXJDb2RlID09PSAxOTEgfHwgY2hhckNvZGU9PT0yMjApIHtcbiAgICAgICAgZXZ0LnByZXZlbnREZWZhdWx0KCk7O1xuICAgICAgfSBlbHNlIHtcbiAgICAgICAgcmV0dXJuIHRydWU7XG4gICAgICB9XG4gICAgfSxcblxuICAgICAgaW5pdGlhbGl6ZSgpIHtcbiAgICAgICAgIHRoaXMuJFByb2dyZXNzLnN0YXJ0KCk7XG5cbiAgICAgICAgICAgIGlmKHRoaXMuJGdhdGUuaXNBZG1pbigpKXtcblxuICAgICAgICAgICAgICAgLy9heGlvcy5nZXQoXCJhcGkvdXNlclwiKS50aGVuKChyZXNwb25zZSkgPT4geyh0aGlzLnVzZXJzID0gcmVzcG9uc2UuZGF0YS5kYXRhKX0pO1xuICAgICAgICAgICAgIGF4aW9zLmdldChcImFwaS9iYXJhbmdcIilcbiAgICAgICAgICAgICAgICAudGhlbigocmVzcG9uc2UpID0+IHtcbiAgICAgICAgICAgICAgICB0aGlzLmJhcmFuZyA9IHJlc3BvbnNlLmRhdGEuZGF0YTtcbiAgICAgICAgICAgICAgICAvLyB0aGlzLmthbnRvcl9pZCA9IHRoaXMuJGthbnRvcl9pZDtcbiAgICAgICAgICAgICAgICAvLyB0aGlzLmZvcm0uZmlsbFxuICAgICAgICAgICAgICAgIC8vY29uc29sZS5sb2codGhpcy5iYXJhbmcpO1xuICAgICAgICAgICAgICAgIC8vY29uc29sZS5sb2codGhpcy5rYW50b3JfaWQpXG4gICAgICAgICAgICAgICAgfSk7XG4gICAgICAgICAgICB9XG5cbiAgICAgICAgICAgdGhpcy4kUHJvZ3Jlc3MuZmluaXNoKCk7XG4gICAgICB9LFxuICAgICBlZGl0QmFyYW5nKGl0ZW0pe1xuXG4gICAgICAgIHRoaXMuZWRpdGVkSW5kZXggPSB0aGlzLmJhcmFuZy5pbmRleE9mKGl0ZW0pXG4gICAgICAgIHRoaXMuaXRlbS5pZCA9IGl0ZW0uaWRcbiAgICAgICAgdGhpcy5pdGVtLm5hbWFiYXJhbmcgPSBpdGVtLm5hbWFiYXJhbmdcblxuICAgICAgICBjb25zb2xlLmxvZyh0aGlzLml0ZW0uaWQpO1xuICAgICAgICAvL2FsZXJ0KHRoaXMuaXRlbS5pZClcbiAgICAgICAgICAgIH0sXG4gICAgbmV3TW9kYWwoKXtcbiAgICAgICAgdGhpcy5lZGl0bW9kZSA9IGZhbHNlO1xuICAgICAgICAkKCcjYWRkTmV3JykubW9kYWwoJ3Nob3cnKTtcbiAgICAgICAgdGhpcy4kcmVmcy5mb3JtLnJlc2V0KClcbiAgICAgICAgdGhpcy5lZGl0ZWRJdGVtLm5hbWFiYXJhbmcgPSAnJztcbiAgICB9LFxuXG4gICAgIGNyZWF0ZVVzZXIoKXtcbiAgICAgICAgIHRoaXMuJHJlZnMuZm9ybS52YWxpZGF0ZSgpO1xuICAgICAgICAgdGhpcy4kUHJvZ3Jlc3Muc3RhcnQoKTtcbiAgICAgICAgICAgIC8vIGUucHJldmVudERlZmF1bHQoKTtcbiAgICAgICAgICAgIGNvbnN0IGNvbmZpZyA9IHtcbiAgICAgICAgICAgICAgICBoZWFkZXJzOiB7ICdjb250ZW50LXR5cGUnOiAnbXVsdGlwYXJ0L2Zvcm0tZGF0YScgfVxuICAgICAgICAgICAgfVxuICAgICAgICAgICAgLy8gLy90aGlzLmFwcGVuZCgnZmlsZScsIHRoaXMuZmlsZSk7XG4gICAgICAgICAgICBjb25zdCBmb3JtRGF0YSA9IG5ldyBGb3JtRGF0YVxuICAgICAgICAgICAgZm9ybURhdGEuc2V0KCduYW1hYmFyYW5nJywgdGhpcy5lZGl0ZWRJdGVtLm5hbWFiYXJhbmcpXG5cbiAgICAgICAgICAgIGF4aW9zLnBvc3QoJ2FwaS9iYXJhbmcnLGZvcm1EYXRhLGNvbmZpZylcbiAgICAgICAgICAgICAgLnRoZW4oKHJlc3BvbnNlKT0+e1xuICAgICAgICAgICAgICAgICAgJCgnI2FkZE5ldycpLm1vZGFsKCdoaWRlJyk7XG4gICAgICAgICAgICAgICAgICAgIC8vICBjb25zb2xlLmxvZyh0aGlzLm5hbWFiYXJhbmcpO1xuICAgICAgICAgICAgICAgICAgVG9hc3QuZmlyZSh7XG4gICAgICAgICAgICAgICAgICAgICAgICBpY29uOiAnc3VjY2VzcycsXG4gICAgICAgICAgICAgICAgICAgICAgICB0aXRsZTogcmVzcG9uc2UuZGF0YS5tZXNzYWdlXG4gICAgICAgICAgICAgICAgICB9KTtcblxuICAgICAgICAgICAgICAgICAgdGhpcy4kUHJvZ3Jlc3MuZmluaXNoKCk7XG4gICAgICAgICAgICAgICAgICB0aGlzLmluaXRpYWxpemUoKTtcblxuICAgICAgICAgICAgICB9KVxuICAgICAgICAgICAgICAuY2F0Y2goKHJlc3BvbnNlKT0+e1xuICAgICAgICAgICAgICAgICAgLy9Td2FsLmZpcmUoXCJGYWlsZWQhXCIsIGRhdGEubWVzc2FnZSwgXCJ3YXJuaW5nXCIpO1xuICAgICAgICAgICAgICAgICAgVG9hc3QuZmlyZSh7XG4gICAgICAgICAgICAgICAgICAgICAgaWNvbjogJ2Vycm9yJyxcbiAgICAgICAgICAgICAgICAgICAgICB0aXRsZTogJ0dhZ2FsIHRhbWJhaCBiYXJhbmcsIHVsYW5naSEnXG4gICAgICAgICAgICAgICAgICAgICAgLy90aXRsZTogcmVzcG9uc2UubWVzc2FnZVxuICAgICAgICAgICAgICAgICAgfSk7XG4gICAgICAgICAgICAgIH0pXG4gICAgICAgICAgfSxcblxuICAgICAgICAgIHVwZGF0ZVVzZXIoKXtcbiAgICAgICAgICAgICAgIGNvbnN0IGNvbmZpZyA9IHtcbiAgICAgICAgICAgICAgICBoZWFkZXJzOiB7XG4gICAgICAgICAgICAgICAgICAnYWNjZXB0JzogJ2FwcGxpY2F0aW9uL2pzb24nLFxuICAgICAgICAgICAgICAgICAgJ0FjY2VwdC1MYW5ndWFnZSc6ICdlbi1VUyxlbjtxPTAuOCcsXG4gICAgICAgICAgICAgICAgICAnY29udGVudC10eXBlJzogJ211bHRpcGFydC9mb3JtLWRhdGEnXG4gICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAvLyBoZWFkZXJzOiB7J1gtQ3VzdG9tLUhlYWRlcic6ICd2YWx1ZSd9XG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgdGhpcy4kUHJvZ3Jlc3Muc3RhcnQoKTtcbiAgICAgICAgICAgICAgICAvL2FsZXJ0KHRoaXMuZWRpdGVkSXRlbS5uYW1hYmFyYW5nKTtcbiAgICAgICAgICAgICAgICAgY29uc3QgZm9ybURhdGEgPSBuZXcgRm9ybURhdGFcbiAgICAgICAgICAgIGZvcm1EYXRhLnNldCgnbmFtYWJhcmFuZycsIHRoaXMuZWRpdGVkSXRlbS5uYW1hYmFyYW5nKVxuICAgICAgICAgICAgZm9ybURhdGEuYXBwZW5kKFwiX21ldGhvZFwiLCBcIlBVVFwiKTtcbiAgICAgICAgICAgICAgICBheGlvcy5wb3N0KCdhcGkvYmFyYW5nLycrdGhpcy5lZGl0ZWRJdGVtLmlkLGZvcm1EYXRhKVxuICAgICAgICAgICAgICAgIC50aGVuKChyZXNwb25zZSkgPT4ge1xuICAgICAgICAgICAgICAgICAgICAvLyBzdWNjZXNzXG4gICAgICAgICAgICAgICAgICAgICQoJyNhZGROZXcnKS5tb2RhbCgnaGlkZScpO1xuICAgICAgICAgICAgICAgICAgICBUb2FzdC5maXJlKHtcbiAgICAgICAgICAgICAgICAgICAgICBpY29uOiAnc3VjY2VzcycsXG4gICAgICAgICAgICAgICAgICAgICAgdGl0bGU6IHJlc3BvbnNlLmRhdGEubWVzc2FnZVxuICAgICAgICAgICAgICAgICAgICB9KTtcbiAgICAgICAgICAgICAgICAgICAgdGhpcy4kUHJvZ3Jlc3MuZmluaXNoKCk7XG4gICAgICAgICAgICAgICAgICAgICAgICAvLyAgRmlyZS4kZW1pdCgnQWZ0ZXJDcmVhdGUnKTtcblxuICAgICAgICAgICAgICAgICAgICB0aGlzLmluaXRpYWxpemUoKTtcbiAgICAgICAgICAgICAgICB9KVxuICAgICAgICAgICAgICAgIC5jYXRjaCgoKSA9PiB7XG4gICAgICAgICAgICAgICAgICAgIHRoaXMuJFByb2dyZXNzLmZhaWwoKTtcbiAgICAgICAgICAgICAgICB9KTtcblxuICAgICAgICAgICAgfSxcbiAgICAgICAgICBkZWxldGVVc2VyKGlkKXtcbiAgICAgICAgICAgICAgICBTd2FsLmZpcmUoe1xuICAgICAgICAgICAgICAgICAgICB0aXRsZTogJ1lha2luIGRpaGFwdXM/JyxcbiAgICAgICAgICAgICAgICAgICAgdGV4dDogXCJKaWthIGRpaGFwdXMgZGF0YSBoaWxhbmchXCIsXG4gICAgICAgICAgICAgICAgICAgIHNob3dDYW5jZWxCdXR0b246IHRydWUsXG4gICAgICAgICAgICAgICAgICAgIGNvbmZpcm1CdXR0b25Db2xvcjogJyNkMzMnLFxuICAgICAgICAgICAgICAgICAgICBjYW5jZWxCdXR0b25Db2xvcjogJyMzMDg1ZDYnLFxuICAgICAgICAgICAgICAgICAgICBjb25maXJtQnV0dG9uVGV4dDogJ1lhLCBIYXB1cyEnXG4gICAgICAgICAgICAgICAgICAgIH0pLnRoZW4oKHJlc3VsdCkgPT4ge1xuXG4gICAgICAgICAgICAgICAgICAgICAgICAvLyBTZW5kIHJlcXVlc3QgdG8gdGhlIHNlcnZlclxuICAgICAgICAgICAgICAgICAgICAgICAgIGlmIChyZXN1bHQudmFsdWUpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdGhpcy5mb3JtLmRlbGV0ZSgnYXBpL2JhcmFuZy8nK2lkKS50aGVuKCgpPT57XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgU3dhbC5maXJlKFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICdEaWhhcHVzIScsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJ0RhdGEgdGVsYWggZGloYXB1cy4nLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICdzdWNjZXNzJ1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICk7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvLyBGaXJlLiRlbWl0KCdBZnRlckNyZWF0ZScpO1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdGhpcy5pbml0aWFsaXplKCk7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0pLmNhdGNoKChkYXRhKT0+IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBTd2FsLmZpcmUoXCJGYWlsZWQhXCIsIGRhdGEubWVzc2FnZSwgXCJ3YXJuaW5nXCIpO1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSk7XG4gICAgICAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgICB9KVxuICAgICAgICAgICAgfSxcblxuICAgIH0sXG4gIH1cbjwvc2NyaXB0PlxuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Barang.vue?vue&type=script&lang=js&\n");
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      // props: ["namabarang"],
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      editmode: false,
+      dialog: false,
+      dialogDelete: false,
+      search: '',
+      snack: false,
+      multiLine: true,
+      snackColor: '',
+      snackText: '',
+      max100chars: function max100chars(v) {
+        return v.length <= 100 || 'Input too long!';
+      },
+      barang: [],
+      editedIndex: -1,
+      editedItem: {
+        id: '',
+        namabarang: '',
+        namabarangEdit: '',
+        barangRules: [function (v) {
+          return !!v || 'Nama barang belum diisi';
+        }]
+      },
+      valid: true,
+      kantor_id: '',
+      form: new Form({
+        id: '',
+        namabarang: ''
+      })
+    };
+  },
+  computed: {
+    headers: function headers() {
+      var headers = [{
+        text: 'No',
+        value: 'index',
+        align: 'center',
+        sortable: false
+      }, {
+        text: 'Barang',
+        value: 'namabarang'
+      }];
+
+      if (this.$gate.isAdmin()) {
+        headers.push({
+          text: 'Hapus',
+          value: 'actions',
+          sortable: false
+        });
+      }
+
+      return headers;
+    },
+    formTitle: function formTitle() {
+      return this.editedIndex === -1 ? 'New Item' : 'Edit Item';
+    }
+  },
+  created: function created() {
+    this.$Progress.start();
+    this.initialize();
+    this.$Progress.finish();
+  },
+  methods: {
+    save: function save() {
+      this.snack = true;
+      this.snackColor = 'success';
+      this.snackText = 'Data disimpan';
+      this.updateUser();
+    },
+    cancel: function cancel() {
+      this.snack = true;
+      this.snackColor = 'error';
+      this.snackText = 'Dibatalkan';
+    },
+    open: function open(item) {
+      this.snack = true;
+      this.snackColor = 'info';
+      this.snackText = 'Enter = Simpan';
+      this.editedItem.id = item.id;
+      this.editedItem.namabarang = item.namabarang; //console.log(this.item.namabarang);
+      //alert(this.item.id)
+    },
+    close: function close() {
+      console.log('Dialog closed');
+    },
+    pencetKeyboard: function pencetKeyboard(evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul
+      //if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+      //tidak boleh tombol '/' dan '\'
+
+      if (charCode === 191 || charCode === 220) {
+        evt.preventDefault();
+        ;
+      } else {
+        return true;
+      }
+    },
+    initialize: function initialize() {
+      var _this = this;
+
+      this.$Progress.start();
+
+      if (this.$gate.isAdmin()) {
+        //axios.get("api/user").then((response) => {(this.users = response.data.data)});
+        axios.get("api/barang").then(function (response) {
+          _this.barang = response.data.data; // this.kantor_id = this.$kantor_id;
+          // this.form.fill
+          //console.log(this.barang);
+          //console.log(this.kantor_id)
+        });
+      }
+
+      this.$Progress.finish();
+    },
+    editBarang: function editBarang(item) {
+      this.editedIndex = this.barang.indexOf(item);
+      this.item.id = item.id;
+      this.item.namabarang = item.namabarang;
+      console.log(this.item.id); //alert(this.item.id)
+    },
+    newModal: function newModal() {
+      this.editmode = false;
+      $('#addNew').modal('show');
+      this.$refs.form.reset();
+      this.editedItem.namabarang = '';
+    },
+    createUser: function createUser() {
+      var _this2 = this;
+
+      this.$refs.form.validate();
+      this.$Progress.start(); // e.preventDefault();
+
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      }; // //this.append('file', this.file);
+
+      var formData = new FormData();
+      formData.set('namabarang', this.editedItem.namabarang);
+      axios.post('api/barang', formData, config).then(function (response) {
+        $('#addNew').modal('hide'); //  console.log(this.namabarang);
+
+        Toast.fire({
+          icon: 'success',
+          title: response.data.message
+        });
+
+        _this2.$Progress.finish();
+
+        _this2.initialize();
+      })["catch"](function (response) {
+        //Swal.fire("Failed!", data.message, "warning");
+        Toast.fire({
+          icon: 'error',
+          title: 'Gagal tambah barang, ulangi!' //title: response.message
+
+        });
+      });
+    },
+    updateUser: function updateUser() {
+      var _this3 = this;
+
+      var config = {
+        headers: {
+          'accept': 'application/json',
+          'Accept-Language': 'en-US,en;q=0.8',
+          'content-type': 'multipart/form-data'
+        } // headers: {'X-Custom-Header': 'value'}
+
+      };
+      this.$Progress.start(); //alert(this.editedItem.namabarang);
+
+      var formData = new FormData();
+      formData.set('namabarang', this.editedItem.namabarang);
+      formData.append("_method", "PUT");
+      axios.post('api/barang/' + this.editedItem.id, formData).then(function (response) {
+        // success
+        $('#addNew').modal('hide');
+        Toast.fire({
+          icon: 'success',
+          title: response.data.message
+        });
+
+        _this3.$Progress.finish(); //  Fire.$emit('AfterCreate');
+
+
+        _this3.initialize();
+      })["catch"](function () {
+        _this3.$Progress.fail();
+      });
+    },
+    deleteUser: function deleteUser(id) {
+      var _this4 = this;
+
+      Swal.fire({
+        title: 'Yakin dihapus?',
+        text: "Jika dihapus data hilang!",
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Ya, Hapus!'
+      }).then(function (result) {
+        // Send request to the server
+        if (result.value) {
+          _this4.form["delete"]('api/barang/' + id).then(function () {
+            Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
+
+            _this4.initialize();
+          })["catch"](function (data) {
+            Swal.fire("Failed!", data.message, "warning");
+          });
+        }
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -20,7 +439,590 @@ eval("__webpack_require__.r(__webpack_exports__);\n//\n//\n//\n//\n//\n//\n//\n/
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return render; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"staticRenderFns\", function() { return staticRenderFns; });\nvar render = function () {\n  var _vm = this\n  var _h = _vm.$createElement\n  var _c = _vm._self._c || _h\n  return _c(\n    \"v-app\",\n    [\n      _c(\n        \"v-container\",\n        { attrs: { fluid: \"\" } },\n        [\n          _c(\n            \"v-row\",\n            {\n              staticClass: \"justify-content-md-center\",\n              attrs: { \"no-gutters\": \"\" },\n            },\n            [\n              _c(\n                \"v-col\",\n                { attrs: { cols: \"7\" } },\n                [\n                  _vm.$gate.isAdmin()\n                    ? _c(\n                        \"v-card\",\n                        { staticClass: \"pa-2 mx-auto\" },\n                        [\n                          _c(\n                            \"v-toolbar\",\n                            {\n                              attrs: {\n                                color: \"green lighten-1\",\n                                dark: \"\",\n                                shaped: \"\",\n                              },\n                            },\n                            [\n                              _c(\"v-toolbar-title\", [\n                                _vm._v(\n                                  \"\\n                    Master Barang\\n                \"\n                                ),\n                              ]),\n                              _vm._v(\" \"),\n                              _c(\"v-spacer\"),\n                              _vm._v(\" \"),\n                              _c(\n                                \"v-btn\",\n                                {\n                                  attrs: {\n                                    small: \"\",\n                                    color: \"indigo\",\n                                    dark: \"\",\n                                  },\n                                  on: { click: _vm.newModal },\n                                },\n                                [\n                                  _c(\"v-icon\", [_vm._v(\"mdi-plus-box\")]),\n                                  _vm._v(\" Tambah\\n                  \"),\n                                ],\n                                1\n                              ),\n                            ],\n                            1\n                          ),\n                          _vm._v(\" \"),\n                          _c(\n                            \"div\",\n                            { staticClass: \"card-body table-responsive p-0\" },\n                            [\n                              _c(\"v-data-table\", {\n                                staticClass: \"elevation-3\",\n                                attrs: {\n                                  headers: _vm.headers,\n                                  items: _vm.barang,\n                                  search: _vm.search,\n                                  justify: \"center\",\n                                  dense: \"\",\n                                },\n                                scopedSlots: _vm._u(\n                                  [\n                                    {\n                                      key: \"item.index\",\n                                      fn: function (ref) {\n                                        var index = ref.index\n                                        return [\n                                          _vm._v(\n                                            \"\\n                    \" +\n                                              _vm._s(index + 1) +\n                                              \"\\n                \"\n                                          ),\n                                        ]\n                                      },\n                                    },\n                                    {\n                                      key: \"top\",\n                                      fn: function () {\n                                        return [\n                                          _c(\n                                            \"v-toolbar\",\n                                            { attrs: { flat: \"\" } },\n                                            [\n                                              _c(\"v-spacer\"),\n                                              _vm._v(\" \"),\n                                              _c(\"v-spacer\"),\n                                              _vm._v(\" \"),\n                                              _c(\"v-spacer\"),\n                                              _vm._v(\" \"),\n                                              _c(\"v-spacer\"),\n                                              _vm._v(\" \"),\n                                              _c(\"v-text-field\", {\n                                                attrs: {\n                                                  \"append-icon\": \"mdi-magnify\",\n                                                  label: \"Cari Barang\",\n                                                  \"single-line\": \"\",\n                                                  \"hide-details\": \"\",\n                                                  loading: \"grey\",\n                                                },\n                                                model: {\n                                                  value: _vm.search,\n                                                  callback: function ($$v) {\n                                                    _vm.search = $$v\n                                                  },\n                                                  expression: \"search\",\n                                                },\n                                              }),\n                                            ],\n                                            1\n                                          ),\n                                        ]\n                                      },\n                                      proxy: true,\n                                    },\n                                    {\n                                      key: \"item.actions\",\n                                      fn: function (ref) {\n                                        var item = ref.item\n                                        return [\n                                          _c(\n                                            \"v-icon\",\n                                            {\n                                              staticClass: \"mr-4\",\n                                              attrs: {\n                                                small: \"\",\n                                                color: \"red\",\n                                                right: \"\",\n                                              },\n                                              on: {\n                                                click: function ($event) {\n                                                  return _vm.deleteUser(item.id)\n                                                },\n                                              },\n                                            },\n                                            [\n                                              _vm._v(\n                                                \"\\n                    mdi-delete\\n                \"\n                                              ),\n                                            ]\n                                          ),\n                                        ]\n                                      },\n                                    },\n                                    {\n                                      key: \"item.namabarang\",\n                                      fn: function (ref) {\n                                        var item = ref.item\n                                        return [\n                                          _c(\n                                            \"v-edit-dialog\",\n                                            {\n                                              on: {\n                                                save: _vm.save,\n                                                cancel: _vm.cancel,\n                                                open: function ($event) {\n                                                  return _vm.open(item)\n                                                },\n                                                close: _vm.close,\n                                              },\n                                              scopedSlots: _vm._u(\n                                                [\n                                                  {\n                                                    key: \"input\",\n                                                    fn: function () {\n                                                      return [\n                                                        _c(\n                                                          \"div\",\n                                                          {\n                                                            staticClass:\n                                                              \"mt-4 text-h6\",\n                                                          },\n                                                          [\n                                                            _vm._v(\n                                                              \"\\n                            Edit Barang\\n                            \"\n                                                            ),\n                                                          ]\n                                                        ),\n                                                        _vm._v(\" \"),\n                                                        _c(\"v-text-field\", {\n                                                          attrs: {\n                                                            rules: [\n                                                              _vm.max100chars,\n                                                            ],\n                                                            label: \"Edit\",\n                                                            \"single-line\": \"\",\n                                                            counter: \"\",\n                                                          },\n                                                          model: {\n                                                            value:\n                                                              _vm.editedItem\n                                                                .namabarang,\n                                                            callback: function (\n                                                              $$v\n                                                            ) {\n                                                              _vm.$set(\n                                                                _vm.editedItem,\n                                                                \"namabarang\",\n                                                                $$v\n                                                              )\n                                                            },\n                                                            expression:\n                                                              \"editedItem.namabarang\",\n                                                          },\n                                                        }),\n                                                      ]\n                                                    },\n                                                    proxy: true,\n                                                  },\n                                                ],\n                                                null,\n                                                true\n                                              ),\n                                            },\n                                            [\n                                              _vm._v(\n                                                \"\\n                        \" +\n                                                  _vm._s(item.namabarang) +\n                                                  \"\\n                        \"\n                                              ),\n                                            ]\n                                          ),\n                                        ]\n                                      },\n                                    },\n                                  ],\n                                  null,\n                                  false,\n                                  116405977\n                                ),\n                              }),\n                            ],\n                            1\n                          ),\n                        ],\n                        1\n                      )\n                    : _vm._e(),\n                ],\n                1\n              ),\n              _vm._v(\" \"),\n              _c(\n                \"v-col\",\n                { attrs: { cols: \"4\" } },\n                [\n                  _c(\n                    \"v-snackbar\",\n                    {\n                      staticStyle: {},\n                      attrs: {\n                        timeout: 4000,\n                        color: _vm.snackColor,\n                        \"multi-line\": _vm.multiLine,\n                        \"position:\": \"\",\n                        absolute: \"\",\n                        right: \"\",\n                      },\n                      scopedSlots: _vm._u([\n                        {\n                          key: \"action\",\n                          fn: function (ref) {\n                            var attrs = ref.attrs\n                            return [\n                              _c(\n                                \"v-btn\",\n                                _vm._b(\n                                  {\n                                    attrs: { text: \"\" },\n                                    on: {\n                                      click: function ($event) {\n                                        _vm.snack = false\n                                      },\n                                    },\n                                  },\n                                  \"v-btn\",\n                                  attrs,\n                                  false\n                                ),\n                                [\n                                  _vm._v(\n                                    \"\\n                    Close\\n                    \"\n                                  ),\n                                ]\n                              ),\n                            ]\n                          },\n                        },\n                      ]),\n                      model: {\n                        value: _vm.snack,\n                        callback: function ($$v) {\n                          _vm.snack = $$v\n                        },\n                        expression: \"snack\",\n                      },\n                    },\n                    [\n                      _vm._v(\n                        \"\\n                \" +\n                          _vm._s(_vm.snackText) +\n                          \"\\n\\n                \"\n                      ),\n                    ]\n                  ),\n                ],\n                1\n              ),\n            ],\n            1\n          ),\n          _vm._v(\" \"),\n          !_vm.$gate.isAdmin() ? _c(\"div\", [_c(\"not-found\")], 1) : _vm._e(),\n          _vm._v(\" \"),\n          _c(\n            \"div\",\n            {\n              staticClass: \"modal fade\",\n              attrs: {\n                id: \"addNew\",\n                tabindex: \"-1\",\n                role: \"dialog\",\n                \"aria-labelledby\": \"addNew\",\n                \"aria-hidden\": \"true\",\n              },\n            },\n            [\n              _c(\n                \"div\",\n                { staticClass: \"modal-dialog\", attrs: { role: \"document\" } },\n                [\n                  _c(\n                    \"div\",\n                    { staticClass: \"modal-content\" },\n                    [\n                      _c(\"div\", { staticClass: \"modal-header\" }, [\n                        _c(\n                          \"h5\",\n                          {\n                            directives: [\n                              {\n                                name: \"show\",\n                                rawName: \"v-show\",\n                                value: !_vm.editmode,\n                                expression: \"!editmode\",\n                              },\n                            ],\n                            staticClass: \"modal-title\",\n                          },\n                          [_vm._v(\"Tambah Barang\")]\n                        ),\n                        _vm._v(\" \"),\n                        _c(\n                          \"h5\",\n                          {\n                            directives: [\n                              {\n                                name: \"show\",\n                                rawName: \"v-show\",\n                                value: _vm.editmode,\n                                expression: \"editmode\",\n                              },\n                            ],\n                            staticClass: \"modal-title\",\n                          },\n                          [_vm._v(\"Edit Data User\")]\n                        ),\n                        _vm._v(\" \"),\n                        _c(\n                          \"button\",\n                          {\n                            staticClass: \"close\",\n                            attrs: {\n                              type: \"button\",\n                              \"data-dismiss\": \"modal\",\n                              \"aria-label\": \"Close\",\n                            },\n                          },\n                          [\n                            _c(\"span\", { attrs: { \"aria-hidden\": \"true\" } }, [\n                              _vm._v(\"×\"),\n                            ]),\n                          ]\n                        ),\n                      ]),\n                      _vm._v(\" \"),\n                      _c(\n                        \"v-form\",\n                        {\n                          ref: \"form\",\n                          attrs: { \"lazy-validation\": \"\" },\n                          on: {\n                            submit: function ($event) {\n                              $event.preventDefault()\n                              return _vm.createUser.apply(null, arguments)\n                            },\n                          },\n                          model: {\n                            value: _vm.valid,\n                            callback: function ($$v) {\n                              _vm.valid = $$v\n                            },\n                            expression: \"valid\",\n                          },\n                        },\n                        [\n                          _c(\"div\", { staticClass: \"modal-body\" }, [\n                            _c(\"input\", {\n                              directives: [\n                                {\n                                  name: \"model\",\n                                  rawName: \"v-model\",\n                                  value: _vm.csrf,\n                                  expression: \"csrf\",\n                                },\n                              ],\n                              attrs: { type: \"hidden\", name: \"_token\" },\n                              domProps: { value: _vm.csrf },\n                              on: {\n                                input: function ($event) {\n                                  if ($event.target.composing) {\n                                    return\n                                  }\n                                  _vm.csrf = $event.target.value\n                                },\n                              },\n                            }),\n                            _vm._v(\" \"),\n                            _c(\n                              \"div\",\n                              { staticClass: \"form-group input-group\" },\n                              [\n                                _c(\n                                  \"v-col\",\n                                  { attrs: { cols: \"12\", sm: \"12\", md: \"12\" } },\n                                  [\n                                    _c(\"v-text-field\", {\n                                      attrs: {\n                                        rules: _vm.editedItem.barangRules,\n                                        label: \"Nama Barang\",\n                                        name: \"namabarang\",\n                                        placeholder: \"input\",\n                                        outlined: \"\",\n                                        required: \"\",\n                                        dense: \"\",\n                                        \"prepend-icon\": \"mdi-cart-plus\",\n                                      },\n                                      model: {\n                                        value: _vm.editedItem.namabarang,\n                                        callback: function ($$v) {\n                                          _vm.$set(\n                                            _vm.editedItem,\n                                            \"namabarang\",\n                                            $$v\n                                          )\n                                        },\n                                        expression: \"editedItem.namabarang\",\n                                      },\n                                    }),\n                                  ],\n                                  1\n                                ),\n                              ],\n                              1\n                            ),\n                          ]),\n                          _vm._v(\" \"),\n                          _c(\n                            \"div\",\n                            { staticClass: \"modal-footer\" },\n                            [\n                              _c(\n                                \"v-btn\",\n                                {\n                                  attrs: {\n                                    color: \"error\",\n                                    elevation: \"2\",\n                                    type: \"button\",\n                                    \"data-dismiss\": \"modal\",\n                                  },\n                                },\n                                [\n                                  _c(\"v-icon\", [_vm._v(\"mdi-cancel\")]),\n                                  _vm._v(\n                                    \"\\n                            Batal\\n                        \"\n                                  ),\n                                ],\n                                1\n                              ),\n                              _vm._v(\" \"),\n                              _c(\n                                \"v-btn\",\n                                {\n                                  directives: [\n                                    {\n                                      name: \"show\",\n                                      rawName: \"v-show\",\n                                      value: _vm.editmode,\n                                      expression: \"editmode\",\n                                    },\n                                  ],\n                                  attrs: {\n                                    color: \"success\",\n                                    elevation: \"2\",\n                                    type: \"submit\",\n                                  },\n                                },\n                                [\n                                  _c(\"v-icon\", [_vm._v(\"mdi-pencil\")]),\n                                  _vm._v(\n                                    \"\\n                            Ubah\\n                        \"\n                                  ),\n                                ],\n                                1\n                              ),\n                              _vm._v(\" \"),\n                              _c(\n                                \"v-btn\",\n                                {\n                                  directives: [\n                                    {\n                                      name: \"show\",\n                                      rawName: \"v-show\",\n                                      value: !_vm.editmode,\n                                      expression: \"!editmode\",\n                                    },\n                                  ],\n                                  attrs: {\n                                    color: \"primary\",\n                                    elevation: \"2\",\n                                    type: \"submit\",\n                                  },\n                                },\n                                [\n                                  _c(\"v-icon\", [_vm._v(\"mdi-plus-box\")]),\n                                  _vm._v(\n                                    \"\\n                            Tambah\\n                        \"\n                                  ),\n                                ],\n                                1\n                              ),\n                            ],\n                            1\n                          ),\n                        ]\n                      ),\n                    ],\n                    1\n                  ),\n                ]\n              ),\n            ]\n          ),\n        ],\n        1\n      ),\n    ],\n    1\n  )\n}\nvar staticRenderFns = []\nrender._withStripped = true\n\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9zZXR0aW5nL0JhcmFuZy52dWU/NmEwOSJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxTQUFTLFNBQVMsWUFBWSxFQUFFO0FBQ2hDO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxzQkFBc0IsbUJBQW1CO0FBQ3pDLGFBQWE7QUFDYjtBQUNBO0FBQ0E7QUFDQSxpQkFBaUIsU0FBUyxZQUFZLEVBQUU7QUFDeEM7QUFDQTtBQUNBO0FBQ0E7QUFDQSx5QkFBeUIsOEJBQThCO0FBQ3ZEO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSwrQkFBK0I7QUFDL0IsNkJBQTZCO0FBQzdCO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsbUNBQW1DO0FBQ25DLHVDQUF1QyxzQkFBc0I7QUFDN0QsaUNBQWlDO0FBQ2pDO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLDZCQUE2QixnREFBZ0Q7QUFDN0U7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsaUNBQWlDO0FBQ2pDO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsdUNBQXVDO0FBQ3ZDLHFDQUFxQztBQUNyQztBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSw2Q0FBNkMsU0FBUyxXQUFXLEVBQUU7QUFDbkU7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxp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ckM7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLG1DQUFtQztBQUNuQyxpQ0FBaUM7QUFDakM7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EscUNBQXFDO0FBQ3JDO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxtQ0FBbUM7QUFDbkMsaUNBQWlDO0FBQ2pDO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EiLCJmaWxlIjoiLi9ub2RlX21vZHVsZXMvdnVlLWxvYWRlci9saWIvbG9hZGVycy90ZW1wbGF0ZUxvYWRlci5qcz8hLi9ub2RlX21vZHVsZXMvdnVlLWxvYWRlci9saWIvaW5kZXguanM/IS4vcmVzb3VyY2VzL2pzL2NvbXBvbmVudHMvc2V0dGluZy9CYXJhbmcudnVlP3Z1ZSZ0eXBlPXRlbXBsYXRlJmlkPWU0ZGNkYzllJi5qcyIsInNvdXJjZXNDb250ZW50IjpbInZhciByZW5kZXIgPSBmdW5jdGlvbiAoKSB7XG4gIHZhciBfdm0gPSB0aGlzXG4gIHZhciBfaCA9IF92bS4kY3JlYXRlRWxlbWVudFxuICB2YXIgX2MgPSBfdm0uX3NlbGYuX2MgfHwgX2hcbiAgcmV0dXJuIF9jKFxuICAgIFwidi1hcHBcIixcbiAgICBbXG4gICAgICBfYyhcbiAgICAgICAgXCJ2LWNvbnRhaW5lclwiLFxuICAgICAgICB7IGF0dHJzOiB7IGZsdWlkOiBcIlwiIH0gfSxcbiAgICAgICAgW1xuICAgICAgICAgIF9jKFxuICAgICAgICAgICAgXCJ2LXJvd1wiLFxuICAgICAgICAgICAge1xuICAgICAgICAgICAgICBzdGF0aWNDbGFzczogXCJqdXN0aWZ5LWNvbnRlbnQtbWQtY2VudGVyXCIsXG4gICAgICAgICAgICAgIGF0dHJzOiB7IFwibm8tZ3V0dGVyc1wiOiBcIlwiIH0sXG4gICAgICAgICAgICB9LFxuICAgICAgICAgICAgW1xuICAgICAgICAgICAgICBfYyhcbiAgICAgICAgICAgICAgICBcInYtY29sXCIsXG4gICAgICAgICAgICAgICAgeyBhdHRyczogeyBjb2xzOiBcIjdcIiB9IH0sXG4gICAgICAgICAgICAgICAgW1xuICAgICAgICAgICAgICAgICAgX3ZtLiRnYXRlLmlzQWRtaW4oKVxuICAgICAgICAgICAgICAgICAgICA/IF9jKFxuICAgICAgICAgICAgICAgICAgICAgICAgXCJ2LWNhcmRcIixcbiAgICAgICAgICAgICAgICAgICAgICAgIHsgc3RhdGljQ2xhc3M6IFwicGEtMiBteC1hdXRvXCIgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJ2LXRvb2xiYXJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhdHRyczoge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb2xvcjogXCJncmVlbiBsaWdodGVuLTFcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGFyazogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2hhcGVkOiBcIlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFwidi10b29sYmFyLXRpdGxlXCIsIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiXFxuICAgICAgICAgICAgICAgICAgICBNYXN0ZXIgQmFyYW5nXFxuICAgICAgICAgICAgICAgIFwiXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBdKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5fdihcIiBcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcInYtc3BhY2VyXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFwiIFwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcInYtYnRuXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhdHRyczoge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc21hbGw6IFwiXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb2xvcjogXCJpbmRpZ29cIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRhcms6IFwiXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBvbjogeyBjbGljazogX3ZtLm5ld01vZGFsIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcInYtaWNvblwiLCBbX3ZtLl92KFwibWRpLXBsdXMtYm94XCIpXSksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFwiIFRhbWJhaFxcbiAgICAgICAgICAgICAgICAgIFwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBdLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIDFcbiAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFwiIFwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJkaXZcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICB7IHN0YXRpY0NsYXNzOiBcImNhcmQtYm9keSB0YWJsZS1yZXNwb25zaXZlIHAtMFwiIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXCJ2LWRhdGEtdGFibGVcIiwge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdGF0aWNDbGFzczogXCJlbGV2YXRpb24tM1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhdHRyczoge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGhlYWRlcnM6IF92bS5oZWFkZXJzLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGl0ZW1zOiBfdm0uYmFyYW5nLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNlYXJjaDogX3ZtLnNlYXJjaCxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBqdXN0aWZ5OiBcImNlbnRlclwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRlbnNlOiBcIlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzY29wZWRTbG90czogX3ZtLl91KFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAga2V5OiBcIml0ZW0uaW5kZXhcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZm46IGZ1bmN0aW9uIChyZWYpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2YXIgaW5kZXggPSByZWYuaW5kZXhcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIlxcbiAgICAgICAgICAgICAgICAgICAgXCIgK1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5fcyhpbmRleCArIDEpICtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIlxcbiAgICAgICAgICAgICAgICBcIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBdXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBrZXk6IFwidG9wXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZuOiBmdW5jdGlvbiAoKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcInYtdG9vbGJhclwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7IGF0dHJzOiB7IGZsYXQ6IFwiXCIgfSB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBbXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXCJ2LXNwYWNlclwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uX3YoXCIgXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFwidi1zcGFjZXJcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFwiIFwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcInYtc3BhY2VyXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5fdihcIiBcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXCJ2LXNwYWNlclwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uX3YoXCIgXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFwidi10ZXh0LWZpZWxkXCIsIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGF0dHJzOiB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiYXBwZW5kLWljb25cIjogXCJtZGktbWFnbmlmeVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBsYWJlbDogXCJDYXJpIEJhcmFuZ1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcInNpbmdsZS1saW5lXCI6IFwiXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiaGlkZS1kZXRhaWxzXCI6IFwiXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxvYWRpbmc6IFwiZ3JleVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG1vZGVsOiB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhbHVlOiBfdm0uc2VhcmNoLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjYWxsYmFjazogZnVuY3Rpb24gKCQkdikge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5zZWFyY2ggPSAkJHZcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZXhwcmVzc2lvbjogXCJzZWFyY2hcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDFcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwcm94eTogdHJ1ZSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGtleTogXCJpdGVtLmFjdGlvbnNcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZm46IGZ1bmN0aW9uIChyZWYpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2YXIgaXRlbSA9IHJlZi5pdGVtXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcInYtaWNvblwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RhdGljQ2xhc3M6IFwibXItNFwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGF0dHJzOiB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzbWFsbDogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiBcInJlZFwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmlnaHQ6IFwiXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBvbjoge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY2xpY2s6IGZ1bmN0aW9uICgkZXZlbnQpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIF92bS5kZWxldGVVc2VyKGl0ZW0uaWQpXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uX3YoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIlxcbiAgICAgICAgICAgICAgICAgICAgbWRpLWRlbGV0ZVxcbiAgICAgICAgICAgICAgICBcIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAga2V5OiBcIml0ZW0ubmFtYWJhcmFuZ1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmbjogZnVuY3Rpb24gKHJlZikge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhciBpdGVtID0gcmVmLml0ZW1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwidi1lZGl0LWRpYWxvZ1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgb246IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNhdmU6IF92bS5zYXZlLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY2FuY2VsOiBfdm0uY2FuY2VsLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgb3BlbjogZnVuY3Rpb24gKCRldmVudCkge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gX3ZtLm9wZW4oaXRlbSlcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjbG9zZTogX3ZtLmNsb3NlLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2NvcGVkU2xvdHM6IF92bS5fdShcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGtleTogXCJpbnB1dFwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZuOiBmdW5jdGlvbiAoKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcImRpdlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0YXRpY0NsYXNzOlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIm10LTQgdGV4dC1oNlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIlxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBFZGl0IEJhcmFuZ1xcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBdXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5fdihcIiBcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFwidi10ZXh0LWZpZWxkXCIsIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhdHRyczoge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcnVsZXM6IFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLm1heDEwMGNoYXJzLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxhYmVsOiBcIkVkaXRcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwic2luZ2xlLWxpbmVcIjogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvdW50ZXI6IFwiXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBtb2RlbDoge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFsdWU6XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5lZGl0ZWRJdGVtXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLm5hbWFiYXJhbmcsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjYWxsYmFjazogZnVuY3Rpb24gKFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAkJHZcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICkge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uJHNldChcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uZWRpdGVkSXRlbSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIm5hbWFiYXJhbmdcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAkJHZcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGV4cHJlc3Npb246XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiZWRpdGVkSXRlbS5uYW1hYmFyYW5nXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBdXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwcm94eTogdHJ1ZSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBudWxsLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdHJ1ZVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uX3YoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIlxcbiAgICAgICAgICAgICAgICAgICAgICAgIFwiICtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl9zKGl0ZW0ubmFtYWJhcmFuZykgK1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIlxcbiAgICAgICAgICAgICAgICAgICAgICAgIFwiXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBdXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbnVsbCxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWxzZSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxMTY0MDU5NzdcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0pLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIF0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgMVxuICAgICAgICAgICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgICAgICAgICAgXSxcbiAgICAgICAgICAgICAgICAgICAgICAgIDFcbiAgICAgICAgICAgICAgICAgICAgICApXG4gICAgICAgICAgICAgICAgICAgIDogX3ZtLl9lKCksXG4gICAgICAgICAgICAgICAgXSxcbiAgICAgICAgICAgICAgICAxXG4gICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgIF92bS5fdihcIiBcIiksXG4gICAgICAgICAgICAgIF9jKFxuICAgICAgICAgICAgICAgIFwidi1jb2xcIixcbiAgICAgICAgICAgICAgICB7IGF0dHJzOiB7IGNvbHM6IFwiNFwiIH0gfSxcbiAgICAgICAgICAgICAgICBbXG4gICAgICAgICAgICAgICAgICBfYyhcbiAgICAgICAgICAgICAgICAgICAgXCJ2LXNuYWNrYmFyXCIsXG4gICAgICAgICAgICAgICAgICAgIHtcbiAgICAgICAgICAgICAgICAgICAgICBzdGF0aWNTdHlsZToge30sXG4gICAgICAgICAgICAgICAgICAgICAgYXR0cnM6IHtcbiAgICAgICAgICAgICAgICAgICAgICAgIHRpbWVvdXQ6IDQwMDAsXG4gICAgICAgICAgICAgICAgICAgICAgICBjb2xvcjogX3ZtLnNuYWNrQ29sb3IsXG4gICAgICAgICAgICAgICAgICAgICAgICBcIm11bHRpLWxpbmVcIjogX3ZtLm11bHRpTGluZSxcbiAgICAgICAgICAgICAgICAgICAgICAgIFwicG9zaXRpb246XCI6IFwiXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICBhYnNvbHV0ZTogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgIHJpZ2h0OiBcIlwiLFxuICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgc2NvcGVkU2xvdHM6IF92bS5fdShbXG4gICAgICAgICAgICAgICAgICAgICAgICB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgIGtleTogXCJhY3Rpb25cIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgZm46IGZ1bmN0aW9uIChyZWYpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICB2YXIgYXR0cnMgPSByZWYuYXR0cnNcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwidi1idG5cIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl9iKFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGF0dHJzOiB7IHRleHQ6IFwiXCIgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG9uOiB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNsaWNrOiBmdW5jdGlvbiAoJGV2ZW50KSB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLnNuYWNrID0gZmFsc2VcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcInYtYnRuXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYXR0cnMsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFsc2VcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5fdihcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiXFxuICAgICAgICAgICAgICAgICAgICBDbG9zZVxcbiAgICAgICAgICAgICAgICAgICAgXCJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBdXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIF1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgXSksXG4gICAgICAgICAgICAgICAgICAgICAgbW9kZWw6IHtcbiAgICAgICAgICAgICAgICAgICAgICAgIHZhbHVlOiBfdm0uc25hY2ssXG4gICAgICAgICAgICAgICAgICAgICAgICBjYWxsYmFjazogZnVuY3Rpb24gKCQkdikge1xuICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uc25hY2sgPSAkJHZcbiAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICBleHByZXNzaW9uOiBcInNuYWNrXCIsXG4gICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgW1xuICAgICAgICAgICAgICAgICAgICAgIF92bS5fdihcbiAgICAgICAgICAgICAgICAgICAgICAgIFwiXFxuICAgICAgICAgICAgICAgIFwiICtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl9zKF92bS5zbmFja1RleHQpICtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgXCJcXG5cXG4gICAgICAgICAgICAgICAgXCJcbiAgICAgICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgICAgICBdXG4gICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgIF0sXG4gICAgICAgICAgICAgICAgMVxuICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgXSxcbiAgICAgICAgICAgIDFcbiAgICAgICAgICApLFxuICAgICAgICAgIF92bS5fdihcIiBcIiksXG4gICAgICAgICAgIV92bS4kZ2F0ZS5pc0FkbWluKCkgPyBfYyhcImRpdlwiLCBbX2MoXCJub3QtZm91bmRcIildLCAxKSA6IF92bS5fZSgpLFxuICAgICAgICAgIF92bS5fdihcIiBcIiksXG4gICAgICAgICAgX2MoXG4gICAgICAgICAgICBcImRpdlwiLFxuICAgICAgICAgICAge1xuICAgICAgICAgICAgICBzdGF0aWNDbGFzczogXCJtb2RhbCBmYWRlXCIsXG4gICAgICAgICAgICAgIGF0dHJzOiB7XG4gICAgICAgICAgICAgICAgaWQ6IFwiYWRkTmV3XCIsXG4gICAgICAgICAgICAgICAgdGFiaW5kZXg6IFwiLTFcIixcbiAgICAgICAgICAgICAgICByb2xlOiBcImRpYWxvZ1wiLFxuICAgICAgICAgICAgICAgIFwiYXJpYS1sYWJlbGxlZGJ5XCI6IFwiYWRkTmV3XCIsXG4gICAgICAgICAgICAgICAgXCJhcmlhLWhpZGRlblwiOiBcInRydWVcIixcbiAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgIH0sXG4gICAgICAgICAgICBbXG4gICAgICAgICAgICAgIF9jKFxuICAgICAgICAgICAgICAgIFwiZGl2XCIsXG4gICAgICAgICAgICAgICAgeyBzdGF0aWNDbGFzczogXCJtb2RhbC1kaWFsb2dcIiwgYXR0cnM6IHsgcm9sZTogXCJkb2N1bWVudFwiIH0gfSxcbiAgICAgICAgICAgICAgICBbXG4gICAgICAgICAgICAgICAgICBfYyhcbiAgICAgICAgICAgICAgICAgICAgXCJkaXZcIixcbiAgICAgICAgICAgICAgICAgICAgeyBzdGF0aWNDbGFzczogXCJtb2RhbC1jb250ZW50XCIgfSxcbiAgICAgICAgICAgICAgICAgICAgW1xuICAgICAgICAgICAgICAgICAgICAgIF9jKFwiZGl2XCIsIHsgc3RhdGljQ2xhc3M6IFwibW9kYWwtaGVhZGVyXCIgfSwgW1xuICAgICAgICAgICAgICAgICAgICAgICAgX2MoXG4gICAgICAgICAgICAgICAgICAgICAgICAgIFwiaDVcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRpcmVjdGl2ZXM6IFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbmFtZTogXCJzaG93XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJhd05hbWU6IFwidi1zaG93XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhbHVlOiAhX3ZtLmVkaXRtb2RlLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBleHByZXNzaW9uOiBcIiFlZGl0bW9kZVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBdLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0YXRpY0NsYXNzOiBcIm1vZGFsLXRpdGxlXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgIFtfdm0uX3YoXCJUYW1iYWggQmFyYW5nXCIpXVxuICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgIF92bS5fdihcIiBcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICBfYyhcbiAgICAgICAgICAgICAgICAgICAgICAgICAgXCJoNVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgZGlyZWN0aXZlczogW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBuYW1lOiBcInNob3dcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmF3TmFtZTogXCJ2LXNob3dcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFsdWU6IF92bS5lZGl0bW9kZSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZXhwcmVzc2lvbjogXCJlZGl0bW9kZVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBdLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0YXRpY0NsYXNzOiBcIm1vZGFsLXRpdGxlXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgIFtfdm0uX3YoXCJFZGl0IERhdGEgVXNlclwiKV1cbiAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICBfdm0uX3YoXCIgXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgX2MoXG4gICAgICAgICAgICAgICAgICAgICAgICAgIFwiYnV0dG9uXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdGF0aWNDbGFzczogXCJjbG9zZVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIGF0dHJzOiB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0eXBlOiBcImJ1dHRvblwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJkYXRhLWRpc21pc3NcIjogXCJtb2RhbFwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJhcmlhLWxhYmVsXCI6IFwiQ2xvc2VcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICBbXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXCJzcGFuXCIsIHsgYXR0cnM6IHsgXCJhcmlhLWhpZGRlblwiOiBcInRydWVcIiB9IH0sIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5fdihcIsOXXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIF0pLFxuICAgICAgICAgICAgICAgICAgICAgICAgICBdXG4gICAgICAgICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgICAgICAgIF0pLFxuICAgICAgICAgICAgICAgICAgICAgIF92bS5fdihcIiBcIiksXG4gICAgICAgICAgICAgICAgICAgICAgX2MoXG4gICAgICAgICAgICAgICAgICAgICAgICBcInYtZm9ybVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAge1xuICAgICAgICAgICAgICAgICAgICAgICAgICByZWY6IFwiZm9ybVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICBhdHRyczogeyBcImxhenktdmFsaWRhdGlvblwiOiBcIlwiIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgIG9uOiB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgc3VibWl0OiBmdW5jdGlvbiAoJGV2ZW50KSB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAkZXZlbnQucHJldmVudERlZmF1bHQoKVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIF92bS5jcmVhdGVVc2VyLmFwcGx5KG51bGwsIGFyZ3VtZW50cylcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICBtb2RlbDoge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhbHVlOiBfdm0udmFsaWQsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgY2FsbGJhY2s6IGZ1bmN0aW9uICgkJHYpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS52YWxpZCA9ICQkdlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgZXhwcmVzc2lvbjogXCJ2YWxpZFwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXCJkaXZcIiwgeyBzdGF0aWNDbGFzczogXCJtb2RhbC1ib2R5XCIgfSwgW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFwiaW5wdXRcIiwge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGlyZWN0aXZlczogW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbmFtZTogXCJtb2RlbFwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJhd05hbWU6IFwidi1tb2RlbFwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhbHVlOiBfdm0uY3NyZixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBleHByZXNzaW9uOiBcImNzcmZcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhdHRyczogeyB0eXBlOiBcImhpZGRlblwiLCBuYW1lOiBcIl90b2tlblwiIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkb21Qcm9wczogeyB2YWx1ZTogX3ZtLmNzcmYgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG9uOiB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlucHV0OiBmdW5jdGlvbiAoJGV2ZW50KSB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKCRldmVudC50YXJnZXQuY29tcG9zaW5nKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLmNzcmYgPSAkZXZlbnQudGFyZ2V0LnZhbHVlXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0pLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5fdihcIiBcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcImRpdlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgeyBzdGF0aWNDbGFzczogXCJmb3JtLWdyb3VwIGlucHV0LWdyb3VwXCIgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJ2LWNvbFwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHsgYXR0cnM6IHsgY29sczogXCIxMlwiLCBzbTogXCIxMlwiLCBtZDogXCIxMlwiIH0gfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBbXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcInYtdGV4dC1maWVsZFwiLCB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGF0dHJzOiB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcnVsZXM6IF92bS5lZGl0ZWRJdGVtLmJhcmFuZ1J1bGVzLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxhYmVsOiBcIk5hbWEgQmFyYW5nXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbmFtZTogXCJuYW1hYmFyYW5nXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGxhY2Vob2xkZXI6IFwiaW5wdXRcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBvdXRsaW5lZDogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXF1aXJlZDogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkZW5zZTogXCJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcInByZXBlbmQtaWNvblwiOiBcIm1kaS1jYXJ0LXBsdXNcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbW9kZWw6IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2YWx1ZTogX3ZtLmVkaXRlZEl0ZW0ubmFtYWJhcmFuZyxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjYWxsYmFjazogZnVuY3Rpb24gKCQkdikge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLiRzZXQoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5lZGl0ZWRJdGVtLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIm5hbWFiYXJhbmdcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJCR2XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICApXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBleHByZXNzaW9uOiBcImVkaXRlZEl0ZW0ubmFtYWJhcmFuZ1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBdLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICAgIF0pLFxuICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uX3YoXCIgXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBcImRpdlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIHsgc3RhdGljQ2xhc3M6IFwibW9kYWwtZm9vdGVyXCIgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBbXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJ2LWJ0blwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYXR0cnM6IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiBcImVycm9yXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBlbGV2YXRpb246IFwiMlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdHlwZTogXCJidXR0b25cIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiZGF0YS1kaXNtaXNzXCI6IFwibW9kYWxcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBbXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXCJ2LWljb25cIiwgW192bS5fdihcIm1kaS1jYW5jZWxcIildKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uX3YoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIlxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBCYXRhbFxcbiAgICAgICAgICAgICAgICAgICAgICAgIFwiXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF92bS5fdihcIiBcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfYyhcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXCJ2LWJ0blwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGlyZWN0aXZlczogW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBuYW1lOiBcInNob3dcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmF3TmFtZTogXCJ2LXNob3dcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFsdWU6IF92bS5lZGl0bW9kZSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZXhwcmVzc2lvbjogXCJlZGl0bW9kZVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBdLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGF0dHJzOiB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb2xvcjogXCJzdWNjZXNzXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBlbGV2YXRpb246IFwiMlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdHlwZTogXCJzdWJtaXRcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBbXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX2MoXCJ2LWljb25cIiwgW192bS5fdihcIm1kaS1wZW5jaWxcIildKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uX3YoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIlxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBVYmFoXFxuICAgICAgICAgICAgICAgICAgICAgICAgXCJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBdLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX3ZtLl92KFwiIFwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcInYtYnRuXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkaXJlY3RpdmVzOiBbXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG5hbWU6IFwic2hvd1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByYXdOYW1lOiBcInYtc2hvd1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2YWx1ZTogIV92bS5lZGl0bW9kZSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZXhwcmVzc2lvbjogXCIhZWRpdG1vZGVcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhdHRyczoge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29sb3I6IFwicHJpbWFyeVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZWxldmF0aW9uOiBcIjJcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHR5cGU6IFwic3VibWl0XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgW1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9jKFwidi1pY29uXCIsIFtfdm0uX3YoXCJtZGktcGx1cy1ib3hcIildKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfdm0uX3YoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIlxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBUYW1iYWhcXG4gICAgICAgICAgICAgICAgICAgICAgICBcIlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF0sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDFcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgXSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAxXG4gICAgICAgICAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgICAgICAgICBdXG4gICAgICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICAgICAgXSxcbiAgICAgICAgICAgICAgICAgICAgMVxuICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICBdXG4gICAgICAgICAgICAgICksXG4gICAgICAgICAgICBdXG4gICAgICAgICAgKSxcbiAgICAgICAgXSxcbiAgICAgICAgMVxuICAgICAgKSxcbiAgICBdLFxuICAgIDFcbiAgKVxufVxudmFyIHN0YXRpY1JlbmRlckZucyA9IFtdXG5yZW5kZXIuX3dpdGhTdHJpcHBlZCA9IHRydWVcblxuZXhwb3J0IHsgcmVuZGVyLCBzdGF0aWNSZW5kZXJGbnMgfSJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Barang.vue?vue&type=template&id=e4dcdc9e&\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-app",
+    [
+      _c(
+        "v-container",
+        { attrs: { fluid: "" } },
+        [
+          _c(
+            "v-row",
+            {
+              staticClass: "justify-content-md-center",
+              attrs: { "no-gutters": "" },
+            },
+            [
+              _c(
+                "v-col",
+                { attrs: { cols: "7" } },
+                [
+                  _vm.$gate.isAdmin()
+                    ? _c(
+                        "v-card",
+                        { staticClass: "pa-2 mx-auto" },
+                        [
+                          _c(
+                            "v-toolbar",
+                            {
+                              attrs: {
+                                color: "green lighten-1",
+                                dark: "",
+                                shaped: "",
+                              },
+                            },
+                            [
+                              _c("v-toolbar-title", [
+                                _vm._v(
+                                  "\n                    Master Barang\n                "
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c("v-spacer"),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    small: "",
+                                    color: "indigo",
+                                    dark: "",
+                                  },
+                                  on: { click: _vm.newModal },
+                                },
+                                [
+                                  _c("v-icon", [_vm._v("mdi-plus-box")]),
+                                  _vm._v(" Tambah\n                  "),
+                                ],
+                                1
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "card-body table-responsive p-0" },
+                            [
+                              _c("v-data-table", {
+                                staticClass: "elevation-3",
+                                attrs: {
+                                  headers: _vm.headers,
+                                  items: _vm.barang,
+                                  search: _vm.search,
+                                  justify: "center",
+                                  dense: "",
+                                },
+                                scopedSlots: _vm._u(
+                                  [
+                                    {
+                                      key: "item.index",
+                                      fn: function (ref) {
+                                        var index = ref.index
+                                        return [
+                                          _vm._v(
+                                            "\n                    " +
+                                              _vm._s(index + 1) +
+                                              "\n                "
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                    {
+                                      key: "top",
+                                      fn: function () {
+                                        return [
+                                          _c(
+                                            "v-toolbar",
+                                            { attrs: { flat: "" } },
+                                            [
+                                              _c("v-spacer"),
+                                              _vm._v(" "),
+                                              _c("v-spacer"),
+                                              _vm._v(" "),
+                                              _c("v-spacer"),
+                                              _vm._v(" "),
+                                              _c("v-spacer"),
+                                              _vm._v(" "),
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  "append-icon": "mdi-magnify",
+                                                  label: "Cari Barang",
+                                                  "single-line": "",
+                                                  "hide-details": "",
+                                                  loading: "grey",
+                                                },
+                                                model: {
+                                                  value: _vm.search,
+                                                  callback: function ($$v) {
+                                                    _vm.search = $$v
+                                                  },
+                                                  expression: "search",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ]
+                                      },
+                                      proxy: true,
+                                    },
+                                    {
+                                      key: "item.actions",
+                                      fn: function (ref) {
+                                        var item = ref.item
+                                        return [
+                                          _c(
+                                            "v-icon",
+                                            {
+                                              staticClass: "mr-4",
+                                              attrs: {
+                                                small: "",
+                                                color: "red",
+                                                right: "",
+                                              },
+                                              on: {
+                                                click: function ($event) {
+                                                  return _vm.deleteUser(item.id)
+                                                },
+                                              },
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                    mdi-delete\n                "
+                                              ),
+                                            ]
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                    {
+                                      key: "item.namabarang",
+                                      fn: function (ref) {
+                                        var item = ref.item
+                                        return [
+                                          _c(
+                                            "v-edit-dialog",
+                                            {
+                                              on: {
+                                                save: _vm.save,
+                                                cancel: _vm.cancel,
+                                                open: function ($event) {
+                                                  return _vm.open(item)
+                                                },
+                                                close: _vm.close,
+                                              },
+                                              scopedSlots: _vm._u(
+                                                [
+                                                  {
+                                                    key: "input",
+                                                    fn: function () {
+                                                      return [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "mt-4 text-h6",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\n                            Edit Barang\n                            "
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            rules: [
+                                                              _vm.max100chars,
+                                                            ],
+                                                            label: "Edit",
+                                                            "single-line": "",
+                                                            counter: "",
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedItem
+                                                                .namabarang,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedItem,
+                                                                "namabarang",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedItem.namabarang",
+                                                          },
+                                                        }),
+                                                      ]
+                                                    },
+                                                    proxy: true,
+                                                  },
+                                                ],
+                                                null,
+                                                true
+                                              ),
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                        " +
+                                                  _vm._s(item.namabarang) +
+                                                  "\n                        "
+                                              ),
+                                            ]
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                  ],
+                                  null,
+                                  false,
+                                  116405977
+                                ),
+                              }),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-col",
+                { attrs: { cols: "4" } },
+                [
+                  _c(
+                    "v-snackbar",
+                    {
+                      staticStyle: {},
+                      attrs: {
+                        timeout: 4000,
+                        color: _vm.snackColor,
+                        "multi-line": _vm.multiLine,
+                        "position:": "",
+                        absolute: "",
+                        right: "",
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "action",
+                          fn: function (ref) {
+                            var attrs = ref.attrs
+                            return [
+                              _c(
+                                "v-btn",
+                                _vm._b(
+                                  {
+                                    attrs: { text: "" },
+                                    on: {
+                                      click: function ($event) {
+                                        _vm.snack = false
+                                      },
+                                    },
+                                  },
+                                  "v-btn",
+                                  attrs,
+                                  false
+                                ),
+                                [
+                                  _vm._v(
+                                    "\n                    Close\n                    "
+                                  ),
+                                ]
+                              ),
+                            ]
+                          },
+                        },
+                      ]),
+                      model: {
+                        value: _vm.snack,
+                        callback: function ($$v) {
+                          _vm.snack = $$v
+                        },
+                        expression: "snack",
+                      },
+                    },
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(_vm.snackText) +
+                          "\n\n                "
+                      ),
+                    ]
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          !_vm.$gate.isAdmin() ? _c("div", [_c("not-found")], 1) : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "modal fade",
+              attrs: {
+                id: "addNew",
+                tabindex: "-1",
+                role: "dialog",
+                "aria-labelledby": "addNew",
+                "aria-hidden": "true",
+              },
+            },
+            [
+              _c(
+                "div",
+                { staticClass: "modal-dialog", attrs: { role: "document" } },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "modal-content" },
+                    [
+                      _c("div", { staticClass: "modal-header" }, [
+                        _c(
+                          "h5",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: !_vm.editmode,
+                                expression: "!editmode",
+                              },
+                            ],
+                            staticClass: "modal-title",
+                          },
+                          [_vm._v("Tambah Barang")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "h5",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.editmode,
+                                expression: "editmode",
+                              },
+                            ],
+                            staticClass: "modal-title",
+                          },
+                          [_vm._v("Edit Data User")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "close",
+                            attrs: {
+                              type: "button",
+                              "data-dismiss": "modal",
+                              "aria-label": "Close",
+                            },
+                          },
+                          [
+                            _c("span", { attrs: { "aria-hidden": "true" } }, [
+                              _vm._v("×"),
+                            ]),
+                          ]
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "v-form",
+                        {
+                          ref: "form",
+                          attrs: { "lazy-validation": "" },
+                          on: {
+                            submit: function ($event) {
+                              $event.preventDefault()
+                              return _vm.createUser.apply(null, arguments)
+                            },
+                          },
+                          model: {
+                            value: _vm.valid,
+                            callback: function ($$v) {
+                              _vm.valid = $$v
+                            },
+                            expression: "valid",
+                          },
+                        },
+                        [
+                          _c("div", { staticClass: "modal-body" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.csrf,
+                                  expression: "csrf",
+                                },
+                              ],
+                              attrs: { type: "hidden", name: "_token" },
+                              domProps: { value: _vm.csrf },
+                              on: {
+                                input: function ($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.csrf = $event.target.value
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "form-group input-group" },
+                              [
+                                _c(
+                                  "v-col",
+                                  { attrs: { cols: "12", sm: "12", md: "12" } },
+                                  [
+                                    _c("v-text-field", {
+                                      attrs: {
+                                        rules: _vm.editedItem.barangRules,
+                                        label: "Nama Barang",
+                                        name: "namabarang",
+                                        placeholder: "input",
+                                        outlined: "",
+                                        required: "",
+                                        dense: "",
+                                        "prepend-icon": "mdi-cart-plus",
+                                      },
+                                      model: {
+                                        value: _vm.editedItem.namabarang,
+                                        callback: function ($$v) {
+                                          _vm.$set(
+                                            _vm.editedItem,
+                                            "namabarang",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "editedItem.namabarang",
+                                      },
+                                    }),
+                                  ],
+                                  1
+                                ),
+                              ],
+                              1
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "modal-footer" },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    color: "error",
+                                    elevation: "2",
+                                    type: "button",
+                                    "data-dismiss": "modal",
+                                  },
+                                },
+                                [
+                                  _c("v-icon", [_vm._v("mdi-cancel")]),
+                                  _vm._v(
+                                    "\n                            Batal\n                        "
+                                  ),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.editmode,
+                                      expression: "editmode",
+                                    },
+                                  ],
+                                  attrs: {
+                                    color: "success",
+                                    elevation: "2",
+                                    type: "submit",
+                                  },
+                                },
+                                [
+                                  _c("v-icon", [_vm._v("mdi-pencil")]),
+                                  _vm._v(
+                                    "\n                            Ubah\n                        "
+                                  ),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: !_vm.editmode,
+                                      expression: "!editmode",
+                                    },
+                                  ],
+                                  attrs: {
+                                    color: "primary",
+                                    elevation: "2",
+                                    type: "submit",
+                                  },
+                                },
+                                [
+                                  _c("v-icon", [_vm._v("mdi-plus-box")]),
+                                  _vm._v(
+                                    "\n                            Tambah\n                        "
+                                  ),
+                                ],
+                                1
+                              ),
+                            ],
+                            1
+                          ),
+                        ]
+                      ),
+                    ],
+                    1
+                  ),
+                ]
+              ),
+            ]
+          ),
+        ],
+        1
+      ),
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
 
 /***/ }),
 
@@ -32,7 +1034,32 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Barang_vue_vue_type_template_id_e4dcdc9e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Barang.vue?vue&type=template&id=e4dcdc9e& */ \"./resources/js/components/setting/Barang.vue?vue&type=template&id=e4dcdc9e&\");\n/* harmony import */ var _Barang_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Barang.vue?vue&type=script&lang=js& */ \"./resources/js/components/setting/Barang.vue?vue&type=script&lang=js&\");\n/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ \"./node_modules/vue-loader/lib/runtime/componentNormalizer.js\");\n\n\n\n\n\n/* normalize component */\n\nvar component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"])(\n  _Barang_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[\"default\"],\n  _Barang_vue_vue_type_template_id_e4dcdc9e___WEBPACK_IMPORTED_MODULE_0__[\"render\"],\n  _Barang_vue_vue_type_template_id_e4dcdc9e___WEBPACK_IMPORTED_MODULE_0__[\"staticRenderFns\"],\n  false,\n  null,\n  null,\n  null\n  \n)\n\n/* hot reload */\nif (false) { var api; }\ncomponent.options.__file = \"resources/js/components/setting/Barang.vue\"\n/* harmony default export */ __webpack_exports__[\"default\"] = (component.exports);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9zZXR0aW5nL0JhcmFuZy52dWU/YzUwZCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFxRjtBQUMzQjtBQUNMOzs7QUFHckQ7QUFDZ0c7QUFDaEcsZ0JBQWdCLDJHQUFVO0FBQzFCLEVBQUUsNEVBQU07QUFDUixFQUFFLGlGQUFNO0FBQ1IsRUFBRSwwRkFBZTtBQUNqQjtBQUNBO0FBQ0E7QUFDQTs7QUFFQTs7QUFFQTtBQUNBLElBQUksS0FBVSxFQUFFLFlBaUJmO0FBQ0Q7QUFDZSxnRiIsImZpbGUiOiIuL3Jlc291cmNlcy9qcy9jb21wb25lbnRzL3NldHRpbmcvQmFyYW5nLnZ1ZS5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IHJlbmRlciwgc3RhdGljUmVuZGVyRm5zIH0gZnJvbSBcIi4vQmFyYW5nLnZ1ZT92dWUmdHlwZT10ZW1wbGF0ZSZpZD1lNGRjZGM5ZSZcIlxuaW1wb3J0IHNjcmlwdCBmcm9tIFwiLi9CYXJhbmcudnVlP3Z1ZSZ0eXBlPXNjcmlwdCZsYW5nPWpzJlwiXG5leHBvcnQgKiBmcm9tIFwiLi9CYXJhbmcudnVlP3Z1ZSZ0eXBlPXNjcmlwdCZsYW5nPWpzJlwiXG5cblxuLyogbm9ybWFsaXplIGNvbXBvbmVudCAqL1xuaW1wb3J0IG5vcm1hbGl6ZXIgZnJvbSBcIiEuLi8uLi8uLi8uLi9ub2RlX21vZHVsZXMvdnVlLWxvYWRlci9saWIvcnVudGltZS9jb21wb25lbnROb3JtYWxpemVyLmpzXCJcbnZhciBjb21wb25lbnQgPSBub3JtYWxpemVyKFxuICBzY3JpcHQsXG4gIHJlbmRlcixcbiAgc3RhdGljUmVuZGVyRm5zLFxuICBmYWxzZSxcbiAgbnVsbCxcbiAgbnVsbCxcbiAgbnVsbFxuICBcbilcblxuLyogaG90IHJlbG9hZCAqL1xuaWYgKG1vZHVsZS5ob3QpIHtcbiAgdmFyIGFwaSA9IHJlcXVpcmUoXCJEOlxcXFxsYXJhZ29uXFxcXHd3d1xcXFxlYm94a3VcXFxcbm9kZV9tb2R1bGVzXFxcXHZ1ZS1ob3QtcmVsb2FkLWFwaVxcXFxkaXN0XFxcXGluZGV4LmpzXCIpXG4gIGFwaS5pbnN0YWxsKHJlcXVpcmUoJ3Z1ZScpKVxuICBpZiAoYXBpLmNvbXBhdGlibGUpIHtcbiAgICBtb2R1bGUuaG90LmFjY2VwdCgpXG4gICAgaWYgKCFhcGkuaXNSZWNvcmRlZCgnZTRkY2RjOWUnKSkge1xuICAgICAgYXBpLmNyZWF0ZVJlY29yZCgnZTRkY2RjOWUnLCBjb21wb25lbnQub3B0aW9ucylcbiAgICB9IGVsc2Uge1xuICAgICAgYXBpLnJlbG9hZCgnZTRkY2RjOWUnLCBjb21wb25lbnQub3B0aW9ucylcbiAgICB9XG4gICAgbW9kdWxlLmhvdC5hY2NlcHQoXCIuL0JhcmFuZy52dWU/dnVlJnR5cGU9dGVtcGxhdGUmaWQ9ZTRkY2RjOWUmXCIsIGZ1bmN0aW9uICgpIHtcbiAgICAgIGFwaS5yZXJlbmRlcignZTRkY2RjOWUnLCB7XG4gICAgICAgIHJlbmRlcjogcmVuZGVyLFxuICAgICAgICBzdGF0aWNSZW5kZXJGbnM6IHN0YXRpY1JlbmRlckZuc1xuICAgICAgfSlcbiAgICB9KVxuICB9XG59XG5jb21wb25lbnQub3B0aW9ucy5fX2ZpbGUgPSBcInJlc291cmNlcy9qcy9jb21wb25lbnRzL3NldHRpbmcvQmFyYW5nLnZ1ZVwiXG5leHBvcnQgZGVmYXVsdCBjb21wb25lbnQuZXhwb3J0cyJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/js/components/setting/Barang.vue\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Barang_vue_vue_type_template_id_e4dcdc9e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Barang.vue?vue&type=template&id=e4dcdc9e& */ "./resources/js/components/setting/Barang.vue?vue&type=template&id=e4dcdc9e&");
+/* harmony import */ var _Barang_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Barang.vue?vue&type=script&lang=js& */ "./resources/js/components/setting/Barang.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Barang_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Barang_vue_vue_type_template_id_e4dcdc9e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Barang_vue_vue_type_template_id_e4dcdc9e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/setting/Barang.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
@@ -44,7 +1071,9 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Bar
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Barang_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Barang.vue?vue&type=script&lang=js& */ \"./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Barang.vue?vue&type=script&lang=js&\");\n/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__[\"default\"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Barang_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[\"default\"]); //# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9zZXR0aW5nL0JhcmFuZy52dWU/OWM4OCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUEsd0NBQTRMLENBQWdCLGtQQUFHLEVBQUMiLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9zZXR0aW5nL0JhcmFuZy52dWU/dnVlJnR5cGU9c2NyaXB0Jmxhbmc9anMmLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IG1vZCBmcm9tIFwiLSEuLi8uLi8uLi8uLi9ub2RlX21vZHVsZXMvYmFiZWwtbG9hZGVyL2xpYi9pbmRleC5qcz8/cmVmLS00LTAhLi4vLi4vLi4vLi4vbm9kZV9tb2R1bGVzL3Z1ZS1sb2FkZXIvbGliL2luZGV4LmpzPz92dWUtbG9hZGVyLW9wdGlvbnMhLi9CYXJhbmcudnVlP3Z1ZSZ0eXBlPXNjcmlwdCZsYW5nPWpzJlwiOyBleHBvcnQgZGVmYXVsdCBtb2Q7IGV4cG9ydCAqIGZyb20gXCItIS4uLy4uLy4uLy4uL25vZGVfbW9kdWxlcy9iYWJlbC1sb2FkZXIvbGliL2luZGV4LmpzPz9yZWYtLTQtMCEuLi8uLi8uLi8uLi9ub2RlX21vZHVsZXMvdnVlLWxvYWRlci9saWIvaW5kZXguanM/P3Z1ZS1sb2FkZXItb3B0aW9ucyEuL0JhcmFuZy52dWU/dnVlJnR5cGU9c2NyaXB0Jmxhbmc9anMmXCIiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/js/components/setting/Barang.vue?vue&type=script&lang=js&\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Barang_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Barang.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Barang.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Barang_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -56,7 +1085,13 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _nod
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Barang_vue_vue_type_template_id_e4dcdc9e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Barang.vue?vue&type=template&id=e4dcdc9e& */ \"./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Barang.vue?vue&type=template&id=e4dcdc9e&\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Barang_vue_vue_type_template_id_e4dcdc9e___WEBPACK_IMPORTED_MODULE_0__[\"render\"]; });\n\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"staticRenderFns\", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Barang_vue_vue_type_template_id_e4dcdc9e___WEBPACK_IMPORTED_MODULE_0__[\"staticRenderFns\"]; });\n\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9zZXR0aW5nL0JhcmFuZy52dWU/N2I4OCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEiLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvY29tcG9uZW50cy9zZXR0aW5nL0JhcmFuZy52dWU/dnVlJnR5cGU9dGVtcGxhdGUmaWQ9ZTRkY2RjOWUmLmpzIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0ICogZnJvbSBcIi0hLi4vLi4vLi4vLi4vbm9kZV9tb2R1bGVzL3Z1ZS1sb2FkZXIvbGliL2xvYWRlcnMvdGVtcGxhdGVMb2FkZXIuanM/P3Z1ZS1sb2FkZXItb3B0aW9ucyEuLi8uLi8uLi8uLi9ub2RlX21vZHVsZXMvdnVlLWxvYWRlci9saWIvaW5kZXguanM/P3Z1ZS1sb2FkZXItb3B0aW9ucyEuL0JhcmFuZy52dWU/dnVlJnR5cGU9dGVtcGxhdGUmaWQ9ZTRkY2RjOWUmXCIiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/js/components/setting/Barang.vue?vue&type=template&id=e4dcdc9e&\n");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Barang_vue_vue_type_template_id_e4dcdc9e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Barang.vue?vue&type=template&id=e4dcdc9e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Barang.vue?vue&type=template&id=e4dcdc9e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Barang_vue_vue_type_template_id_e4dcdc9e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Barang_vue_vue_type_template_id_e4dcdc9e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ })
 
