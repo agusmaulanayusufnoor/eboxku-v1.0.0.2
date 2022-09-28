@@ -23,7 +23,23 @@
                 justify="center"
                 dense
                 class="elevation-3">
-
+                <template v-slot:footer.prepend>
+                  <v-btn
+                    color="success"
+                    dark
+                    class="ma-2"
+                    small
+                    @click="initialize()"
+                    >
+                      Refresh
+                      <v-icon
+                        right
+                        dark
+                      >
+                        mdi-reload
+                      </v-icon>
+                    </v-btn>
+                </template>
                 <template v-slot:item.index="{ index }">
                     {{ index + 1 }}
                 </template>
