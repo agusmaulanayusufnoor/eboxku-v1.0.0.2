@@ -84,7 +84,7 @@
                             small
                             color="blue"
                             class="mr-4"
-                            @click="viewGambar()"
+                            @click="viewGambar(item.view)"
                         >
                             mdi-eye
                         </v-icon>
@@ -95,10 +95,10 @@
                             <div class="modal-content">
                                 <!-- <v-img
                             lazy-src="file\fb\img_feedback1.gambar survei.30092022.photo_2022-09-21_15-04-46.jpg"
-
+<v-img v-bind:src="'file/fb/'+item.view"
                             src="file\fb\img_feedback1.gambar survei.30092022.photo_2022-09-21_15-04-46.jpg"
                             ></v-img>  -->
-                            <v-img v-bind:src="'file/fb/'+item.view"
+                            <v-img v-bind:src="url"
                             ></v-img>
                             </div>
                             </div>
@@ -320,6 +320,7 @@
      dialog:false,
         file: null,
         view: null,
+        url: '',
         id : '',
         kantor_id: '',
         namafile: '',
@@ -459,7 +460,9 @@
         this.$refs.form.reset()
         this.namafile = '';
     },
-    viewGambar(){
+    viewGambar(view){
+        //console.log(view);
+        this.url = "file/fb/"+view;
         $('#viewImg').modal('show');
     },
     // uploadFile(e){

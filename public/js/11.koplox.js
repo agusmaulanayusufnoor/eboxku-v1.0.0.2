@@ -342,7 +342,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       //   ],
       feedback: [],
       valid: true
-    }, _defineProperty(_ref, "dialog", false), _defineProperty(_ref, "file", null), _defineProperty(_ref, "view", null), _defineProperty(_ref, "id", ''), _defineProperty(_ref, "kantor_id", ''), _defineProperty(_ref, "namafile", ''), _defineProperty(_ref, "nameRules", [function (v) {
+    }, _defineProperty(_ref, "dialog", false), _defineProperty(_ref, "file", null), _defineProperty(_ref, "view", null), _defineProperty(_ref, "url", ''), _defineProperty(_ref, "id", ''), _defineProperty(_ref, "kantor_id", ''), _defineProperty(_ref, "namafile", ''), _defineProperty(_ref, "nameRules", [function (v) {
       return !!v || 'Nama file belum diisi';
     }]), _defineProperty(_ref, "menu1", false), _defineProperty(_ref, "menu2", false), _defineProperty(_ref, "dateFormatted", vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10))), _defineProperty(_ref, "tanggal", new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)), _defineProperty(_ref, "tanggalRules", [function (v) {
       return !!v || 'Tanggal file belum diisi';
@@ -490,7 +490,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$refs.form.reset();
       this.namafile = '';
     },
-    viewGambar: function viewGambar() {
+    viewGambar: function viewGambar(view) {
+      //console.log(view);
+      this.url = "file/fb/" + view;
       $('#viewImg').modal('show');
     },
     // uploadFile(e){
@@ -654,7 +656,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    File Feedback Nasabah\n                "
+                                  "\r\n                    File Feedback Nasabah\r\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -672,7 +674,7 @@ var render = function () {
                                 },
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
-                                  _vm._v(" Upload File\n                  "),
+                                  _vm._v(" Upload File\r\n                  "),
                                 ],
                                 1
                               ),
@@ -716,7 +718,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                      Refresh\n                      "
+                                                "\r\n                      Refresh\r\n                      "
                                               ),
                                               _c(
                                                 "v-icon",
@@ -728,7 +730,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                        mdi-reload\n                      "
+                                                    "\r\n                        mdi-reload\r\n                      "
                                                   ),
                                                 ]
                                               ),
@@ -745,9 +747,9 @@ var render = function () {
                                         var index = ref.index
                                         return [
                                           _vm._v(
-                                            "\n                    " +
+                                            "\r\n                    " +
                                               _vm._s(index + 1) +
-                                              "\n                "
+                                              "\r\n                "
                                           ),
                                         ]
                                       },
@@ -819,7 +821,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                            mdi-download\n                        "
+                                                    "\r\n                            mdi-download\r\n                        "
                                                   ),
                                                 ]
                                               ),
@@ -848,13 +850,15 @@ var render = function () {
                                                   },
                                                   on: {
                                                     click: function ($event) {
-                                                      return _vm.viewGambar()
+                                                      return _vm.viewGambar(
+                                                        item.view
+                                                      )
                                                     },
                                                   },
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                            mdi-eye\n                        "
+                                                    "\r\n                            mdi-eye\r\n                        "
                                                   ),
                                                 ]
                                               ),
@@ -890,11 +894,7 @@ var render = function () {
                                                     },
                                                     [
                                                       _c("v-img", {
-                                                        attrs: {
-                                                          src:
-                                                            "file/fb/" +
-                                                            item.view,
-                                                        },
+                                                        attrs: { src: _vm.url },
                                                       }),
                                                     ],
                                                     1
@@ -928,7 +928,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                    mdi-delete\n                "
+                                                "\r\n                    mdi-delete\r\n                "
                                               ),
                                             ]
                                           ),
@@ -938,7 +938,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  1688316722
+                                  2818182576
                                 ),
                               }),
                             ],
@@ -1306,9 +1306,9 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\n                                    " +
+                                                          "\r\n                                    " +
                                                             _vm._s(text) +
-                                                            "\n                                "
+                                                            "\r\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1321,12 +1321,12 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\n                                    +" +
+                                                          "\r\n                                    +" +
                                                             _vm._s(
                                                               _vm.files.length -
                                                                 2
                                                             ) +
-                                                            " File(s)\n                                "
+                                                            " File(s)\r\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1373,7 +1373,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-cancel")]),
                                   _vm._v(
-                                    "\n                            Batal\n                        "
+                                    "\r\n                            Batal\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1399,7 +1399,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-pencil")]),
                                   _vm._v(
-                                    "\n                            Ubah\n                        "
+                                    "\r\n                            Ubah\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1425,7 +1425,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
                                   _vm._v(
-                                    "\n                            Upload\n                        "
+                                    "\r\n                            Upload\r\n                        "
                                   ),
                                 ],
                                 1
