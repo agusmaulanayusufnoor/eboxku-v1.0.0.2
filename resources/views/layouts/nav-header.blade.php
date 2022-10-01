@@ -62,11 +62,11 @@
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
-      {{-- <li class="nav-item">
+       <!-- <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
           <i class="fas fa-th-large"></i>
         </a>
-      </li> --}}
+      </li>  -->
         <li class="nav-item">
             <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
             document.getElementById('logout-form').submit();"><i class="fa fa-sign-out-alt"></i>Keluar</a>
