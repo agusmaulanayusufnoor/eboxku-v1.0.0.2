@@ -108,6 +108,14 @@
                     </p>
                 </router-link>
               </li>
+              <li class="nav-item">
+                <router-link to="/jabatan" class="nav-link">
+                    <i class="nav-icon fas fa-user-tie white"></i>
+                    <p>
+                        Jabatan
+                    </p>
+                </router-link>
+              </li>
         </ul>
       </li>
 

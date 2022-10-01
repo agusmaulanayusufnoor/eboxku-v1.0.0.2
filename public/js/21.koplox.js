@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[21],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Satuan.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Satuan.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Otorisator.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Otorisator.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -210,7 +210,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      // props: ["namasatuan"],
+      // props: ["namaotorisator"],
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       editmode: false,
       dialog: false,
@@ -220,24 +220,24 @@ __webpack_require__.r(__webpack_exports__);
       multiLine: true,
       snackColor: '',
       snackText: '',
-      max25chars: function max25chars(v) {
-        return v.length <= 25 || 'Input too long!';
+      max100chars: function max100chars(v) {
+        return v.length <= 100 || 'Input too long!';
       },
-      satuan: [],
+      otorisator: [],
       editedIndex: -1,
       editedItem: {
         id: '',
-        namasatuan: '',
-        namasatuanEdit: '',
-        satuanRules: [function (v) {
-          return !!v || 'Nama satuan belum diisi';
+        namaotorisator: '',
+        namaotorisatorEdit: '',
+        otorisatorRules: [function (v) {
+          return !!v || 'Nama otorisator belum diisi';
         }]
       },
       valid: true,
       kantor_id: '',
       form: new Form({
         id: '',
-        namasatuan: ''
+        namaotorisator: ''
       })
     };
   },
@@ -249,8 +249,8 @@ __webpack_require__.r(__webpack_exports__);
         align: 'center',
         sortable: false
       }, {
-        text: 'Satuan',
-        value: 'namasatuan'
+        text: 'Otorisator',
+        value: 'namaotorisator'
       }];
 
       if (this.$gate.isAdmin()) {
@@ -289,7 +289,7 @@ __webpack_require__.r(__webpack_exports__);
       this.snackColor = 'info';
       this.snackText = 'Enter = Simpan';
       this.editedItem.id = item.id;
-      this.editedItem.namasatuan = item.namasatuan; //console.log(this.item.namasatuan);
+      this.editedItem.namaotorisator = item.namaotorisator; //console.log(this.item.namaotorisator);
       //alert(this.item.id)
     },
     close: function close() {
@@ -315,27 +315,27 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.$gate.isAdmin()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/satuan").then(function (response) {
-          _this.satuan = response.data.data; // this.kantor_id = this.$kantor_id;
+        axios.get("api/otorisator").then(function (response) {
+          _this.otorisator = response.data.data; // this.kantor_id = this.$kantor_id;
           // this.form.fill
-          //console.log(this.satuan);
+          //console.log(this.otorisator);
           //console.log(this.kantor_id)
         });
       }
 
       this.$Progress.finish();
     },
-    editSatuan: function editSatuan(item) {
-      this.editedIndex = this.satuan.indexOf(item);
+    editOtorisator: function editOtorisator(item) {
+      this.editedIndex = this.otorisator.indexOf(item);
       this.item.id = item.id;
-      this.item.namasatuan = item.namasatuan;
+      this.item.namaotorisator = item.namaotorisator;
       console.log(this.item.id); //alert(this.item.id)
     },
     newModal: function newModal() {
       this.editmode = false;
       $('#addNew').modal('show');
       this.$refs.form.reset();
-      this.editedItem.namasatuan = '';
+      this.editedItem.namaotorisator = '';
     },
     createUser: function createUser() {
       var _this2 = this;
@@ -350,9 +350,9 @@ __webpack_require__.r(__webpack_exports__);
       }; // //this.append('file', this.file);
 
       var formData = new FormData();
-      formData.set('namasatuan', this.editedItem.namasatuan);
-      axios.post('api/satuan', formData, config).then(function (response) {
-        $('#addNew').modal('hide'); //  console.log(this.namasatuan);
+      formData.set('namaotorisator', this.editedItem.namaotorisator);
+      axios.post('api/otorisator', formData, config).then(function (response) {
+        $('#addNew').modal('hide'); //  console.log(this.namaotorisator);
 
         Toast.fire({
           icon: 'success',
@@ -366,7 +366,7 @@ __webpack_require__.r(__webpack_exports__);
         //Swal.fire("Failed!", data.message, "warning");
         Toast.fire({
           icon: 'error',
-          title: 'Gagal tambah satuan, ulangi!' //title: response.message
+          title: 'Gagal tambah otorisator, ulangi!' //title: response.message
 
         });
       });
@@ -382,12 +382,12 @@ __webpack_require__.r(__webpack_exports__);
         } // headers: {'X-Custom-Header': 'value'}
 
       };
-      this.$Progress.start(); //alert(this.editedItem.namasatuan);
+      this.$Progress.start(); //alert(this.editedItem.namaotorisator);
 
       var formData = new FormData();
-      formData.set('namasatuan', this.editedItem.namasatuan);
+      formData.set('namaotorisator', this.editedItem.namaotorisator);
       formData.append("_method", "PUT");
-      axios.post('api/satuan/' + this.editedItem.id, formData).then(function (response) {
+      axios.post('api/otorisator/' + this.editedItem.id, formData).then(function (response) {
         // success
         $('#addNew').modal('hide');
         Toast.fire({
@@ -416,7 +416,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this4.form["delete"]('api/satuan/' + id).then(function () {
+          _this4.form["delete"]('api/otorisator/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
             _this4.initialize();
@@ -431,10 +431,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Satuan.vue?vue&type=template&id=bb3697f4&":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Satuan.vue?vue&type=template&id=bb3697f4& ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Otorisator.vue?vue&type=template&id=72c57d5c&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Otorisator.vue?vue&type=template&id=72c57d5c& ***!
+  \*********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -462,7 +462,7 @@ var render = function () {
             [
               _c(
                 "v-col",
-                { attrs: { cols: "6" } },
+                { attrs: { cols: "7" } },
                 [
                   _vm.$gate.isAdmin()
                     ? _c(
@@ -481,7 +481,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\r\n                    Master Satuan\r\n                "
+                                  "\r\n                    Master Otorisator\r\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -515,7 +515,7 @@ var render = function () {
                                 staticClass: "elevation-3",
                                 attrs: {
                                   headers: _vm.headers,
-                                  items: _vm.satuan,
+                                  items: _vm.otorisator,
                                   search: _vm.search,
                                   justify: "center",
                                   dense: "",
@@ -554,7 +554,7 @@ var render = function () {
                                               _c("v-text-field", {
                                                 attrs: {
                                                   "append-icon": "mdi-magnify",
-                                                  label: "Cari Satuan",
+                                                  label: "Cari Otorisator",
                                                   "single-line": "",
                                                   "hide-details": "",
                                                   loading: "grey",
@@ -604,7 +604,7 @@ var render = function () {
                                       },
                                     },
                                     {
-                                      key: "item.namasatuan",
+                                      key: "item.namaotorisator",
                                       fn: function (ref) {
                                         var item = ref.item
                                         return [
@@ -633,7 +633,7 @@ var render = function () {
                                                           },
                                                           [
                                                             _vm._v(
-                                                              "\r\n                            Edit Satuan\r\n                            "
+                                                              "\r\n                            Edit Otorisator\r\n                            "
                                                             ),
                                                           ]
                                                         ),
@@ -641,7 +641,7 @@ var render = function () {
                                                         _c("v-text-field", {
                                                           attrs: {
                                                             rules: [
-                                                              _vm.max25chars,
+                                                              _vm.max100chars,
                                                             ],
                                                             label: "Edit",
                                                             "single-line": "",
@@ -650,18 +650,18 @@ var render = function () {
                                                           model: {
                                                             value:
                                                               _vm.editedItem
-                                                                .namasatuan,
+                                                                .namaotorisator,
                                                             callback: function (
                                                               $$v
                                                             ) {
                                                               _vm.$set(
                                                                 _vm.editedItem,
-                                                                "namasatuan",
+                                                                "namaotorisator",
                                                                 $$v
                                                               )
                                                             },
                                                             expression:
-                                                              "editedItem.namasatuan",
+                                                              "editedItem.namaotorisator",
                                                           },
                                                         }),
                                                       ]
@@ -676,7 +676,7 @@ var render = function () {
                                             [
                                               _vm._v(
                                                 "\r\n                        " +
-                                                  _vm._s(item.namasatuan) +
+                                                  _vm._s(item.namaotorisator) +
                                                   "\r\n                        "
                                               ),
                                             ]
@@ -687,7 +687,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  1595543402
+                                  2384394964
                                 ),
                               }),
                             ],
@@ -808,7 +808,7 @@ var render = function () {
                             ],
                             staticClass: "modal-title",
                           },
-                          [_vm._v("Tambah Satuan")]
+                          [_vm._v("Tambah Otorisator")]
                         ),
                         _vm._v(" "),
                         _c(
@@ -897,26 +897,25 @@ var render = function () {
                                   [
                                     _c("v-text-field", {
                                       attrs: {
-                                        rules: _vm.editedItem.satuanRules,
-                                        label: "Satuan",
-                                        name: "namasatuan",
-                                        placeholder: "Satuan",
+                                        rules: _vm.editedItem.otorisatorRules,
+                                        label: "Nama Otorisator",
+                                        name: "namaotorisator",
+                                        placeholder: "input",
                                         outlined: "",
                                         required: "",
                                         dense: "",
-                                        "prepend-icon":
-                                          "mdi-ruler-square-compass",
+                                        "prepend-icon": "mdi-account-plus",
                                       },
                                       model: {
-                                        value: _vm.editedItem.namasatuan,
+                                        value: _vm.editedItem.namaotorisator,
                                         callback: function ($$v) {
                                           _vm.$set(
                                             _vm.editedItem,
-                                            "namasatuan",
+                                            "namaotorisator",
                                             $$v
                                           )
                                         },
-                                        expression: "editedItem.namasatuan",
+                                        expression: "editedItem.namaotorisator",
                                       },
                                     }),
                                   ],
@@ -1027,17 +1026,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/setting/Satuan.vue":
-/*!****************************************************!*\
-  !*** ./resources/js/components/setting/Satuan.vue ***!
-  \****************************************************/
+/***/ "./resources/js/components/setting/Otorisator.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/setting/Otorisator.vue ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Satuan_vue_vue_type_template_id_bb3697f4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Satuan.vue?vue&type=template&id=bb3697f4& */ "./resources/js/components/setting/Satuan.vue?vue&type=template&id=bb3697f4&");
-/* harmony import */ var _Satuan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Satuan.vue?vue&type=script&lang=js& */ "./resources/js/components/setting/Satuan.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Otorisator_vue_vue_type_template_id_72c57d5c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Otorisator.vue?vue&type=template&id=72c57d5c& */ "./resources/js/components/setting/Otorisator.vue?vue&type=template&id=72c57d5c&");
+/* harmony import */ var _Otorisator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Otorisator.vue?vue&type=script&lang=js& */ "./resources/js/components/setting/Otorisator.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1047,9 +1046,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Satuan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Satuan_vue_vue_type_template_id_bb3697f4___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Satuan_vue_vue_type_template_id_bb3697f4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Otorisator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Otorisator_vue_vue_type_template_id_72c57d5c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Otorisator_vue_vue_type_template_id_72c57d5c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1059,38 +1058,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/setting/Satuan.vue"
+component.options.__file = "resources/js/components/setting/Otorisator.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/setting/Satuan.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************!*\
-  !*** ./resources/js/components/setting/Satuan.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************/
+/***/ "./resources/js/components/setting/Otorisator.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/setting/Otorisator.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Satuan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Satuan.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Satuan.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Satuan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Otorisator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Otorisator.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Otorisator.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Otorisator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/setting/Satuan.vue?vue&type=template&id=bb3697f4&":
-/*!***********************************************************************************!*\
-  !*** ./resources/js/components/setting/Satuan.vue?vue&type=template&id=bb3697f4& ***!
-  \***********************************************************************************/
+/***/ "./resources/js/components/setting/Otorisator.vue?vue&type=template&id=72c57d5c&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/setting/Otorisator.vue?vue&type=template&id=72c57d5c& ***!
+  \***************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Satuan_vue_vue_type_template_id_bb3697f4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Satuan.vue?vue&type=template&id=bb3697f4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Satuan.vue?vue&type=template&id=bb3697f4&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Satuan_vue_vue_type_template_id_bb3697f4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Otorisator_vue_vue_type_template_id_72c57d5c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Otorisator.vue?vue&type=template&id=72c57d5c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Otorisator.vue?vue&type=template&id=72c57d5c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Otorisator_vue_vue_type_template_id_72c57d5c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Satuan_vue_vue_type_template_id_bb3697f4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Otorisator_vue_vue_type_template_id_72c57d5c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -102,6 +102,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'barang'      => 'BarangController',
         'otorisator'  => 'OtorisatorController',
         'kantor'      => 'Kode_kantorController',
+        'jabatan'     => 'JabatanController',
 
         'user'        => 'UserController',
         //pelayanan
