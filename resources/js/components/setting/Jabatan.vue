@@ -36,7 +36,7 @@
                     <v-text-field
                     v-model="search"
                     append-icon="mdi-magnify"
-                    label="Cari jabatan"
+                    label="Cari Jabatan"
                     single-line
                     hide-details
                     loading="grey"
@@ -70,7 +70,7 @@
                         {{ item.jabatan_pegawai }}
                         <template v-slot:input>
                             <div class="mt-4 text-h6">
-                            Edit jabatan
+                            Edit Jabatan
                             </div>
                             <v-text-field
                             v-model="editedItem.jabatan_pegawai"
@@ -130,7 +130,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" v-show="!editmode">Tambah jabatan</h5>
+                    <h5 class="modal-title" v-show="!editmode">Tambah Jabatan</h5>
                     <h5 class="modal-title" v-show="editmode">Edit Data User</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -160,7 +160,7 @@
                              <v-text-field
                                 v-model="editedItem.jabatan_pegawai"
                                 :rules="editedItem.jabatanRules"
-                                label="Nama jabatan"
+                                label="Jabatan Pegawai"
                                 name="jabatan_pegawai"
                                 placeholder="input"
                                 outlined

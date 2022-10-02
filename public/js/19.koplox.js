@@ -554,7 +554,7 @@ var render = function () {
                                               _c("v-text-field", {
                                                 attrs: {
                                                   "append-icon": "mdi-magnify",
-                                                  label: "Cari jabatan",
+                                                  label: "Cari Jabatan",
                                                   "single-line": "",
                                                   "hide-details": "",
                                                   loading: "grey",
@@ -633,7 +633,7 @@ var render = function () {
                                                           },
                                                           [
                                                             _vm._v(
-                                                              "\r\n                            Edit jabatan\r\n                            "
+                                                              "\r\n                            Edit Jabatan\r\n                            "
                                                             ),
                                                           ]
                                                         ),
@@ -687,7 +687,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  4034529219
+                                  1662429123
                                 ),
                               }),
                             ],
@@ -808,7 +808,7 @@ var render = function () {
                             ],
                             staticClass: "modal-title",
                           },
-                          [_vm._v("Tambah jabatan")]
+                          [_vm._v("Tambah Jabatan")]
                         ),
                         _vm._v(" "),
                         _c(
@@ -898,7 +898,7 @@ var render = function () {
                                     _c("v-text-field", {
                                       attrs: {
                                         rules: _vm.editedItem.jabatanRules,
-                                        label: "Nama jabatan",
+                                        label: "Jabatan Pegawai",
                                         name: "jabatan_pegawai",
                                         placeholder: "input",
                                         outlined: "",

@@ -108,5 +108,6 @@ export default [
     { path: '/barang', component: () => import('./components/setting/Barang.vue') },
     { path: '/otorisator', component: () => import('./components/setting/Otorisator.vue') },
     { path: '/jabatan', component: () => import('./components/setting/Jabatan.vue') },
+    { path: '/pendidikan', component: () => import('./components/setting/Pendidikan.vue') },
     { path: '*', component: () => import('./components/NotFound.vue') }
 ];
