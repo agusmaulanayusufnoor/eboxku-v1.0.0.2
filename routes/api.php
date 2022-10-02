@@ -98,12 +98,14 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
 
     Route::apiResources([
         //setting
-        'satuan'      => 'SatuanController',
-        'barang'      => 'BarangController',
-        'otorisator'  => 'OtorisatorController',
-        'kantor'      => 'Kode_kantorController',
-        'jabatan'     => 'JabatanController',
-        'pendidikan'  => 'PendidikanController',
+        'satuan'        => 'SatuanController',
+        'barang'        => 'BarangController',
+        'otorisator'    => 'OtorisatorController',
+        'kantor'        => 'Kode_kantorController',
+        'jabatan'       => 'JabatanController',
+        'pendidikan'    => 'PendidikanController',
+        'statuspegawai' => 'StatuspegawaiController',
+        'statuspajak'   => 'StatuspajakController',
 
         'user'        => 'UserController',
         //pelayanan

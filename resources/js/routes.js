@@ -109,5 +109,7 @@ export default [
     { path: '/otorisator', component: () => import('./components/setting/Otorisator.vue') },
     { path: '/jabatan', component: () => import('./components/setting/Jabatan.vue') },
     { path: '/pendidikan', component: () => import('./components/setting/Pendidikan.vue') },
+    { path: '/statuspegawai', component: () => import('./components/setting/Statuspegawai.vue') },
+    { path: '/statuspajak', component: () => import('./components/setting/Statuspajak.vue') },
     { path: '*', component: () => import('./components/NotFound.vue') }
 ];

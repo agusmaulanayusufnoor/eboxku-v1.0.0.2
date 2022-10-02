@@ -110,7 +110,7 @@
               </li>
               <li class="nav-item">
                 <router-link to="/jabatan" class="nav-link">
-                    <i class="nav-icon fas fa-user-tie white"></i>
+                    <i class="nav-icon fas fa-user-graduate white"></i>
                     <p>
                         Jabatan
                     </p>
@@ -121,6 +121,22 @@
                     <i class="nav-icon fas fa-graduation-cap white"></i>
                     <p>
                         Pendidikan
+                    </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/statuspegawai" class="nav-link">
+                    <i class="nav-icon fas fa-user-tag white"></i>
+                    <p>
+                        Status Pegawai
+                    </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/statuspajak" class="nav-link">
+                    <i class="nav-icon fas fa-universal-access white"></i>
+                    <p>
+                        Status Pajak
                     </p>
                 </router-link>
               </li>
