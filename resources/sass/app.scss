@@ -1,6 +1,11 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+// @import url('https://fonts.googleapis.com/css?family=Nunito');
+$font-main: "Open Sans",Helvetica,Arial,sans-serif;
 
+body{
+    font-family: $font-main;
+    font-weight: bold;
+}
 // Variables
 @import 'variables';
 
