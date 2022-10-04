@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);/*!
+/*!
  *   AdminLTE v3.2.0
  *   Author: Colorlib
  *   Website: AdminLTE.io <https://adminlte.io>
@@ -642,6 +642,11 @@ THEMES:
     left: -2px;
 }
 @charset "UTF-8";
+
+body {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
 
 /*!
  * Bootstrap v4.6.1 (https://getbootstrap.com/)
