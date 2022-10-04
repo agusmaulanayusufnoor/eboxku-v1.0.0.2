@@ -2,9 +2,10 @@
     <a href="#" class="nav-link">
       <i class="nav-icon fa fa-briefcase fa-flip pink" style="--fa-animation-duration: 2s;"></i>
       <p>
-     Sekdir
-        <i class="fas fa-angle-left right"></i>
+     <b>Sekdir</b>
+        
       </p>
+      <i class="fas fa-angle-left right"></i>
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">

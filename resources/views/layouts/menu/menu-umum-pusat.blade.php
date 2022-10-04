@@ -2,9 +2,10 @@
     <a href="#" class="nav-link">
       <i class="nav-icon fa fa-mail-bulk fa-flip yellow" style="--fa-animation-duration: 4s;"></i>
       <p>
-     Umum Pusat
-        <i class="fas fa-angle-left right"></i>
+     <b>Umum Pusat</b>
+        
       </p>
+      <i class="fas fa-angle-left right"></i>
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">

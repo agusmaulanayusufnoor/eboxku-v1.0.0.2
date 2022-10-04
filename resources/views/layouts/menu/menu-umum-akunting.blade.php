@@ -2,9 +2,10 @@
     <a href="#" class="nav-link">
     <i class="nav-icon fa fa-archive fa-flip cyan" style="--fa-animation-duration: 2s;"></i>
       <p>
-        Umum & Akunting
-        <i class="fas fa-angle-left right"></i>
+       <b>Umum & Akunting</b> 
+        
       </p>
+      <i class="fas fa-angle-left right"></i>
     </a>
     <ul class="nav nav-treeview">
 

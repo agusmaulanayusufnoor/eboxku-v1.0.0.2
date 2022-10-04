@@ -3,8 +3,8 @@
       <li class="nav-item">
         <router-link to="/dashboard" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt blue"></i>
-          <p>
-            Dashboard
+          <p><b>
+            Dashboard</b>
           </p>
         </router-link>
       </li>
@@ -13,7 +13,7 @@
         <li class="nav-item">
           <router-link to="/users" class="nav-link">
             <i class="nav-icon fa fa-users fa-beat green"></i>
-            <p>Users</p>
+            <p><b>Users</b></p>
           </router-link>
         </li>
       @endcan
@@ -62,9 +62,10 @@
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-cog green"></i>
           <p>
-            Settings
-            <i class="right fas fa-angle-left"></i>
+            <b>Settings</b>
+            
           </p>
+          <i class="right fas fa-angle-left"></i>
         </a>
         <ul class="nav nav-treeview">
 

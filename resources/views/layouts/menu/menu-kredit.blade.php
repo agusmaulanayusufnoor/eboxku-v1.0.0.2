@@ -2,9 +2,11 @@
     <a href="#" class="nav-link">
     <i class="nav-icon fas fa-file fa-flip red"  style="--fa-animation-duration: 3s;"></i>
       <p>
-        Kredit
-        <i class="fas fa-angle-left right"></i>
+        <b>Kredit</b>
+        
+        
       </p>
+      <i class="fas fa-angle-left right"></i>
     </a>
     <ul class="nav nav-treeview">
     

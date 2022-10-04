@@ -2,9 +2,10 @@
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-edit fa-flip orange" style="--fa-animation-duration: 3s;"></i>
       <p>
-        SKAI
-        <i class="fas fa-angle-left right"></i>
+        <b>SKAI</b>
+        
       </p>
+      <i class="fas fa-angle-left right"></i>
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">

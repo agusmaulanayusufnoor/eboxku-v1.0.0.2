@@ -2,9 +2,10 @@
     <a href="#" class="nav-link">
       <i class="nav-icon fa fa-calculator fa-flip blue" style="--fa-animation-duration: 4s;"></i>
       <p>
-        Pelayanan
-        <i class="fas fa-angle-left right"></i>
+        <b>Pelayanan</b>
+        
       </p>
+      <i class="fas fa-angle-left right"></i>
     </a>
     <ul class="nav nav-treeview">
 
