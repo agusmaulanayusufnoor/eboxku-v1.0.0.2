@@ -2,10 +2,10 @@ require('./bootstrap');
 import $ from 'jquery';
 window.$ = window.jQuery = $;
 
-import 'admin-lte/plugins/datatables/jquery.dataTables.min.js';
-import 'admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js';
-import 'admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js';
-import 'admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js';
+// import 'admin-lte/plugins/datatables/jquery.dataTables.min.js';
+// import 'admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js';
+// import 'admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js';
+// import 'admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js';
 import 'admin-lte/plugins/select2/js/select2.full.min.js';
 import "admin-lte/plugins/overlayScrollbars/js/OverlayScrollbars.js";
 import vuetify from '../plugins/vuetify'
@@ -57,11 +57,11 @@ Vue.component(AlertError.name, AlertError)
 /**
  * Routes imports and assigning
  */
-import {createRouter, createWebHistory} from 'vue-router';
+//import {createRouter, createWebHistory} from 'vue-router';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 import routes from './routes';
-import Vuetify from "vuetify/lib";
+//import Vuetify from "vuetify/lib";
 
 const router = new VueRouter({
     mode: 'history',
@@ -115,7 +115,7 @@ Vue.filter('yesno', value => (value ? '<i class="fas fa-check green"></i>' : '<i
 
 // end Filter
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+//Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 
 //ambil id_kantor dari auth meta
