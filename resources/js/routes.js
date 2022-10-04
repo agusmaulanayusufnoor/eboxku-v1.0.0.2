@@ -1,10 +1,10 @@
 // export default [
 //     //{ path: '/dashboard', component: require('./components/Dashboard.vue').default },
-//     { path: '/dashboard', component: () => import('./components/Dashboard.vue') },
+//     { path: '/dashboard', component: () => import(/* webpackPrefetch: true */'./components/Dashboard.vue') },
 //     { path: '/profile', component: require('./components/Profile.vue').default },
 //     { path: '/developer', component: require('./components/Developer.vue').default },
 
-//     { path: '/users', component: () => import('./components/Users.vue') },
+//     { path: '/users', component: () => import(/* webpackPrefetch: true */'./components/Users.vue') },
 
 //     { path: '/bakas', component: require('./components/pelayanan/Bakas.vue').default },
 //     { path: '/feedback', component: require('./components/pelayanan/Feedback.vue').default },
@@ -56,60 +56,121 @@
 
 export default [
     //{ path: '/dashboard', component: require('./components/Dashboard.vue').default },
-    { path: '/dashboard', component: () => import(/* webpackChunkName: "[request]" */'./components/Dashboard.vue') },
+    { path: '/dashboard', component: () => import(/* webpackPrefetch: true */'./components/Dashboard.vue') },
     { path: '/profile', component: require('./components/Profile.vue').default },
     { path: '/developer', component: require('./components/Developer.vue').default },
 
-    { path: '/users', component: () => import('./components/Users.vue') },
+    { path: '/users', component: () => import(/* webpackPrefetch: true */'./components/Users.vue') },
 
-    { path: '/bakas', component: () => import('./components/pelayanan/Bakas.vue') },
-    { path: '/feedback', component: () => import('./components/pelayanan/Feedback.vue') },
-    { path: '/tabungan', component: () => import('./components/pelayanan/Tabungan.vue') },
-    { path: '/deposito', component: () => import('./components/pelayanan/Deposito.vue') },
-    { path: '/teller', component: () => import('./components/pelayanan/Teller.vue') },
-
-
-    { path: '/kredit', component: () => import('./components/kredit/Kredit.vue') },
-
-    { path: '/kaskecil', component: () => import('./components/akunting/Kaskecil.vue') },
-    { path: '/overbooking', component: () => import('./components/akunting/Overbooking.vue') },
-    { path: '/rekkoranaba', component: () => import('./components/akunting/Rekkoranaba.vue') },
-    { path: '/stock', component: () => import('./components/akunting/Stock.vue') },
-    { path: '/stockctk', component: () => import('./components/akunting/Stockctk.vue') },
-    { path: '/stockpromosi', component: () => import('./components/akunting/Stockpromosi.vue') },
+    { path: '/bakas', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Bakas.vue') },
+    { path: '/feedback', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Feedback.vue') },
+    { path: '/tabungan', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Tabungan.vue') },
+    { path: '/deposito', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Deposito.vue') },
+    { path: '/teller', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Teller.vue') },
 
 
-    { path: '/skdir', component: () => import('./components/umum/Skdir.vue') },
-    { path: '/sedir', component: () => import('./components/umum/Sedir.vue') },
-    { path: '/akta', component: () => import('./components/umum/Akta.vue') },
-    { path: '/legal', component: () => import('./components/umum/Legal.vue') },
-    { path: '/sertifikat', component: () => import('./components/umum/Sertifikat.vue') },
-    { path: '/pk', component: () => import('./components/umum/Pk.vue') },
-    { path: '/pjkbadan', component: () => import('./components/umum/Pjkbadan.vue') },
-    { path: '/pjksewa', component:  () => import('./components/umum/Pjksewa.vue') },
-    { path: '/pjkpph21', component: () => import('./components/umum/Pjkpph21.vue') },
-    { path: '/pjkbunga', component: () => import('./components/umum/Pjkbunga.vue') },
-    { path: '/asuransi', component: () => import('./components/umum/Asuransi.vue') },
-    { path: '/sop', component: () => import('./components/umum/Sop.vue') },
-    { path: '/peraturan', component: () => import('./components/umum/Peraturan.vue') },
-    { path: '/lapkap', component: () => import('./components/umum/Lapkap.vue') },
-    { path: '/lapkeu', component: () => import('./components/umum/Lapkeu.vue') },
+    { path: '/kredit', component: () => import(/* webpackPrefetch: true */'./components/kredit/Kredit.vue') },
 
-    { path: '/suratmasuk', component: () => import('./components/sekdir/Suratmasuk.vue') },
-    { path: '/suratkeluar', component: () => import('./components/sekdir/Suratkeluar.vue') },
-    { path: '/notulen', component: () => import('./components/sekdir/Notulen.vue') },
-    { path: '/polis', component: () => import('./components/sekdir/Polis.vue') },
+    { path: '/kaskecil', component: () => import(/* webpackPrefetch: true */'./components/akunting/Kaskecil.vue') },
+    { path: '/overbooking', component: () => import(/* webpackPrefetch: true */'./components/akunting/Overbooking.vue') },
+    { path: '/rekkoranaba', component: () => import(/* webpackPrefetch: true */'./components/akunting/Rekkoranaba.vue') },
+    { path: '/stock', component: () => import(/* webpackPrefetch: true */'./components/akunting/Stock.vue') },
+    { path: '/stockctk', component: () => import(/* webpackPrefetch: true */'./components/akunting/Stockctk.vue') },
+    { path: '/stockpromosi', component: () => import(/* webpackPrefetch: true */'./components/akunting/Stockpromosi.vue') },
 
-    { path: '/monitor', component: () => import('./components/skai/Monitor.vue') },
-    { path: '/periksa', component: () => import('./components/skai/Periksa.vue') },
 
-    { path: '/kantor', component: () => import('./components/setting/Kantor.vue') },
-    { path: '/satuan', component: () => import('./components/setting/Satuan.vue') },
-    { path: '/barang', component: () => import('./components/setting/Barang.vue') },
-    { path: '/otorisator', component: () => import('./components/setting/Otorisator.vue') },
-    { path: '/jabatan', component: () => import('./components/setting/Jabatan.vue') },
-    { path: '/pendidikan', component: () => import('./components/setting/Pendidikan.vue') },
-    { path: '/statuspegawai', component: () => import('./components/setting/Statuspegawai.vue') },
-    { path: '/statuspajak', component: () => import('./components/setting/Statuspajak.vue') },
-    { path: '*', component: () => import('./components/NotFound.vue') }
+    { path: '/skdir', component: () => import(/* webpackPrefetch: true */'./components/umum/Skdir.vue') },
+    { path: '/sedir', component: () => import(/* webpackPrefetch: true */'./components/umum/Sedir.vue') },
+    { path: '/akta', component: () => import(/* webpackPrefetch: true */'./components/umum/Akta.vue') },
+    { path: '/legal', component: () => import(/* webpackPrefetch: true */'./components/umum/Legal.vue') },
+    { path: '/sertifikat', component: () => import(/* webpackPrefetch: true */'./components/umum/Sertifikat.vue') },
+    { path: '/pk', component: () => import(/* webpackPrefetch: true */'./components/umum/Pk.vue') },
+    { path: '/pjkbadan', component: () => import(/* webpackPrefetch: true */'./components/umum/Pjkbadan.vue') },
+    { path: '/pjksewa', component:  () => import(/* webpackPrefetch: true */'./components/umum/Pjksewa.vue') },
+    { path: '/pjkpph21', component: () => import(/* webpackPrefetch: true */'./components/umum/Pjkpph21.vue') },
+    { path: '/pjkbunga', component: () => import(/* webpackPrefetch: true */'./components/umum/Pjkbunga.vue') },
+    { path: '/asuransi', component: () => import(/* webpackPrefetch: true */'./components/umum/Asuransi.vue') },
+    { path: '/sop', component: () => import(/* webpackPrefetch: true */'./components/umum/Sop.vue') },
+    { path: '/peraturan', component: () => import(/* webpackPrefetch: true */'./components/umum/Peraturan.vue') },
+    { path: '/lapkap', component: () => import(/* webpackPrefetch: true */'./components/umum/Lapkap.vue') },
+    { path: '/lapkeu', component: () => import(/* webpackPrefetch: true */'./components/umum/Lapkeu.vue') },
+
+    { path: '/suratmasuk', component: () => import(/* webpackPrefetch: true */'./components/sekdir/Suratmasuk.vue') },
+    { path: '/suratkeluar', component: () => import(/* webpackPrefetch: true */'./components/sekdir/Suratkeluar.vue') },
+    { path: '/notulen', component: () => import(/* webpackPrefetch: true */'./components/sekdir/Notulen.vue') },
+    { path: '/polis', component: () => import(/* webpackPrefetch: true */'./components/sekdir/Polis.vue') },
+
+    { path: '/monitor', component: () => import(/* webpackPrefetch: true */'./components/skai/Monitor.vue') },
+    { path: '/periksa', component: () => import(/* webpackPrefetch: true */'./components/skai/Periksa.vue') },
+
+    { path: '/kantor', component: () => import(/* webpackPrefetch: true */'./components/setting/Kantor.vue') },
+    { path: '/satuan', component: () => import(/* webpackPrefetch: true */'./components/setting/Satuan.vue') },
+    { path: '/barang', component: () => import(/* webpackPrefetch: true */'./components/setting/Barang.vue') },
+    { path: '/otorisator', component: () => import(/* webpackPrefetch: true */'./components/setting/Otorisator.vue') },
+    { path: '/jabatan', component: () => import(/* webpackPrefetch: true */'./components/setting/Jabatan.vue') },
+    { path: '/pendidikan', component: () => import(/* webpackPrefetch: true */'./components/setting/Pendidikan.vue') },
+    { path: '/statuspegawai', component: () => import(/* webpackPrefetch: true */'./components/setting/Statuspegawai.vue') },
+    { path: '/statuspajak', component: () => import(/* webpackPrefetch: true */'./components/setting/Statuspajak.vue') },
+    { path: '*', component: () => import(/* webpackPrefetch: true */'./components/NotFound.vue') }
 ];
+
+// export default [
+//     //{ path: '/dashboard', component: require('./components/Dashboard.vue').default },
+//     { path: '/dashboard', component: () => import(/* webpackChunkName: "[request]" */'./components/Dashboard.vue') },
+//     { path: '/profile', component: require('./components/Profile.vue').default },
+//     { path: '/developer', component: require('./components/Developer.vue').default },
+
+//     { path: '/users', component: () => import(/* webpackChunkName: "[request]" */'./components/Users.vue') },
+
+//     { path: '/bakas', component: () => import(/* webpackChunkName: "[request]" */'./components/pelayanan/Bakas.vue') },
+//     { path: '/feedback', component: () => import(/* webpackChunkName: "[request]" */'./components/pelayanan/Feedback.vue') },
+//     { path: '/tabungan', component: () => import(/* webpackChunkName: "[request]" */'./components/pelayanan/Tabungan.vue') },
+//     { path: '/deposito', component: () => import(/* webpackChunkName: "[request]" */'./components/pelayanan/Deposito.vue') },
+//     { path: '/teller', component: () => import(/* webpackChunkName: "[request]" */'./components/pelayanan/Teller.vue') },
+
+
+//     { path: '/kredit', component: () => import(/* webpackChunkName: "[request]" */'./components/kredit/Kredit.vue') },
+
+//     { path: '/kaskecil', component: () => import(/* webpackChunkName: "[request]" */'./components/akunting/Kaskecil.vue') },
+//     { path: '/overbooking', component: () => import(/* webpackChunkName: "[request]" */'./components/akunting/Overbooking.vue') },
+//     { path: '/rekkoranaba', component: () => import(/* webpackChunkName: "[request]" */'./components/akunting/Rekkoranaba.vue') },
+//     { path: '/stock', component: () => import(/* webpackChunkName: "[request]" */'./components/akunting/Stock.vue') },
+//     { path: '/stockctk', component: () => import(/* webpackChunkName: "[request]" */'./components/akunting/Stockctk.vue') },
+//     { path: '/stockpromosi', component: () => import(/* webpackChunkName: "[request]" */'./components/akunting/Stockpromosi.vue') },
+
+
+//     { path: '/skdir', component: () => import(/* webpackChunkName: "[request]" */'./components/umum/Skdir.vue') },
+//     { path: '/sedir', component: () => import(/* webpackChunkName: "[request]" */'./components/umum/Sedir.vue') },
+//     { path: '/akta', component: () => import(/* webpackChunkName: "[request]" */'./components/umum/Akta.vue') },
+//     { path: '/legal', component: () => import(/* webpackChunkName: "[request]" */'./components/umum/Legal.vue') },
+//     { path: '/sertifikat', component: () => import(/* webpackChunkName: "[request]" */'./components/umum/Sertifikat.vue') },
+//     { path: '/pk', component: () => import(/* webpackChunkName: "[request]" */'./components/umum/Pk.vue') },
+//     { path: '/pjkbadan', component: () => import(/* webpackChunkName: "[request]" */'./components/umum/Pjkbadan.vue') },
+//     { path: '/pjksewa', component:  () => import(/* webpackChunkName: "[request]" */'./components/umum/Pjksewa.vue') },
+//     { path: '/pjkpph21', component: () => import(/* webpackChunkName: "[request]" */'./components/umum/Pjkpph21.vue') },
+//     { path: '/pjkbunga', component: () => import(/* webpackChunkName: "[request]" */'./components/umum/Pjkbunga.vue') },
+//     { path: '/asuransi', component: () => import(/* webpackChunkName: "[request]" */'./components/umum/Asuransi.vue') },
+//     { path: '/sop', component: () => import(/* webpackChunkName: "[request]" */'./components/umum/Sop.vue') },
+//     { path: '/peraturan', component: () => import(/* webpackChunkName: "[request]" */'./components/umum/Peraturan.vue') },
+//     { path: '/lapkap', component: () => import(/* webpackChunkName: "[request]" */'./components/umum/Lapkap.vue') },
+//     { path: '/lapkeu', component: () => import(/* webpackChunkName: "[request]" */'./components/umum/Lapkeu.vue') },
+
+//     { path: '/suratmasuk', component: () => import(/* webpackChunkName: "[request]" */'./components/sekdir/Suratmasuk.vue') },
+//     { path: '/suratkeluar', component: () => import(/* webpackChunkName: "[request]" */'./components/sekdir/Suratkeluar.vue') },
+//     { path: '/notulen', component: () => import(/* webpackChunkName: "[request]" */'./components/sekdir/Notulen.vue') },
+//     { path: '/polis', component: () => import(/* webpackChunkName: "[request]" */'./components/sekdir/Polis.vue') },
+
+//     { path: '/monitor', component: () => import(/* webpackChunkName: "[request]" */'./components/skai/Monitor.vue') },
+//     { path: '/periksa', component: () => import(/* webpackChunkName: "[request]" */'./components/skai/Periksa.vue') },
+
+//     { path: '/kantor', component: () => import(/* webpackChunkName: "[request]" */'./components/setting/Kantor.vue') },
+//     { path: '/satuan', component: () => import(/* webpackChunkName: "[request]" */'./components/setting/Satuan.vue') },
+//     { path: '/barang', component: () => import(/* webpackChunkName: "[request]" */'./components/setting/Barang.vue') },
+//     { path: '/otorisator', component: () => import(/* webpackChunkName: "[request]" */'./components/setting/Otorisator.vue') },
+//     { path: '/jabatan', component: () => import(/* webpackChunkName: "[request]" */'./components/setting/Jabatan.vue') },
+//     { path: '/pendidikan', component: () => import(/* webpackChunkName: "[request]" */'./components/setting/Pendidikan.vue') },
+//     { path: '/statuspegawai', component: () => import(/* webpackChunkName: "[request]" */'./components/setting/Statuspegawai.vue') },
+//     { path: '/statuspajak', component: () => import(/* webpackChunkName: "[request]" */'./components/setting/Statuspajak.vue') },
+//     { path: '*', component: () => import(/* webpackChunkName: "[request]" */'./components/NotFound.vue') }
+// ];
+
