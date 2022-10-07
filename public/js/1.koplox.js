@@ -377,7 +377,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\r\n                    Data User\r\n                "
+                                  "\n                    Data User\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -419,9 +419,9 @@ var render = function () {
                                         var index = ref.index
                                         return [
                                           _vm._v(
-                                            "\r\n                    " +
+                                            "\n                    " +
                                               _vm._s(index + 1) +
-                                              "\r\n                "
+                                              "\n                "
                                           ),
                                         ]
                                       },
@@ -486,7 +486,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                    mdi-pencil\r\n                "
+                                                "\n                    mdi-pencil\n                "
                                               ),
                                             ]
                                           ),
@@ -507,7 +507,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                    mdi-delete\r\n                "
+                                                "\n                    mdi-delete\n                "
                                               ),
                                             ]
                                           ),
@@ -517,7 +517,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  728318409
+                                  1350234889
                                 ),
                               }),
                             ],
@@ -948,7 +948,7 @@ var render = function () {
                               [
                                 _c("v-icon", [_vm._v("mdi-account-cancel")]),
                                 _vm._v(
-                                  "\r\n                            Batal\r\n                        "
+                                  "\n                            Batal\n                        "
                                 ),
                               ],
                               1
@@ -974,7 +974,7 @@ var render = function () {
                               [
                                 _c("v-icon", [_vm._v("mdi-pencil")]),
                                 _vm._v(
-                                  "\r\n                            Ubah\r\n                        "
+                                  "\n                            Ubah\n                        "
                                 ),
                               ],
                               1
@@ -1000,7 +1000,7 @@ var render = function () {
                               [
                                 _c("v-icon", [_vm._v("mdi-account-plus")]),
                                 _vm._v(
-                                  "\r\n                            Tambah\r\n                        "
+                                  "\n                            Tambah\n                        "
                                 ),
                               ],
                               1

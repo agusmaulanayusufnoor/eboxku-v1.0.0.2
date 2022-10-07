@@ -17,7 +17,7 @@ class CreateStockTable extends Migration
             $table->id();
             $table->foreignId('jenis');
             $table->foreignId('kantor_id');
-            $table->string('tanggal',10);
+            $table->date('tanggal');
             $table->bigInteger('jml_stok_awal');
             $table->bigInteger('tambahan_stok');
             $table->bigInteger('jml_digunakan');

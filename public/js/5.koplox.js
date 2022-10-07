@@ -461,6 +461,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data(vm) {
@@ -535,7 +539,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         align: 'start'
       }, {
         label: 'Tanggal Stok',
-        field: 'tanggal'
+        field: 'tanggal',
+        dataFormat: function dataFormat(value) {
+          return moment__WEBPACK_IMPORTED_MODULE_0___default()(value).format('DD/MM/YYYY');
+        }
       }, {
         label: 'Jumlah Stok Awal',
         field: 'jml_stok_awal'
@@ -623,10 +630,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       return headers;
     },
     fromTglText: function fromTglText() {
-      return this.fromTgl ? moment__WEBPACK_IMPORTED_MODULE_0___default()(this.fromTgl).format('DD/MM/YYYY') : '';
+      return this.fromTgl ? moment__WEBPACK_IMPORTED_MODULE_0___default()(this.fromTgl).format('YYYY-MM-DD') : '';
     },
     toTglText: function toTglText() {
-      return this.toTgl ? moment__WEBPACK_IMPORTED_MODULE_0___default()(this.toTgl).format('DD/MM/YYYY') : '';
+      return this.toTgl ? moment__WEBPACK_IMPORTED_MODULE_0___default()(this.toTgl).format('YYYY-MM-DD') : '';
     },
     computedDateFormatted: function computedDateFormatted() {
       return this.formatDate(this.editedItem.date);
@@ -649,7 +656,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   },
   watch: {
     date: function date(val) {
-      this.editedItem.tanggal = this.formatDate(this.date);
+      //this.editedItem.tanggal = this.formatDate(this.date)
+      this.editedItem.tanggal = this.date;
     },
     dialog: function dialog(val) {
       val || this.close();
@@ -693,6 +701,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           day = _date$split2[2];
 
       return "".concat(day, "/").concat(month, "/").concat(year);
+    },
+    formatDateExcel: function formatDateExcel(value) {
+      if (!value) return null;
+
+      var _value$split = value.split('-'),
+          _value$split2 = _slicedToArray(_value$split, 3),
+          year = _value$split2[0],
+          month = _value$split2[1],
+          day = _value$split2[2];
+
+      return "".concat(day, "/").concat(month, "/").concat(year); //return '$ ' + value;
     },
     parseDate: function parseDate(date) {
       if (!date) return null;
@@ -984,7 +1003,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\r\n                    Stok Buku Tabungan dan Bilyet Deposito\r\n                "
+                                  "\n                    Stok Buku Tabungan dan Bilyet Deposito\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -1002,7 +1021,7 @@ var render = function () {
                                 },
                                 [
                                   _c("v-icon", [_vm._v("mdi-archive-plus")]),
-                                  _vm._v(" Tambah Stok\r\n                  "),
+                                  _vm._v(" Tambah Stok\n                  "),
                                 ],
                                 1
                               ),
@@ -1033,6 +1052,21 @@ var render = function () {
                                 scopedSlots: _vm._u(
                                   [
                                     {
+                                      key: "item.tanggal",
+                                      fn: function (ref) {
+                                        var item = ref.item
+                                        return [
+                                          _vm._v(
+                                            "\n                " +
+                                              _vm._s(
+                                                _vm.formatDate(item.tanggal)
+                                              ) +
+                                              "\n                "
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                    {
                                       key: "footer.prepend",
                                       fn: function () {
                                         return [
@@ -1053,7 +1087,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                      Refresh\r\n                      "
+                                                "\n                      Refresh\n                      "
                                               ),
                                               _c(
                                                 "v-icon",
@@ -1065,7 +1099,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\r\n                        mdi-reload\r\n                      "
+                                                    "\n                        mdi-reload\n                      "
                                                   ),
                                                 ]
                                               ),
@@ -1082,9 +1116,9 @@ var render = function () {
                                         var index = ref.index
                                         return [
                                           _vm._v(
-                                            "\r\n                    " +
+                                            "\n                    " +
                                               _vm._s(index + 1) +
-                                              "\r\n                "
+                                              "\n                "
                                           ),
                                         ]
                                       },
@@ -1116,7 +1150,7 @@ var render = function () {
                                                       "fa-solid fa-file-excel",
                                                   }),
                                                   _vm._v(
-                                                    "\r\n                        Excel\r\n                    "
+                                                    "\n                        Excel\n                    "
                                                   ),
                                                 ]
                                               ),
@@ -1407,7 +1441,7 @@ var render = function () {
                                                         [
                                                           _c("v-icon", [
                                                             _vm._v(
-                                                              "\r\n                        mdi-filter\r\n                      "
+                                                              "\n                        mdi-filter\n                      "
                                                             ),
                                                           ]),
                                                         ],
@@ -1469,7 +1503,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\r\n                        mdi-pencil\r\n                    "
+                                                    "\n                        mdi-pencil\n                    "
                                                   ),
                                                 ]
                                               ),
@@ -1499,7 +1533,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                    mdi-delete\r\n                "
+                                                "\n                    mdi-delete\n                "
                                               ),
                                             ]
                                           ),
@@ -1509,7 +1543,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  3202552566
+                                  2067198694
                                 ),
                               }),
                             ],
@@ -1725,7 +1759,7 @@ var render = function () {
                                                                 label:
                                                                   "Tanggal Stok",
                                                                 placeholder:
-                                                                  "dd/mm/yyyy",
+                                                                  "tahun-bulan-hari",
                                                                 "prepend-icon":
                                                                   "mdi-calendar",
                                                                 outlined: "",
@@ -2180,7 +2214,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-cancel")]),
                                   _vm._v(
-                                    "\r\n                            Batal\r\n                        "
+                                    "\n                            Batal\n                        "
                                   ),
                                 ],
                                 1
@@ -2206,7 +2240,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-pencil")]),
                                   _vm._v(
-                                    "\r\n                            Ubah\r\n                        "
+                                    "\n                            Ubah\n                        "
                                   ),
                                 ],
                                 1
@@ -2232,7 +2266,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-archive-plus")]),
                                   _vm._v(
-                                    "\r\n                            Tambah\r\n                        "
+                                    "\n                            Tambah\n                        "
                                   ),
                                 ],
                                 1

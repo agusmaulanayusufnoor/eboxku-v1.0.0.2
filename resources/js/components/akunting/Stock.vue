@@ -28,6 +28,9 @@
                 justify="center"
                 dense
                 class="elevation-3">
+                <template v-slot:item.tanggal="{ item }">
+                {{ formatDate(item.tanggal) }}
+                </template>
                 <template v-slot:footer.prepend>
                   <v-btn
                     color="success"
@@ -62,6 +65,7 @@
                         <i class="fa-solid fa-file-excel"></i>
                         Excel
                     </vue-excel-xlsx>
+
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
@@ -260,7 +264,7 @@
                                         @blur="date = parseDate(editedItem.tanggal)"
                                         :rules="editedItem.tanggalRules"
                                         label="Tanggal Stok"
-                                        placeholder="dd/mm/yyyy"
+                                        placeholder="tahun-bulan-hari"
                                         prepend-icon="mdi-calendar"
                                         v-bind="attrs"
                                         v-on="on"
@@ -514,7 +518,9 @@ import moment from 'moment';
 
                 { label: 'Jenis Stok', field: 'jenis'},
                 { label: 'Sandi Kantor', field: 'kode_kantor',align: 'start', },
-                { label: 'Tanggal Stok', field: 'tanggal' },
+                { label: 'Tanggal Stok', field: 'tanggal',dataFormat: (value) => {
+                return moment(value).format('DD/MM/YYYY');}
+                 },
                 { label: 'Jumlah Stok Awal',field: 'jml_stok_awal' },
                 { label: 'Tambahan Stok', field: 'tambahan_stok' },
                 { label: 'Jumlah Digunakan', field: 'jml_digunakan' },
@@ -542,7 +548,7 @@ import moment from 'moment';
                 },
                 { text: 'Jenis Stok', value: 'jenis',align: 'start', },
                 { text: 'Sandi Kantor', value: 'kode_kantor',align: 'start', },
-                { text: 'Tanggal Stok', value: 'tanggal' },
+                { text: 'Tanggal Stok', value: 'tanggal',},
                 { text: 'Jumlah StokAwal', value: 'jml_stok_awal',align: 'center' },
                 { text: 'Tambahan Stok', value: 'tambahan_stok',align: 'center' },
                 { text: 'Jumlah Digunakan', value: 'jml_digunakan',align: 'center' },
@@ -563,11 +569,11 @@ import moment from 'moment';
         },
         fromTglText () {
 
-        return this.fromTgl ? moment(this.fromTgl).format('DD/MM/YYYY') : '';
+        return this.fromTgl ? moment(this.fromTgl).format('YYYY-MM-DD') : '';
         },
         toTglText () {
 
-        return this.toTgl ? moment(this.toTgl).format('DD/MM/YYYY') : '';
+        return this.toTgl ? moment(this.toTgl).format('YYYY-MM-DD') : '';
         },
         computedDateFormatted () {
             return this.formatDate(this.editedItem.date);
@@ -592,7 +598,8 @@ import moment from 'moment';
     },
     watch: {
       date (val) {
-        this.editedItem.tanggal = this.formatDate(this.date)
+        //this.editedItem.tanggal = this.formatDate(this.date)
+        this.editedItem.tanggal = this.date
       },
       dialog (val) {
         val || this.close()
@@ -634,6 +641,13 @@ import moment from 'moment';
 
         const [year, month, day] = date.split('-')
         return `${day}/${month}/${year}`
+      },
+      formatDateExcel (value) {
+        if (!value) return null
+
+        const [year, month, day] = value.split('-')
+        return `${day}/${month}/${year}`
+        //return '$ ' + value;
       },
        parseDate (date) {
         if (!date) return null
