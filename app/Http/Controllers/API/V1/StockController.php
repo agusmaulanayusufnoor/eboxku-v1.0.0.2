@@ -40,7 +40,8 @@ class StockController extends BaseController
             ->select('stock.id','stock.tanggal','stock.jml_stok_awal','stock.tambahan_stok','stock.jml_digunakan',
             'stock.jml_rusak','stock.jml_hilang','stock.jml_stok_akhir',
             'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor')
-            ->orderBy('stock.id','desc')
+           // ->orderBy('stock.id','desc')
+           ->orderBy('stock.tanggal')
             ->get();
         }else{
             $stock  = DB::table('stock')
