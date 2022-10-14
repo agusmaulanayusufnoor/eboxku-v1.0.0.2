@@ -18,8 +18,8 @@ class CreatePkTable extends Migration
             $table->foreignId('kantor_id');
             $table->string('no_pk',100)->unique();
             $table->string('tanggal',20);
-            $table->string('namafile',200);
-            $table->string('file',200);
+            $table->string('namafile',250);
+            $table->string('file',250);
             $table->timestamps();
         });
     }
