@@ -1013,7 +1013,7 @@ var render = function () {
                                         label: "Nomor PK",
                                         placeholder: "input no. pk",
                                         counter: "",
-                                        maxlength: "25",
+                                        maxlength: "100",
                                         outlined: "",
                                         required: "",
                                         dense: "",
