@@ -124,7 +124,7 @@
                                 label="Nomor SK Direktur"
                                 placeholder="No. SK"
                                 counter
-                                maxlength="25"
+                                maxlength="100"
                                 outlined
                                 required
                                 dense
@@ -484,11 +484,16 @@
               })
               .catch(error =>{
                   //Swal.fire("Gagal Upload", "Cek data inputan!", "warning");
-                  Toast.fire({
+                  var errors = error.response.data.errors;
+                  // Loop this object and pring Key or value or both
+                  for (const [key, value] of Object.entries(errors)) {
+                     // console.log(`${key}: ${value}`);
+                      Toast.fire({
                       icon: 'error',
-                      //title: error.response.data.errors.no_sk[0]
-                      title : "Gagal upload, ulangi..."
-                  });
+                      title: value
+                      //title : "Gagal upload, ulangi..."
+                      });
+                  }
               })
           },
           downloadFile(id,file){

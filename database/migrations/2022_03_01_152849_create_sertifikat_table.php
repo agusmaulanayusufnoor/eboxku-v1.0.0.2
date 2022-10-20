@@ -16,7 +16,7 @@ class CreateSertifikatTable extends Migration
         Schema::create('sertifikat', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kantor_id');
-            $table->string('no_sertifikat',25)->unique();
+            $table->string('no_sertifikat',100)->unique();
             $table->string('tanggal',20);
             $table->string('namafile',200);
             $table->string('file',200);

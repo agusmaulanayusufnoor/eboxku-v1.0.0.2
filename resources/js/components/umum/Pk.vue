@@ -484,11 +484,16 @@
               })
               .catch(error =>{
                   //Swal.fire("Gagal Upload", "Cek data inputan!", "warning");
-                  Toast.fire({
+                  var errors = error.response.data.errors;
+                  // Loop this object and pring Key or value or both
+                  for (const [key, value] of Object.entries(errors)) {
+                     // console.log(`${key}: ${value}`);
+                      Toast.fire({
                       icon: 'error',
-                      title: error.response.data.errors.no_pk[0]
+                      title: value
                       //title : "Gagal upload, ulangi..."
-                  });
+                      });
+                  }
               })
           },
           downloadFile(id,file){

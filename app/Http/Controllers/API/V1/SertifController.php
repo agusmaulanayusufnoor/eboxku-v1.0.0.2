@@ -61,12 +61,17 @@ class SertifController extends BaseController
         $request->validate([
             'no_sertifikat'  => 'required|unique:sertifikat',
             'namafile'     => 'required',
-            'tanggal'      => 'required',
+            'tanggal' => ['required', function ($attribute, $value, $fail) {
+                if ($value === 'null') {
+                    $fail($attribute.' harus diisi.');
+                }
+            }],
             'file'         => 'required|mimes:pdf'
         ],[
             'no_sertifikat.unique' => 'no sertifikasi sudah ada dalam data',
             'no_sertifikat.required' => 'no sertifikasi harus diisi',
             'namafile.required' => 'nama file harus diisi',
+            'tanggal.required' => 'tanggal harus diisi',
             'file.required' => 'file belum di input',
             'file.mimes' => 'file yang di upload harus berbentuk .pdf'
         ]);

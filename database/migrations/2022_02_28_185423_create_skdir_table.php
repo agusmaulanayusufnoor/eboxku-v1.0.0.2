@@ -16,7 +16,7 @@ class CreateSkdirTable extends Migration
         Schema::create('skdir', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kantor_id');
-            $table->string('no_sk',25)->unique();
+            $table->string('no_sk',100)->unique();
             $table->string('tanggal',20);
             $table->string('namafile',200);
             $table->string('file',200);

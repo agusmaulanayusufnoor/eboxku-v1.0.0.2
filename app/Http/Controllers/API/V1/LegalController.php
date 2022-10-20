@@ -61,12 +61,17 @@ class LegalController extends BaseController
         $request->validate([
             'no_legal'  => 'required|unique:legal',
             'namafile'     => 'required',
-            'tanggal'      => 'required',
+            'tanggal' => ['required', function ($attribute, $value, $fail) {
+                if ($value === 'null') {
+                    $fail($attribute.' harus diisi.');
+                }
+            }],
             'file'         => 'required|mimes:pdf'
         ],[
-            'no_legal.unique' => 'no sk sudah ada dalam data',
-            'no_legal.required' => 'no sk harus diisi',
+            'no_legal.unique' => 'No legalitas sudah ada dalam data',
+            'no_legal.required' => 'No Legalitas harus diisi',
             'namafile.required' => 'nama file harus diisi',
+            'tanggal.required' => 'tanggal harus diisi',
             'file.required' => 'file belum di input',
             'file.mimes' => 'file yang di upload harus berbentuk .pdf'
         ]);

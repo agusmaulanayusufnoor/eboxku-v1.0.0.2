@@ -16,7 +16,7 @@ class CreateAktaTable extends Migration
         Schema::create('akta', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kantor_id');
-            $table->string('no_akta',25)->unique();
+            $table->string('no_akta',100)->unique();
             $table->string('tanggal',20);
             $table->string('namafile',200);
             $table->string('file',200);

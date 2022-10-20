@@ -61,12 +61,17 @@ class AktaController extends BaseController
         $request->validate([
             'no_akta'  => 'required|unique:akta',
             'namafile'     => 'required',
-            'tanggal'      => 'required',
+            'tanggal' => ['required', function ($attribute, $value, $fail) {
+                if ($value === 'null') {
+                    $fail($attribute.' harus diisi.');
+                }
+            }],
             'file'         => 'required|mimes:pdf'
         ],[
             'no_akta.unique' => 'no akta sudah ada dalam data',
             'no_akta.required' => 'no akta harus diisi',
             'namafile.required' => 'nama file harus diisi',
+            'tanggal.required' => 'tanggal harus diisi',
             'file.required' => 'file belum di input',
             'file.mimes' => 'file yang di upload harus berbentuk .pdf'
         ]);

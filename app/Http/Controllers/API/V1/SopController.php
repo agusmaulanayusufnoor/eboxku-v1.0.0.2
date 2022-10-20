@@ -63,12 +63,13 @@ class SopController extends BaseController
             'namafile' => 'required',
             'tanggal' => ['required', function ($attribute, $value, $fail) {
                 if ($value === 'null') {
-                    $fail('The '.$attribute.' is invalid.');
+                    $fail($attribute.' harus diisi.');
                 }
             }],
             'file' => 'required|mimes:pdf'
         ],[
             'namafile.required' => 'nama file harus diisi',
+            'tanggal.required' => 'tanggal file harus diisi',
             'file.required' => 'nama file harus nama kantor (ex: cab-kpo.pdf)',
             'file.mimes' => 'file yang di upload harus berbentuk .pdf'
         ]);

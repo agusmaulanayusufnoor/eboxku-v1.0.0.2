@@ -476,13 +476,27 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         _this2.$Progress.finish();
 
         _this2.initialize();
-      })["catch"](function (response) {
+      })["catch"](function (error) {
         //Swal.fire("Failed!", data.message, "warning");
-        Toast.fire({
-          icon: 'error',
-          title: 'Gagal upload file, ulangi!' //title: response.message
+        var errors = error.response.data.errors; // Loop this object and pring Key or value or both
 
-        });
+        for (var _i2 = 0, _Object$entries = Object.entries(errors); _i2 < _Object$entries.length; _i2++) {
+          var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
+              key = _Object$entries$_i[0],
+              value = _Object$entries$_i[1];
+
+          //console.log(`${key}: ${value}`);
+          Toast.fire({
+            icon: 'error',
+            title: value //title : "Gagal upload, ulangi..."
+
+          });
+        } //   Toast.fire({
+        //       icon: 'error',
+        //       //title: value
+        //       title : "Gagal upload, ulangi..."
+        //       });
+
       });
     },
     downloadFile: function downloadFile(id, file) {
@@ -1112,7 +1126,7 @@ var render = function () {
                                           outlined: "",
                                           dense: "",
                                           "show-size": "",
-                                          accept: ".zip",
+                                          accept: ".pdf",
                                         },
                                         scopedSlots: _vm._u([
                                           {

@@ -553,11 +553,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this3.initialize();
       })["catch"](function (error) {
         //Swal.fire("Gagal Upload", "Cek data inputan!", "warning");
-        Toast.fire({
-          icon: 'error',
-          title: error.response.data.errors.no_akta[0] //title : "Gagal upload, ulangi..."
+        var errors = error.response.data.errors; // Loop this object and pring Key or value or both
 
-        });
+        for (var _i2 = 0, _Object$entries = Object.entries(errors); _i2 < _Object$entries.length; _i2++) {
+          var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
+              key = _Object$entries$_i[0],
+              value = _Object$entries$_i[1];
+
+          // console.log(`${key}: ${value}`);
+          Toast.fire({
+            icon: 'error',
+            title: value //title : "Gagal upload, ulangi..."
+
+          });
+        }
       });
     },
     downloadFile: function downloadFile(id, file) {
@@ -1013,7 +1022,7 @@ var render = function () {
                                         label: "Nomor Akta",
                                         placeholder: "input no. akta",
                                         counter: "",
-                                        maxlength: "25",
+                                        maxlength: "100",
                                         outlined: "",
                                         required: "",
                                         dense: "",

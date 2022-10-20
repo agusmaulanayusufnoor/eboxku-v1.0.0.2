@@ -61,12 +61,17 @@ class SedirController extends BaseController
         $request->validate([
             'no_se'  => 'required|unique:sedir',
             'namafile'     => 'required',
-            'tanggal'      => 'required',
+            'tanggal' => ['required', function ($attribute, $value, $fail) {
+                if ($value === 'null') {
+                    $fail($attribute.' harus diisi');
+                }
+            }],
             'file'         => 'required|mimes:pdf'
         ],[
             'no_se.unique' => 'no sk sudah ada dalam data',
             'no_se.required' => 'no sk harus diisi',
             'namafile.required' => 'nama file harus diisi',
+            'tanggal.required' => 'tanggal harus diisi',
             'file.required' => 'file belum di input',
             'file.mimes' => 'file yang di upload harus berbentuk .pdf'
         ]);

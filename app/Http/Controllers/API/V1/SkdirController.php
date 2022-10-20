@@ -63,7 +63,7 @@ class SkdirController extends BaseController
             'namafile'     => 'required',
             'tanggal' => ['required', function ($attribute, $value, $fail) {
                 if ($value === 'null') {
-                    $fail('The '.$attribute.' is invalid.');
+                    $fail($attribute.' harus diisi.');
                 }
             }],
             'file'         => 'required|mimes:pdf'
@@ -71,6 +71,7 @@ class SkdirController extends BaseController
             'no_sk.unique' => 'no sk sudah ada dalam data',
             'no_sk.required' => 'no sk harus diisi',
             'namafile.required' => 'nama file harus diisi',
+            'tanggal.required' => 'tanggal harus diisi',
             'file.required' => 'file belum di input',
             'file.mimes' => 'file yang di upload harus berbentuk .pdf'
         ]);

@@ -62,11 +62,17 @@ class PkController extends BaseController
             'no_pk'  => 'required|unique:pk',
             'namafile'     => 'required',
             'tanggal'      => 'required',
+            'tanggal' => ['required', function ($attribute, $value, $fail) {
+                if ($value === 'null') {
+                    $fail($attribute.' harus diisi.');
+                }
+            }],
             'file'         => 'required|mimes:pdf'
         ],[
             'no_pk.unique' => 'no pk sudah ada dalam data',
             'no_pk.required' => 'no pk harus diisi',
             'namafile.required' => 'nama file harus diisi',
+            'tanggal.required' => 'tanggal harus diisi',
             'file.required' => 'file belum di input',
             'file.mimes' => 'file yang di upload harus berbentuk .pdf'
         ]);
