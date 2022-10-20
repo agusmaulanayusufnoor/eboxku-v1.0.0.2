@@ -424,7 +424,7 @@
             formData.set('tanggal', this.tanggal)
             formData.set('file', this.file)
             // formData.append('file', this.file);
-           // console.log(this.file);
+            //console.log(this.tanggal);
             axios.post('api/peraturan',formData,config)
               .then((response)=>{
                   $('#addNew').modal('hide');
@@ -439,7 +439,7 @@
 
               })
               .catch((response)=>{
-                  //Swal.fire("Failed!", data.message, "warning");
+                  //Swal.fire("Failed!", response.message, "warning");
                   Toast.fire({
                       icon: 'error',
                       title: 'Gagal upload file, ulangi!'

@@ -486,8 +486,8 @@
                   //Swal.fire("Gagal Upload", "Cek data inputan!", "warning");
                   Toast.fire({
                       icon: 'error',
-                      title: error.response.data.errors.no_sk[0]
-                      //title : "Gagal upload, ulangi..."
+                      //title: error.response.data.errors.no_sk[0]
+                      title : "Gagal upload, ulangi..."
                   });
               })
           },

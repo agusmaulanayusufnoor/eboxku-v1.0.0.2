@@ -61,7 +61,11 @@ class SkdirController extends BaseController
         $request->validate([
             'no_sk'  => 'required|unique:skdir',
             'namafile'     => 'required',
-            'tanggal'      => 'required',
+            'tanggal' => ['required', function ($attribute, $value, $fail) {
+                if ($value === 'null') {
+                    $fail('The '.$attribute.' is invalid.');
+                }
+            }],
             'file'         => 'required|mimes:pdf'
         ],[
             'no_sk.unique' => 'no sk sudah ada dalam data',

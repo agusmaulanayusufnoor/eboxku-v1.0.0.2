@@ -61,7 +61,11 @@ class SopController extends BaseController
         $request->validate([
 
             'namafile' => 'required',
-            'tanggal' => 'required',
+            'tanggal' => ['required', function ($attribute, $value, $fail) {
+                if ($value === 'null') {
+                    $fail('The '.$attribute.' is invalid.');
+                }
+            }],
             'file' => 'required|mimes:pdf'
         ],[
             'namafile.required' => 'nama file harus diisi',

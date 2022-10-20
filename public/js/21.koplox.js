@@ -481,7 +481,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    Master Otorisator\n                "
+                                  "\r\n                    Master Otorisator\r\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -499,7 +499,7 @@ var render = function () {
                                 },
                                 [
                                   _c("v-icon", [_vm._v("mdi-plus-box")]),
-                                  _vm._v(" Tambah\n                  "),
+                                  _vm._v(" Tambah\r\n                  "),
                                 ],
                                 1
                               ),
@@ -528,9 +528,9 @@ var render = function () {
                                         var index = ref.index
                                         return [
                                           _vm._v(
-                                            "\n                    " +
+                                            "\r\n                    " +
                                               _vm._s(index + 1) +
-                                              "\n                "
+                                              "\r\n                "
                                           ),
                                         ]
                                       },
@@ -596,7 +596,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                    mdi-delete\n                "
+                                                "\r\n                    mdi-delete\r\n                "
                                               ),
                                             ]
                                           ),
@@ -633,7 +633,7 @@ var render = function () {
                                                           },
                                                           [
                                                             _vm._v(
-                                                              "\n                            Edit Otorisator\n                            "
+                                                              "\r\n                            Edit Otorisator\r\n                            "
                                                             ),
                                                           ]
                                                         ),
@@ -675,9 +675,9 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                        " +
+                                                "\r\n                        " +
                                                   _vm._s(item.namaotorisator) +
-                                                  "\n                        "
+                                                  "\r\n                        "
                                               ),
                                             ]
                                           ),
@@ -687,7 +687,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  3927642452
+                                  2384394964
                                 ),
                               }),
                             ],
@@ -740,7 +740,7 @@ var render = function () {
                                 ),
                                 [
                                   _vm._v(
-                                    "\n                    Close\n                    "
+                                    "\r\n                    Close\r\n                    "
                                   ),
                                 ]
                               ),
@@ -758,9 +758,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                " +
+                        "\r\n                " +
                           _vm._s(_vm.snackText) +
-                          "\n\n                "
+                          "\r\n\r\n                "
                       ),
                     ]
                   ),
@@ -943,7 +943,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-cancel")]),
                                   _vm._v(
-                                    "\n                            Batal\n                        "
+                                    "\r\n                            Batal\r\n                        "
                                   ),
                                 ],
                                 1
@@ -969,7 +969,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-pencil")]),
                                   _vm._v(
-                                    "\n                            Ubah\n                        "
+                                    "\r\n                            Ubah\r\n                        "
                                   ),
                                 ],
                                 1
@@ -995,7 +995,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-plus-box")]),
                                   _vm._v(
-                                    "\n                            Tambah\n                        "
+                                    "\r\n                            Tambah\r\n                        "
                                   ),
                                 ],
                                 1

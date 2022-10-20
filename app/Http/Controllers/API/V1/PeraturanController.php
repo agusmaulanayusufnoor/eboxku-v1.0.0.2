@@ -82,6 +82,16 @@ class PeraturanController extends BaseController
         $date       = implode("",$arr);
 
         $file   = "00".$request->kantor_id.".".$request->namafile.".".$datefile.".".$nm->getClientOriginalName();
+        $tgl = $request->get('tanggal');
+        if ($tgl=="null"){
+            $peraturan = $this->peraturan->create([
+                'kantor_id'     => '',
+                'namafile'      => $request->get('namafile'),
+                'tanggal'       => '',
+                'file'          => $file,
+            ]);
+            return $this->sendResponse($peraturan,'Tangal belum diisi...');
+        }else{
         $peraturan = $this->peraturan->create([
             'kantor_id'     => $request->get('kantor_id'),
             'namafile'      => $request->get('namafile'),
@@ -91,6 +101,7 @@ class PeraturanController extends BaseController
         $nm->move(public_path().'/file/peraturan', $file);
 
         return $this->sendResponse($peraturan, 'File telah diupload...');
+        }
     }
 
     /**
