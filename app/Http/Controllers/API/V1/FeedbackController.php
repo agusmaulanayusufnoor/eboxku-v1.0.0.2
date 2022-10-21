@@ -61,10 +61,15 @@ class FeedbackController extends BaseController
         $request->validate([
 
             'namafile' => 'required',
-            'tanggal' => 'required',
+            'tanggal' => ['required', function ($attribute, $value, $fail) {
+                if ($value === 'null') {
+                    $fail($attribute.' harus diisi.');
+                }
+            }],
             'file' => 'required|mimes:jpg'
         ],[
             'namafile.required' => 'nama file harus diisi',
+            'tanggal.required' => 'tanggal harus diisi',
             'file.required' => 'nama file harus nama kantor (ex: cab-kpo.zip)',
             'file.mimes' => 'extensi gambar harus jpg atau png'
         ]);

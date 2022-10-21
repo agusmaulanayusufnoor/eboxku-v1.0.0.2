@@ -569,11 +569,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this3.initialize();
       })["catch"](function (error) {
         //Swal.fire("Failed!", data.message, "warning");
-        Toast.fire({
-          icon: 'error',
-          //title: 'Gagal upload file, ulangi!'
-          title: error.response.data.errors.no_rekening[0]
-        });
+        var errors = error.response.data.errors; // Loop this object and pring Key or value or both
+
+        for (var _i2 = 0, _Object$entries = Object.entries(errors); _i2 < _Object$entries.length; _i2++) {
+          var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
+              key = _Object$entries$_i[0],
+              value = _Object$entries$_i[1];
+
+          // console.log(`${key}: ${value}`);
+          Toast.fire({
+            icon: 'error',
+            title: value //title : "Gagal upload, ulangi..."
+
+          });
+        }
       });
     },
     downloadFile: function downloadFile(id, file) {
@@ -693,7 +702,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\r\n                    File Rekening Koran ABA\r\n                "
+                                  "\n                    File Rekening Koran ABA\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -711,7 +720,7 @@ var render = function () {
                                 },
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
-                                  _vm._v(" Upload File\r\n                  "),
+                                  _vm._v(" Upload File\n                  "),
                                 ],
                                 1
                               ),
@@ -755,7 +764,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                      Refresh\r\n                      "
+                                                "\n                      Refresh\n                      "
                                               ),
                                               _c(
                                                 "v-icon",
@@ -767,7 +776,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\r\n                        mdi-reload\r\n                      "
+                                                    "\n                        mdi-reload\n                      "
                                                   ),
                                                 ]
                                               ),
@@ -784,9 +793,9 @@ var render = function () {
                                         var index = ref.index
                                         return [
                                           _vm._v(
-                                            "\r\n                    " +
+                                            "\n                    " +
                                               _vm._s(index + 1) +
-                                              "\r\n                "
+                                              "\n                "
                                           ),
                                         ]
                                       },
@@ -858,7 +867,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\r\n                            mdi-download\r\n                        "
+                                                    "\n                            mdi-download\n                        "
                                                   ),
                                                 ]
                                               ),
@@ -890,7 +899,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                    mdi-delete\r\n                "
+                                                "\n                    mdi-delete\n                "
                                               ),
                                             ]
                                           ),
@@ -900,7 +909,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  3070934507
+                                  3028880107
                                 ),
                               }),
                             ],
@@ -1303,9 +1312,9 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\r\n                                    " +
+                                                          "\n                                    " +
                                                             _vm._s(text) +
-                                                            "\r\n                                "
+                                                            "\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1318,12 +1327,12 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\r\n                                    +" +
+                                                          "\n                                    +" +
                                                             _vm._s(
                                                               _vm.files.length -
                                                                 2
                                                             ) +
-                                                            " File(s)\r\n                                "
+                                                            " File(s)\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1370,7 +1379,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-cancel")]),
                                   _vm._v(
-                                    "\r\n                            Batal\r\n                        "
+                                    "\n                            Batal\n                        "
                                   ),
                                 ],
                                 1
@@ -1396,7 +1405,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-pencil")]),
                                   _vm._v(
-                                    "\r\n                            Ubah\r\n                        "
+                                    "\n                            Ubah\n                        "
                                   ),
                                 ],
                                 1
@@ -1422,7 +1431,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
                                   _vm._v(
-                                    "\r\n                            Upload\r\n                        "
+                                    "\n                            Upload\n                        "
                                   ),
                                 ],
                                 1

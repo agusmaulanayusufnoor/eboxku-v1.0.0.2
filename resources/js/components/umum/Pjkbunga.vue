@@ -424,13 +424,20 @@
                   this.initialize();
 
               })
-              .catch((response)=>{
-                  //Swal.fire("Failed!", data.message, "warning");
-                  Toast.fire({
+              .catch(error =>{
+                  //Swal.fire("Gagal Upload", "Cek data inputan!", "warning");
+
+                  var errors = error.response.data.errors;
+                  // Loop this object and pring Key or value or both
+                  for (const [key, value] of Object.entries(errors)) {
+                     // console.log(`${key}: ${value}`);
+                      Toast.fire({
                       icon: 'error',
-                      title: 'Gagal upload file, ulangi!'
-                      //title: response.message
-                  });
+                      title: value
+                      //title : "Gagal upload, ulangi..."
+                      });
+                  }
+
               })
           },
           downloadFile(id,file){

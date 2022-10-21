@@ -495,13 +495,18 @@
                   this.initialize();
 
               })
-              .catch((error) =>{
+              .catch((error)=>{
                   //Swal.fire("Failed!", data.message, "warning");
-                  Toast.fire({
+                  var errors = error.response.data.errors;
+                  // Loop this object and pring Key or value or both
+                  for (const [key, value] of Object.entries(errors)) {
+                     // console.log(`${key}: ${value}`);
+                      Toast.fire({
                       icon: 'error',
-                      //title: 'Gagal upload file, ulangi!'
-                      title: error.response.data.errors.no_rekening[0]
-                  });
+                      title: value
+                      //title : "Gagal upload, ulangi..."
+                      });
+                  }
               })
           },
           downloadFile(id,file){

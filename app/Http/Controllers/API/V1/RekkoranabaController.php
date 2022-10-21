@@ -62,11 +62,16 @@ class RekkoranabaController extends BaseController
         $request->validate([
             'no_rekening'  => 'required',
             'namafile'     => 'required',
-            'tanggal'      => 'required',
+            'tanggal' => ['required', function ($attribute, $value, $fail) {
+                if ($value === 'null') {
+                    $fail($attribute.' harus diisi.');
+                }
+            }],
             'file'         => 'required|mimes:zip'
         ],[
             'no_rekening.unique' => 'no rekening sudah ada dalam data',
             'no_rekening.required' => 'no rekening harus diisi',
+            'tanggal.required' => 'tanggal harus diisi',
             'namafile.required' => 'nama file harus diisi',
             'file.required' => 'nama file harus nama kantor (ex: cab-kpo.zip)',
             'file.mimes' => 'file yang di upload harus berbentuk .zip'

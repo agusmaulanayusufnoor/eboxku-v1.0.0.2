@@ -61,12 +61,17 @@ class SuratkeluarController extends BaseController
         $request->validate([
             'no_surat'  => 'required|unique:suratkeluar',
             'namafile'     => 'required',
-            'tanggal'      => 'required',
+            'tanggal' => ['required', function ($attribute, $value, $fail) {
+                if ($value === 'null') {
+                    $fail($attribute.' harus diisi.');
+                }
+            }],
             'file'         => 'required|mimes:pdf'
         ],[
             'no_surat.unique' => 'no surat sudah ada dalam data',
             'no_surat.required' => 'no surat harus diisi',
             'namafile.required' => 'nama file harus diisi',
+            'tanggal.required' => 'tanggal harus diisi',
             'file.required' => 'file belum di input',
             'file.mimes' => 'file yang di upload harus berbentuk .pdf'
         ]);
