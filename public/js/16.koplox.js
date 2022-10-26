@@ -1,16 +1,14 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[16],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Suratkeluar.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/sekdir/Suratkeluar.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Polis.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/sekdir/Polis.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -23,29 +21,6 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -297,27 +272,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       dialog: false,
       dialogDelete: false,
       search: '',
-      suratkeluar: [],
+      //   headers: [
+      //     {
+      //     text: 'No',
+      //     value: 'index',
+      //     },
+      //     { text: 'Kantor', value: 'nama_kantor',align: 'start', },
+      //     {
+      //       text: 'Nama File',
+      //       value: 'namafile',
+      //     },
+      //     { text: 'Tanggal File', value: 'tanggal' },
+      //     { text: 'Download File', value: 'file', sortable: false,align: 'center'  },
+      //     { text: 'Hapus', value: 'actions', sortable: false },
+      //   ],
+      polis: [],
       valid: true,
       file: null,
       id: '',
       kantor_id: '',
-      no_surat: '',
-      norekRules: [function (v) {
-        return !!v || 'No Surat Belum Diisi';
-      }],
-      cekNorekData: [],
-      pesaneror: [],
       namafile: '',
       nameRules: [function (v) {
-        return !!v || 'Nama Surat Belum Diisi';
+        return !!v || 'Nama file belum diisi';
       }],
       menu1: false,
       menu2: false,
       dateFormatted: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
       tanggal: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       tanggalRules: [function (v) {
-        return !!v || 'Tanggal surat belum diisi';
+        return !!v || 'Tanggal file belum diisi';
       }],
       fileRules: [function (v) {
         return !!v || 'File belum dimasukan';
@@ -340,18 +323,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         align: 'center',
         sortable: false
       }, {
-        text: 'No Surat',
-        value: 'no_surat'
-      }, {
-        text: 'Tanggal Surat',
-        value: 'tanggal'
-      }, {
         text: 'Kantor',
         value: 'nama_kantor',
         align: 'start'
       }, {
         text: 'Nama File',
         value: 'namafile'
+      }, {
+        text: 'Tanggal File',
+        value: 'tanggal'
       }];
       headers.push({
         text: 'Download File',
@@ -392,71 +372,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   //     console.log(this.$kantor_id)
   //   },
   created: function created() {
-    this.$Progress.start(); //console.log(this.kantor_id)
-
+    this.$Progress.start();
+    console.log(this.kantor_id);
     this.initialize();
     this.$Progress.finish();
   },
   methods: {
-    cekNorek: function cekNorek() {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var formData, response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if (!(_this.$gate.isAdmin() || _this.$gate.isSekdir())) {
-                  _context.next = 7;
-                  break;
-                }
-
-                formData = new FormData();
-                formData.set('no_surat', _this.no_surat); //const response = await axios.get('api/suratkeluar/ceknama')
-
-                _context.next = 5;
-                return axios.post('api/suratkeluar/ceknorek', formData);
-
-              case 5:
-                response = _context.sent;
-
-                //this.cekNorekData = response.data.data[0].no_surat;
-                if (response.data.message == 'adarek') {
-                  _this.cekNorekData = response.data.data[0].no_surat;
-                  _this.pesaneror = 'No suratkeluar ' + _this.cekNorekData + ' Sudah Ada'; // console.log(this.cekNorekData);
-
-                  Toast.fire({
-                    icon: 'error',
-                    //title: response.data.message
-                    title: 'No Surat ' + response.data.data[0].no_surat + ' Sudah Ada Dalam Data'
-                  });
-
-                  _this.initialize();
-                } //endif response
-
-
-              case 7:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    norekKeyboard: function norekKeyboard(evt) {
-      evt = evt ? evt : window.event;
-      var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul
-
-      if (charCode > 31 && (charCode < 48 || charCode > 57) && (charCode < 95 || charCode > 105) && charCode !== 46 && charCode !== 75) {
-        //tidak boleh tombol '/' dan '\'
-        //if (charCode === 191 || charCode===220) {
-        evt.preventDefault();
-      } else {
-        this.no_surat = this.no_surat.toUpperCase();
-        return true;
-      }
-    },
     pencetKeyboard: function pencetKeyboard(evt) {
       evt = evt ? evt : window.event;
       var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul
@@ -465,6 +386,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (charCode === 191 || charCode === 220) {
         evt.preventDefault();
+        ;
       } else {
         return true;
       }
@@ -492,16 +414,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return "".concat(year, "-").concat(month.padStart(2, '0'), "-").concat(day.padStart(2, '0'));
     },
     initialize: function initialize() {
-      var _this2 = this;
+      var _this = this;
 
       this.$Progress.start();
 
       if (this.$gate.isAdmin() || this.$gate.isSekdir()) {
-        axios.get("api/suratkeluar").then(function (response) {
-          _this2.suratkeluar = response.data.data;
-          _this2.kantor_id = _this2.$kantor_id; // this.form.fill
-          // console.log(this.suratkeluar);
-          // console.log(this.kantor_id)
+        //axios.get("api/user").then((response) => {(this.users = response.data.data)});
+        axios.get("api/polis").then(function (response) {
+          _this.polis = response.data.data;
+          _this.kantor_id = _this.$kantor_id; // this.form.fill
+          //console.log(this.polis);
+          //console.log(this.kantor_id)
         });
       }
 
@@ -518,11 +441,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       $('#addNew').modal('show');
       this.$refs.form.reset();
       this.namafile = '';
-      this.no_surat = '';
-      this.pesaneror = '';
     },
+    // uploadFile(e){
+    //         // `files` is always an array because the file input may be in multiple mode
+    //         console.log(e);
+    //         this.file = e.target.files[0];
+    // },
     createUser: function createUser() {
-      var _this3 = this;
+      var _this2 = this;
 
       this.$refs.form.validate();
       this.$Progress.start(); // e.preventDefault();
@@ -535,24 +461,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       var formData = new FormData();
       formData.set('kantor_id', this.kantor_id);
-      formData.set('no_surat', this.no_surat);
       formData.set('namafile', this.namafile);
       formData.set('tanggal', this.tanggal);
       formData.set('file', this.file); // formData.append('file', this.file);
       // console.log(this.file);
 
-      axios.post('api/suratkeluar', formData, config).then(function (response) {
+      axios.post('api/polis', formData, config).then(function (response) {
         $('#addNew').modal('hide');
         Toast.fire({
           icon: 'success',
           title: response.data.message
         });
 
-        _this3.$Progress.finish();
+        _this2.$Progress.finish();
 
-        _this3.initialize();
+        _this2.initialize();
       })["catch"](function (error) {
-        //Swal.fire("Gagal Upload", "Cek data inputan!", "warning");
+        //Swal.fire("Failed!", data.message, "warning");
         var errors = error.response.data.errors; // Loop this object and pring Key or value or both
 
         for (var _i2 = 0, _Object$entries = Object.entries(errors); _i2 < _Object$entries.length; _i2++) {
@@ -571,14 +496,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     downloadFile: function downloadFile(id, file) {
       axios({
-        url: 'api/suratkeluar/download/' + id,
+        url: 'api/polis/download/' + id,
         method: 'GET',
         responseType: 'blob'
       }).then(function (response) {
         var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement('a');
         fileLink.href = fileUrl;
-        fileLink.setAttribute('download', 'tabfile.zip');
+        fileLink.setAttribute('download', 'polis.pdf');
         fileLink.download = file;
         document.body.appendChild(fileLink);
         fileLink.click();
@@ -587,11 +512,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     updateUser: function updateUser() {
-      var _this4 = this;
+      var _this3 = this;
 
       this.$Progress.start(); // console.log('Editing data');
 
-      this.form.put('api/suratkeluar/' + this.form.id).then(function (response) {
+      this.form.put('api/polis/' + this.form.id).then(function (response) {
         // success
         $('#addNew').modal('hide');
         Toast.fire({
@@ -599,16 +524,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           title: response.data.message
         });
 
-        _this4.$Progress.finish(); //  Fire.$emit('AfterCreate');
+        _this3.$Progress.finish(); //  Fire.$emit('AfterCreate');
 
 
-        _this4.initialize();
+        _this3.initialize();
       })["catch"](function () {
-        _this4.$Progress.fail();
+        _this3.$Progress.fail();
       });
     },
     deleteUser: function deleteUser(id) {
-      var _this5 = this;
+      var _this4 = this;
 
       Swal.fire({
         title: 'Yakin dihapus?',
@@ -620,10 +545,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this5.form["delete"]('api/suratkeluar/' + id).then(function () {
+          _this4.form["delete"]('api/polis/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
-            _this5.initialize();
+            _this4.initialize();
           })["catch"](function (data) {
             Swal.fire("Failed!", data.message, "warning");
           });
@@ -635,10 +560,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Suratkeluar.vue?vue&type=template&id=1d5cd787&":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/sekdir/Suratkeluar.vue?vue&type=template&id=1d5cd787& ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Polis.vue?vue&type=template&id=9bff54b2&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/sekdir/Polis.vue?vue&type=template&id=9bff54b2& ***!
+  \***************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -687,7 +612,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    File Surat Keluar\n                "
+                                  "\n                    File Polis Asuransi Jabatan\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -721,7 +646,7 @@ var render = function () {
                                 staticClass: "elevation-3",
                                 attrs: {
                                   headers: _vm.headers,
-                                  items: _vm.suratkeluar,
+                                  items: _vm.polis,
                                   search: _vm.search,
                                   justify: "center",
                                   dense: "",
@@ -1016,47 +941,10 @@ var render = function () {
                                   [
                                     _c("v-text-field", {
                                       attrs: {
-                                        rules: _vm.norekRules,
-                                        name: "no_surat",
-                                        label: "Nomor Surat",
-                                        placeholder: "input no. surat",
-                                        counter: "",
-                                        maxlength: "100",
-                                        outlined: "",
-                                        required: "",
-                                        dense: "",
-                                        "prepend-icon": "mdi-file",
-                                        hint: "",
-                                        "persistent-hint": "",
-                                        "error-messages": _vm.pesaneror,
-                                      },
-                                      on: {
-                                        change: function ($event) {
-                                          return _vm.cekNorek()
-                                        },
-                                      },
-                                      model: {
-                                        value: _vm.no_surat,
-                                        callback: function ($$v) {
-                                          _vm.no_surat = $$v
-                                        },
-                                        expression: "no_surat",
-                                      },
-                                    }),
-                                    _vm._v(" "),
-                                    _c("has-error", {
-                                      attrs: {
-                                        form: _vm.form,
-                                        field: "namafile",
-                                      },
-                                    }),
-                                    _vm._v(" "),
-                                    _c("v-text-field", {
-                                      attrs: {
                                         rules: _vm.nameRules,
                                         name: "namafile",
-                                        label: "Nama Surat",
-                                        placeholder: "input surat keluar",
+                                        label: "Nama File",
+                                        placeholder: "Nama File",
                                         outlined: "",
                                         required: "",
                                         dense: "",
@@ -1127,7 +1015,7 @@ var render = function () {
                                                                     label:
                                                                       "Tanggal File",
                                                                     placeholder:
-                                                                      "Tanggal Surat Keluar",
+                                                                      "dd/mm/yyyy",
                                                                     "prepend-icon":
                                                                       "mdi-calendar",
                                                                     outlined:
@@ -1405,17 +1293,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/sekdir/Suratkeluar.vue":
-/*!********************************************************!*\
-  !*** ./resources/js/components/sekdir/Suratkeluar.vue ***!
-  \********************************************************/
+/***/ "./resources/js/components/sekdir/Polis.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/sekdir/Polis.vue ***!
+  \**************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Suratkeluar_vue_vue_type_template_id_1d5cd787___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Suratkeluar.vue?vue&type=template&id=1d5cd787& */ "./resources/js/components/sekdir/Suratkeluar.vue?vue&type=template&id=1d5cd787&");
-/* harmony import */ var _Suratkeluar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Suratkeluar.vue?vue&type=script&lang=js& */ "./resources/js/components/sekdir/Suratkeluar.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Polis_vue_vue_type_template_id_9bff54b2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Polis.vue?vue&type=template&id=9bff54b2& */ "./resources/js/components/sekdir/Polis.vue?vue&type=template&id=9bff54b2&");
+/* harmony import */ var _Polis_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Polis.vue?vue&type=script&lang=js& */ "./resources/js/components/sekdir/Polis.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1425,9 +1313,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Suratkeluar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Suratkeluar_vue_vue_type_template_id_1d5cd787___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Suratkeluar_vue_vue_type_template_id_1d5cd787___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Polis_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Polis_vue_vue_type_template_id_9bff54b2___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Polis_vue_vue_type_template_id_9bff54b2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1437,38 +1325,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/sekdir/Suratkeluar.vue"
+component.options.__file = "resources/js/components/sekdir/Polis.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/sekdir/Suratkeluar.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************!*\
-  !*** ./resources/js/components/sekdir/Suratkeluar.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************/
+/***/ "./resources/js/components/sekdir/Polis.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/sekdir/Polis.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Suratkeluar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Suratkeluar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Suratkeluar.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Suratkeluar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Polis_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Polis.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Polis.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Polis_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/sekdir/Suratkeluar.vue?vue&type=template&id=1d5cd787&":
-/*!***************************************************************************************!*\
-  !*** ./resources/js/components/sekdir/Suratkeluar.vue?vue&type=template&id=1d5cd787& ***!
-  \***************************************************************************************/
+/***/ "./resources/js/components/sekdir/Polis.vue?vue&type=template&id=9bff54b2&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/sekdir/Polis.vue?vue&type=template&id=9bff54b2& ***!
+  \*********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Suratkeluar_vue_vue_type_template_id_1d5cd787___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Suratkeluar.vue?vue&type=template&id=1d5cd787& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Suratkeluar.vue?vue&type=template&id=1d5cd787&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Suratkeluar_vue_vue_type_template_id_1d5cd787___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Polis_vue_vue_type_template_id_9bff54b2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Polis.vue?vue&type=template&id=9bff54b2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Polis.vue?vue&type=template&id=9bff54b2&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Polis_vue_vue_type_template_id_9bff54b2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Suratkeluar_vue_vue_type_template_id_1d5cd787___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Polis_vue_vue_type_template_id_9bff54b2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

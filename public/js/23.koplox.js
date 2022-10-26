@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[23],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Satuan.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Satuan.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Pendidikan.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Pendidikan.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -210,7 +210,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      // props: ["namasatuan"],
+      // props: ["pendidikan_terakhir"],
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       editmode: false,
       dialog: false,
@@ -220,24 +220,24 @@ __webpack_require__.r(__webpack_exports__);
       multiLine: true,
       snackColor: '',
       snackText: '',
-      max25chars: function max25chars(v) {
-        return v.length <= 25 || 'Input too long!';
+      max100chars: function max100chars(v) {
+        return v.length <= 100 || 'Input too long!';
       },
-      satuan: [],
+      pendidikan: [],
       editedIndex: -1,
       editedItem: {
         id: '',
-        namasatuan: '',
-        namasatuanEdit: '',
-        satuanRules: [function (v) {
-          return !!v || 'Nama satuan belum diisi';
+        pendidikan_terakhir: '',
+        pendidikan_terakhirEdit: '',
+        pendidikanRules: [function (v) {
+          return !!v || 'Nama pendidikan belum diisi';
         }]
       },
       valid: true,
       kantor_id: '',
       form: new Form({
         id: '',
-        namasatuan: ''
+        pendidikan_terakhir: ''
       })
     };
   },
@@ -249,8 +249,8 @@ __webpack_require__.r(__webpack_exports__);
         align: 'center',
         sortable: false
       }, {
-        text: 'Satuan',
-        value: 'namasatuan'
+        text: 'pendidikan',
+        value: 'pendidikan_terakhir'
       }];
 
       if (this.$gate.isAdmin()) {
@@ -289,7 +289,7 @@ __webpack_require__.r(__webpack_exports__);
       this.snackColor = 'info';
       this.snackText = 'Enter = Simpan';
       this.editedItem.id = item.id;
-      this.editedItem.namasatuan = item.namasatuan; //console.log(this.item.namasatuan);
+      this.editedItem.pendidikan_terakhir = item.pendidikan_terakhir; //console.log(this.item.pendidikan_terakhir);
       //alert(this.item.id)
     },
     close: function close() {
@@ -315,27 +315,27 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.$gate.isAdmin()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/satuan").then(function (response) {
-          _this.satuan = response.data.data; // this.kantor_id = this.$kantor_id;
+        axios.get("api/pendidikan").then(function (response) {
+          _this.pendidikan = response.data.data; // this.kantor_id = this.$kantor_id;
           // this.form.fill
-          //console.log(this.satuan);
+          //console.log(this.pendidikan);
           //console.log(this.kantor_id)
         });
       }
 
       this.$Progress.finish();
     },
-    editSatuan: function editSatuan(item) {
-      this.editedIndex = this.satuan.indexOf(item);
+    editpendidikan: function editpendidikan(item) {
+      this.editedIndex = this.pendidikan.indexOf(item);
       this.item.id = item.id;
-      this.item.namasatuan = item.namasatuan;
+      this.item.pendidikan_terakhir = item.pendidikan_terakhir;
       console.log(this.item.id); //alert(this.item.id)
     },
     newModal: function newModal() {
       this.editmode = false;
       $('#addNew').modal('show');
       this.$refs.form.reset();
-      this.editedItem.namasatuan = '';
+      this.editedItem.pendidikan_terakhir = '';
     },
     createUser: function createUser() {
       var _this2 = this;
@@ -350,9 +350,9 @@ __webpack_require__.r(__webpack_exports__);
       }; // //this.append('file', this.file);
 
       var formData = new FormData();
-      formData.set('namasatuan', this.editedItem.namasatuan);
-      axios.post('api/satuan', formData, config).then(function (response) {
-        $('#addNew').modal('hide'); //  console.log(this.namasatuan);
+      formData.set('pendidikan_terakhir', this.editedItem.pendidikan_terakhir);
+      axios.post('api/pendidikan', formData, config).then(function (response) {
+        $('#addNew').modal('hide'); //  console.log(this.pendidikan_terakhir);
 
         Toast.fire({
           icon: 'success',
@@ -366,7 +366,7 @@ __webpack_require__.r(__webpack_exports__);
         //Swal.fire("Failed!", data.message, "warning");
         Toast.fire({
           icon: 'error',
-          title: 'Gagal tambah satuan, ulangi!' //title: response.message
+          title: 'Gagal tambah pendidikan, ulangi!' //title: response.message
 
         });
       });
@@ -382,12 +382,12 @@ __webpack_require__.r(__webpack_exports__);
         } // headers: {'X-Custom-Header': 'value'}
 
       };
-      this.$Progress.start(); //alert(this.editedItem.namasatuan);
+      this.$Progress.start(); //alert(this.editedItem.pendidikan_terakhir);
 
       var formData = new FormData();
-      formData.set('namasatuan', this.editedItem.namasatuan);
+      formData.set('pendidikan_terakhir', this.editedItem.pendidikan_terakhir);
       formData.append("_method", "PUT");
-      axios.post('api/satuan/' + this.editedItem.id, formData).then(function (response) {
+      axios.post('api/pendidikan/' + this.editedItem.id, formData).then(function (response) {
         // success
         $('#addNew').modal('hide');
         Toast.fire({
@@ -416,7 +416,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this4.form["delete"]('api/satuan/' + id).then(function () {
+          _this4.form["delete"]('api/pendidikan/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
             _this4.initialize();
@@ -431,10 +431,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Satuan.vue?vue&type=template&id=bb3697f4&":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Satuan.vue?vue&type=template&id=bb3697f4& ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Pendidikan.vue?vue&type=template&id=1d6cd75f&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Pendidikan.vue?vue&type=template&id=1d6cd75f& ***!
+  \*********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -462,7 +462,7 @@ var render = function () {
             [
               _c(
                 "v-col",
-                { attrs: { cols: "6" } },
+                { attrs: { cols: "7" } },
                 [
                   _vm.$gate.isAdmin()
                     ? _c(
@@ -481,7 +481,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    Master Satuan\n                "
+                                  "\r\n                    Master Pendidikan\r\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -499,7 +499,7 @@ var render = function () {
                                 },
                                 [
                                   _c("v-icon", [_vm._v("mdi-plus-box")]),
-                                  _vm._v(" Tambah\n                  "),
+                                  _vm._v(" Tambah\r\n                  "),
                                 ],
                                 1
                               ),
@@ -515,7 +515,7 @@ var render = function () {
                                 staticClass: "elevation-3",
                                 attrs: {
                                   headers: _vm.headers,
-                                  items: _vm.satuan,
+                                  items: _vm.pendidikan,
                                   search: _vm.search,
                                   justify: "center",
                                   dense: "",
@@ -528,9 +528,9 @@ var render = function () {
                                         var index = ref.index
                                         return [
                                           _vm._v(
-                                            "\n                    " +
+                                            "\r\n                    " +
                                               _vm._s(index + 1) +
-                                              "\n                "
+                                              "\r\n                "
                                           ),
                                         ]
                                       },
@@ -554,7 +554,8 @@ var render = function () {
                                               _c("v-text-field", {
                                                 attrs: {
                                                   "append-icon": "mdi-magnify",
-                                                  label: "Cari Satuan",
+                                                  label:
+                                                    "Cari Pendidikan Terakhir",
                                                   "single-line": "",
                                                   "hide-details": "",
                                                   loading: "grey",
@@ -596,7 +597,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                    mdi-delete\n                "
+                                                "\r\n                    mdi-delete\r\n                "
                                               ),
                                             ]
                                           ),
@@ -604,7 +605,7 @@ var render = function () {
                                       },
                                     },
                                     {
-                                      key: "item.namasatuan",
+                                      key: "item.pendidikan_terakhir",
                                       fn: function (ref) {
                                         var item = ref.item
                                         return [
@@ -633,7 +634,7 @@ var render = function () {
                                                           },
                                                           [
                                                             _vm._v(
-                                                              "\n                            Edit Satuan\n                            "
+                                                              "\r\n                            Edit Pendidikan\r\n                            "
                                                             ),
                                                           ]
                                                         ),
@@ -641,7 +642,7 @@ var render = function () {
                                                         _c("v-text-field", {
                                                           attrs: {
                                                             rules: [
-                                                              _vm.max25chars,
+                                                              _vm.max100chars,
                                                             ],
                                                             label: "Edit",
                                                             "single-line": "",
@@ -650,18 +651,18 @@ var render = function () {
                                                           model: {
                                                             value:
                                                               _vm.editedItem
-                                                                .namasatuan,
+                                                                .pendidikan_terakhir,
                                                             callback: function (
                                                               $$v
                                                             ) {
                                                               _vm.$set(
                                                                 _vm.editedItem,
-                                                                "namasatuan",
+                                                                "pendidikan_terakhir",
                                                                 $$v
                                                               )
                                                             },
                                                             expression:
-                                                              "editedItem.namasatuan",
+                                                              "editedItem.pendidikan_terakhir",
                                                           },
                                                         }),
                                                       ]
@@ -675,9 +676,11 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                        " +
-                                                  _vm._s(item.namasatuan) +
-                                                  "\n                        "
+                                                "\r\n                        " +
+                                                  _vm._s(
+                                                    item.pendidikan_terakhir
+                                                  ) +
+                                                  "\r\n                        "
                                               ),
                                             ]
                                           ),
@@ -687,7 +690,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  4163475818
+                                  1535677955
                                 ),
                               }),
                             ],
@@ -740,7 +743,7 @@ var render = function () {
                                 ),
                                 [
                                   _vm._v(
-                                    "\n                    Close\n                    "
+                                    "\r\n                    Close\r\n                    "
                                   ),
                                 ]
                               ),
@@ -758,9 +761,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                " +
+                        "\r\n                " +
                           _vm._s(_vm.snackText) +
-                          "\n\n                "
+                          "\r\n\r\n                "
                       ),
                     ]
                   ),
@@ -808,7 +811,7 @@ var render = function () {
                             ],
                             staticClass: "modal-title",
                           },
-                          [_vm._v("Tambah Satuan")]
+                          [_vm._v("Tambah Pendidikan")]
                         ),
                         _vm._v(" "),
                         _c(
@@ -897,26 +900,27 @@ var render = function () {
                                   [
                                     _c("v-text-field", {
                                       attrs: {
-                                        rules: _vm.editedItem.satuanRules,
-                                        label: "Satuan",
-                                        name: "namasatuan",
-                                        placeholder: "Satuan",
+                                        rules: _vm.editedItem.pendidikanRules,
+                                        label: "Nama pendidikan",
+                                        name: "pendidikan_terakhir",
+                                        placeholder: "input",
                                         outlined: "",
                                         required: "",
                                         dense: "",
-                                        "prepend-icon":
-                                          "mdi-ruler-square-compass",
+                                        "prepend-icon": "mdi-account-plus",
                                       },
                                       model: {
-                                        value: _vm.editedItem.namasatuan,
+                                        value:
+                                          _vm.editedItem.pendidikan_terakhir,
                                         callback: function ($$v) {
                                           _vm.$set(
                                             _vm.editedItem,
-                                            "namasatuan",
+                                            "pendidikan_terakhir",
                                             $$v
                                           )
                                         },
-                                        expression: "editedItem.namasatuan",
+                                        expression:
+                                          "editedItem.pendidikan_terakhir",
                                       },
                                     }),
                                   ],
@@ -944,7 +948,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-cancel")]),
                                   _vm._v(
-                                    "\n                            Batal\n                        "
+                                    "\r\n                            Batal\r\n                        "
                                   ),
                                 ],
                                 1
@@ -970,7 +974,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-pencil")]),
                                   _vm._v(
-                                    "\n                            Ubah\n                        "
+                                    "\r\n                            Ubah\r\n                        "
                                   ),
                                 ],
                                 1
@@ -996,7 +1000,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-plus-box")]),
                                   _vm._v(
-                                    "\n                            Tambah\n                        "
+                                    "\r\n                            Tambah\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1027,17 +1031,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/setting/Satuan.vue":
-/*!****************************************************!*\
-  !*** ./resources/js/components/setting/Satuan.vue ***!
-  \****************************************************/
+/***/ "./resources/js/components/setting/Pendidikan.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/setting/Pendidikan.vue ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Satuan_vue_vue_type_template_id_bb3697f4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Satuan.vue?vue&type=template&id=bb3697f4& */ "./resources/js/components/setting/Satuan.vue?vue&type=template&id=bb3697f4&");
-/* harmony import */ var _Satuan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Satuan.vue?vue&type=script&lang=js& */ "./resources/js/components/setting/Satuan.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Pendidikan_vue_vue_type_template_id_1d6cd75f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pendidikan.vue?vue&type=template&id=1d6cd75f& */ "./resources/js/components/setting/Pendidikan.vue?vue&type=template&id=1d6cd75f&");
+/* harmony import */ var _Pendidikan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pendidikan.vue?vue&type=script&lang=js& */ "./resources/js/components/setting/Pendidikan.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1047,9 +1051,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Satuan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Satuan_vue_vue_type_template_id_bb3697f4___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Satuan_vue_vue_type_template_id_bb3697f4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Pendidikan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Pendidikan_vue_vue_type_template_id_1d6cd75f___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Pendidikan_vue_vue_type_template_id_1d6cd75f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1059,38 +1063,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/setting/Satuan.vue"
+component.options.__file = "resources/js/components/setting/Pendidikan.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/setting/Satuan.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************!*\
-  !*** ./resources/js/components/setting/Satuan.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************/
+/***/ "./resources/js/components/setting/Pendidikan.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/setting/Pendidikan.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Satuan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Satuan.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Satuan.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Satuan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pendidikan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Pendidikan.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Pendidikan.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pendidikan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/setting/Satuan.vue?vue&type=template&id=bb3697f4&":
-/*!***********************************************************************************!*\
-  !*** ./resources/js/components/setting/Satuan.vue?vue&type=template&id=bb3697f4& ***!
-  \***********************************************************************************/
+/***/ "./resources/js/components/setting/Pendidikan.vue?vue&type=template&id=1d6cd75f&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/setting/Pendidikan.vue?vue&type=template&id=1d6cd75f& ***!
+  \***************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Satuan_vue_vue_type_template_id_bb3697f4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Satuan.vue?vue&type=template&id=bb3697f4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Satuan.vue?vue&type=template&id=bb3697f4&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Satuan_vue_vue_type_template_id_bb3697f4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pendidikan_vue_vue_type_template_id_1d6cd75f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Pendidikan.vue?vue&type=template&id=1d6cd75f& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Pendidikan.vue?vue&type=template&id=1d6cd75f&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pendidikan_vue_vue_type_template_id_1d6cd75f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Satuan_vue_vue_type_template_id_bb3697f4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pendidikan_vue_vue_type_template_id_1d6cd75f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

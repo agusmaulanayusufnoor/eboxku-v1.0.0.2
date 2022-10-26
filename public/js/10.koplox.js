@@ -1,16 +1,14 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[10],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pelayanan/Deposito.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pelayanan/Deposito.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pelayanan/Bakas.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pelayanan/Bakas.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -23,30 +21,6 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -315,20 +289,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       dialog: false,
       dialogDelete: false,
       search: '',
-      deposito: [],
+      //   headers: [
+      //     {
+      //     text: 'No',
+      //     value: 'index',
+      //     },
+      //     { text: 'Kantor', value: 'nama_kantor',align: 'start', },
+      //     {
+      //       text: 'Nama File',
+      //       value: 'namafile',
+      //     },
+      //     { text: 'Tanggal File', value: 'tanggal' },
+      //     { text: 'Download File', value: 'file', sortable: false,align: 'center'  },
+      //     { text: 'Hapus', value: 'actions', sortable: false },
+      //   ],
+      bakas: [],
       valid: true,
       file: null,
       id: '',
       kantor_id: '',
-      no_rekening: '',
-      norekRules: [function (v) {
-        return !!v || 'No Rekening Belum Diisi';
-      }],
-      cekNorekData: [],
-      pesaneror: [],
       namafile: '',
       nameRules: [function (v) {
-        return !!v || 'Nama File Belum Diisi';
+        return !!v || 'Nama file belum diisi';
       }],
       menu1: false,
       menu2: false,
@@ -358,18 +340,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         align: 'center',
         sortable: false
       }, {
-        text: 'No Rekening',
-        value: 'no_rekening'
-      }, {
-        text: 'Tanggal File',
-        value: 'tanggal'
-      }, {
         text: 'Kantor',
         value: 'nama_kantor',
         align: 'start'
       }, {
         text: 'Nama File',
         value: 'namafile'
+      }, {
+        text: 'Tanggal File',
+        value: 'tanggal'
       }];
       headers.push({
         text: 'Download File',
@@ -410,71 +389,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   //     console.log(this.$kantor_id)
   //   },
   created: function created() {
-    this.$Progress.start(); //console.log(this.kantor_id)
-
+    this.$Progress.start();
+    console.log(this.kantor_id);
     this.initialize();
     this.$Progress.finish();
   },
   methods: {
-    cekNorek: function cekNorek() {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var formData, response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if (!(_this.$gate.isAdmin() || _this.$gate.isPelayanan())) {
-                  _context.next = 7;
-                  break;
-                }
-
-                formData = new FormData();
-                formData.set('no_rekening', _this.no_rekening); //const response = await axios.get('api/deposito/ceknama')
-
-                _context.next = 5;
-                return axios.post('api/deposito/ceknorek', formData);
-
-              case 5:
-                response = _context.sent;
-
-                //this.cekNorekData = response.data.data[0].no_rekening;
-                if (response.data.message == 'adarek') {
-                  _this.cekNorekData = response.data.data[0].no_rekening;
-                  _this.pesaneror = 'No Rekening ' + _this.cekNorekData + ' Sudah Ada'; // console.log(this.cekNorekData);
-
-                  Toast.fire({
-                    icon: 'error',
-                    //title: response.data.message
-                    title: 'No Rekening ' + response.data.data[0].no_rekening + ' Sudah Ada Dalam Data'
-                  });
-
-                  _this.initialize();
-                } //endif response
-
-
-              case 7:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    norekKeyboard: function norekKeyboard(evt) {
-      evt = evt ? evt : window.event;
-      var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul
-
-      if (charCode > 31 && (charCode < 48 || charCode > 57) && (charCode < 95 || charCode > 105) && charCode !== 46 && charCode !== 68) {
-        //tidak boleh tombol '/' dan '\'
-        //if (charCode === 191 || charCode===220) {
-        evt.preventDefault();
-      } else {
-        this.no_rekening = this.no_rekening.toUpperCase();
-        return true;
-      }
-    },
     pencetKeyboard: function pencetKeyboard(evt) {
       evt = evt ? evt : window.event;
       var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul
@@ -483,6 +403,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (charCode === 191 || charCode === 220) {
         evt.preventDefault();
+        ;
       } else {
         return true;
       }
@@ -510,17 +431,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return "".concat(year, "-").concat(month.padStart(2, '0'), "-").concat(day.padStart(2, '0'));
     },
     initialize: function initialize() {
-      var _this2 = this;
+      var _this = this;
 
       this.$Progress.start();
 
       if (this.$gate.isAdmin() || this.$gate.isPelayanan()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/deposito").then(function (response) {
-          _this2.deposito = response.data.data;
-          _this2.kantor_id = _this2.$kantor_id; // this.form.fill
-          // console.log(this.deposito);
-          // console.log(this.kantor_id)
+        axios.get("api/bakas").then(function (response) {
+          _this.bakas = response.data.data;
+          _this.kantor_id = _this.$kantor_id; // this.form.fill
+          //console.log(this.bakas);
+          //console.log(this.kantor_id)
         });
       }
 
@@ -537,11 +458,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       $('#addNew').modal('show');
       this.$refs.form.reset();
       this.namafile = '';
-      this.no_rekening = '';
-      this.pesaneror = '';
     },
+    // uploadFile(e){
+    //         // `files` is always an array because the file input may be in multiple mode
+    //         console.log(e);
+    //         this.file = e.target.files[0];
+    // },
     createUser: function createUser() {
-      var _this3 = this;
+      var _this2 = this;
 
       this.$refs.form.validate();
       this.$Progress.start(); // e.preventDefault();
@@ -554,22 +478,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       var formData = new FormData();
       formData.set('kantor_id', this.kantor_id);
-      formData.set('no_rekening', this.no_rekening);
       formData.set('namafile', this.namafile);
       formData.set('tanggal', this.tanggal);
       formData.set('file', this.file); // formData.append('file', this.file);
       // console.log(this.file);
 
-      axios.post('api/deposito', formData, config).then(function (response) {
+      axios.post('api/bakas', formData, config).then(function (response) {
         $('#addNew').modal('hide');
         Toast.fire({
           icon: 'success',
           title: response.data.message
         });
 
-        _this3.$Progress.finish();
+        _this2.$Progress.finish();
 
-        _this3.initialize();
+        _this2.initialize();
       })["catch"](function (error) {
         //Swal.fire("Failed!", data.message, "warning");
         var errors = error.response.data.errors; // Loop this object and pring Key or value or both
@@ -590,14 +513,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     downloadFile: function downloadFile(id, file) {
       axios({
-        url: 'api/deposito/download/' + id,
+        url: 'api/bakas/download/' + id,
         method: 'GET',
         responseType: 'blob'
       }).then(function (response) {
         var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement('a');
         fileLink.href = fileUrl;
-        fileLink.setAttribute('download', 'tabfile.zip');
+        fileLink.setAttribute('download', 'bakas.zip');
         fileLink.download = file;
         document.body.appendChild(fileLink);
         fileLink.click();
@@ -606,11 +529,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     updateUser: function updateUser() {
-      var _this4 = this;
+      var _this3 = this;
 
       this.$Progress.start(); // console.log('Editing data');
 
-      this.form.put('api/deposito/' + this.form.id).then(function (response) {
+      this.form.put('api/bakas/' + this.form.id).then(function (response) {
         // success
         $('#addNew').modal('hide');
         Toast.fire({
@@ -618,16 +541,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           title: response.data.message
         });
 
-        _this4.$Progress.finish(); //  Fire.$emit('AfterCreate');
+        _this3.$Progress.finish(); //  Fire.$emit('AfterCreate');
 
 
-        _this4.initialize();
+        _this3.initialize();
       })["catch"](function () {
-        _this4.$Progress.fail();
+        _this3.$Progress.fail();
       });
     },
     deleteUser: function deleteUser(id) {
-      var _this5 = this;
+      var _this4 = this;
 
       Swal.fire({
         title: 'Yakin dihapus?',
@@ -639,10 +562,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this5.form["delete"]('api/deposito/' + id).then(function () {
+          _this4.form["delete"]('api/bakas/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
-            _this5.initialize();
+            _this4.initialize();
           })["catch"](function (data) {
             Swal.fire("Failed!", data.message, "warning");
           });
@@ -654,10 +577,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pelayanan/Deposito.vue?vue&type=template&id=3e0385e2&":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pelayanan/Deposito.vue?vue&type=template&id=3e0385e2& ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pelayanan/Bakas.vue?vue&type=template&id=1317a53d&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pelayanan/Bakas.vue?vue&type=template&id=1317a53d& ***!
+  \******************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -705,7 +628,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    File Deposito\n                "
+                                  "\n                    File Berita Acara Kas\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -739,7 +662,7 @@ var render = function () {
                                 staticClass: "elevation-3",
                                 attrs: {
                                   headers: _vm.headers,
-                                  items: _vm.deposito,
+                                  items: _vm.bakas,
                                   search: _vm.search,
                                   justify: "center",
                                   dense: "",
@@ -1078,51 +1001,10 @@ var render = function () {
                                   [
                                     _c("v-text-field", {
                                       attrs: {
-                                        rules: _vm.norekRules,
-                                        name: "no_rekening",
-                                        label: "Nomor Rekening deposito",
-                                        placeholder: "No. Rekening Tanpa Titik",
-                                        counter: "",
-                                        maxlength: "12",
-                                        outlined: "",
-                                        required: "",
-                                        dense: "",
-                                        "prepend-icon": "mdi-file",
-                                        hint: "",
-                                        "persistent-hint": "",
-                                        "error-messages": _vm.pesaneror,
-                                      },
-                                      on: {
-                                        keydown: function ($event) {
-                                          return _vm.norekKeyboard($event)
-                                        },
-                                        change: function ($event) {
-                                          return _vm.cekNorek()
-                                        },
-                                      },
-                                      model: {
-                                        value: _vm.no_rekening,
-                                        callback: function ($$v) {
-                                          _vm.no_rekening = $$v
-                                        },
-                                        expression: "no_rekening",
-                                      },
-                                    }),
-                                    _vm._v(" "),
-                                    _c("has-error", {
-                                      attrs: {
-                                        form: _vm.form,
-                                        field: "namafile",
-                                      },
-                                    }),
-                                    _vm._v(" "),
-                                    _c("v-text-field", {
-                                      attrs: {
                                         rules: _vm.nameRules,
                                         name: "namafile",
                                         label: "Nama File",
-                                        placeholder:
-                                          "Nama File: 'nama_nasabah'",
+                                        placeholder: "Nama File",
                                         outlined: "",
                                         required: "",
                                         dense: "",
@@ -1193,7 +1075,7 @@ var render = function () {
                                                                     label:
                                                                       "Tanggal File",
                                                                     placeholder:
-                                                                      "Tanggal Buka Rekening",
+                                                                      "dd/mm/yyyy",
                                                                     "prepend-icon":
                                                                       "mdi-calendar",
                                                                     outlined:
@@ -1471,17 +1353,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/pelayanan/Deposito.vue":
-/*!********************************************************!*\
-  !*** ./resources/js/components/pelayanan/Deposito.vue ***!
-  \********************************************************/
+/***/ "./resources/js/components/pelayanan/Bakas.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/pelayanan/Bakas.vue ***!
+  \*****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Deposito_vue_vue_type_template_id_3e0385e2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Deposito.vue?vue&type=template&id=3e0385e2& */ "./resources/js/components/pelayanan/Deposito.vue?vue&type=template&id=3e0385e2&");
-/* harmony import */ var _Deposito_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Deposito.vue?vue&type=script&lang=js& */ "./resources/js/components/pelayanan/Deposito.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Bakas_vue_vue_type_template_id_1317a53d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Bakas.vue?vue&type=template&id=1317a53d& */ "./resources/js/components/pelayanan/Bakas.vue?vue&type=template&id=1317a53d&");
+/* harmony import */ var _Bakas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Bakas.vue?vue&type=script&lang=js& */ "./resources/js/components/pelayanan/Bakas.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1491,9 +1373,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Deposito_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Deposito_vue_vue_type_template_id_3e0385e2___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Deposito_vue_vue_type_template_id_3e0385e2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Bakas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Bakas_vue_vue_type_template_id_1317a53d___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Bakas_vue_vue_type_template_id_1317a53d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1503,38 +1385,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/pelayanan/Deposito.vue"
+component.options.__file = "resources/js/components/pelayanan/Bakas.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/pelayanan/Deposito.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************!*\
-  !*** ./resources/js/components/pelayanan/Deposito.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************/
+/***/ "./resources/js/components/pelayanan/Bakas.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/pelayanan/Bakas.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Deposito_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Deposito.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pelayanan/Deposito.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Deposito_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Bakas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Bakas.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pelayanan/Bakas.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Bakas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/pelayanan/Deposito.vue?vue&type=template&id=3e0385e2&":
-/*!***************************************************************************************!*\
-  !*** ./resources/js/components/pelayanan/Deposito.vue?vue&type=template&id=3e0385e2& ***!
-  \***************************************************************************************/
+/***/ "./resources/js/components/pelayanan/Bakas.vue?vue&type=template&id=1317a53d&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/pelayanan/Bakas.vue?vue&type=template&id=1317a53d& ***!
+  \************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Deposito_vue_vue_type_template_id_3e0385e2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Deposito.vue?vue&type=template&id=3e0385e2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pelayanan/Deposito.vue?vue&type=template&id=3e0385e2&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Deposito_vue_vue_type_template_id_3e0385e2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Bakas_vue_vue_type_template_id_1317a53d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Bakas.vue?vue&type=template&id=1317a53d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pelayanan/Bakas.vue?vue&type=template&id=1317a53d&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Bakas_vue_vue_type_template_id_1317a53d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Deposito_vue_vue_type_template_id_3e0385e2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Bakas_vue_vue_type_template_id_1317a53d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

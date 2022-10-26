@@ -41,6 +41,9 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::post('deposito/ceknorek', 'DepositoController@ceknorek');
     Route::get('kredit/download/{kredit}', 'KreditController@downloadfile');
     Route::post('kredit/ceknorek', 'KreditController@ceknorek');
+    Route::get('pelunasan/download/{pelunasan}', 'PelunasanController@downloadfile');
+    Route::post('pelunasan/ceknorek', 'PelunasanController@ceknorek');
+    Route::get('pelunasan/getkantor', 'Kode_kantorController@index');
     Route::get('teller/download/{teller}', 'TellerController@downloadfile');
     Route::get('teller/getotorisator', 'OtorisatorController@index');
     Route::get('kaskecil/download/{kaskecil}', 'KaskecilController@downloadfile');
@@ -117,6 +120,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
 
         //kredit
         'kredit'      => 'KreditController',
+        'pelunasan'   => 'PelunasanController',
 
         //akunting
         'kaskecil'      => 'KaskecilController',
