@@ -164,4 +164,56 @@ class OverbookingController extends BaseController
         }
 
     }
+
+    public function filterkantor(Request $request)
+    {
+        //dd($request->all());
+         $kantor_id = $request->kantor_id;
+
+
+    //$id_kantor  = Auth::user()->kantor_id;
+        $levelLogin = Auth::user()->type;
+       // $stock=stock::all();
+       //$overbooking= $this->overbooking->latest()->get();
+        if($levelLogin === 'admin'){
+
+
+            $overbooking  = DB::table('overbooking')
+            ->join('kode_kantors', 'overbooking.kantor_id', '=', 'kode_kantors.id')
+            ->join('otorisator','overbooking.otorisator_id', '=', 'otorisator.id')
+            ->where('overbooking.kantor_id',$kantor_id)
+            ->select('overbooking.id','overbooking.namafile','overbooking.tanggal','overbooking.file',
+            'overbooking.kantor_id','kode_kantors.nama_kantor','otorisator.namaotorisator')
+            ->orderBy('id','desc')
+            ->get();
+
+        }
+        return $this->sendResponse($overbooking, 'overbooking list');
+    }
+
+    public function filterotorisator(Request $request)
+    {
+        //dd($request->all());
+         $oto_id = $request->otorisator_id;
+
+
+    //$id_kantor  = Auth::user()->kantor_id;
+        $levelLogin = Auth::user()->type;
+       // $stock=stock::all();
+       //$overbooking= $this->overbooking->latest()->get();
+        if($levelLogin === 'admin'){
+
+
+            $overbooking  = DB::table('overbooking')
+            ->join('kode_kantors', 'overbooking.kantor_id', '=', 'kode_kantors.id')
+            ->join('otorisator','overbooking.otorisator_id', '=', 'otorisator.id')
+            ->where('overbooking.otorisator_id',$oto_id)
+            ->select('overbooking.id','overbooking.namafile','overbooking.tanggal','overbooking.file',
+            'overbooking.kantor_id','kode_kantors.nama_kantor','otorisator.namaotorisator')
+            ->orderBy('id','desc')
+            ->get();
+
+        }
+        return $this->sendResponse($overbooking, 'overbooking list');
+    }
 }

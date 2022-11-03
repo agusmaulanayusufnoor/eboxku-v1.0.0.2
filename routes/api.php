@@ -50,6 +50,9 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('kaskecil/getotorisator', 'OtorisatorController@index');
     Route::get('overbooking/download/{overbooking}', 'OverbookingController@downloadfile');
     Route::get('overbooking/getotorisator', 'OtorisatorController@index');
+    Route::get('overbooking/getkantor', 'Kode_kantorController@index');
+    Route::get('overbooking/filterkantor', 'OverbookingController@filterkantor');
+    Route::get('overbooking/filterotorisator', 'OverbookingController@filterotorisator');
     Route::get('rekkoranaba/download/{rekkoranaba}', 'RekkoranabaController@downloadfile');
     Route::get('skdir/download/{skdir}', 'SkdirController@downloadfile');
     Route::post('skdir/ceknorek', 'SkdirController@ceknorek');

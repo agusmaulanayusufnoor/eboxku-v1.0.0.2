@@ -302,6 +302,28 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data(vm) {
     return {
@@ -326,6 +348,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       //   ],
       namaOtorisator: [],
       otorisator_id: '',
+      id_kantor: '',
+      namaKantor: [],
       pesaneror: '',
       overbooking: [],
       valid: true,
@@ -463,7 +487,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       if (this.$gate.isAdmin() || this.$gate.isAK()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/kaskecil/getotorisator").then(function (response) {
+        axios.get("api/overbooking/getotorisator").then(function (response) {
           _this.namaOtorisator = response.data.data; //console.log(this.editedItem.namaBarang);
           //console.log(this.kantor_id)
         })["catch"](function (error) {
@@ -471,16 +495,29 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         });
       }
     },
-    initialize: function initialize() {
+    getKantor: function getKantor() {
       var _this2 = this;
+
+      if (this.$gate.isAdmin()) {
+        //axios.get("api/user").then((response) => {(this.users = response.data.data)});
+        axios.get("api/overbooking/getkantor").then(function (response) {
+          _this2.editedItem.namaKantor = response.data.data; //console.log(this.editedItem.namaKantor);
+          //console.log(this.kantor_id)
+        })["catch"](function (error) {
+          console.log(error.response.data);
+        });
+      }
+    },
+    initialize: function initialize() {
+      var _this3 = this;
 
       this.$Progress.start();
 
       if (this.$gate.isAdmin() || this.$gate.isAK()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
         axios.get("api/overbooking").then(function (response) {
-          _this2.overbooking = response.data.data;
-          _this2.kantor_id = _this2.$kantor_id; // this.form.fill
+          _this3.overbooking = response.data.data;
+          _this3.kantor_id = _this3.$kantor_id; // this.form.fill
           //console.log(this.overbooking);
           //console.log(this.kantor_id)
         });
@@ -506,7 +543,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     //         this.file = e.target.files[0];
     // },
     createUser: function createUser() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.$refs.form.validate();
       this.$Progress.start(); // e.preventDefault();
@@ -532,9 +569,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           title: response.data.message
         });
 
-        _this3.$Progress.finish();
+        _this4.$Progress.finish();
 
-        _this3.initialize();
+        _this4.initialize();
       })["catch"](function (error) {
         //Swal.fire("Failed!", data.message, "warning");
         var errors = error.response.data.errors; // Loop this object and pring Key or value or both
@@ -571,7 +608,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       });
     },
     updateUser: function updateUser() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.$Progress.start(); // console.log('Editing data');
 
@@ -583,16 +620,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           title: response.data.message
         });
 
-        _this4.$Progress.finish(); //  Fire.$emit('AfterCreate');
+        _this5.$Progress.finish(); //  Fire.$emit('AfterCreate');
 
 
-        _this4.initialize();
+        _this5.initialize();
       })["catch"](function () {
-        _this4.$Progress.fail();
+        _this5.$Progress.fail();
       });
     },
     deleteUser: function deleteUser(id) {
-      var _this5 = this;
+      var _this6 = this;
 
       Swal.fire({
         title: 'Yakin dihapus?',
@@ -604,10 +641,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this5.form["delete"]('api/overbooking/' + id).then(function () {
+          _this6.form["delete"]('api/overbooking/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
-            _this5.initialize();
+            _this6.initialize();
           })["catch"](function (data) {
             Swal.fire("Failed!", data.message, "warning");
           });
@@ -776,6 +813,69 @@ var render = function () {
                                             "v-toolbar",
                                             { attrs: { flat: "" } },
                                             [
+                                              _vm.$gate.isAdmin()
+                                                ? _c(
+                                                    "v-row",
+                                                    [
+                                                      _c(
+                                                        "v-col",
+                                                        {
+                                                          attrs: {
+                                                            cols: "8",
+                                                            sm: "8",
+                                                            md: "8",
+                                                          },
+                                                        },
+                                                        [
+                                                          _c("v-combobox", {
+                                                            ref: "CBKantor",
+                                                            attrs: {
+                                                              label: "Kantor",
+                                                              items:
+                                                                _vm.namaKantor,
+                                                              "item-value":
+                                                                "id",
+                                                              "item-text":
+                                                                "nama_kantor",
+                                                              placeholder:
+                                                                "Pilih Kantor",
+                                                              "single-line": "",
+                                                              "hide-details":
+                                                                "",
+                                                              "return-object": false,
+                                                            },
+                                                            on: {
+                                                              change: function (
+                                                                $event
+                                                              ) {
+                                                                return _vm.filterKantor()
+                                                              },
+                                                              click: function (
+                                                                $event
+                                                              ) {
+                                                                return _vm.getKantor()
+                                                              },
+                                                            },
+                                                            model: {
+                                                              value:
+                                                                _vm.id_kantor,
+                                                              callback:
+                                                                function ($$v) {
+                                                                  _vm.id_kantor =
+                                                                    $$v
+                                                                },
+                                                              expression:
+                                                                "id_kantor",
+                                                            },
+                                                          }),
+                                                        ],
+                                                        1
+                                                      ),
+                                                    ],
+                                                    1
+                                                  )
+                                                : _vm._e(),
+                                              _vm._v(" "),
                                               _c("v-spacer"),
                                               _vm._v(" "),
                                               _c("v-spacer"),
@@ -877,7 +977,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  3028880107
+                                  2803075931
                                 ),
                               }),
                             ],
