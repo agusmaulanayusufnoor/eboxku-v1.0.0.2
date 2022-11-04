@@ -48,6 +48,9 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('teller/getotorisator', 'OtorisatorController@index');
     Route::get('kaskecil/download/{kaskecil}', 'KaskecilController@downloadfile');
     Route::get('kaskecil/getotorisator', 'OtorisatorController@index');
+    Route::get('kaskecil/getkantor', 'Kode_kantorController@index');
+    Route::get('kaskecil/filterkantor', 'KaskecilController@filterkantor');
+    Route::get('kaskecil/filterotorisator', 'KaskecilController@filterotorisator');
     Route::get('overbooking/download/{overbooking}', 'OverbookingController@downloadfile');
     Route::get('overbooking/getotorisator', 'OtorisatorController@index');
     Route::get('overbooking/getkantor', 'Kode_kantorController@index');

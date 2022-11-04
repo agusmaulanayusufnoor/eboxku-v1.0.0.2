@@ -62,6 +62,7 @@
                                 single-line
                                 hide-details
                                 clearable
+                                ref="cbkantor"
                                 :return-object="false"
                                 persistent-hint :error-messages="pesaneror"
                                 @click="getKantor()"
@@ -86,13 +87,15 @@
                                 placeholder="Daftar Otorisator"
                                 single-line
                                 hide-details
+                                clearable
+                                ref="cboto"
                                 :return-object="false"
                                 persistent-hint :error-messages="pesaneror"
                                 @click="getOtorisator()"
                                 @change="filterOtorisator()"
                                 ></v-combobox>
                             </v-col>
-                        </v-row>
+                    </v-row>
                         <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
@@ -439,6 +442,8 @@
         console.log(this.kantor_id)
       this.initialize()
       this.$Progress.finish();
+      this.$refs.cboto.reset();
+      this.$refs.cbkantor.reset();
     },
 
     methods: {
@@ -593,7 +598,7 @@
              axios.get("api/overbooking")
                 .then((response) => {
                 this.overbooking = response.data.data;
-               // this.kantor_id = this.$kantor_id;
+                this.kantor_id = this.$kantor_id;
                 // this.form.fill
                 //console.log(this.overbooking);
                 //console.log(this.kantor_id)
@@ -601,6 +606,8 @@
             }
             //this.$refs.CBKantor.reset();
            this.$Progress.finish();
+           this.$refs.cboto.reset();
+           this.$refs.cbkantor.reset();
       },
      editModal(item){
                 this.editmode = true;
@@ -634,7 +641,7 @@
             formData.set('otorisator_id', this.otorisator_id)
             formData.set('file', this.file)
             // formData.append('file', this.file);
-           // console.log(this.file);
+            console.log(this.kantor_id);
             axios.post('api/overbooking',formData,config)
               .then((response)=>{
                   $('#addNew').modal('hide');
@@ -645,6 +652,9 @@
                   });
 
                   this.$Progress.finish();
+                  this.$refs.form.reset();
+                  this.$refs.cboto.reset();
+                  this.$refs.cbkantor.reset();
                   this.initialize();
 
               })

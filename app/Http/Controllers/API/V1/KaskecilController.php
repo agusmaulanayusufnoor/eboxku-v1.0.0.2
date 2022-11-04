@@ -165,4 +165,55 @@ class KaskecilController extends BaseController
         }
 
     }
+    public function filterkantor(Request $request)
+    {
+        //dd($request->all());
+         $kantor_id = $request->kantor_id;
+
+
+    //$id_kantor  = Auth::user()->kantor_id;
+        $levelLogin = Auth::user()->type;
+       // $stock=stock::all();
+       //$kaskecil= $this->kaskecil->latest()->get();
+        if($levelLogin === 'admin'){
+
+
+            $kaskecil  = DB::table('kaskecil')
+            ->join('kode_kantors', 'kaskecil.kantor_id', '=', 'kode_kantors.id')
+            ->join('otorisator','kaskecil.otorisator_id', '=', 'otorisator.id')
+            ->where('kantor_id', $kantor_id)
+            ->select('kaskecil.id','kaskecil.namafile','kaskecil.tanggal','kaskecil.file',
+            'kaskecil.kantor_id','kode_kantors.nama_kantor','otorisator.namaotorisator')
+            ->orderBy('id','desc')
+            ->get();
+
+        }
+        return $this->sendResponse($kaskecil, 'kaskecil list');
+    }
+
+    public function filterotorisator(Request $request)
+    {
+        //dd($request->all());
+         $oto_id = $request->otorisator_id;
+
+
+    //$id_kantor  = Auth::user()->kantor_id;
+        $levelLogin = Auth::user()->type;
+       // $stock=stock::all();
+       //$kaskecil= $this->kaskecil->latest()->get();
+        if($levelLogin === 'admin'){
+
+
+            $kaskecil  = DB::table('kaskecil')
+            ->join('kode_kantors', 'kaskecil.kantor_id', '=', 'kode_kantors.id')
+            ->join('otorisator','kaskecil.otorisator_id', '=', 'otorisator.id')
+            ->where('kaskecil.otorisator_id',$oto_id)
+            ->select('kaskecil.id','kaskecil.namafile','kaskecil.tanggal','kaskecil.file',
+            'kaskecil.kantor_id','kode_kantors.nama_kantor','otorisator.namaotorisator')
+            ->orderBy('id','desc')
+            ->get();
+
+        }
+        return $this->sendResponse($kaskecil, 'kaskecil list');
+    }
 }

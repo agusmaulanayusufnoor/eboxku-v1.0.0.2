@@ -46,7 +46,56 @@
 
                 <template v-slot:top>
                 <v-toolbar flat >
+                    <v-row v-if="$gate.isAdmin()">
+                        <v-col
+                                cols="8"
+                                sm="8"
+                                md="8"
+                            >
+                                <v-combobox
+                                v-model="id_kantor"
+                                label="Kantor"
+                                :items="namaKantor"
+                                item-value="id"
+                                item-text="nama_kantor"
+                                placeholder="Pilih Kantor"
+                                single-line
+                                hide-details
+                                clearable
+                                ref="cbkantor"
+                                :return-object="false"
+                                persistent-hint :error-messages="pesaneror"
+                                @click="getKantor()"
+                                @change="filterKantor()"
+                                ></v-combobox>
+                            </v-col>
+                    </v-row>
                     <v-spacer></v-spacer>
+
+                    <v-row>
+                    <v-col
+                                cols="10"
+                                sm="10"
+                                md="10"
+                            >
+                                <v-combobox
+                                v-model="otorisator_id"
+                                label="Otorisator"
+                                :items="namaOtorisator"
+                                item-value="id"
+                                item-text="namaotorisator"
+                                placeholder="Daftar Otorisator"
+                                single-line
+                                hide-details
+                                clearable
+                                ref="cboto"
+                                :return-object="false"
+                                persistent-hint :error-messages="pesaneror"
+                                @click="getOtorisator()"
+                                @change="filterOtorisator()"
+                                ></v-combobox>
+                            </v-col>
+                    </v-row>
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
@@ -306,6 +355,8 @@
      pesaneror:'',
      kaskecil:[],
      namaOtorisator:[],
+     id_kantor: '',
+      namaKantor:[],
      valid:true,
         file: null,
         id : '',
@@ -391,6 +442,8 @@
         console.log(this.kantor_id)
       this.initialize()
       this.$Progress.finish();
+      this.$refs.cboto.reset();
+      this.$refs.cbkantor.reset();
     },
 
     methods: {
@@ -435,6 +488,109 @@
             });
         }
     },
+    async getKantor() {
+
+if(this.$gate.isAdmin()){
+
+//axios.get("api/user").then((response) => {(this.users = response.data.data)});
+axios.get("api/kaskecil/getkantor")
+    .then((response) => {
+
+    this.namaKantor = response.data.data
+
+    console.log(this.namaKantor);
+    console.log(this.kantor_id)
+    }).catch((error)=>{
+    console.log(error.response.data);
+    });
+}
+},
+async filterKantor(){
+this.$Progress.start();
+    const formData = new FormData
+        formData.set('kantor_id', this.id_kantor);
+if(this.id_kantor !=''){
+if(this.$gate.isAdmin()){
+ axios.get("api/kaskecil/filterkantor",{
+    params: {
+      kantor_id: this.id_kantor
+    }
+  })
+    .then((response) => {
+        this.kaskecil = response.data.data;
+        this.kantor_id = this.$kantor_id;
+        // this.form.fill
+       // console.log(this.kaskecil);
+       // console.log(this.kantor_id)
+        }).catch((error)=>{
+        console.log(error.response.data);
+          });
+}
+}else{
+//Swal.fire("Gagal Filter", "Filter Tanggal Belum Dipilih...!", "warning");
+Swal.fire({
+  icon: 'error',
+  title: 'Error Filter',
+  text: 'Filter Kantor Belum Dipilih...! ',
+  width: 600,
+  padding: '3em',
+  color: '#ff0000',
+  background: '#ff0000 url(/images/kayu.jpg)',
+  backdrop: `
+    rgba(255,0,64,0.4)
+    url("/images/nyan-cat.gif")
+    left top
+    no-repeat
+  `
+})
+}
+
+this.$Progress.finish();
+},
+async filterOtorisator(){
+this.$Progress.start();
+    const formData = new FormData
+        formData.set('otorisator_id', this.otorisator_id);
+if(this.otorisator_id !=''){
+if(this.$gate.isAdmin()){
+ axios.get("api/kaskecil/filterotorisator",{
+    params: {
+        otorisator_id: this.otorisator_id
+    }
+  })
+    .then((response) => {
+        this.kaskecil = response.data.data;
+        this.otorisator_id = this.$otorisator_id;
+        // this.form.fill
+       // console.log(this.kaskecil);
+       // console.log(this.kantor_id)
+        }).catch((error)=>{
+        console.log(error.response.data);
+          });
+}
+}else{
+//Swal.fire("Gagal Filter", "Filter Tanggal Belum Dipilih...!", "warning");
+Swal.fire({
+  icon: 'error',
+  title: 'Error Filter',
+  text: 'Filter Otorisator Belum Dipilih...! ',
+  width: 600,
+  padding: '3em',
+  color: '#ff0000',
+  background: '#ff0000 url(/images/kayu.jpg)',
+  backdrop: `
+    rgba(255,0,64,0.4)
+    url("/images/nyan-cat.gif")
+    left top
+    no-repeat
+  `
+})
+}
+
+this.$Progress.finish();
+this.$refs.cboto.reset();
+      this.$refs.cbkantor.reset();
+},
       initialize() {
          this.$Progress.start();
 
@@ -452,6 +608,8 @@
             }
 
            this.$Progress.finish();
+           this.$refs.cboto.reset();
+           this.$refs.cbkantor.reset();
       },
      editModal(item){
                 this.editmode = true;
@@ -496,6 +654,9 @@
                   });
 
                   this.$Progress.finish();
+                  this.$refs.form.reset();
+                  this.$refs.cboto.reset();
+                 this.$refs.cbkantor.reset();
                   this.initialize();
 
               })
