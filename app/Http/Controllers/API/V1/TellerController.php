@@ -197,7 +197,7 @@ class TellerController extends BaseController
          $oto_id = $request->otorisator_id;
 
 
-    //$id_kantor  = Auth::user()->kantor_id;
+        $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
        // $stock=stock::all();
        //$teller= $this->teller->latest()->get();
