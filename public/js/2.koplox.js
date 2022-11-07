@@ -627,7 +627,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
                 formData.set('otorisator_id', _this4.otorisator_id);
 
                 if (_this4.otorisator_id != '') {
-                  if (_this4.$gate.isAdmin()) {
+                  if (_this4.$gate.isAdmin() || _this4.$gate.isAK()) {
                     axios.get("api/kaskecil/filterotorisator", {
                       params: {
                         otorisator_id: _this4.otorisator_id

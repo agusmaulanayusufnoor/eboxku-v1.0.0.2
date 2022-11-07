@@ -552,7 +552,7 @@
             const formData = new FormData
                 formData.set('otorisator_id', this.otorisator_id);
       if(this.otorisator_id !=''){
-        if(this.$gate.isAdmin()){
+        if(this.$gate.isAdmin() || this.$gate.isAK() ){
          axios.get("api/overbooking/filterotorisator",{
             params: {
                 otorisator_id: this.otorisator_id
