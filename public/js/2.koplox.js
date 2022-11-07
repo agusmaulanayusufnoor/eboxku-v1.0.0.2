@@ -734,12 +734,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
         _this6.$Progress.finish();
 
-        _this6.$refs.form.reset();
-
-        _this6.$refs.cboto.reset();
-
-        _this6.$refs.cbkantor.reset();
-
         _this6.initialize();
       })["catch"](function (error) {
         //Swal.fire("Failed!", data.message, "warning");

@@ -201,7 +201,7 @@ class OverbookingController extends BaseController
         $levelLogin = Auth::user()->type;
        // $stock=stock::all();
        //$overbooking= $this->overbooking->latest()->get();
-        if($levelLogin === 'admin'){
+        //if($levelLogin === 'admin'){
 
 
             $overbooking  = DB::table('overbooking')
@@ -213,7 +213,7 @@ class OverbookingController extends BaseController
             ->orderBy('id','desc')
             ->get();
 
-        }
+       // }
         return $this->sendResponse($overbooking, 'overbooking list');
     }
 }

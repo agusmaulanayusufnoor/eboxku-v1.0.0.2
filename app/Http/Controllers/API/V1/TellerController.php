@@ -165,4 +165,56 @@ class TellerController extends BaseController
 
     }
 
+    public function filterkantor(Request $request)
+    {
+        //dd($request->all());
+         $kantor_id = $request->kantor_id;
+
+
+    //$id_kantor  = Auth::user()->kantor_id;
+        $levelLogin = Auth::user()->type;
+       // $stock=stock::all();
+       //$teller= $this->teller->latest()->get();
+        if($levelLogin === 'admin'){
+
+
+            $teller  = DB::table('teller')
+            ->join('kode_kantors', 'teller.kantor_id', '=', 'kode_kantors.id')
+            ->join('otorisator','teller.otorisator_id', '=', 'otorisator.id')
+            ->where('kantor_id', $kantor_id)
+            ->select('teller.id','teller.namafile','teller.tanggal','teller.file',
+            'teller.kantor_id','kode_kantors.nama_kantor','otorisator.namaotorisator')
+            ->orderBy('id','desc')
+            ->get();
+
+        }
+        return $this->sendResponse($teller, 'teller list');
+    }
+
+    public function filterotorisator(Request $request)
+    {
+        //dd($request->all());
+         $oto_id = $request->otorisator_id;
+
+
+    //$id_kantor  = Auth::user()->kantor_id;
+        $levelLogin = Auth::user()->type;
+       // $stock=stock::all();
+       //$teller= $this->teller->latest()->get();
+       // if($levelLogin === 'admin'){
+
+
+            $teller  = DB::table('teller')
+            ->join('kode_kantors', 'teller.kantor_id', '=', 'kode_kantors.id')
+            ->join('otorisator','teller.otorisator_id', '=', 'otorisator.id')
+            ->where('teller.otorisator_id',$oto_id)
+            ->select('teller.id','teller.namafile','teller.tanggal','teller.file',
+            'teller.kantor_id','kode_kantors.nama_kantor','otorisator.namaotorisator')
+            ->orderBy('id','desc')
+            ->get();
+
+      //  }
+        return $this->sendResponse($teller, 'teller list');
+    }
+
 }

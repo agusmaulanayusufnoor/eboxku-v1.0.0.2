@@ -201,7 +201,7 @@ class KaskecilController extends BaseController
         $levelLogin = Auth::user()->type;
        // $stock=stock::all();
        //$kaskecil= $this->kaskecil->latest()->get();
-        if($levelLogin === 'admin'){
+        //if($levelLogin === 'admin'){
 
 
             $kaskecil  = DB::table('kaskecil')
@@ -213,7 +213,7 @@ class KaskecilController extends BaseController
             ->orderBy('id','desc')
             ->get();
 
-        }
+       // }
         return $this->sendResponse($kaskecil, 'kaskecil list');
     }
 }

@@ -652,9 +652,6 @@
                   });
 
                   this.$Progress.finish();
-                  this.$refs.form.reset();
-                  this.$refs.cboto.reset();
-                  this.$refs.cbkantor.reset();
                   this.initialize();
 
               })
