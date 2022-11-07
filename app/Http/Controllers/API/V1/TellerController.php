@@ -218,7 +218,7 @@ class TellerController extends BaseController
             ->join('kode_kantors', 'teller.kantor_id', '=', 'kode_kantors.id')
             ->join('otorisator','teller.otorisator_id', '=', 'otorisator.id')
             ->where('kantor_id', $id_kantor)
-            ->and('teller.otorisator_id',$oto_id)
+            ->where('teller.otorisator_id',$oto_id)
             ->select('teller.id','teller.namafile','teller.tanggal','teller.file',
             'teller.kantor_id','kode_kantors.nama_kantor','otorisator.namaotorisator')
             ->orderBy('id','desc')
