@@ -201,7 +201,7 @@ class TellerController extends BaseController
         $levelLogin = Auth::user()->type;
        // $stock=stock::all();
        //$teller= $this->teller->latest()->get();
-       // if($levelLogin === 'admin'){
+        if($levelLogin === 'admin'){
 
 
             $teller  = DB::table('teller')
@@ -213,7 +213,17 @@ class TellerController extends BaseController
             ->orderBy('id','desc')
             ->get();
 
-      //  }
+        }else{
+            $teller  = DB::table('teller')
+            ->join('kode_kantors', 'teller.kantor_id', '=', 'kode_kantors.id')
+            ->join('otorisator','teller.otorisator_id', '=', 'otorisator.id')
+            ->where('kantor_id', $id_kantor)
+            ->and('teller.otorisator_id',$oto_id)
+            ->select('teller.id','teller.namafile','teller.tanggal','teller.file',
+            'teller.kantor_id','kode_kantors.nama_kantor','otorisator.namaotorisator')
+            ->orderBy('id','desc')
+            ->get();
+        }
         return $this->sendResponse($teller, 'teller list');
     }
 
