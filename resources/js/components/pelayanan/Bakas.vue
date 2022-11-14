@@ -374,6 +374,7 @@
         async cekTgl (){
             if(this.$gate.isAdmin() || this.$gate.isPelayanan() ){
                 const formData = new FormData
+                formData.set('kantor_id', this.kantor_id)
                 formData.set('tanggal', this.tanggal)
                 //const response = await axios.get('api/kredit/ceknama')
                 const response = await axios.post('api/bakas/cektgl',formData)

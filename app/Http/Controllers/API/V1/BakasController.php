@@ -166,7 +166,7 @@ class BakasController extends BaseController
 
     public function cektgl(Request $request)
     {
-      $tgl = $request->tanggal;
+      $id_kantor = $request->kantor_id;
       $hari       = substr($request->tanggal,8,2);
         $bulan      = substr($request->tanggal,5,2);
         $tahun      = substr($request->tanggal,0,4);
@@ -174,6 +174,7 @@ class BakasController extends BaseController
         $date       = implode("",$arr);
       $bakas  = DB::table('bakas')
       ->where('tanggal', $date)
+      ->where('kantor_id', $id_kantor)
       ->select('bakas.tanggal')
       ->get();
 

@@ -416,17 +416,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 if (!(_this.$gate.isAdmin() || _this.$gate.isPelayanan())) {
-                  _context.next = 7;
+                  _context.next = 8;
                   break;
                 }
 
                 formData = new FormData();
+                formData.set('kantor_id', _this.kantor_id);
                 formData.set('tanggal', _this.tanggal); //const response = await axios.get('api/kredit/ceknama')
 
-                _context.next = 5;
+                _context.next = 6;
                 return axios.post('api/bakas/cektgl', formData);
 
-              case 5:
+              case 6:
                 response = _context.sent;
 
                 //this.cekNorekData = response.data.data[0].no_rekening;
@@ -444,7 +445,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 } //endif response
 
 
-              case 7:
+              case 8:
               case "end":
                 return _context.stop();
             }
