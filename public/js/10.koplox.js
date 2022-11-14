@@ -9,6 +9,8 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -21,6 +23,13 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
 //
 //
 //
@@ -308,6 +317,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       file: null,
       id: '',
       kantor_id: '',
+      cekNorekData: [],
+      pesaneror: [],
       namafile: '',
       nameRules: [function (v) {
         return !!v || 'Nama file belum diisi';
@@ -395,6 +406,52 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     this.$Progress.finish();
   },
   methods: {
+    cekTgl: function cekTgl() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var formData, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(_this.$gate.isAdmin() || _this.$gate.isPelayanan())) {
+                  _context.next = 7;
+                  break;
+                }
+
+                formData = new FormData();
+                formData.set('tanggal', _this.tanggal); //const response = await axios.get('api/kredit/ceknama')
+
+                _context.next = 5;
+                return axios.post('api/bakas/cektgl', formData);
+
+              case 5:
+                response = _context.sent;
+
+                //this.cekNorekData = response.data.data[0].no_rekening;
+                if (response.data.message == 'adatgl') {
+                  _this.cekTglData = response.data.data[0].tanggal;
+                  _this.pesaneror = 'No Rekening ' + _this.cekTglData + ' Sudah Ada';
+                  console.log(_this.cekTglData);
+                  Toast.fire({
+                    icon: 'error',
+                    //title: response.data.message
+                    title: 'Tanggal' + response.data.data[0].tanggal + ' Sudah Ada Dalam Data'
+                  });
+
+                  _this.initialize();
+                } //endif response
+
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
     pencetKeyboard: function pencetKeyboard(evt) {
       evt = evt ? evt : window.event;
       var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul
@@ -431,15 +488,15 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       return "".concat(year, "-").concat(month.padStart(2, '0'), "-").concat(day.padStart(2, '0'));
     },
     initialize: function initialize() {
-      var _this = this;
+      var _this2 = this;
 
       this.$Progress.start();
 
       if (this.$gate.isAdmin() || this.$gate.isPelayanan()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
         axios.get("api/bakas").then(function (response) {
-          _this.bakas = response.data.data;
-          _this.kantor_id = _this.$kantor_id; // this.form.fill
+          _this2.bakas = response.data.data;
+          _this2.kantor_id = _this2.$kantor_id; // this.form.fill
           //console.log(this.bakas);
           //console.log(this.kantor_id)
         });
@@ -465,7 +522,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     //         this.file = e.target.files[0];
     // },
     createUser: function createUser() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$refs.form.validate();
       this.$Progress.start(); // e.preventDefault();
@@ -490,9 +547,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           title: response.data.message
         });
 
-        _this2.$Progress.finish();
+        _this3.$Progress.finish();
 
-        _this2.initialize();
+        _this3.initialize();
       })["catch"](function (error) {
         //Swal.fire("Failed!", data.message, "warning");
         var errors = error.response.data.errors; // Loop this object and pring Key or value or both
@@ -529,7 +586,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       });
     },
     updateUser: function updateUser() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.$Progress.start(); // console.log('Editing data');
 
@@ -541,16 +598,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           title: response.data.message
         });
 
-        _this3.$Progress.finish(); //  Fire.$emit('AfterCreate');
+        _this4.$Progress.finish(); //  Fire.$emit('AfterCreate');
 
 
-        _this3.initialize();
+        _this4.initialize();
       })["catch"](function () {
-        _this3.$Progress.fail();
+        _this4.$Progress.fail();
       });
     },
     deleteUser: function deleteUser(id) {
-      var _this4 = this;
+      var _this5 = this;
 
       Swal.fire({
         title: 'Yakin dihapus?',
@@ -562,10 +619,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this4.form["delete"]('api/bakas/' + id).then(function () {
+          _this5.form["delete"]('api/bakas/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
-            _this4.initialize();
+            _this5.initialize();
           })["catch"](function (data) {
             Swal.fire("Failed!", data.message, "warning");
           });
@@ -1139,6 +1196,11 @@ var render = function () {
                                                     on: {
                                                       input: function ($event) {
                                                         _vm.menu1 = false
+                                                      },
+                                                      change: function (
+                                                        $event
+                                                      ) {
+                                                        return _vm.cekTgl()
                                                       },
                                                     },
                                                     model: {

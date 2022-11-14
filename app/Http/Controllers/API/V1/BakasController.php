@@ -62,15 +62,17 @@ class BakasController extends BaseController
         $request->validate([
 
             'namafile' => 'required',
-            'tanggal' => ['required', function ($attribute, $value, $fail) {
+             'tanggal' => ['required', function ($attribute, $value, $fail) {
                 if ($value === 'null') {
                     $fail($attribute.' harus diisi.');
                 }
             }],
+            'tanggal' => 'unique:bakas,tanggal',
             'file' => 'required|mimes:zip'
         ],[
             'namafile.required' => 'nama file harus diisi',
             'tanggal.required' => 'tanggal harus diisi',
+            'tanggal.unique' => 'tanggal sudah ada dalam data',
             'file.required' => 'nama file harus nama kantor (ex: cab-kpo.zip)',
             'file.mimes' => 'file yang di upload harus berbentuk .zip'
         ]);
@@ -159,6 +161,27 @@ class BakasController extends BaseController
 
         return response()->download($file);
         }
+
+    }
+
+    public function cektgl(Request $request)
+    {
+      $tgl = $request->tanggal;
+      $hari       = substr($request->tanggal,8,2);
+        $bulan      = substr($request->tanggal,5,2);
+        $tahun      = substr($request->tanggal,0,4);
+        $arr        = array($hari,"/",$bulan,"/",$tahun);
+        $date       = implode("",$arr);
+      $bakas  = DB::table('bakas')
+      ->where('tanggal', $date)
+      ->select('bakas.tanggal')
+      ->get();
+
+      if(!$bakas->isEmpty()){
+        return $this->sendResponse($bakas, 'adatgl');
+      }else{
+        return $this->sendResponse($bakas, 'kosong');
+      }
 
     }
 }

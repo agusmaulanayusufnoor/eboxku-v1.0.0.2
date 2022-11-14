@@ -186,6 +186,7 @@
                                     @input="menu1 = false"
                                     year-icon="calendar-blank"
                                     locale="id-ID"
+                                    @change="cekTgl()"
                                 ></v-date-picker>
 
                                 </v-menu>
@@ -287,6 +288,8 @@
         file: null,
         id : '',
         kantor_id: '',
+        cekNorekData:[],
+        pesaneror:[],
         namafile: '',
         nameRules: [
         v => !!v || 'Nama file belum diisi',
@@ -368,6 +371,29 @@
     },
 
     methods: {
+        async cekTgl (){
+            if(this.$gate.isAdmin() || this.$gate.isPelayanan() ){
+                const formData = new FormData
+                formData.set('tanggal', this.tanggal)
+                //const response = await axios.get('api/kredit/ceknama')
+                const response = await axios.post('api/bakas/cektgl',formData)
+                //this.cekNorekData = response.data.data[0].no_rekening;
+                if (response.data.message=='adatgl'){
+                    this.cekTglData = response.data.data[0].tanggal;
+                    this.pesaneror = 'No Rekening '+this.cekTglData+' Sudah Ada'
+
+                 console.log(this.cekTglData);
+
+                    Toast.fire({
+                        icon: 'error',
+                        //title: response.data.message
+                        title: 'Tanggal'+response.data.data[0].tanggal+' Sudah Ada Dalam Data'
+                    });
+                    this.initialize();
+                }//endif response
+
+            }//endif gate
+            },
         pencetKeyboard: function(evt) {
       evt = (evt) ? evt : window.event;
       var charCode = (evt.which) ? evt.which : evt.keyCode;
