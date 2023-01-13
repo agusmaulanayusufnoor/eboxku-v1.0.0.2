@@ -3,7 +3,7 @@
       <i class="nav-icon fa fa-mail-bulk fa-flip yellow" style="--fa-animation-duration: 4s;"></i>
       <p>
      <b>Umum Pusat</b>
-        
+
       </p>
       <i class="fas fa-angle-left right"></i>
     </a>
@@ -44,9 +44,9 @@
                 <p>File Perjanjian Kerjasama</p>
               </a>
         </li>
-        
-       
-        
+
+
+
         <li class="nav-item">
             <router-link to="/asuransi" class="nav-link">
                 <i class="fa fa-file-invoice-dollar nav-icon"></i>
@@ -68,6 +68,31 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+                <li class="small">
+                    <router-link to="/pjkpph4ayat2" class="nav-link">
+                        <i class="fa fa-filter-circle-dollar nav-icon"></i>
+                        <p>File Pajak PPH Pasal 4 Ayat 2</p>
+                      </a>
+                </li>
+                <li class="small">
+                    <router-link to="/pjkpph21" class="nav-link">
+                        <i class="fa fa-filter-circle-dollar nav-icon"></i>
+                        <p>File Pajak PPH Pasal 21</p>
+                      </a>
+                </li>
+                <li class="small">
+                    <router-link to="/pjkpph23" class="nav-link">
+                        <i class="fa fa-filter-circle-dollar nav-icon"></i>
+                        <p>File Pajak PPH Pasal 23</p>
+                      </a>
+                </li>
+                <li class="small">
+                    <router-link to="/pjkpph25" class="nav-link">
+                        <i class="fa fa-filter-circle-dollar nav-icon"></i>
+                        <p>File Pajak PPH Pasal 25</p>
+                      </a>
+                </li>
+
             <li class="small">
             <router-link to="/pjkbadan" class="nav-link">
                 <i class="fa fa-filter-circle-dollar nav-icon"></i>
@@ -80,12 +105,7 @@
                 <p>File Pajak Sewa</p>
               </a>
             </li>
-            <li class="small">
-                <router-link to="/pjkpph21" class="nav-link">
-                    <i class="fa fa-filter-circle-dollar nav-icon"></i>
-                    <p>File Pajak PPH 21</p>
-                  </a>
-            </li>
+
             <li class="small">
                 <router-link to="/pjkbunga" class="nav-link">
                     <i class="fa fa-filter-circle-dollar nav-icon"></i>
