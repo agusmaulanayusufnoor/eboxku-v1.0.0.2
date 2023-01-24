@@ -1069,9 +1069,9 @@ var render = function () {
                                                                     rules:
                                                                       _vm.tanggalRules,
                                                                     label:
-                                                                      "Tanggal File",
+                                                                      "Tahun Pajak",
                                                                     placeholder:
-                                                                      "dd/mm/yyyy",
+                                                                      "Tahun Pajak",
                                                                     "prepend-icon":
                                                                       "mdi-calendar",
                                                                     outlined:
