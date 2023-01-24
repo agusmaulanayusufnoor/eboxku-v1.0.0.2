@@ -1,14 +1,16 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[45],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Pjkpph23.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Pjkpph23.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Skdir.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Skdir.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -21,6 +23,29 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -272,28 +297,20 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       dialog: false,
       dialogDelete: false,
       search: '',
-      //   headers: [
-      //     {
-      //     text: 'No',
-      //     value: 'index',
-      //     },
-      //     { text: 'Kantor', value: 'nama_kantor',align: 'start', },
-      //     {
-      //       text: 'Nama File',
-      //       value: 'namafile',
-      //     },
-      //     { text: 'Tanggal File', value: 'tanggal' },
-      //     { text: 'Download File', value: 'file', sortable: false,align: 'center'  },
-      //     { text: 'Hapus', value: 'actions', sortable: false },
-      //   ],
-      pjkpph23: [],
+      skdir: [],
       valid: true,
       file: null,
       id: '',
       kantor_id: '',
+      no_sk: '',
+      norekRules: [function (v) {
+        return !!v || 'No SK Belum Diisi';
+      }],
+      cekNorekData: [],
+      pesaneror: [],
       namafile: '',
       nameRules: [function (v) {
-        return !!v || 'Nama file belum diisi';
+        return !!v || 'Nama File Belum Diisi';
       }],
       menu1: false,
       menu2: false,
@@ -323,15 +340,18 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         align: 'center',
         sortable: false
       }, {
+        text: 'No SK',
+        value: 'no_sk'
+      }, {
+        text: 'Tanggal File',
+        value: 'tanggal'
+      }, {
         text: 'Kantor',
         value: 'nama_kantor',
         align: 'start'
       }, {
         text: 'Nama File',
         value: 'namafile'
-      }, {
-        text: 'Tanggal File',
-        value: 'tanggal'
       }];
       headers.push({
         text: 'Download File',
@@ -372,12 +392,71 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   //     console.log(this.$kantor_id)
   //   },
   created: function created() {
-    this.$Progress.start();
-    console.log(this.kantor_id);
+    this.$Progress.start(); //console.log(this.kantor_id)
+
     this.initialize();
     this.$Progress.finish();
   },
   methods: {
+    cekNorek: function cekNorek() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var formData, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(_this.$gate.isAdmin() || _this.$gate.isUM() || _this.$gate.isSekdir())) {
+                  _context.next = 7;
+                  break;
+                }
+
+                formData = new FormData();
+                formData.set('no_sk', _this.no_sk); //const response = await axios.get('api/skdir/ceknama')
+
+                _context.next = 5;
+                return axios.post('api/skdir/ceknorek', formData);
+
+              case 5:
+                response = _context.sent;
+
+                //this.cekNorekData = response.data.data[0].no_sk;
+                if (response.data.message == 'adarek') {
+                  _this.cekNorekData = response.data.data[0].no_sk;
+                  _this.pesaneror = 'No SK ' + _this.cekNorekData + ' Sudah Ada'; // console.log(this.cekNorekData);
+
+                  Toast.fire({
+                    icon: 'error',
+                    //title: response.data.message
+                    title: 'No SK ' + response.data.data[0].no_sk + ' Sudah Ada Dalam Data'
+                  });
+
+                  _this.initialize();
+                } //endif response
+
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    norekKeyboard: function norekKeyboard(evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul
+
+      if (charCode > 31 && (charCode < 48 || charCode > 57) && (charCode < 95 || charCode > 105) && charCode !== 46 && charCode !== 75) {
+        //tidak boleh tombol '/' dan '\'
+        //if (charCode === 191 || charCode===220) {
+        evt.preventDefault();
+      } else {
+        this.no_sk = this.no_sk.toUpperCase();
+        return true;
+      }
+    },
     pencetKeyboard: function pencetKeyboard(evt) {
       evt = evt ? evt : window.event;
       var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul
@@ -386,7 +465,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       if (charCode === 191 || charCode === 220) {
         evt.preventDefault();
-        ;
       } else {
         return true;
       }
@@ -414,17 +492,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       return "".concat(year, "-").concat(month.padStart(2, '0'), "-").concat(day.padStart(2, '0'));
     },
     initialize: function initialize() {
-      var _this = this;
+      var _this2 = this;
 
       this.$Progress.start();
 
-      if (this.$gate.isAdmin() || this.$gate.isUM()) {
-        //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/pjkpph23").then(function (response) {
-          _this.pjkpph23 = response.data.data;
-          _this.kantor_id = _this.$kantor_id; // this.form.fill
-          //console.log(this.pjkpph23);
-          //console.log(this.kantor_id)
+      if (this.$gate.isAdmin() || this.$gate.isUM() || this.$gate.isSekdir()) {
+        axios.get("api/skdir").then(function (response) {
+          _this2.skdir = response.data.data;
+          _this2.kantor_id = _this2.$kantor_id; // this.form.fill
+          // console.log(this.skdir);
+          // console.log(this.kantor_id)
         });
       }
 
@@ -441,14 +518,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       $('#addNew').modal('show');
       this.$refs.form.reset();
       this.namafile = '';
+      this.no_sk = '';
+      this.pesaneror = '';
     },
-    // uploadFile(e){
-    //         // `files` is always an array because the file input may be in multiple mode
-    //         console.log(e);
-    //         this.file = e.target.files[0];
-    // },
     createUser: function createUser() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$refs.form.validate();
       this.$Progress.start(); // e.preventDefault();
@@ -461,21 +535,22 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       var formData = new FormData();
       formData.set('kantor_id', this.kantor_id);
+      formData.set('no_sk', this.no_sk);
       formData.set('namafile', this.namafile);
       formData.set('tanggal', this.tanggal);
       formData.set('file', this.file); // formData.append('file', this.file);
       // console.log(this.file);
 
-      axios.post('api/pjkpph23', formData, config).then(function (response) {
+      axios.post('api/skdir', formData, config).then(function (response) {
         $('#addNew').modal('hide');
         Toast.fire({
           icon: 'success',
           title: response.data.message
         });
 
-        _this2.$Progress.finish();
+        _this3.$Progress.finish();
 
-        _this2.initialize();
+        _this3.initialize();
       })["catch"](function (error) {
         //Swal.fire("Gagal Upload", "Cek data inputan!", "warning");
         var errors = error.response.data.errors; // Loop this object and pring Key or value or both
@@ -496,14 +571,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     },
     downloadFile: function downloadFile(id, file) {
       axios({
-        url: 'api/pjkpph23/download/' + id,
+        url: 'api/skdir/download/' + id,
         method: 'GET',
         responseType: 'blob'
       }).then(function (response) {
         var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement('a');
         fileLink.href = fileUrl;
-        fileLink.setAttribute('download', 'pjkpph23.zip');
+        fileLink.setAttribute('download', 'tabfile.pdf');
         fileLink.download = file;
         document.body.appendChild(fileLink);
         fileLink.click();
@@ -512,11 +587,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       });
     },
     updateUser: function updateUser() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.$Progress.start(); // console.log('Editing data');
 
-      this.form.put('api/pjkpph23/' + this.form.id).then(function (response) {
+      this.form.put('api/skdir/' + this.form.id).then(function (response) {
         // success
         $('#addNew').modal('hide');
         Toast.fire({
@@ -524,16 +599,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           title: response.data.message
         });
 
-        _this3.$Progress.finish(); //  Fire.$emit('AfterCreate');
+        _this4.$Progress.finish(); //  Fire.$emit('AfterCreate');
 
 
-        _this3.initialize();
+        _this4.initialize();
       })["catch"](function () {
-        _this3.$Progress.fail();
+        _this4.$Progress.fail();
       });
     },
     deleteUser: function deleteUser(id) {
-      var _this4 = this;
+      var _this5 = this;
 
       Swal.fire({
         title: 'Yakin dihapus?',
@@ -545,10 +620,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this4.form["delete"]('api/pjkpph23/' + id).then(function () {
+          _this5.form["delete"]('api/skdir/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
-            _this4.initialize();
+            _this5.initialize();
           })["catch"](function (data) {
             Swal.fire("Failed!", data.message, "warning");
           });
@@ -560,10 +635,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Pjkpph23.vue?vue&type=template&id=44959ffc&":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Pjkpph23.vue?vue&type=template&id=44959ffc& ***!
-  \****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Skdir.vue?vue&type=template&id=33667501&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Skdir.vue?vue&type=template&id=33667501& ***!
+  \*************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -593,7 +668,9 @@ var render = function () {
                 "v-col",
                 { attrs: { cols: "11" } },
                 [
-                  _vm.$gate.isAdmin() || _vm.$gate.isUM()
+                  _vm.$gate.isAdmin() ||
+                  _vm.$gate.isUM() ||
+                  _vm.$gate.isSekdir()
                     ? _c(
                         "v-card",
                         { staticClass: "pa-2 mx-auto" },
@@ -611,7 +688,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    File Pajak PPH 23\n                "
+                                  "\r\n                    File SK Direktur\r\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -629,7 +706,7 @@ var render = function () {
                                 },
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
-                                  _vm._v(" Upload File\n                  "),
+                                  _vm._v(" Upload File\r\n                  "),
                                 ],
                                 1
                               ),
@@ -645,7 +722,7 @@ var render = function () {
                                 staticClass: "elevation-3",
                                 attrs: {
                                   headers: _vm.headers,
-                                  items: _vm.pjkpph23,
+                                  items: _vm.skdir,
                                   search: _vm.search,
                                   justify: "center",
                                   dense: "",
@@ -658,9 +735,9 @@ var render = function () {
                                         var index = ref.index
                                         return [
                                           _vm._v(
-                                            "\n                    " +
+                                            "\r\n                    " +
                                               _vm._s(index + 1) +
-                                              "\n                "
+                                              "\r\n                "
                                           ),
                                         ]
                                       },
@@ -732,7 +809,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                            mdi-download\n                        "
+                                                    "\r\n                            mdi-download\r\n                        "
                                                   ),
                                                 ]
                                               ),
@@ -764,7 +841,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                    mdi-delete\n                "
+                                                "\r\n                    mdi-delete\r\n                "
                                               ),
                                             ]
                                           ),
@@ -774,7 +851,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  3538273480
+                                  836955976
                                 ),
                               }),
                             ],
@@ -791,7 +868,7 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          !_vm.$gate.isAdmin() && !_vm.$gate.isUM()
+          !_vm.$gate.isAdmin() && !_vm.$gate.isUM() && !_vm.$gate.isSekdir()
             ? _c("div", [_c("not-found")], 1)
             : _vm._e(),
           _vm._v(" "),
@@ -940,10 +1017,48 @@ var render = function () {
                                   [
                                     _c("v-text-field", {
                                       attrs: {
+                                        rules: _vm.norekRules,
+                                        name: "no_sk",
+                                        label: "Nomor SK Direktur",
+                                        placeholder: "No. SK",
+                                        counter: "",
+                                        maxlength: "100",
+                                        outlined: "",
+                                        required: "",
+                                        dense: "",
+                                        "prepend-icon": "mdi-file",
+                                        hint: "",
+                                        "persistent-hint": "",
+                                        "error-messages": _vm.pesaneror,
+                                      },
+                                      on: {
+                                        change: function ($event) {
+                                          return _vm.cekNorek()
+                                        },
+                                      },
+                                      model: {
+                                        value: _vm.no_sk,
+                                        callback: function ($$v) {
+                                          _vm.no_sk = $$v
+                                        },
+                                        expression: "no_sk",
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("has-error", {
+                                      attrs: {
+                                        form: _vm.form,
+                                        field: "namafile",
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("v-text-field", {
+                                      attrs: {
                                         rules: _vm.nameRules,
                                         name: "namafile",
                                         label: "Nama File",
-                                        placeholder: "Nama File",
+                                        placeholder:
+                                          "Nama File: 'sk_namasurat'",
                                         outlined: "",
                                         required: "",
                                         dense: "",
@@ -1014,7 +1129,7 @@ var render = function () {
                                                                     label:
                                                                       "Tanggal File",
                                                                     placeholder:
-                                                                      "dd/mm/yyyy",
+                                                                      "Tanggal SK",
                                                                     "prepend-icon":
                                                                       "mdi-calendar",
                                                                     outlined:
@@ -1142,9 +1257,9 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\n                                    " +
+                                                          "\r\n                                    " +
                                                             _vm._s(text) +
-                                                            "\n                                "
+                                                            "\r\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1157,12 +1272,12 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\n                                    +" +
+                                                          "\r\n                                    +" +
                                                             _vm._s(
                                                               _vm.files.length -
                                                                 2
                                                             ) +
-                                                            " File(s)\n                                "
+                                                            " File(s)\r\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1209,7 +1324,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-cancel")]),
                                   _vm._v(
-                                    "\n                            Batal\n                        "
+                                    "\r\n                            Batal\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1235,7 +1350,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-pencil")]),
                                   _vm._v(
-                                    "\n                            Ubah\n                        "
+                                    "\r\n                            Ubah\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1261,7 +1376,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
                                   _vm._v(
-                                    "\n                            Upload\n                        "
+                                    "\r\n                            Upload\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1292,17 +1407,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/umum/Pjkpph23.vue":
-/*!***************************************************!*\
-  !*** ./resources/js/components/umum/Pjkpph23.vue ***!
-  \***************************************************/
+/***/ "./resources/js/components/umum/Skdir.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/umum/Skdir.vue ***!
+  \************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Pjkpph23_vue_vue_type_template_id_44959ffc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pjkpph23.vue?vue&type=template&id=44959ffc& */ "./resources/js/components/umum/Pjkpph23.vue?vue&type=template&id=44959ffc&");
-/* harmony import */ var _Pjkpph23_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pjkpph23.vue?vue&type=script&lang=js& */ "./resources/js/components/umum/Pjkpph23.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Skdir_vue_vue_type_template_id_33667501___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Skdir.vue?vue&type=template&id=33667501& */ "./resources/js/components/umum/Skdir.vue?vue&type=template&id=33667501&");
+/* harmony import */ var _Skdir_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Skdir.vue?vue&type=script&lang=js& */ "./resources/js/components/umum/Skdir.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1312,9 +1427,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Pjkpph23_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Pjkpph23_vue_vue_type_template_id_44959ffc___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Pjkpph23_vue_vue_type_template_id_44959ffc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Skdir_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Skdir_vue_vue_type_template_id_33667501___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Skdir_vue_vue_type_template_id_33667501___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1324,38 +1439,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/umum/Pjkpph23.vue"
+component.options.__file = "resources/js/components/umum/Skdir.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/umum/Pjkpph23.vue?vue&type=script&lang=js&":
-/*!****************************************************************************!*\
-  !*** ./resources/js/components/umum/Pjkpph23.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************/
+/***/ "./resources/js/components/umum/Skdir.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/umum/Skdir.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkpph23_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Pjkpph23.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Pjkpph23.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkpph23_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Skdir_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Skdir.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Skdir.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Skdir_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/umum/Pjkpph23.vue?vue&type=template&id=44959ffc&":
-/*!**********************************************************************************!*\
-  !*** ./resources/js/components/umum/Pjkpph23.vue?vue&type=template&id=44959ffc& ***!
-  \**********************************************************************************/
+/***/ "./resources/js/components/umum/Skdir.vue?vue&type=template&id=33667501&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/umum/Skdir.vue?vue&type=template&id=33667501& ***!
+  \*******************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkpph23_vue_vue_type_template_id_44959ffc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Pjkpph23.vue?vue&type=template&id=44959ffc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Pjkpph23.vue?vue&type=template&id=44959ffc&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkpph23_vue_vue_type_template_id_44959ffc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Skdir_vue_vue_type_template_id_33667501___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Skdir.vue?vue&type=template&id=33667501& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Skdir.vue?vue&type=template&id=33667501&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Skdir_vue_vue_type_template_id_33667501___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkpph23_vue_vue_type_template_id_44959ffc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Skdir_vue_vue_type_template_id_33667501___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

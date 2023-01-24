@@ -90,7 +90,7 @@ class Pjkpph21Controller extends BaseController
         $pjkpph21 = $this->pjkpph21->create([
             'kantor_id'     => $request->get('kantor_id'),
             'namafile'      => $request->get('namafile'),
-            'tanggal'       => $date,
+            'tanggal'       => $tahun,
             'file'          => $file,
         ]);
         $nm->move(public_path().'/file/pjkpph21', $file);

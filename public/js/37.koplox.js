@@ -264,6 +264,34 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data(vm) {
     return {
@@ -291,14 +319,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       file: null,
       id: '',
       kantor_id: '',
+      namaKantor: [],
       namafile: '',
       nameRules: [function (v) {
         return !!v || 'Nama file belum diisi';
       }],
       menu1: false,
       menu2: false,
-      dateFormatted: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
-      tanggal: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
+      //dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+      dateFormatted: '',
+      //tanggal:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      tanggal: '',
       tanggalRules: [function (v) {
         return !!v || 'Tanggal file belum diisi';
       }],
@@ -330,7 +361,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         text: 'Nama File',
         value: 'namafile'
       }, {
-        text: 'Tanggal File',
+        text: 'Tahun Pajak',
         value: 'tanggal'
       }];
       headers.push({
@@ -378,6 +409,19 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     this.$Progress.finish();
   },
   methods: {
+    getKantor: function getKantor() {
+      var _this = this;
+
+      if (this.$gate.isAdmin() || this.$gate.isKredit()) {
+        //axios.get("api/user").then((response) => {(this.users = response.data.data)});
+        axios.get("api/pjkpph21/getkantor").then(function (response) {
+          _this.namaKantor = response.data.data; //console.log(this.editedItem.namaKantor);
+          //console.log(this.kantor_id)
+        })["catch"](function (error) {
+          console.log(error.response.data);
+        });
+      }
+    },
     pencetKeyboard: function pencetKeyboard(evt) {
       evt = evt ? evt : window.event;
       var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul
@@ -395,12 +439,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       if (!tanggal) return null;
 
       var _tanggal$split = tanggal.split('-'),
-          _tanggal$split2 = _slicedToArray(_tanggal$split, 3),
-          year = _tanggal$split2[0],
-          month = _tanggal$split2[1],
-          day = _tanggal$split2[2];
+          _tanggal$split2 = _slicedToArray(_tanggal$split, 1),
+          year = _tanggal$split2[0];
 
-      return "".concat(day, "/").concat(month, "/").concat(year);
+      return "".concat(year);
     },
     parseDate: function parseDate(tanggal) {
       if (!tanggal) return null;
@@ -414,15 +456,15 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       return "".concat(year, "-").concat(month.padStart(2, '0'), "-").concat(day.padStart(2, '0'));
     },
     initialize: function initialize() {
-      var _this = this;
+      var _this2 = this;
 
       this.$Progress.start();
 
       if (this.$gate.isAdmin() || this.$gate.isUM()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
         axios.get("api/pjkpph21").then(function (response) {
-          _this.pjkpph21 = response.data.data;
-          _this.kantor_id = _this.$kantor_id; // this.form.fill
+          _this2.pjkpph21 = response.data.data;
+          _this2.kantor_id = _this2.$kantor_id; // this.form.fill
           //console.log(this.pjkpph21);
           //console.log(this.kantor_id)
         });
@@ -448,7 +490,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     //         this.file = e.target.files[0];
     // },
     createUser: function createUser() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$refs.form.validate();
       this.$Progress.start(); // e.preventDefault();
@@ -464,8 +506,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       formData.set('namafile', this.namafile);
       formData.set('tanggal', this.tanggal);
       formData.set('file', this.file); // formData.append('file', this.file);
-      // console.log(this.file);
 
+      console.log(this.tanggal);
       axios.post('api/pjkpph21', formData, config).then(function (response) {
         $('#addNew').modal('hide');
         Toast.fire({
@@ -473,9 +515,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           title: response.data.message
         });
 
-        _this2.$Progress.finish();
+        _this3.$Progress.finish();
 
-        _this2.initialize();
+        _this3.initialize();
       })["catch"](function (error) {
         //Swal.fire("Gagal Upload", "Cek data inputan!", "warning");
         var errors = error.response.data.errors; // Loop this object and pring Key or value or both
@@ -512,7 +554,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       });
     },
     updateUser: function updateUser() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.$Progress.start(); // console.log('Editing data');
 
@@ -524,16 +566,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           title: response.data.message
         });
 
-        _this3.$Progress.finish(); //  Fire.$emit('AfterCreate');
+        _this4.$Progress.finish(); //  Fire.$emit('AfterCreate');
 
 
-        _this3.initialize();
+        _this4.initialize();
       })["catch"](function () {
-        _this3.$Progress.fail();
+        _this4.$Progress.fail();
       });
     },
     deleteUser: function deleteUser(id) {
-      var _this4 = this;
+      var _this5 = this;
 
       Swal.fire({
         title: 'Yakin dihapus?',
@@ -545,10 +587,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this4.form["delete"]('api/pjkpph21/' + id).then(function () {
+          _this5.form["delete"]('api/pjkpph21/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
-            _this4.initialize();
+            _this5.initialize();
           })["catch"](function (data) {
             Swal.fire("Failed!", data.message, "warning");
           });
@@ -893,27 +935,6 @@ var render = function () {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.kantor_id,
-                                  expression: "kantor_id",
-                                },
-                              ],
-                              attrs: { type: "hidden", name: "kantor_id" },
-                              domProps: { value: _vm.kantor_id },
-                              on: {
-                                input: function ($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.kantor_id = $event.target.value
-                                },
-                              },
-                            }),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
                                   value: _vm.csrf,
                                   expression: "csrf",
                                 },
@@ -934,6 +955,42 @@ var render = function () {
                               "div",
                               { staticClass: "form-group input-group" },
                               [
+                                _c(
+                                  "v-col",
+                                  { attrs: { cols: "12", sm: "12", md: "12" } },
+                                  [
+                                    _c("v-combobox", {
+                                      ref: "CBKantor",
+                                      attrs: {
+                                        label: "Kantor",
+                                        items: _vm.namaKantor,
+                                        "item-value": "id",
+                                        "item-text": "nama_kantor",
+                                        placeholder: "Pilih Kantor",
+                                        outlined: "",
+                                        required: "",
+                                        dense: "",
+                                        "hide-details": "",
+                                        "prepend-icon": "fa fa-building",
+                                        "return-object": false,
+                                      },
+                                      on: {
+                                        click: function ($event) {
+                                          return _vm.getKantor()
+                                        },
+                                      },
+                                      model: {
+                                        value: _vm.kantor_id,
+                                        callback: function ($$v) {
+                                          _vm.kantor_id = $$v
+                                        },
+                                        expression: "kantor_id",
+                                      },
+                                    }),
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
                                 _c(
                                   "v-col",
                                   { attrs: { cols: "12", sm: "12", md: "12" } },
@@ -1071,9 +1128,16 @@ var render = function () {
                                                   _c("v-date-picker", {
                                                     attrs: {
                                                       elevation: "15",
+                                                      type: "year",
                                                       "year-icon":
                                                         "calendar-blank",
+                                                      "prev-icon":
+                                                        "mdi-skip-previous",
+                                                      "next-icon":
+                                                        "mdi-skip-next",
                                                       locale: "id-ID",
+                                                      reactive: "",
+                                                      "show-current": "",
                                                     },
                                                     on: {
                                                       input: function ($event) {
@@ -1296,14 +1360,15 @@ render._withStripped = true
 /*!***************************************************!*\
   !*** ./resources/js/components/umum/Pjkpph21.vue ***!
   \***************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Pjkpph21_vue_vue_type_template_id_447970fa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pjkpph21.vue?vue&type=template&id=447970fa& */ "./resources/js/components/umum/Pjkpph21.vue?vue&type=template&id=447970fa&");
 /* harmony import */ var _Pjkpph21_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pjkpph21.vue?vue&type=script&lang=js& */ "./resources/js/components/umum/Pjkpph21.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Pjkpph21_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Pjkpph21_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -1333,7 +1398,7 @@ component.options.__file = "resources/js/components/umum/Pjkpph21.vue"
 /*!****************************************************************************!*\
   !*** ./resources/js/components/umum/Pjkpph21.vue?vue&type=script&lang=js& ***!
   \****************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

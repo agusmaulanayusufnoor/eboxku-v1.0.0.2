@@ -106,12 +106,35 @@
 
                 <!-- <form @submit.prevent="editmode ? updateUser() : createUser()"> -->
                     <div class="modal-body">
-                            <input v-model="kantor_id" type="hidden"
-                            name="kantor_id">
+                        <!--<input v-model="kantor_id" type="hidden"
+                            name="kantor_id">-->
                             <input v-model="csrf" type="hidden"
                             name="_token">
 
                         <div class="form-group input-group">
+                            <v-col
+                                cols="12"
+                                sm="12"
+                                md="12"
+                            >
+                                <v-combobox
+                                v-model="kantor_id"
+                                label="Kantor"
+                                :items="namaKantor"
+                                item-value="id"
+                                item-text="nama_kantor"
+                                placeholder="Pilih Kantor"
+                                outlined
+                                required
+                                dense
+                                hide-details
+                                prepend-icon="fa fa-building"
+                                :return-object="false"
+                                ref="CBKantor"
+
+                                @click="getKantor()"
+                                ></v-combobox>
+                            </v-col>
                              <v-col
                                 cols="12"
                                 sm="12"
@@ -166,9 +189,14 @@
                                 <v-date-picker
                                     v-model="tanggal"
                                     elevation="15"
+                                    type="year"
                                     @input="menu1 = false"
                                     year-icon="calendar-blank"
+                                    prev-icon="mdi-skip-previous"
+                                    next-icon="mdi-skip-next"
                                     locale="id-ID"
+                                    reactive
+                                    show-current
                                 ></v-date-picker>
 
                                 </v-menu>
@@ -270,6 +298,7 @@
         file: null,
         id : '',
         kantor_id: '',
+        namaKantor:[],
         namafile: '',
         nameRules: [
         v => !!v || 'Nama file belum diisi',
@@ -277,9 +306,11 @@
       menu1: false,
       menu2:false,
 
-      dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
-      tanggal:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-         tanggalRules: [
+      //dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+      dateFormatted: '',
+      //tanggal:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      tanggal:'',
+      tanggalRules: [
         v => !!v || 'Tanggal file belum diisi',
       ],
        fileRules: [
@@ -310,7 +341,7 @@
                 text: 'Nama File',
                 value: 'namafile',
                 },
-                { text: 'Tanggal File', value: 'tanggal' },
+                { text: 'Tahun Pajak', value: 'tanggal' },
       ]
             headers.push({ text: 'Download File', value: 'file', sortable: false,align: 'center' })
             if(this.$gate.isAdmin()){
@@ -351,6 +382,23 @@
     },
 
     methods: {
+        getKantor() {
+
+        if(this.$gate.isAdmin() || this.$gate.isKredit()){
+
+        //axios.get("api/user").then((response) => {(this.users = response.data.data)});
+        axios.get("api/pjkpph21/getkantor")
+            .then((response) => {
+
+            this.namaKantor = response.data.data
+
+            //console.log(this.editedItem.namaKantor);
+            //console.log(this.kantor_id)
+            }).catch((error)=>{
+            console.log(error.response.data);
+            });
+        }
+        },
         pencetKeyboard: function(evt) {
       evt = (evt) ? evt : window.event;
       var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -366,8 +414,8 @@
     formatDate (tanggal) {
         if (!tanggal) return null
 
-        const [year, month, day] = tanggal.split('-')
-        return `${day}/${month}/${year}`
+        const [year] = tanggal.split('-')
+        return `${year}`
       },
        parseDate (tanggal) {
         if (!tanggal) return null
@@ -424,7 +472,7 @@
             formData.set('tanggal', this.tanggal)
             formData.set('file', this.file)
             // formData.append('file', this.file);
-           // console.log(this.file);
+            console.log(this.tanggal);
             axios.post('api/pjkpph21',formData,config)
               .then((response)=>{
                   $('#addNew').modal('hide');
