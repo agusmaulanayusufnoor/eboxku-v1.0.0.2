@@ -85,8 +85,8 @@ class FeedbackController extends BaseController
         $datefile   = implode("",$arrnamefile);
 
         $date       = implode("",$arr);
-
-        $file   = "img_feedback".$request->kantor_id.".".$request->namafile.".".$datefile.".".$nm->getClientOriginalName();
+        $acak = $this->acak_string(5);
+        $file   = "img_fb".$request->kantor_id.".".$request->namafile.".".$acak.".".$nm->getClientOriginalName();
         $feedback = $this->feedback->create([
             'kantor_id'     => $request->get('kantor_id'),
             'namafile'      => $request->get('namafile'),
@@ -161,5 +161,14 @@ class FeedbackController extends BaseController
         return response()->download($file);
         }
 
+    }
+    function acak_string($panjang) {
+        $karakter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        $string = '';
+        for ($i = 0; $i < $panjang; $i++) {
+            $pos = rand(0, strlen($karakter)-1);
+            $string .= $karakter[$pos];
+        }
+        return $string;
     }
 }
