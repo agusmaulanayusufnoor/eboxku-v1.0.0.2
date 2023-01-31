@@ -3,7 +3,7 @@
       <i class="nav-icon fa fa-calculator fa-flip blue" style="--fa-animation-duration: 4s;"></i>
       <p>
         <b>Pelayanan</b>
-        
+
       </p>
       <i class="fas fa-angle-left right"></i>
     </a>
@@ -50,6 +50,11 @@
                 </p>
               </a>
           </li>
-
+    <li class="nav-item">
+        <router-link to="/cs" class="nav-link">
+          <i class="nav-icon fa-regular fa-file-archive"></i>
+          <p>File CS</p>
+        </a>
+      </li>
     </ul>
   </li>

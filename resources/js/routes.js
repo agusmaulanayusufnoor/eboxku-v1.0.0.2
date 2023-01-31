@@ -67,6 +67,7 @@ export default [
     { path: '/tabungan', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Tabungan.vue') },
     { path: '/deposito', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Deposito.vue') },
     { path: '/teller', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Teller.vue') },
+    { path: '/cs', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Cs.vue') },
 
 
     { path: '/kredit', component: () => import(/* webpackPrefetch: true */'./components/kredit/Kredit.vue') },
