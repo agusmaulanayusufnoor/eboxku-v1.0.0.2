@@ -89,8 +89,8 @@ class KaskecilController extends BaseController
         $datefile   = implode("",$arrnamefile);
 
         $date       = implode("",$arr);
-
-        $file   = "00".$request->kantor_id.".".$request->namafile.".".$datefile.".".$nm->getClientOriginalName();
+        $acak = $this->acak_string(5);
+        $file   = "00".$request->kantor_id.".".$request->namafile.".".$acak.".".$nm->getClientOriginalName();
         $kaskecil = $this->kaskecil->create([
             'kantor_id'     => $request->get('kantor_id'),
             'namafile'      => $request->get('namafile'),
@@ -223,5 +223,15 @@ class KaskecilController extends BaseController
             ->get();
         }
         return $this->sendResponse($kaskecil, 'kaskecil list');
+    }
+
+    function acak_string($panjang) {
+        $karakter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        $string = '';
+        for ($i = 0; $i < $panjang; $i++) {
+            $pos = rand(0, strlen($karakter)-1);
+            $string .= $karakter[$pos];
+        }
+        return $string;
     }
 }
