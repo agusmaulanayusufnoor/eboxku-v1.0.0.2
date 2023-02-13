@@ -11,6 +11,7 @@ class Rekkoranaba extends Model
     protected $fillable = [
         'id',
         'kantor_id',
+        'jenis',
         'no_rekening',
         'tanggal',
         'namafile',

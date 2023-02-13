@@ -34,7 +34,7 @@ class RekkoranabaController extends BaseController
         if($levelLogin === 'admin'){
             $rekkoranaba  = DB::table('rekkoranaba')
             ->join('kode_kantors', 'rekkoranaba.kantor_id', '=', 'kode_kantors.id')
-            ->select('rekkoranaba.id','rekkoranaba.no_rekening','rekkoranaba.namafile','rekkoranaba.tanggal','rekkoranaba.file',
+            ->select('rekkoranaba.id','rekkoranaba.jenis','rekkoranaba.no_rekening','rekkoranaba.namafile','rekkoranaba.tanggal','rekkoranaba.file',
             'rekkoranaba.kantor_id','kode_kantors.nama_kantor')
             ->orderBy('id','desc')
             ->get();
@@ -42,7 +42,7 @@ class RekkoranabaController extends BaseController
             $rekkoranaba  = DB::table('rekkoranaba')
             ->join('kode_kantors', 'rekkoranaba.kantor_id', '=', 'kode_kantors.id')
             ->where('kantor_id', $id_kantor)
-            ->select('rekkoranaba.id','rekkoranaba.no_rekening','rekkoranaba.namafile','rekkoranaba.tanggal','rekkoranaba.file',
+            ->select('rekkoranaba.id','rekkoranaba.jenis','rekkoranaba.no_rekening','rekkoranaba.namafile','rekkoranaba.tanggal','rekkoranaba.file',
             'rekkoranaba.kantor_id','kode_kantors.nama_kantor')
             ->orderBy('id','desc')
             ->get();
@@ -67,13 +67,14 @@ class RekkoranabaController extends BaseController
                     $fail($attribute.' harus diisi.');
                 }
             }],
-            'file'         => 'required|mimes:zip'
+            'file'         => 'required|mimes:pdf'
         ],[
             'no_rekening.unique' => 'no rekening sudah ada dalam data',
             'no_rekening.required' => 'no rekening harus diisi',
+            'jenis.required' => 'tanggal harus dipilih',
             'tanggal.required' => 'tanggal harus diisi',
             'namafile.required' => 'nama file harus diisi',
-            'file.required' => 'nama file harus nama kantor (ex: cab-kpo.zip)',
+            'file.required' => 'nama file harus nama bank (ex: brilink.pdf)',
             'file.mimes' => 'file yang di upload harus berbentuk .zip'
         ]);
 
@@ -88,13 +89,14 @@ class RekkoranabaController extends BaseController
         $datefile   = implode("",$arrnamefile);
 
         $date       = implode("",$arr);
-
-        $file   = "00".$request->kantor_id.".".$request->no_rekening.".".$request->namafile.".".$datefile.".".$nm->getClientOriginalName();
+        $acak = $this->acak_string(5);
+        $file   = "00".$request->kantor_id.".".$request->no_rekening.".".$request->namafile.".".$acak.".".$nm->getClientOriginalName();
         $rekkoranaba = $this->rekkoranaba->create([
             'kantor_id'     => $request->get('kantor_id'),
-            'no_rekening'     => $request->get('no_rekening'),
+            'jenis'         => $request->get('jenis'),
+            'no_rekening'   => $request->get('no_rekening'),
             'namafile'      => $request->get('namafile'),
-            'tanggal'       => $date,
+            'tanggal'       => $request->tanggal,
             'file'          => $file,
         ]);
         $nm->move(public_path().'/file/aba', $file);
@@ -178,5 +180,64 @@ class RekkoranabaController extends BaseController
         return $this->sendResponse($rekkoranaba, 'kosong');
       }
 
+    }
+
+    function acak_string($panjang) {
+        $karakter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        $string = '';
+        for ($i = 0; $i < $panjang; $i++) {
+            $pos = rand(0, strlen($karakter)-1);
+            $string .= $karakter[$pos];
+        }
+        return $string;
+    }
+
+    public function filterkantor(Request $request)
+    {
+        //dd($request->all());
+         $kantor_id = $request->kantor_id;
+
+
+    //$id_kantor  = Auth::user()->kantor_id;
+        $levelLogin = Auth::user()->type;
+       // $stock=stock::all();
+       //$rekkoranaba= $this->rekkoranaba->latest()->get();
+        if($levelLogin === 'admin'){
+
+
+            $rekkoranaba  = DB::table('rekkoranaba')
+            ->join('kode_kantors', 'rekkoranaba.kantor_id', '=', 'kode_kantors.id')
+            ->where('rekkoranaba.kantor_id',$kantor_id)
+            ->select('rekkoranaba.id','rekkoranaba.jenis','rekkoranaba.no_rekening','rekkoranaba.namafile','rekkoranaba.tanggal','rekkoranaba.file',
+            'rekkoranaba.kantor_id','kode_kantors.nama_kantor')
+            ->orderBy('id','desc')
+            ->get();
+
+        }
+        return $this->sendResponse($rekkoranaba, 'rekkoranaba list');
+    }
+    public function filterjenis(Request $request)
+    {
+        //dd($request->all());
+         $jenis = $request->jenis;
+
+
+    //$id_kantor  = Auth::user()->kantor_id;
+      // $levelLogin = Auth::user()->type;
+       // $stock=stock::all();
+       //$rekkoranaba= $this->rekkoranaba->latest()->get();
+        //if($levelLogin === 'admin'){
+
+
+            $rekkoranaba  = DB::table('rekkoranaba')
+            ->join('kode_kantors', 'rekkoranaba.kantor_id', '=', 'kode_kantors.id')
+            ->where('rekkoranaba.jenis',$jenis)
+            ->select('rekkoranaba.id','rekkoranaba.jenis','rekkoranaba.no_rekening','rekkoranaba.namafile','rekkoranaba.tanggal','rekkoranaba.file',
+            'rekkoranaba.kantor_id','kode_kantors.nama_kantor')
+            ->orderBy('id','desc')
+            ->get();
+
+        //}
+        return $this->sendResponse($rekkoranaba, 'rekkoranaba list');
     }
 }

@@ -3,7 +3,7 @@
       <i class="nav-icon fa fa-users-cog fa-beat-fade teal"></i>
       <p>
      <b>SDM</b>
-        
+
       </p>
       <i class="fas fa-angle-left right"></i>
     </a>
@@ -26,5 +26,17 @@
               <p>SKPD</p>
             </a>
           </li>
+          <li class="nav-item">
+            <router-link to="/bpjstk" class="nav-link">
+                <i class="fas fa-user-shield nav-icon"></i>
+                <p>BPJS Ketenagakerjaan</p>
+              </a>
+            </li>
+            <li class="nav-item">
+                <router-link to="/bpjsks" class="nav-link">
+                    <i class="fas fa-user-injured nav-icon"></i>
+                    <p>BPJS Kesehatan</p>
+                  </a>
+                </li>
     </ul>
   </li>

@@ -46,8 +46,55 @@
 
                 <template v-slot:top>
                 <v-toolbar flat >
+                    <v-row v-if="$gate.isAdmin()">
+                        <v-col
+                                cols="8"
+                                sm="8"
+                                md="8"
+                            >
+                                <v-combobox
+                                v-model="id_kantor"
+                                label="Kantor"
+                                :items="namaKantor"
+                                item-value="id"
+                                item-text="nama_kantor"
+                                placeholder="Pilih Kantor"
+                                single-line
+                                hide-details
+                                clearable
+                                ref="cbkantor"
+                                :return-object="false"
+                                persistent-hint :error-messages="pesaneror"
+                                @click="getKantor()"
+                                @change="filterKantor()"
+                                ></v-combobox>
+                            </v-col>
+                    </v-row>
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
+                    <v-row>
+                        <v-col
+                                cols="8"
+                                sm="8"
+                                md="8"
+                            >
+                                <v-combobox
+                                v-model="jenis"
+                                label="Jenis Simpanan"
+                                :items="items"
+                                item-value="jenis"
+                                item-text="jenis"
+                                placeholder="Jenis Simpanan"
+                                single-line
+                                hide-details
+                                clearable
+                                ref="cbjenis"
+                                :return-object="false"
+                                persistent-hint :error-messages="pesaneror"
+                                @change="filterJenis()"
+                                ></v-combobox>
+                            </v-col>
+                    </v-row>
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
                     <v-text-field
@@ -129,11 +176,38 @@
                             name="_token">
 
                         <div class="form-group input-group">
+                            <template>
+                                <v-container fluid>
+
+                                    <v-radio-group
+                                    v-model="jenis" :mandatory="false"
+                                    row
+                                    prepend-icon="mdi-format-list-bulleted-type"
+                                    >
+                                    <template v-slot:label>
+                                        <div><strong class="text-h6 text-bold">Jenis Simpanan :</strong></div>
+                                    </template>
+                                    <v-radio
+                                        label="Tabungan"
+                                        value="tabungan"
+                                    ></v-radio>
+                                    <v-radio
+                                        label="Deposito"
+                                        value="deposito"
+                                    ></v-radio>
+                                    <v-radio
+                                        label="Giro"
+                                        value="giro"
+                                    ></v-radio>
+                                    </v-radio-group>
+                                </v-container>
+                                </template>
                              <v-col
                                 cols="12"
                                 sm="12"
                                 md="12"
                              >
+
                              <v-text-field
                                 v-model="no_rekening"
                                 :rules="norekRules"
@@ -183,23 +257,30 @@
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-text-field
                                         v-model="dateFormatted"
-                                        @blur="tanggal = parseDate(dateFormatted)"
+                                        :value="periodeMomentJS"
+                                        @blur="tanggal = periodeMomentJS"
                                         :rules="tanggalRules"
-                                        label="Tanggal File"
-                                        placeholder="Tanggal Buka Rekening"
+                                        label="Periode"
+                                        placeholder="Pilih Bulan"
                                         prepend-icon="mdi-calendar"
                                         v-bind="attrs"
                                         v-on="on"
                                         outlined
                                         required
                                         dense
+                                        clearable
+                                        readonly
+                                        @click:clear="tanggal = null"
                                     ></v-text-field>
                                 </template>
                                 <v-date-picker
                                     v-model="tanggal"
+                                    type="month"
                                     elevation="15"
                                     @input="menu1 = false"
-                                    year-icon="calendar-blank"
+                                    year-icon="mdi-calendar-blank"
+                                    prev-icon="mdi-skip-previous"
+                                    next-icon="mdi-skip-next"
                                     locale="id-ID"
                                 ></v-date-picker>
 
@@ -223,7 +304,7 @@
                                 outlined
                                 dense
                                 show-size
-                                accept=".zip"
+                                accept=".pdf"
                             >
                                 <template v-slot:selection="{ index, text }">
                                 <v-chip
@@ -274,7 +355,7 @@
 </template>
 
 <script>
-
+import moment from 'moment';
   export default {
     data: vm => ({
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -286,7 +367,11 @@
      valid:true,
         file: null,
         id : '',
+        id_kantor : '',
+        namaKantor :'',
         kantor_id: '',
+        jenis:'',
+        items : ['tabungan','deposito','giro',],
         cekNorekData:[],
         pesaneror:[],
         no_rekening: '',
@@ -300,10 +385,11 @@
       menu1: false,
       menu2:false,
 
-      dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
-      tanggal:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+     // dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+     dateFormatted :'',
+     tanggal:'',
          tanggalRules: [
-        v => !!v || 'Tanggal file belum diisi',
+        v => !!v || 'Periode bulan belum diisi',
       ],
        fileRules: [
         v => !!v || 'File belum dimasukan',
@@ -312,6 +398,9 @@
     form: new Form({
         id : '',
         kantor_id: '',
+        jenis:'',
+        no_rekening:'',
+        tanggal:'',
         namafile: '',
         tanggal: '',
         file: '',
@@ -328,11 +417,12 @@
                 align: 'center',
                 sortable: false
                 },
+                { text: 'Jenis Simpanan', value: 'jenis' },
                 { text: 'No Rekening', value: 'no_rekening' },
-                { text: 'Tanggal File', value: 'tanggal' },
+                { text: 'Periode', value: 'tanggal' },
                 { text: 'Kantor', value: 'nama_kantor',align: 'start', },
                 {
-                text: 'Nama File',
+                text: 'Nama Bank',
                 value: 'namafile',
                 },
 
@@ -346,7 +436,10 @@
         computedDateFormatted () {
             return this.formatDate(this.tanggal);
         },
+        periodeMomentJS () {
 
+        return this.tanggal ? moment(this.tanggal).format('MMMM YYYY') : '';
+        },
       formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
       },
@@ -355,7 +448,10 @@
 
     watch: {
       tanggal (val) {
-        this.dateFormatted = this.formatDate(this.tanggal)
+        this.dateFormatted = moment(this.tanggal).format('MMMM YYYY')
+      },
+      date (val) {
+        this.tanggal = moment(this.tanggal).format('MMMM YYYY')
       },
       dialog (val) {
         val || this.close()
@@ -373,6 +469,8 @@
         //console.log(this.kantor_id)
       this.initialize()
       this.$Progress.finish();
+      this.$refs.cbkantor.reset();
+      this.$refs.cbjenis.reset();
     },
 
     methods: {
@@ -434,6 +532,107 @@
         const [day, month,  year] = tanggal.split('/')
         return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
       },
+      async getKantor() {
+
+        if(this.$gate.isAdmin()){
+
+        //axios.get("api/user").then((response) => {(this.users = response.data.data)});
+        axios.get("api/rekkoranaba/getkantor")
+            .then((response) => {
+
+            this.namaKantor = response.data.data
+
+           // console.log(this.namaKantor);
+            //console.log(this.kantor_id)
+            }).catch((error)=>{
+            console.log(error.response.data);
+            });
+        }
+        },
+        async filterKantor(){
+        this.$Progress.start();
+            const formData = new FormData
+                formData.set('kantor_id', this.id_kantor);
+        if(this.id_kantor !=''){
+        if(this.$gate.isAdmin()){
+        axios.get("api/rekkoranaba/filterkantor",{
+            params: {
+            kantor_id: this.id_kantor
+            }
+        })
+            .then((response) => {
+                this.rekkoranaba = response.data.data;
+                this.kantor_id = this.$kantor_id;
+                // this.form.fill
+            // console.log(this.rekkoranaba);
+            // console.log(this.kantor_id)
+                }).catch((error)=>{
+                console.log(error.response.data);
+                });
+        }
+        }else{
+        //Swal.fire("Gagal Filter", "Filter Tanggal Belum Dipilih...!", "warning");
+        Swal.fire({
+        icon: 'error',
+        title: 'Error Filter',
+        text: 'Filter Kantor Belum Dipilih...! ',
+        width: 600,
+        padding: '3em',
+        color: '#ff0000',
+        background: '#ff0000 url(/images/kayu.jpg)',
+        backdrop: `
+            rgba(255,0,64,0.4)
+            url("/images/nyan-cat.gif")
+            left top
+            no-repeat
+        `
+        })
+        }
+
+        this.$Progress.finish();
+        },
+        async filterJenis(){
+        this.$Progress.start();
+            const formData = new FormData
+                formData.set('jenis', this.jenis);
+        if(this.jenis !=''){
+        if(this.$gate.isAdmin() || this.$gate.isAK()){
+        axios.get("api/rekkoranaba/filterjenis",{
+            params: {
+            jenis: this.jenis
+            }
+        })
+            .then((response) => {
+                this.rekkoranaba = response.data.data;
+                //this.kantor_id = this.$kantor_id;
+                // this.form.fill
+            // console.log(this.rekkoranaba);
+             //console.log(this.jenis)
+                }).catch((error)=>{
+                console.log(error.response.data);
+                });
+        }
+        }else{
+        //Swal.fire("Gagal Filter", "Filter Tanggal Belum Dipilih...!", "warning");
+        Swal.fire({
+        icon: 'error',
+        title: 'Error Filter',
+        text: 'Filter Kantor Belum Dipilih...! ',
+        width: 600,
+        padding: '3em',
+        color: '#ff0000',
+        background: '#ff0000 url(/images/kayu.jpg)',
+        backdrop: `
+            rgba(255,0,64,0.4)
+            url("/images/nyan-cat.gif")
+            left top
+            no-repeat
+        `
+        })
+        }
+
+        this.$Progress.finish();
+    },
       initialize() {
          this.$Progress.start();
 
@@ -451,6 +650,8 @@
             }
 
            this.$Progress.finish();
+           this.$refs.cbkantor.reset();
+           this.$refs.cbjenis.reset();
       },
      editModal(item){
                 this.editmode = true;
@@ -476,12 +677,13 @@
             // //this.append('file', this.file);
             const formData = new FormData
             formData.set('kantor_id', this.kantor_id)
+            formData.set('jenis', this.jenis)
             formData.set('no_rekening', this.no_rekening)
             formData.set('namafile', this.namafile)
-            formData.set('tanggal', this.tanggal)
+            formData.set('tanggal', this.dateFormatted)
             formData.set('file', this.file)
             // formData.append('file', this.file);
-           // console.log(this.file);
+            console.log(this.dateFormatted);
             axios.post('api/rekkoranaba',formData,config)
               .then((response)=>{
                   $('#addNew').modal('hide');
@@ -519,7 +721,7 @@
                 var fileLink    = document.createElement('a')
                 fileLink.href   = fileUrl
 
-                fileLink.setAttribute('download','tabfile.zip')
+                fileLink.setAttribute('download','aba.pdf')
                 fileLink.download = file;
                 document.body.appendChild(fileLink)
 

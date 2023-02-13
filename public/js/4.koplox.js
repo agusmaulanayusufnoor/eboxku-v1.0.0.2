@@ -11,6 +11,8 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -29,6 +31,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -304,8 +308,92 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data(vm) {
+    var _Form;
+
     return {
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       editmode: false,
@@ -316,7 +404,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       valid: true,
       file: null,
       id: '',
+      id_kantor: '',
+      namaKantor: '',
       kantor_id: '',
+      jenis: '',
+      items: ['tabungan', 'deposito', 'giro'],
       cekNorekData: [],
       pesaneror: [],
       no_rekening: '',
@@ -329,22 +421,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }],
       menu1: false,
       menu2: false,
-      dateFormatted: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
-      tanggal: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
+      // dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+      dateFormatted: '',
+      tanggal: '',
       tanggalRules: [function (v) {
-        return !!v || 'Tanggal file belum diisi';
+        return !!v || 'Periode bulan belum diisi';
       }],
       fileRules: [function (v) {
         return !!v || 'File belum dimasukan';
       }],
       //file: '',
-      form: new Form({
+      form: new Form((_Form = {
         id: '',
         kantor_id: '',
-        namafile: '',
+        jenis: '',
+        no_rekening: '',
         tanggal: '',
-        file: ''
-      })
+        namafile: ''
+      }, _defineProperty(_Form, "tanggal", ''), _defineProperty(_Form, "file", ''), _Form))
     };
   },
   computed: {
@@ -355,17 +449,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         align: 'center',
         sortable: false
       }, {
+        text: 'Jenis Simpanan',
+        value: 'jenis'
+      }, {
         text: 'No Rekening',
         value: 'no_rekening'
       }, {
-        text: 'Tanggal File',
+        text: 'Periode',
         value: 'tanggal'
       }, {
         text: 'Kantor',
         value: 'nama_kantor',
         align: 'start'
       }, {
-        text: 'Nama File',
+        text: 'Nama Bank',
         value: 'namafile'
       }];
       headers.push({
@@ -388,13 +485,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     computedDateFormatted: function computedDateFormatted() {
       return this.formatDate(this.tanggal);
     },
+    periodeMomentJS: function periodeMomentJS() {
+      return this.tanggal ? moment__WEBPACK_IMPORTED_MODULE_1___default()(this.tanggal).format('MMMM YYYY') : '';
+    },
     formTitle: function formTitle() {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item';
     }
   },
   watch: {
     tanggal: function tanggal(val) {
-      this.dateFormatted = this.formatDate(this.tanggal);
+      this.dateFormatted = moment__WEBPACK_IMPORTED_MODULE_1___default()(this.tanggal).format('MMMM YYYY');
+    },
+    date: function date(val) {
+      this.tanggal = moment__WEBPACK_IMPORTED_MODULE_1___default()(this.tanggal).format('MMMM YYYY');
     },
     dialog: function dialog(val) {
       val || this.close();
@@ -411,6 +514,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     this.initialize();
     this.$Progress.finish();
+    this.$refs.cbkantor.reset();
+    this.$refs.cbjenis.reset();
   },
   methods: {
     cekNorek: function cekNorek() {
@@ -506,22 +611,156 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return "".concat(year, "-").concat(month.padStart(2, '0'), "-").concat(day.padStart(2, '0'));
     },
-    initialize: function initialize() {
+    getKantor: function getKantor() {
       var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (_this2.$gate.isAdmin()) {
+                  //axios.get("api/user").then((response) => {(this.users = response.data.data)});
+                  axios.get("api/rekkoranaba/getkantor").then(function (response) {
+                    _this2.namaKantor = response.data.data; // console.log(this.namaKantor);
+                    //console.log(this.kantor_id)
+                  })["catch"](function (error) {
+                    console.log(error.response.data);
+                  });
+                }
+
+              case 1:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    filterKantor: function filterKantor() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var formData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this3.$Progress.start();
+
+                formData = new FormData();
+                formData.set('kantor_id', _this3.id_kantor);
+
+                if (_this3.id_kantor != '') {
+                  if (_this3.$gate.isAdmin()) {
+                    axios.get("api/rekkoranaba/filterkantor", {
+                      params: {
+                        kantor_id: _this3.id_kantor
+                      }
+                    }).then(function (response) {
+                      _this3.rekkoranaba = response.data.data;
+                      _this3.kantor_id = _this3.$kantor_id; // this.form.fill
+                      // console.log(this.rekkoranaba);
+                      // console.log(this.kantor_id)
+                    })["catch"](function (error) {
+                      console.log(error.response.data);
+                    });
+                  }
+                } else {
+                  //Swal.fire("Gagal Filter", "Filter Tanggal Belum Dipilih...!", "warning");
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Error Filter',
+                    text: 'Filter Kantor Belum Dipilih...! ',
+                    width: 600,
+                    padding: '3em',
+                    color: '#ff0000',
+                    background: '#ff0000 url(/images/kayu.jpg)',
+                    backdrop: "\n            rgba(255,0,64,0.4)\n            url(\"/images/nyan-cat.gif\")\n            left top\n            no-repeat\n        "
+                  });
+                }
+
+                _this3.$Progress.finish();
+
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    filterJenis: function filterJenis() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var formData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _this4.$Progress.start();
+
+                formData = new FormData();
+                formData.set('jenis', _this4.jenis);
+
+                if (_this4.jenis != '') {
+                  if (_this4.$gate.isAdmin() || _this4.$gate.isAK()) {
+                    axios.get("api/rekkoranaba/filterjenis", {
+                      params: {
+                        jenis: _this4.jenis
+                      }
+                    }).then(function (response) {
+                      _this4.rekkoranaba = response.data.data; //this.kantor_id = this.$kantor_id;
+                      // this.form.fill
+                      // console.log(this.rekkoranaba);
+                      //console.log(this.jenis)
+                    })["catch"](function (error) {
+                      console.log(error.response.data);
+                    });
+                  }
+                } else {
+                  //Swal.fire("Gagal Filter", "Filter Tanggal Belum Dipilih...!", "warning");
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Error Filter',
+                    text: 'Filter Kantor Belum Dipilih...! ',
+                    width: 600,
+                    padding: '3em',
+                    color: '#ff0000',
+                    background: '#ff0000 url(/images/kayu.jpg)',
+                    backdrop: "\n            rgba(255,0,64,0.4)\n            url(\"/images/nyan-cat.gif\")\n            left top\n            no-repeat\n        "
+                  });
+                }
+
+                _this4.$Progress.finish();
+
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    initialize: function initialize() {
+      var _this5 = this;
 
       this.$Progress.start();
 
       if (this.$gate.isAdmin() || this.$gate.isAK()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
         axios.get("api/rekkoranaba").then(function (response) {
-          _this2.rekkoranaba = response.data.data;
-          _this2.kantor_id = _this2.$kantor_id; // this.form.fill
+          _this5.rekkoranaba = response.data.data;
+          _this5.kantor_id = _this5.$kantor_id; // this.form.fill
           // console.log(this.rekkoranaba);
           // console.log(this.kantor_id)
         });
       }
 
       this.$Progress.finish();
+      this.$refs.cbkantor.reset();
+      this.$refs.cbjenis.reset();
     },
     editModal: function editModal(item) {
       this.editmode = true;
@@ -538,7 +777,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.pesaneror = '';
     },
     createUser: function createUser() {
-      var _this3 = this;
+      var _this6 = this;
 
       this.$refs.form.validate();
       this.$Progress.start(); // e.preventDefault();
@@ -551,12 +790,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       var formData = new FormData();
       formData.set('kantor_id', this.kantor_id);
+      formData.set('jenis', this.jenis);
       formData.set('no_rekening', this.no_rekening);
       formData.set('namafile', this.namafile);
-      formData.set('tanggal', this.tanggal);
+      formData.set('tanggal', this.dateFormatted);
       formData.set('file', this.file); // formData.append('file', this.file);
-      // console.log(this.file);
 
+      console.log(this.dateFormatted);
       axios.post('api/rekkoranaba', formData, config).then(function (response) {
         $('#addNew').modal('hide');
         Toast.fire({
@@ -564,9 +804,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           title: response.data.message
         });
 
-        _this3.$Progress.finish();
+        _this6.$Progress.finish();
 
-        _this3.initialize();
+        _this6.initialize();
       })["catch"](function (error) {
         //Swal.fire("Failed!", data.message, "warning");
         var errors = error.response.data.errors; // Loop this object and pring Key or value or both
@@ -594,7 +834,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement('a');
         fileLink.href = fileUrl;
-        fileLink.setAttribute('download', 'tabfile.zip');
+        fileLink.setAttribute('download', 'aba.pdf');
         fileLink.download = file;
         document.body.appendChild(fileLink);
         fileLink.click();
@@ -603,7 +843,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     updateUser: function updateUser() {
-      var _this4 = this;
+      var _this7 = this;
 
       this.$Progress.start(); // console.log('Editing data');
 
@@ -615,16 +855,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           title: response.data.message
         });
 
-        _this4.$Progress.finish(); //  Fire.$emit('AfterCreate');
+        _this7.$Progress.finish(); //  Fire.$emit('AfterCreate');
 
 
-        _this4.initialize();
+        _this7.initialize();
       })["catch"](function () {
-        _this4.$Progress.fail();
+        _this7.$Progress.fail();
       });
     },
     deleteUser: function deleteUser(id) {
-      var _this5 = this;
+      var _this8 = this;
 
       Swal.fire({
         title: 'Yakin dihapus?',
@@ -636,10 +876,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this5.form["delete"]('api/rekkoranaba/' + id).then(function () {
+          _this8.form["delete"]('api/rekkoranaba/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
-            _this5.initialize();
+            _this8.initialize();
           })["catch"](function (data) {
             Swal.fire("Failed!", data.message, "warning");
           });
@@ -808,9 +1048,132 @@ var render = function () {
                                             "v-toolbar",
                                             { attrs: { flat: "" } },
                                             [
+                                              _vm.$gate.isAdmin()
+                                                ? _c(
+                                                    "v-row",
+                                                    [
+                                                      _c(
+                                                        "v-col",
+                                                        {
+                                                          attrs: {
+                                                            cols: "8",
+                                                            sm: "8",
+                                                            md: "8",
+                                                          },
+                                                        },
+                                                        [
+                                                          _c("v-combobox", {
+                                                            ref: "cbkantor",
+                                                            attrs: {
+                                                              label: "Kantor",
+                                                              items:
+                                                                _vm.namaKantor,
+                                                              "item-value":
+                                                                "id",
+                                                              "item-text":
+                                                                "nama_kantor",
+                                                              placeholder:
+                                                                "Pilih Kantor",
+                                                              "single-line": "",
+                                                              "hide-details":
+                                                                "",
+                                                              clearable: "",
+                                                              "return-object": false,
+                                                              "persistent-hint":
+                                                                "",
+                                                              "error-messages":
+                                                                _vm.pesaneror,
+                                                            },
+                                                            on: {
+                                                              click: function (
+                                                                $event
+                                                              ) {
+                                                                return _vm.getKantor()
+                                                              },
+                                                              change: function (
+                                                                $event
+                                                              ) {
+                                                                return _vm.filterKantor()
+                                                              },
+                                                            },
+                                                            model: {
+                                                              value:
+                                                                _vm.id_kantor,
+                                                              callback:
+                                                                function ($$v) {
+                                                                  _vm.id_kantor =
+                                                                    $$v
+                                                                },
+                                                              expression:
+                                                                "id_kantor",
+                                                            },
+                                                          }),
+                                                        ],
+                                                        1
+                                                      ),
+                                                    ],
+                                                    1
+                                                  )
+                                                : _vm._e(),
+                                              _vm._v(" "),
                                               _c("v-spacer"),
                                               _vm._v(" "),
                                               _c("v-spacer"),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-row",
+                                                [
+                                                  _c(
+                                                    "v-col",
+                                                    {
+                                                      attrs: {
+                                                        cols: "8",
+                                                        sm: "8",
+                                                        md: "8",
+                                                      },
+                                                    },
+                                                    [
+                                                      _c("v-combobox", {
+                                                        ref: "cbjenis",
+                                                        attrs: {
+                                                          label:
+                                                            "Jenis Simpanan",
+                                                          items: _vm.items,
+                                                          "item-value": "jenis",
+                                                          "item-text": "jenis",
+                                                          placeholder:
+                                                            "Jenis Simpanan",
+                                                          "single-line": "",
+                                                          "hide-details": "",
+                                                          clearable: "",
+                                                          "return-object": false,
+                                                          "persistent-hint": "",
+                                                          "error-messages":
+                                                            _vm.pesaneror,
+                                                        },
+                                                        on: {
+                                                          change: function (
+                                                            $event
+                                                          ) {
+                                                            return _vm.filterJenis()
+                                                          },
+                                                        },
+                                                        model: {
+                                                          value: _vm.jenis,
+                                                          callback: function (
+                                                            $$v
+                                                          ) {
+                                                            _vm.jenis = $$v
+                                                          },
+                                                          expression: "jenis",
+                                                        },
+                                                      }),
+                                                    ],
+                                                    1
+                                                  ),
+                                                ],
+                                                1
+                                              ),
                                               _vm._v(" "),
                                               _c("v-spacer"),
                                               _vm._v(" "),
@@ -909,7 +1272,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  3028880107
+                                  2601752284
                                 ),
                               }),
                             ],
@@ -1069,6 +1432,82 @@ var render = function () {
                               "div",
                               { staticClass: "form-group input-group" },
                               [
+                                [
+                                  _c(
+                                    "v-container",
+                                    { attrs: { fluid: "" } },
+                                    [
+                                      _c(
+                                        "v-radio-group",
+                                        {
+                                          attrs: {
+                                            mandatory: false,
+                                            row: "",
+                                            "prepend-icon":
+                                              "mdi-format-list-bulleted-type",
+                                          },
+                                          scopedSlots: _vm._u([
+                                            {
+                                              key: "label",
+                                              fn: function () {
+                                                return [
+                                                  _c("div", [
+                                                    _c(
+                                                      "strong",
+                                                      {
+                                                        staticClass:
+                                                          "text-h6 text-bold",
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          "Jenis Simpanan :"
+                                                        ),
+                                                      ]
+                                                    ),
+                                                  ]),
+                                                ]
+                                              },
+                                              proxy: true,
+                                            },
+                                          ]),
+                                          model: {
+                                            value: _vm.jenis,
+                                            callback: function ($$v) {
+                                              _vm.jenis = $$v
+                                            },
+                                            expression: "jenis",
+                                          },
+                                        },
+                                        [
+                                          _vm._v(" "),
+                                          _c("v-radio", {
+                                            attrs: {
+                                              label: "Tabungan",
+                                              value: "tabungan",
+                                            },
+                                          }),
+                                          _vm._v(" "),
+                                          _c("v-radio", {
+                                            attrs: {
+                                              label: "Deposito",
+                                              value: "deposito",
+                                            },
+                                          }),
+                                          _vm._v(" "),
+                                          _c("v-radio", {
+                                            attrs: {
+                                              label: "Giro",
+                                              value: "giro",
+                                            },
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                ],
+                                _vm._v(" "),
                                 _c(
                                   "v-col",
                                   { attrs: { cols: "12", sm: "12", md: "12" } },
@@ -1179,12 +1618,14 @@ var render = function () {
                                                               _vm._b(
                                                                 {
                                                                   attrs: {
+                                                                    value:
+                                                                      _vm.periodeMomentJS,
                                                                     rules:
                                                                       _vm.tanggalRules,
                                                                     label:
-                                                                      "Tanggal File",
+                                                                      "Periode",
                                                                     placeholder:
-                                                                      "Tanggal Buka Rekening",
+                                                                      "Pilih Bulan",
                                                                     "prepend-icon":
                                                                       "mdi-calendar",
                                                                     outlined:
@@ -1192,16 +1633,25 @@ var render = function () {
                                                                     required:
                                                                       "",
                                                                     dense: "",
+                                                                    clearable:
+                                                                      "",
+                                                                    readonly:
+                                                                      "",
                                                                   },
                                                                   on: {
                                                                     blur: function (
                                                                       $event
                                                                     ) {
                                                                       _vm.tanggal =
-                                                                        _vm.parseDate(
-                                                                          _vm.dateFormatted
-                                                                        )
+                                                                        _vm.periodeMomentJS
                                                                     },
+                                                                    "click:clear":
+                                                                      function (
+                                                                        $event
+                                                                      ) {
+                                                                        _vm.tanggal =
+                                                                          null
+                                                                      },
                                                                   },
                                                                   model: {
                                                                     value:
@@ -1240,9 +1690,14 @@ var render = function () {
                                                   _vm._v(" "),
                                                   _c("v-date-picker", {
                                                     attrs: {
+                                                      type: "month",
                                                       elevation: "15",
                                                       "year-icon":
-                                                        "calendar-blank",
+                                                        "mdi-calendar-blank",
+                                                      "prev-icon":
+                                                        "mdi-skip-previous",
+                                                      "next-icon":
+                                                        "mdi-skip-next",
                                                       locale: "id-ID",
                                                     },
                                                     on: {
@@ -1289,7 +1744,7 @@ var render = function () {
                                           outlined: "",
                                           dense: "",
                                           "show-size": "",
-                                          accept: ".zip",
+                                          accept: ".pdf",
                                         },
                                         scopedSlots: _vm._u([
                                           {
@@ -1358,7 +1813,7 @@ var render = function () {
                                   2
                                 ),
                               ],
-                              1
+                              2
                             ),
                           ]),
                           _vm._v(" "),
