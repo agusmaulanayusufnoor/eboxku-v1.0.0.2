@@ -17,9 +17,20 @@
         <li class="nav-item">
           <router-link to="/sedir" class="nav-link">
               <i class="fa fa-file-contract nav-icon"></i>
-              <p>Trans. Harian Kas Besar</p>
+              <p>Trans. Harian Pelayanan</p>
             </a>
         </li>
-
+        <li class="nav-item">
+            <router-link to="/lapkap" class="nav-link">
+                <i class="fa fa-chart-column nav-icon"></i>
+                <p>Lap. KAP</p>
+              </a>
+        </li>
+        <li class="nav-item">
+            <router-link to="/lapkeu" class="nav-link">
+                <i class="fa fa-chart-pie nav-icon"></i>
+                <p>Lap. Keuangan Bulanan</p>
+              </a>
+        </li>
     </ul>
   </li>

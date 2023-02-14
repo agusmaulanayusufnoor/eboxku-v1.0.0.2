@@ -2,8 +2,8 @@
     <a href="#" class="nav-link">
     <i class="nav-icon fa fa-archive fa-flip cyan" style="--fa-animation-duration: 2s;"></i>
       <p>
-       <b>Umum & Akunting</b> 
-        
+       <b>Umum & Akunting</b>
+
       </p>
       <i class="fas fa-angle-left right"></i>
     </a>
@@ -50,6 +50,7 @@
           <p>Stok Barang Promosi</p>
         </a>
       </li>
+
 
     </ul>
   </li>
