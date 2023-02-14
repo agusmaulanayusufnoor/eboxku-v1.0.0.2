@@ -85,12 +85,12 @@ class LapkeuController extends BaseController
         $datefile   = implode("",$arrnamefile);
 
         $date       = implode("",$arr);
-
-        $file   = "00".$request->kantor_id.".".$request->namafile.".".$datefile.".".$nm->getClientOriginalName();
+        $acak = $this->acak_string(5);
+        $file   = "00".$request->kantor_id.".".$request->namafile.".".$acak.".".$nm->getClientOriginalName();
         $lapkeu = $this->lapkeu->create([
             'kantor_id'     => $request->get('kantor_id'),
             'namafile'      => $request->get('namafile'),
-            'tanggal'       => $date,
+            'tanggal'       => $request->tanggal,
             'file'          => $file,
         ]);
         $nm->move(public_path().'/file/lapkeu', $file);
@@ -159,5 +159,16 @@ class LapkeuController extends BaseController
         return response()->download($file);
         }
 
+    }
+
+
+    function acak_string($panjang) {
+        $karakter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        $string = '';
+        for ($i = 0; $i < $panjang; $i++) {
+            $pos = rand(0, strlen($karakter)-1);
+            $string .= $karakter[$pos];
+        }
+        return $string;
     }
 }

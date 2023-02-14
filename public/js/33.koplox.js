@@ -9,6 +9,8 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -264,6 +266,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data(vm) {
     return {
@@ -330,7 +340,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         text: 'Nama File',
         value: 'namafile'
       }, {
-        text: 'Tanggal File',
+        text: 'Periode',
         value: 'tanggal'
       }];
       headers.push({
@@ -353,13 +363,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     computedDateFormatted: function computedDateFormatted() {
       return this.formatDate(this.tanggal);
     },
+    periodeMomentJS: function periodeMomentJS() {
+      return this.tanggal ? moment__WEBPACK_IMPORTED_MODULE_0___default()(this.tanggal).format('MMMM YYYY') : '';
+    },
     formTitle: function formTitle() {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item';
     }
   },
   watch: {
     tanggal: function tanggal(val) {
-      this.dateFormatted = this.formatDate(this.tanggal);
+      this.dateFormatted = moment__WEBPACK_IMPORTED_MODULE_0___default()(this.tanggal).format('MMMM YYYY');
     },
     dialog: function dialog(val) {
       val || this.close();
@@ -462,7 +475,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       var formData = new FormData();
       formData.set('kantor_id', this.kantor_id);
       formData.set('namafile', this.namafile);
-      formData.set('tanggal', this.tanggal);
+      formData.set('tanggal', this.dateFormatted);
       formData.set('file', this.file); // formData.append('file', this.file);
       // console.log(this.file);
 
@@ -611,7 +624,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\r\n                    File Laporan Keuangan Bulanan\r\n                "
+                                  "\n                    File Laporan Keuangan Bulanan\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -629,7 +642,7 @@ var render = function () {
                                 },
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
-                                  _vm._v(" Upload File\r\n                  "),
+                                  _vm._v(" Upload File\n                  "),
                                 ],
                                 1
                               ),
@@ -658,9 +671,9 @@ var render = function () {
                                         var index = ref.index
                                         return [
                                           _vm._v(
-                                            "\r\n                    " +
+                                            "\n                    " +
                                               _vm._s(index + 1) +
-                                              "\r\n                "
+                                              "\n                "
                                           ),
                                         ]
                                       },
@@ -732,7 +745,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\r\n                            mdi-download\r\n                        "
+                                                    "\n                            mdi-download\n                        "
                                                   ),
                                                 ]
                                               ),
@@ -764,7 +777,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                    mdi-delete\r\n                "
+                                                "\n                    mdi-delete\n                "
                                               ),
                                             ]
                                           ),
@@ -774,7 +787,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  836955976
+                                  3538273480
                                 ),
                               }),
                             ],
@@ -1009,12 +1022,14 @@ var render = function () {
                                                               _vm._b(
                                                                 {
                                                                   attrs: {
+                                                                    value:
+                                                                      _vm.periodeMomentJS,
                                                                     rules:
                                                                       _vm.tanggalRules,
                                                                     label:
-                                                                      "Tanggal File",
+                                                                      "Periode",
                                                                     placeholder:
-                                                                      "dd/mm/yyyy",
+                                                                      "Pilih Bulan",
                                                                     "prepend-icon":
                                                                       "mdi-calendar",
                                                                     outlined:
@@ -1022,16 +1037,25 @@ var render = function () {
                                                                     required:
                                                                       "",
                                                                     dense: "",
+                                                                    clearable:
+                                                                      "",
+                                                                    readonly:
+                                                                      "",
                                                                   },
                                                                   on: {
                                                                     blur: function (
                                                                       $event
                                                                     ) {
                                                                       _vm.tanggal =
-                                                                        _vm.parseDate(
-                                                                          _vm.dateFormatted
-                                                                        )
+                                                                        _vm.periodeMomentJS
                                                                     },
+                                                                    "click:clear":
+                                                                      function (
+                                                                        $event
+                                                                      ) {
+                                                                        _vm.tanggal =
+                                                                          null
+                                                                      },
                                                                   },
                                                                   model: {
                                                                     value:
@@ -1070,9 +1094,14 @@ var render = function () {
                                                   _vm._v(" "),
                                                   _c("v-date-picker", {
                                                     attrs: {
+                                                      type: "month",
                                                       elevation: "15",
                                                       "year-icon":
-                                                        "calendar-blank",
+                                                        "mdi-calendar-blank",
+                                                      "prev-icon":
+                                                        "mdi-skip-previous",
+                                                      "next-icon":
+                                                        "mdi-skip-next",
                                                       locale: "id-ID",
                                                     },
                                                     on: {
@@ -1142,9 +1171,9 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\r\n                                    " +
+                                                          "\n                                    " +
                                                             _vm._s(text) +
-                                                            "\r\n                                "
+                                                            "\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1157,12 +1186,12 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\r\n                                    +" +
+                                                          "\n                                    +" +
                                                             _vm._s(
                                                               _vm.files.length -
                                                                 2
                                                             ) +
-                                                            " File(s)\r\n                                "
+                                                            " File(s)\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1209,7 +1238,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-cancel")]),
                                   _vm._v(
-                                    "\r\n                            Batal\r\n                        "
+                                    "\n                            Batal\n                        "
                                   ),
                                 ],
                                 1
@@ -1235,7 +1264,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-pencil")]),
                                   _vm._v(
-                                    "\r\n                            Ubah\r\n                        "
+                                    "\n                            Ubah\n                        "
                                   ),
                                 ],
                                 1
@@ -1261,7 +1290,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
                                   _vm._v(
-                                    "\r\n                            Upload\r\n                        "
+                                    "\n                            Upload\n                        "
                                   ),
                                 ],
                                 1

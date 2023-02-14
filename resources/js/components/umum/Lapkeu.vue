@@ -151,23 +151,30 @@
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-text-field
                                         v-model="dateFormatted"
-                                        @blur="tanggal = parseDate(dateFormatted)"
+                                        :value="periodeMomentJS"
+                                        @blur="tanggal = periodeMomentJS"
                                         :rules="tanggalRules"
-                                        label="Tanggal File"
-                                        placeholder="dd/mm/yyyy"
+                                        label="Periode"
+                                        placeholder="Pilih Bulan"
                                         prepend-icon="mdi-calendar"
                                         v-bind="attrs"
                                         v-on="on"
                                         outlined
                                         required
                                         dense
+                                        clearable
+                                        readonly
+                                        @click:clear="tanggal = null"
                                     ></v-text-field>
                                 </template>
                                 <v-date-picker
                                     v-model="tanggal"
+                                    type="month"
                                     elevation="15"
                                     @input="menu1 = false"
-                                    year-icon="calendar-blank"
+                                    year-icon="mdi-calendar-blank"
+                                    prev-icon="mdi-skip-previous"
+                                    next-icon="mdi-skip-next"
                                     locale="id-ID"
                                 ></v-date-picker>
 
@@ -242,7 +249,7 @@
 </template>
 
 <script>
-
+import moment from 'moment';
   export default {
     data: vm => ({
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -310,7 +317,7 @@
                 text: 'Nama File',
                 value: 'namafile',
                 },
-                { text: 'Tanggal File', value: 'tanggal' },
+                { text: 'Periode', value: 'tanggal' },
       ]
             headers.push({ text: 'Download File', value: 'file', sortable: false,align: 'center' })
             if(this.$gate.isAdmin()){
@@ -321,7 +328,9 @@
         computedDateFormatted () {
             return this.formatDate(this.tanggal);
         },
-
+        periodeMomentJS () {
+        return this.tanggal ? moment(this.tanggal).format('MMMM YYYY') : '';
+        },
       formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
       },
@@ -329,8 +338,8 @@
     },
 
     watch: {
-      tanggal (val) {
-        this.dateFormatted = this.formatDate(this.tanggal)
+        tanggal (val) {
+        this.dateFormatted = moment(this.tanggal).format('MMMM YYYY')
       },
       dialog (val) {
         val || this.close()
@@ -421,7 +430,7 @@
             const formData = new FormData
             formData.set('kantor_id', this.kantor_id)
             formData.set('namafile', this.namafile)
-            formData.set('tanggal', this.tanggal)
+            formData.set('tanggal', this.dateFormatted)
             formData.set('file', this.file)
             // formData.append('file', this.file);
            // console.log(this.file);
@@ -440,7 +449,7 @@
               })
               .catch(error =>{
                   //Swal.fire("Gagal Upload", "Cek data inputan!", "warning");
-                  
+
                   var errors = error.response.data.errors;
                   // Loop this object and pring Key or value or both
                   for (const [key, value] of Object.entries(errors)) {
@@ -451,7 +460,7 @@
                       //title : "Gagal upload, ulangi..."
                       });
                   }
-                  
+
               })
           },
           downloadFile(id,file){

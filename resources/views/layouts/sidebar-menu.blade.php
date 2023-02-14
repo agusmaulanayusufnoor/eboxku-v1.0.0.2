@@ -34,10 +34,13 @@
 
 
       @if((auth()->user()->type=='admin') or (auth()->user()->type=='umumpst'))
-            <!--  menu umum dan akunting cabang  -->
+            <!--  menu umum pusat  -->
             @include('layouts.menu.menu-umum-pusat')
       @endif
-
+       @if((auth()->user()->type=='admin') or (auth()->user()->type=='umumpst'))
+            <!--  menu akunting pusat -->
+            @include('layouts.menu.menu-akunting-pusat')
+      @endif
 
       @if((auth()->user()->type=='admin') or (auth()->user()->type=='sekdir'))
             <!--  menu umum dan akunting cabang  -->
@@ -63,7 +66,7 @@
           <i class="nav-icon fas fa-cog green"></i>
           <p>
             <b>Settings</b>
-            
+
           </p>
           <i class="right fas fa-angle-left"></i>
         </a>
