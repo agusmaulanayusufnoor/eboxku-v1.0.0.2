@@ -9,13 +9,13 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
-          <router-link to="/skdir" class="nav-link">
+          <router-link to="/jtakuntingpusat" class="nav-link">
               <i class="fa fa-file-contract nav-icon"></i>
               <p>Trans. Harian Akunting</p>
             </a>
         </li>
         <li class="nav-item">
-          <router-link to="/sedir" class="nav-link">
+          <router-link to="/jtpelayananpusat" class="nav-link">
               <i class="fa fa-file-contract nav-icon"></i>
               <p>Trans. Harian Pelayanan</p>
             </a>

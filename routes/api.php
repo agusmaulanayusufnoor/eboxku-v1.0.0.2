@@ -88,6 +88,8 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('asuransi/download/{asuransi}', 'AsuransiController@downloadfile');
     Route::get('sop/download/{sop}', 'SopController@downloadfile');
     Route::get('peraturan/download/{peraturan}', 'PeraturanController@downloadfile');
+    Route::get('jtakuntingpusat/download/{jtakuntingpusat}', 'JtakuntingpusatController@downloadfile');
+    Route::get('jtpelayananpusat/download/{jtakuntingpusat}', 'JtpelayananpusatController@downloadfile');
     Route::get('lapkap/download/{lapkap}', 'LapkapController@downloadfile');
     Route::get('lapkeu/download/{lapkeu}', 'LapkeuController@downloadfile');
     Route::get('suratmasuk/download/{suratmasuk}', 'SuratmasukController@downloadfile');
@@ -167,8 +169,13 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'asuransi'    => 'AsuransiController',
         'sop'         => 'SopController',
         'peraturan'   => 'PeraturanController',
-        'lapkap'      => 'LapkapController',
-        'lapkeu'      => 'LapkeuController',
+
+        //akuntingpusat
+        'jtakuntingpusat'   => 'JtakuntingpusatController',
+        'jtpelayananpusat'  => 'JtpelayananpusatController',
+        'lapkap'            => 'LapkapController',
+        'lapkeu'            => 'LapkeuController',
+
 
         //sekdir
         'suratmasuk'  => 'SuratmasukController',
