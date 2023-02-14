@@ -307,6 +307,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }],
       menu1: false,
       menu2: false,
+      picker: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       dateFormatted: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
       tanggal: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       tanggalRules: [function (v) {
@@ -1110,11 +1111,11 @@ var render = function () {
                                                       },
                                                     },
                                                     model: {
-                                                      value: _vm.tanggal,
+                                                      value: _vm.picker,
                                                       callback: function ($$v) {
-                                                        _vm.tanggal = $$v
+                                                        _vm.picker = $$v
                                                       },
-                                                      expression: "tanggal",
+                                                      expression: "picker",
                                                     },
                                                   }),
                                                 ],

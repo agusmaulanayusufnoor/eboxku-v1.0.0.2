@@ -168,7 +168,7 @@
                                     ></v-text-field>
                                 </template>
                                 <v-date-picker
-                                    v-model="tanggal"
+                                    v-model="picker"
                                     type="month"
                                     elevation="15"
                                     @input="menu1 = false"
@@ -284,6 +284,7 @@ import moment from 'moment';
       menu1: false,
       menu2:false,
 
+      picker: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
       tanggal:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
          tanggalRules: [
