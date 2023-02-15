@@ -195,7 +195,7 @@ class RekkoranabaController extends BaseController
     public function filterkantor(Request $request)
     {
         //dd($request->all());
-         $kantor_id = $request->kantor_id;
+
 
 
     //$id_kantor  = Auth::user()->kantor_id;
@@ -203,11 +203,11 @@ class RekkoranabaController extends BaseController
        // $stock=stock::all();
        //$rekkoranaba= $this->rekkoranaba->latest()->get();
         if($levelLogin === 'admin'){
-
+            $kantor_id = $request->kantor_id;
 
             $rekkoranaba  = DB::table('rekkoranaba')
             ->join('kode_kantors', 'rekkoranaba.kantor_id', '=', 'kode_kantors.id')
-            ->where('rekkoranaba.kantor_id',$kantor_id)
+            ->where('kode_kantors.nama_kantor',$kantor_id)
             ->select('rekkoranaba.id','rekkoranaba.jenis','rekkoranaba.no_rekening','rekkoranaba.namafile','rekkoranaba.tanggal','rekkoranaba.file',
             'rekkoranaba.kantor_id','kode_kantors.nama_kantor')
             ->orderBy('id','desc')

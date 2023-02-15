@@ -110,6 +110,7 @@ export default [
     { path: '/periksa', component: () => import(/* webpackPrefetch: true */'./components/skai/Periksa.vue') },
 
     { path: '/kantor', component: () => import(/* webpackPrefetch: true */'./components/setting/Kantor.vue') },
+    { path: '/mastersimpanan', component: () => import(/* webpackPrefetch: true */'./components/setting/Mastersimpanan.vue') },
     { path: '/satuan', component: () => import(/* webpackPrefetch: true */'./components/setting/Satuan.vue') },
     { path: '/barang', component: () => import(/* webpackPrefetch: true */'./components/setting/Barang.vue') },
     { path: '/otorisator', component: () => import(/* webpackPrefetch: true */'./components/setting/Otorisator.vue') },

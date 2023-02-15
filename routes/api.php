@@ -130,6 +130,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'pendidikan'    => 'PendidikanController',
         'statuspegawai' => 'StatuspegawaiController',
         'statuspajak'   => 'StatuspajakController',
+        'mastersimpanan'   => 'MastersimpananController',
 
         'user'        => 'UserController',
         //pelayanan

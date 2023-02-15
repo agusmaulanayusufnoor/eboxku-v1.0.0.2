@@ -53,10 +53,10 @@
                                 md="8"
                             >
                                 <v-combobox
-                                v-model="id_kantor"
+                                v-model="nama_kantor"
                                 label="Kantor"
                                 :items="namaKantor"
-                                item-value="id"
+                                item-value="nama_kantor"
                                 item-text="nama_kantor"
                                 placeholder="Pilih Kantor"
                                 single-line
@@ -367,7 +367,7 @@ import moment from 'moment';
      valid:true,
         file: null,
         id : '',
-        id_kantor : '',
+        nama_kantor : '',
         namaKantor :'',
         kantor_id: '',
         jenis:'',
@@ -549,23 +549,24 @@ import moment from 'moment';
             });
         }
         },
-        async filterKantor(){
+    async filterKantor(){
         this.$Progress.start();
             const formData = new FormData
-                formData.set('kantor_id', this.id_kantor);
-        if(this.id_kantor !=''){
+                formData.set('kantor_id', this.nama_kantor);
+                //formData.set('nama_kantor', this.nama_kantor);
+        if(this.nama_kantor !=''){
         if(this.$gate.isAdmin()){
         axios.get("api/rekkoranaba/filterkantor",{
             params: {
-            kantor_id: this.id_kantor
+            kantor_id: this.nama_kantor
             }
         })
             .then((response) => {
                 this.rekkoranaba = response.data.data;
                 this.kantor_id = this.$kantor_id;
                 // this.form.fill
-            // console.log(this.rekkoranaba);
-            // console.log(this.kantor_id)
+             //console.log(this.nama_kantor);
+             //console.log(this.nama_kantor)
                 }).catch((error)=>{
                 console.log(error.response.data);
                 });
@@ -683,7 +684,7 @@ import moment from 'moment';
             formData.set('tanggal', this.dateFormatted)
             formData.set('file', this.file)
             // formData.append('file', this.file);
-            console.log(this.dateFormatted);
+            //console.log(this.dateFormatted);
             axios.post('api/rekkoranaba',formData,config)
               .then((response)=>{
                   $('#addNew').modal('hide');

@@ -404,7 +404,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       valid: true,
       file: null,
       id: '',
-      id_kantor: '',
+      nama_kantor: '',
       namaKantor: '',
       kantor_id: '',
       jenis: '',
@@ -649,19 +649,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this3.$Progress.start();
 
                 formData = new FormData();
-                formData.set('kantor_id', _this3.id_kantor);
+                formData.set('kantor_id', _this3.nama_kantor); //formData.set('nama_kantor', this.nama_kantor);
 
-                if (_this3.id_kantor != '') {
+                if (_this3.nama_kantor != '') {
                   if (_this3.$gate.isAdmin()) {
                     axios.get("api/rekkoranaba/filterkantor", {
                       params: {
-                        kantor_id: _this3.id_kantor
+                        kantor_id: _this3.nama_kantor
                       }
                     }).then(function (response) {
                       _this3.rekkoranaba = response.data.data;
                       _this3.kantor_id = _this3.$kantor_id; // this.form.fill
-                      // console.log(this.rekkoranaba);
-                      // console.log(this.kantor_id)
+                      //console.log(this.nama_kantor);
+                      //console.log(this.nama_kantor)
                     })["catch"](function (error) {
                       console.log(error.response.data);
                     });
@@ -795,8 +795,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.set('namafile', this.namafile);
       formData.set('tanggal', this.dateFormatted);
       formData.set('file', this.file); // formData.append('file', this.file);
+      //console.log(this.dateFormatted);
 
-      console.log(this.dateFormatted);
       axios.post('api/rekkoranaba', formData, config).then(function (response) {
         $('#addNew').modal('hide');
         Toast.fire({
@@ -1069,7 +1069,7 @@ var render = function () {
                                                               items:
                                                                 _vm.namaKantor,
                                                               "item-value":
-                                                                "id",
+                                                                "nama_kantor",
                                                               "item-text":
                                                                 "nama_kantor",
                                                               placeholder:
@@ -1098,14 +1098,14 @@ var render = function () {
                                                             },
                                                             model: {
                                                               value:
-                                                                _vm.id_kantor,
+                                                                _vm.nama_kantor,
                                                               callback:
                                                                 function ($$v) {
-                                                                  _vm.id_kantor =
+                                                                  _vm.nama_kantor =
                                                                     $$v
                                                                 },
                                                               expression:
-                                                                "id_kantor",
+                                                                "nama_kantor",
                                                             },
                                                           }),
                                                         ],
@@ -1272,7 +1272,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  2601752284
+                                  632659726
                                 ),
                               }),
                             ],
