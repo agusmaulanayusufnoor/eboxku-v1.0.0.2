@@ -53,10 +53,10 @@
                                 md="8"
                             >
                                 <v-combobox
-                                v-model="id_kantor"
+                                v-model="nama_kantor"
                                 label="Kantor"
                                 :items="namaKantor"
-                                item-value="id"
+                                item-value="nama_kantor"
                                 item-text="nama_kantor"
                                 placeholder="Pilih Kantor"
                                 single-line
@@ -355,7 +355,7 @@
      pesaneror:'',
      kaskecil:[],
      namaOtorisator:[],
-     id_kantor: '',
+     nama_kantor: '',
       namaKantor:[],
      valid:true,
         file: null,
@@ -508,12 +508,12 @@ axios.get("api/kaskecil/getkantor")
 async filterKantor(){
 this.$Progress.start();
     const formData = new FormData
-        formData.set('kantor_id', this.id_kantor);
-if(this.id_kantor !=''){
+        formData.set('kantor_id', this.nama_kantor);
+if(this.nama_kantor !=''){
 if(this.$gate.isAdmin()){
  axios.get("api/kaskecil/filterkantor",{
     params: {
-      kantor_id: this.id_kantor
+      kantor_id: this.nama_kantor
     }
   })
     .then((response) => {

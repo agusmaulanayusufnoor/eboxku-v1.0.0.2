@@ -168,7 +168,7 @@ class KaskecilController extends BaseController
     public function filterkantor(Request $request)
     {
         //dd($request->all());
-         $kantor_id = $request->kantor_id;
+         $nama_kantor = $request->kantor_id;
 
 
     //$id_kantor  = Auth::user()->kantor_id;
@@ -181,7 +181,7 @@ class KaskecilController extends BaseController
             $kaskecil  = DB::table('kaskecil')
             ->join('kode_kantors', 'kaskecil.kantor_id', '=', 'kode_kantors.id')
             ->join('otorisator','kaskecil.otorisator_id', '=', 'otorisator.id')
-            ->where('kantor_id', $kantor_id)
+            ->where('kode_kantors.nama_kantor', $nama_kantor)
             ->select('kaskecil.id','kaskecil.namafile','kaskecil.tanggal','kaskecil.file',
             'kaskecil.kantor_id','kode_kantors.nama_kantor','otorisator.namaotorisator')
             ->orderBy('id','desc')

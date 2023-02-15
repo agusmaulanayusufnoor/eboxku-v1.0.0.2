@@ -168,7 +168,7 @@ class OverbookingController extends BaseController
     public function filterkantor(Request $request)
     {
         //dd($request->all());
-         $kantor_id = $request->kantor_id;
+         $nama_kantor = $request->kantor_id;
 
 
     //$id_kantor  = Auth::user()->kantor_id;
@@ -181,7 +181,7 @@ class OverbookingController extends BaseController
             $overbooking  = DB::table('overbooking')
             ->join('kode_kantors', 'overbooking.kantor_id', '=', 'kode_kantors.id')
             ->join('otorisator','overbooking.otorisator_id', '=', 'otorisator.id')
-            ->where('overbooking.kantor_id',$kantor_id)
+            ->where('kode_kantors.nama_kantor',$nama_kantor)
             ->select('overbooking.id','overbooking.namafile','overbooking.tanggal','overbooking.file',
             'overbooking.kantor_id','kode_kantors.nama_kantor','otorisator.namaotorisator')
             ->orderBy('id','desc')

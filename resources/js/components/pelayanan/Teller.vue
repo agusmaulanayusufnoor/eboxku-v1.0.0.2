@@ -53,10 +53,10 @@
                                 md="8"
                             >
                                 <v-combobox
-                                v-model="id_kantor"
+                                v-model="nama_kantor"
                                 label="Kantor"
                                 :items="namaKantor"
-                                item-value="id"
+                                item-value="nama_kantor"
                                 item-text="nama_kantor"
                                 placeholder="Pilih Kantor"
                                 single-line
@@ -354,7 +354,7 @@
     //   ],
     namaOtorisator:[],
     otorisator_id: '',
-    id_kantor: '',
+    nama_kantor: '',
       namaKantor:[],
     pesaneror:'',
      teller:[],
@@ -508,20 +508,20 @@
         async filterKantor(){
         this.$Progress.start();
             const formData = new FormData
-                formData.set('kantor_id', this.id_kantor);
-        if(this.id_kantor !=''){
+                formData.set('kantor_id', this.nama_kantor);
+        if(this.nama_kantor !=''){
         if(this.$gate.isAdmin()){
         axios.get("api/teller/filterkantor",{
             params: {
-            kantor_id: this.id_kantor
+            kantor_id: this.nama_kantor
             }
         })
             .then((response) => {
                 this.teller = response.data.data;
-                this.kantor_id = this.$kantor_id;
+                this.kantor_id = this.$nama_kantor;
                 // this.form.fill
             // console.log(this.teller);
-            // console.log(this.kantor_id)
+             console.log(this.nama_kantor)
                 }).catch((error)=>{
                 console.log(error.response.data);
                 });

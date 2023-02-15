@@ -383,7 +383,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       //   ],
       namaOtorisator: [],
       otorisator_id: '',
-      id_kantor: '',
+      nama_kantor: '',
       namaKantor: [],
       pesaneror: '',
       overbooking: [],
@@ -571,13 +571,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
                 _this3.$Progress.start();
 
                 formData = new FormData();
-                formData.set('kantor_id', _this3.id_kantor);
+                formData.set('kantor_id', _this3.nama_kantor);
 
-                if (_this3.id_kantor != '') {
+                if (_this3.nama_kantor != '') {
                   if (_this3.$gate.isAdmin()) {
                     axios.get("api/overbooking/filterkantor", {
                       params: {
-                        kantor_id: _this3.id_kantor
+                        kantor_id: _this3.nama_kantor
                       }
                     }).then(function (response) {
                       _this3.overbooking = response.data.data;
@@ -994,7 +994,7 @@ var render = function () {
                                                               items:
                                                                 _vm.namaKantor,
                                                               "item-value":
-                                                                "id",
+                                                                "nama_kantor",
                                                               "item-text":
                                                                 "nama_kantor",
                                                               placeholder:
@@ -1023,14 +1023,14 @@ var render = function () {
                                                             },
                                                             model: {
                                                               value:
-                                                                _vm.id_kantor,
+                                                                _vm.nama_kantor,
                                                               callback:
                                                                 function ($$v) {
-                                                                  _vm.id_kantor =
+                                                                  _vm.nama_kantor =
                                                                     $$v
                                                                 },
                                                               expression:
-                                                                "id_kantor",
+                                                                "nama_kantor",
                                                             },
                                                           }),
                                                         ],
@@ -1206,7 +1206,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  2665328971
+                                  3968794873
                                 ),
                               }),
                             ],

@@ -203,11 +203,11 @@ class RekkoranabaController extends BaseController
        // $stock=stock::all();
        //$rekkoranaba= $this->rekkoranaba->latest()->get();
         if($levelLogin === 'admin'){
-            $kantor_id = $request->kantor_id;
+            $nama_kantor = $request->kantor_id;
 
             $rekkoranaba  = DB::table('rekkoranaba')
             ->join('kode_kantors', 'rekkoranaba.kantor_id', '=', 'kode_kantors.id')
-            ->where('kode_kantors.nama_kantor',$kantor_id)
+            ->where('kode_kantors.nama_kantor',$nama_kantor)
             ->select('rekkoranaba.id','rekkoranaba.jenis','rekkoranaba.no_rekening','rekkoranaba.namafile','rekkoranaba.tanggal','rekkoranaba.file',
             'rekkoranaba.kantor_id','kode_kantors.nama_kantor')
             ->orderBy('id','desc')
