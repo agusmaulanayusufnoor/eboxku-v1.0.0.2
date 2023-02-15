@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[27],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Statuspegawai.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Statuspegawai.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Statuspajak.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Statuspajak.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -210,7 +210,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      // props: ["statuspegawai"],
+      // props: ["statuspajak"],
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       editmode: false,
       dialog: false,
@@ -223,21 +223,21 @@ __webpack_require__.r(__webpack_exports__);
       max100chars: function max100chars(v) {
         return v.length <= 100 || 'Input too long!';
       },
-      statuspegawai: [],
+      statuspajak: [],
       editedIndex: -1,
       editedItem: {
         id: '',
-        statuspegawai: '',
-        statuspegawaiEdit: '',
-        statuspegawaiRules: [function (v) {
-          return !!v || 'Nama statuspegawai belum diisi';
+        statuspajak: '',
+        statuspajakEdit: '',
+        statuspajakRules: [function (v) {
+          return !!v || 'Nama statuspajak belum diisi';
         }]
       },
       valid: true,
       kantor_id: '',
       form: new Form({
         id: '',
-        statuspegawai: ''
+        statuspajak: ''
       })
     };
   },
@@ -249,8 +249,8 @@ __webpack_require__.r(__webpack_exports__);
         align: 'center',
         sortable: false
       }, {
-        text: 'statuspegawai',
-        value: 'statuspegawai'
+        text: 'statuspajak',
+        value: 'statuspajak'
       }];
 
       if (this.$gate.isAdmin()) {
@@ -289,7 +289,7 @@ __webpack_require__.r(__webpack_exports__);
       this.snackColor = 'info';
       this.snackText = 'Enter = Simpan';
       this.editedItem.id = item.id;
-      this.editedItem.statuspegawai = item.statuspegawai; //console.log(this.item.statuspegawai);
+      this.editedItem.statuspajak = item.statuspajak; //console.log(this.item.statuspajak);
       //alert(this.item.id)
     },
     close: function close() {
@@ -315,27 +315,27 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.$gate.isAdmin()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/statuspegawai").then(function (response) {
-          _this.statuspegawai = response.data.data; // this.kantor_id = this.$kantor_id;
+        axios.get("api/statuspajak").then(function (response) {
+          _this.statuspajak = response.data.data; // this.kantor_id = this.$kantor_id;
           // this.form.fill
-          //console.log(this.statuspegawai);
+          //console.log(this.statuspajak);
           //console.log(this.kantor_id)
         });
       }
 
       this.$Progress.finish();
     },
-    editstatuspegawai: function editstatuspegawai(item) {
-      this.editedIndex = this.statuspegawai.indexOf(item);
+    editstatuspajak: function editstatuspajak(item) {
+      this.editedIndex = this.statuspajak.indexOf(item);
       this.item.id = item.id;
-      this.item.statuspegawai = item.statuspegawai;
+      this.item.statuspajak = item.statuspajak;
       console.log(this.item.id); //alert(this.item.id)
     },
     newModal: function newModal() {
       this.editmode = false;
       $('#addNew').modal('show');
       this.$refs.form.reset();
-      this.editedItem.statuspegawai = '';
+      this.editedItem.statuspajak = '';
     },
     createUser: function createUser() {
       var _this2 = this;
@@ -350,9 +350,9 @@ __webpack_require__.r(__webpack_exports__);
       }; // //this.append('file', this.file);
 
       var formData = new FormData();
-      formData.set('statuspegawai', this.editedItem.statuspegawai);
-      axios.post('api/statuspegawai', formData, config).then(function (response) {
-        $('#addNew').modal('hide'); //  console.log(this.statuspegawai);
+      formData.set('statuspajak', this.editedItem.statuspajak);
+      axios.post('api/statuspajak', formData, config).then(function (response) {
+        $('#addNew').modal('hide'); //  console.log(this.statuspajak);
 
         Toast.fire({
           icon: 'success',
@@ -366,7 +366,7 @@ __webpack_require__.r(__webpack_exports__);
         //Swal.fire("Failed!", data.message, "warning");
         Toast.fire({
           icon: 'error',
-          title: 'Gagal tambah status pegawai, ulangi!' //title: response.message
+          title: 'Gagal tambah status pajak, ulangi!' //title: response.message
 
         });
       });
@@ -382,12 +382,12 @@ __webpack_require__.r(__webpack_exports__);
         } // headers: {'X-Custom-Header': 'value'}
 
       };
-      this.$Progress.start(); //alert(this.editedItem.statuspegawai);
+      this.$Progress.start(); //alert(this.editedItem.statuspajak);
 
       var formData = new FormData();
-      formData.set('statuspegawai', this.editedItem.statuspegawai);
+      formData.set('statuspajak', this.editedItem.statuspajak);
       formData.append("_method", "PUT");
-      axios.post('api/statuspegawai/' + this.editedItem.id, formData).then(function (response) {
+      axios.post('api/statuspajak/' + this.editedItem.id, formData).then(function (response) {
         // success
         $('#addNew').modal('hide');
         Toast.fire({
@@ -416,7 +416,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this4.form["delete"]('api/statuspegawai/' + id).then(function () {
+          _this4.form["delete"]('api/statuspajak/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
             _this4.initialize();
@@ -431,10 +431,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Statuspegawai.vue?vue&type=template&id=128e2464&":
-/*!************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Statuspegawai.vue?vue&type=template&id=128e2464& ***!
-  \************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Statuspajak.vue?vue&type=template&id=4b6f6977&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Statuspajak.vue?vue&type=template&id=4b6f6977& ***!
+  \**********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -481,7 +481,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    Master Status Pegawai\n                "
+                                  "\r\n                    Master Status Pajak\r\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -499,7 +499,7 @@ var render = function () {
                                 },
                                 [
                                   _c("v-icon", [_vm._v("mdi-plus-box")]),
-                                  _vm._v(" Tambah\n                  "),
+                                  _vm._v(" Tambah\r\n                  "),
                                 ],
                                 1
                               ),
@@ -515,7 +515,7 @@ var render = function () {
                                 staticClass: "elevation-3",
                                 attrs: {
                                   headers: _vm.headers,
-                                  items: _vm.statuspegawai,
+                                  items: _vm.statuspajak,
                                   search: _vm.search,
                                   justify: "center",
                                   dense: "",
@@ -528,9 +528,9 @@ var render = function () {
                                         var index = ref.index
                                         return [
                                           _vm._v(
-                                            "\n                    " +
+                                            "\r\n                    " +
                                               _vm._s(index + 1) +
-                                              "\n                "
+                                              "\r\n                "
                                           ),
                                         ]
                                       },
@@ -554,7 +554,7 @@ var render = function () {
                                               _c("v-text-field", {
                                                 attrs: {
                                                   "append-icon": "mdi-magnify",
-                                                  label: "Cari Status Pegawai",
+                                                  label: "Cari Status Pajak",
                                                   "single-line": "",
                                                   "hide-details": "",
                                                   loading: "grey",
@@ -596,7 +596,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                    mdi-delete\n                "
+                                                "\r\n                    mdi-delete\r\n                "
                                               ),
                                             ]
                                           ),
@@ -604,7 +604,7 @@ var render = function () {
                                       },
                                     },
                                     {
-                                      key: "item.statuspegawai",
+                                      key: "item.statuspajak",
                                       fn: function (ref) {
                                         var item = ref.item
                                         return [
@@ -633,7 +633,7 @@ var render = function () {
                                                           },
                                                           [
                                                             _vm._v(
-                                                              "\n                            Edit Status Pegawai\n                            "
+                                                              "\r\n                            Edit Status Pajak\r\n                            "
                                                             ),
                                                           ]
                                                         ),
@@ -650,18 +650,18 @@ var render = function () {
                                                           model: {
                                                             value:
                                                               _vm.editedItem
-                                                                .statuspegawai,
+                                                                .statuspajak,
                                                             callback: function (
                                                               $$v
                                                             ) {
                                                               _vm.$set(
                                                                 _vm.editedItem,
-                                                                "statuspegawai",
+                                                                "statuspajak",
                                                                 $$v
                                                               )
                                                             },
                                                             expression:
-                                                              "editedItem.statuspegawai",
+                                                              "editedItem.statuspajak",
                                                           },
                                                         }),
                                                       ]
@@ -675,9 +675,9 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                        " +
-                                                  _vm._s(item.statuspegawai) +
-                                                  "\n                        "
+                                                "\r\n                        " +
+                                                  _vm._s(item.statuspajak) +
+                                                  "\r\n                        "
                                               ),
                                             ]
                                           ),
@@ -687,7 +687,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  3363190331
+                                  2436472038
                                 ),
                               }),
                             ],
@@ -740,7 +740,7 @@ var render = function () {
                                 ),
                                 [
                                   _vm._v(
-                                    "\n                    Close\n                    "
+                                    "\r\n                    Close\r\n                    "
                                   ),
                                 ]
                               ),
@@ -758,9 +758,9 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                " +
+                        "\r\n                " +
                           _vm._s(_vm.snackText) +
-                          "\n\n                "
+                          "\r\n\r\n                "
                       ),
                     ]
                   ),
@@ -808,7 +808,7 @@ var render = function () {
                             ],
                             staticClass: "modal-title",
                           },
-                          [_vm._v("Tambah Status Pegawai")]
+                          [_vm._v("Tambah Status Pajak")]
                         ),
                         _vm._v(" "),
                         _c(
@@ -897,10 +897,9 @@ var render = function () {
                                   [
                                     _c("v-text-field", {
                                       attrs: {
-                                        rules:
-                                          _vm.editedItem.statuspegawaiRules,
-                                        label: "Status Pegawai",
-                                        name: "statuspegawai",
+                                        rules: _vm.editedItem.statuspajakRules,
+                                        label: "Status Pajak",
+                                        name: "statuspajak",
                                         placeholder: "input",
                                         outlined: "",
                                         required: "",
@@ -908,15 +907,15 @@ var render = function () {
                                         "prepend-icon": "mdi-account-plus",
                                       },
                                       model: {
-                                        value: _vm.editedItem.statuspegawai,
+                                        value: _vm.editedItem.statuspajak,
                                         callback: function ($$v) {
                                           _vm.$set(
                                             _vm.editedItem,
-                                            "statuspegawai",
+                                            "statuspajak",
                                             $$v
                                           )
                                         },
-                                        expression: "editedItem.statuspegawai",
+                                        expression: "editedItem.statuspajak",
                                       },
                                     }),
                                   ],
@@ -944,7 +943,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-cancel")]),
                                   _vm._v(
-                                    "\n                            Batal\n                        "
+                                    "\r\n                            Batal\r\n                        "
                                   ),
                                 ],
                                 1
@@ -970,7 +969,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-pencil")]),
                                   _vm._v(
-                                    "\n                            Ubah\n                        "
+                                    "\r\n                            Ubah\r\n                        "
                                   ),
                                 ],
                                 1
@@ -996,7 +995,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-plus-box")]),
                                   _vm._v(
-                                    "\n                            Tambah\n                        "
+                                    "\r\n                            Tambah\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1027,17 +1026,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/setting/Statuspegawai.vue":
-/*!***********************************************************!*\
-  !*** ./resources/js/components/setting/Statuspegawai.vue ***!
-  \***********************************************************/
+/***/ "./resources/js/components/setting/Statuspajak.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/setting/Statuspajak.vue ***!
+  \*********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Statuspegawai_vue_vue_type_template_id_128e2464___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Statuspegawai.vue?vue&type=template&id=128e2464& */ "./resources/js/components/setting/Statuspegawai.vue?vue&type=template&id=128e2464&");
-/* harmony import */ var _Statuspegawai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Statuspegawai.vue?vue&type=script&lang=js& */ "./resources/js/components/setting/Statuspegawai.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Statuspajak_vue_vue_type_template_id_4b6f6977___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Statuspajak.vue?vue&type=template&id=4b6f6977& */ "./resources/js/components/setting/Statuspajak.vue?vue&type=template&id=4b6f6977&");
+/* harmony import */ var _Statuspajak_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Statuspajak.vue?vue&type=script&lang=js& */ "./resources/js/components/setting/Statuspajak.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1047,9 +1046,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Statuspegawai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Statuspegawai_vue_vue_type_template_id_128e2464___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Statuspegawai_vue_vue_type_template_id_128e2464___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Statuspajak_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Statuspajak_vue_vue_type_template_id_4b6f6977___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Statuspajak_vue_vue_type_template_id_4b6f6977___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1059,38 +1058,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/setting/Statuspegawai.vue"
+component.options.__file = "resources/js/components/setting/Statuspajak.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/setting/Statuspegawai.vue?vue&type=script&lang=js&":
-/*!************************************************************************************!*\
-  !*** ./resources/js/components/setting/Statuspegawai.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************/
+/***/ "./resources/js/components/setting/Statuspajak.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/setting/Statuspajak.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Statuspegawai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Statuspegawai.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Statuspegawai.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Statuspegawai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Statuspajak_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Statuspajak.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Statuspajak.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Statuspajak_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/setting/Statuspegawai.vue?vue&type=template&id=128e2464&":
-/*!******************************************************************************************!*\
-  !*** ./resources/js/components/setting/Statuspegawai.vue?vue&type=template&id=128e2464& ***!
-  \******************************************************************************************/
+/***/ "./resources/js/components/setting/Statuspajak.vue?vue&type=template&id=4b6f6977&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/setting/Statuspajak.vue?vue&type=template&id=4b6f6977& ***!
+  \****************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Statuspegawai_vue_vue_type_template_id_128e2464___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Statuspegawai.vue?vue&type=template&id=128e2464& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Statuspegawai.vue?vue&type=template&id=128e2464&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Statuspegawai_vue_vue_type_template_id_128e2464___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Statuspajak_vue_vue_type_template_id_4b6f6977___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Statuspajak.vue?vue&type=template&id=4b6f6977& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Statuspajak.vue?vue&type=template&id=4b6f6977&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Statuspajak_vue_vue_type_template_id_4b6f6977___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Statuspegawai_vue_vue_type_template_id_128e2464___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Statuspajak_vue_vue_type_template_id_4b6f6977___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -1,16 +1,22 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[5],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Stock.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/akunting/Stock.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Overbooking.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/akunting/Overbooking.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -353,119 +359,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data(vm) {
     return {
@@ -473,99 +366,54 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       editmode: false,
       dialog: false,
       dialogDelete: false,
-      fromTgl: '',
-      toTgl: '',
-      filterFormTgl: '',
-      date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       search: '',
-      stock: [],
+      //   headers: [
+      //     {
+      //     text: 'No',
+      //     value: 'index',
+      //     },
+      //     { text: 'Kantor', value: 'nama_kantor',align: 'start', },
+      //     {
+      //       text: 'Nama File',
+      //       value: 'namafile',
+      //     },
+      //     { text: 'Tanggal File', value: 'tanggal' },
+      //     { text: 'Download File', value: 'file', sortable: false,align: 'center'  },
+      //     { text: 'Hapus', value: 'actions', sortable: false },
+      //   ],
+      namaOtorisator: [],
+      otorisator_id: '',
+      id_kantor: '',
+      namaKantor: [],
+      pesaneror: '',
+      overbooking: [],
       valid: true,
-      editedIndex: -1,
-      editedItem: {
-        id: '',
-        kantor_id: '',
-        tanggal: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
-        tanggalRules: [function (v) {
-          return !!v || 'Tanggal stok belum diisi';
-        }],
-        jml_stok_awal: 0,
-        jmlstokawalRules: [function (v) {
-          return !!v || 'harus diisi angka';
-        }, function (v) {
-          return v > -1 || 'angka tidak boleh minus';
-        }],
-        tambahan_stok: 0,
-        tambahanStokRules: [function (v) {
-          return v > -1 || 'angka tidak boleh minus';
-        }],
-        jml_digunakan: 0,
-        jmlDigunakanRules: [function (v) {
-          return v > -1 || 'angka tidak boleh minus';
-        }],
-        jml_rusak: 0,
-        jmlRusakRules: [function (v) {
-          return v > -1 || 'angka tidak boleh minus';
-        }],
-        jml_hilang: 0,
-        jmlHilangRules: [function (v) {
-          return v > -1 || 'angka tidak boleh minus';
-        }],
-        jml_stok_akhir: '',
-        jenis: '',
-        jenisStok: ['1', '2']
-      },
+      file: null,
+      id: '',
+      kantor_id: '',
+      namafile: '',
+      nameRules: [function (v) {
+        return !!v || 'Nama file belum diisi';
+      }],
       menu1: false,
       menu2: false,
-      menu3: false,
-      pesaneror: '',
+      dateFormatted: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
+      tanggal: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
+      tanggalRules: [function (v) {
+        return !!v || 'Tanggal file belum diisi';
+      }],
+      fileRules: [function (v) {
+        return !!v || 'File belum dimasukan';
+      }],
+      //file: '',
       form: new Form({
         id: '',
         kantor_id: '',
-        jenis: '',
+        namafile: '',
         tanggal: '',
-        jml_stok_awal: '',
-        tambahan_stok: '',
-        jml_digunakan: '',
-        jml_rusak: '',
-        jml_hilang: '',
-        jml_stok_akhir: ''
-      }),
-      columnsExcel: [{
-        label: 'Jenis Stok',
-        field: 'jenis'
-      }, {
-        label: 'Sandi Kantor',
-        field: 'kode_kantor',
-        align: 'start'
-      }, {
-        label: 'Tanggal Stok',
-        field: 'tanggal',
-        dataFormat: function dataFormat(value) {
-          return moment__WEBPACK_IMPORTED_MODULE_0___default()(value).format('DD/MM/YYYY');
-        }
-      }, {
-        label: 'Jumlah Stok Awal',
-        field: 'jml_stok_awal'
-      }, {
-        label: 'Tambahan Stok',
-        field: 'tambahan_stok'
-      }, {
-        label: 'Jumlah Digunakan',
-        field: 'jml_digunakan'
-      }, {
-        label: 'Jumlah Rusak',
-        field: 'jml_rusak'
-      }, {
-        label: 'Jumlah Hilang',
-        field: 'jml_hilang'
-      }, {
-        label: 'Jumlah Stok Akhir',
-        field: 'jml_stok_akhir'
-      }],
-      json_meta: [[{
-        " key ": " charset ",
-        " value ": " utf- 8 "
-      }]]
+        otorisator_id: '',
+        file: ''
+      })
     };
   },
   computed: {
@@ -576,88 +424,46 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         align: 'center',
         sortable: false
       }, {
-        text: 'Jenis Stok',
-        value: 'jenis',
+        text: 'Kantor',
+        value: 'nama_kantor',
         align: 'start'
       }, {
-        text: 'Sandi Kantor',
-        value: 'kode_kantor',
-        align: 'start'
+        text: 'Nama File',
+        value: 'namafile'
       }, {
-        text: 'Tanggal Stok',
+        text: 'Tanggal File',
         value: 'tanggal'
       }, {
-        text: 'Jumlah StokAwal',
-        value: 'jml_stok_awal',
-        align: 'center'
-      }, {
-        text: 'Tambahan Stok',
-        value: 'tambahan_stok',
-        align: 'center'
-      }, {
-        text: 'Jumlah Digunakan',
-        value: 'jml_digunakan',
-        align: 'center'
-      }, {
-        text: 'JumlahRusak',
-        value: 'jml_rusak',
-        align: 'center'
-      }, {
-        text: 'JumlahHilang',
-        value: 'jml_hilang',
-        align: 'center'
-      }, {
-        text: 'Jumlah StokAkhir',
-        value: 'jml_stok_akhir',
-        align: 'center'
+        text: 'Otorisator',
+        value: 'namaotorisator'
       }];
       headers.push({
-        text: 'Edit',
-        value: 'edit',
+        text: 'Download File',
+        value: 'file',
         sortable: false,
         align: 'center'
       });
-      headers.push({
-        text: 'Hapus',
-        value: 'actions',
-        sortable: false,
-        align: 'center'
-      }); // if(this.$gate.isAdmin()){
-      //     headers.push({ text: 'Edit', value: 'edit', sortable: false,align: 'center' })
-      //     headers.push({ text: 'Hapus', value: 'actions', sortable: false, align: 'center' })
-      // }
+
+      if (this.$gate.isAdmin()) {
+        headers.push({
+          text: 'Hapus',
+          value: 'actions',
+          sortable: false
+        });
+      }
 
       return headers;
     },
-    fromTglText: function fromTglText() {
-      return this.fromTgl ? moment__WEBPACK_IMPORTED_MODULE_0___default()(this.fromTgl).format('YYYY-MM-DD') : '';
-    },
-    toTglText: function toTglText() {
-      return this.toTgl ? moment__WEBPACK_IMPORTED_MODULE_0___default()(this.toTgl).format('YYYY-MM-DD') : '';
-    },
     computedDateFormatted: function computedDateFormatted() {
-      return this.formatDate(this.editedItem.date);
+      return this.formatDate(this.tanggal);
     },
-    // jenisKode: {
-    //   get: function() {
-    //     // find the code if it exist, else, just return the typed input
-    //     const kode = this.editedItem.jenisStok.find(
-    //       kode => kode.value === this.editedItem.jenis
-    //     );
-    //     return kode || this.editedItem.jenis;
-    //   },
-    //   set: function(value) {
-    //     this.editedItem.jenis = value;
-    //   }
-    // },
     formTitle: function formTitle() {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item';
     }
   },
   watch: {
-    date: function date(val) {
-      //this.editedItem.tanggal = this.formatDate(this.date)
-      this.editedItem.tanggal = this.date;
+    tanggal: function tanggal(val) {
+      this.dateFormatted = this.formatDate(this.tanggal);
     },
     dialog: function dialog(val) {
       val || this.close();
@@ -671,156 +477,233 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   //   },
   created: function created() {
     this.$Progress.start();
+    console.log(this.kantor_id);
     this.initialize();
     this.$Progress.finish();
+    this.$refs.cboto.reset();
+    this.$refs.cbkantor.reset();
   },
   methods: {
     pencetKeyboard: function pencetKeyboard(evt) {
       evt = evt ? evt : window.event;
       var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul
+      //if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+      //tidak boleh tombol '/' dan '\'
 
-      if (charCode > 31 && (charCode < 48 || charCode > 57) && (charCode < 95 || charCode > 105) && charCode !== 46) {
-        //tidak boleh tombol '/' dan '\'
-        //if (charCode === 191 || charCode===220) {
+      if (charCode === 191 || charCode === 220) {
         evt.preventDefault();
         ;
       } else {
         return true;
       }
     },
-    inputStokAkhir: function inputStokAkhir() {
-      this.editedItem.jml_stok_akhir = parseInt(this.editedItem.jml_stok_awal) + parseInt(this.editedItem.tambahan_stok) - parseInt(this.editedItem.jml_digunakan) - parseInt(this.editedItem.jml_rusak) - parseInt(this.editedItem.jml_hilang);
-    },
-    formatDate: function formatDate(date) {
-      if (!date) return null;
+    formatDate: function formatDate(tanggal) {
+      if (!tanggal) return null;
 
-      var _date$split = date.split('-'),
-          _date$split2 = _slicedToArray(_date$split, 3),
-          year = _date$split2[0],
-          month = _date$split2[1],
-          day = _date$split2[2];
+      var _tanggal$split = tanggal.split('-'),
+          _tanggal$split2 = _slicedToArray(_tanggal$split, 3),
+          year = _tanggal$split2[0],
+          month = _tanggal$split2[1],
+          day = _tanggal$split2[2];
 
       return "".concat(day, "/").concat(month, "/").concat(year);
     },
-    formatDateExcel: function formatDateExcel(value) {
-      if (!value) return null;
+    parseDate: function parseDate(tanggal) {
+      if (!tanggal) return null;
 
-      var _value$split = value.split('-'),
-          _value$split2 = _slicedToArray(_value$split, 3),
-          year = _value$split2[0],
-          month = _value$split2[1],
-          day = _value$split2[2];
-
-      return "".concat(day, "/").concat(month, "/").concat(year); //return '$ ' + value;
-    },
-    parseDate: function parseDate(date) {
-      if (!date) return null;
-
-      var _date$split3 = date.split('/'),
-          _date$split4 = _slicedToArray(_date$split3, 3),
-          day = _date$split4[0],
-          month = _date$split4[1],
-          year = _date$split4[2];
+      var _tanggal$split3 = tanggal.split('/'),
+          _tanggal$split4 = _slicedToArray(_tanggal$split3, 3),
+          day = _tanggal$split4[0],
+          month = _tanggal$split4[1],
+          year = _tanggal$split4[2];
 
       return "".concat(year, "-").concat(month.padStart(2, '0'), "-").concat(day.padStart(2, '0'));
     },
-    formatDateFilter: function formatDateFilter(date) {
-      if (!date) return null;
-
-      var _date$split5 = date.split('-'),
-          _date$split6 = _slicedToArray(_date$split5, 3),
-          year = _date$split6[0],
-          month = _date$split6[1],
-          day = _date$split6[2];
-
-      return "".concat(day, "/").concat(month, "/").concat(year, " ~ ").concat(day, "/").concat(month, "/").concat(year);
-    },
-    filterTanggal: function filterTanggal() {
+    getOtorisator: function getOtorisator() {
       var _this = this;
-
-      this.$Progress.start();
-      var formData = new FormData();
-      formData.set('fromtgl', this.fromTglText);
-      formData.set('totgl', this.toTglText);
-
-      if (this.fromTglText != '' && this.toTglText != '') {
-        if (this.$gate.isAdmin() || this.$gate.isAK()) {
-          axios.get("api/stock/filtertanggal", {
-            params: {
-              fromtgl: this.fromTglText,
-              totgl: this.toTglText
-            }
-          }).then(function (response) {
-            _this.stock = response.data.data;
-            _this.editedItem.kantor_id = _this.$kantor_id; // this.form.fill
-            //console.log(this.stock);
-            //console.log(this.kantor_id)
-          })["catch"](function (error) {
-            console.log(error.response.data);
-          });
-        }
-      } else {
-        //Swal.fire("Gagal Filter", "Filter Tanggal Belum Dipilih...!", "warning");
-        Swal.fire({
-          icon: 'error',
-          title: 'Error Filter',
-          text: 'Filter Tanggal Belum Dipilih...! ',
-          width: 600,
-          padding: '3em',
-          color: '#ff0000',
-          background: '#ff0000 url(/images/kayu.jpg)',
-          backdrop: "\n            rgba(255,0,64,0.4)\n            url(\"/images/nyan-cat.gif\")\n            left top\n            no-repeat\n          "
-        });
-      }
-
-      this.$Progress.finish();
-    },
-    initialize: function initialize() {
-      var _this2 = this;
-
-      this.$Progress.start();
 
       if (this.$gate.isAdmin() || this.$gate.isAK()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/stock").then(function (response) {
-          _this2.stock = response.data.data;
-          _this2.editedItem.kantor_id = _this2.$kantor_id; // this.form.fill
-          //console.log(this.stock);
+        axios.get("api/overbooking/getotorisator").then(function (response) {
+          _this.namaOtorisator = response.data.data; //console.log(this.editedItem.namaBarang);
           //console.log(this.kantor_id)
         })["catch"](function (error) {
           console.log(error.response.data);
         });
       }
+    },
+    getKantor: function getKantor() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (_this2.$gate.isAdmin()) {
+                  //axios.get("api/user").then((response) => {(this.users = response.data.data)});
+                  axios.get("api/overbooking/getkantor").then(function (response) {
+                    _this2.namaKantor = response.data.data;
+                    console.log(_this2.namaKantor);
+                    console.log(_this2.kantor_id);
+                  })["catch"](function (error) {
+                    console.log(error.response.data);
+                  });
+                }
+
+              case 1:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    filterKantor: function filterKantor() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var formData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this3.$Progress.start();
+
+                formData = new FormData();
+                formData.set('kantor_id', _this3.id_kantor);
+
+                if (_this3.id_kantor != '') {
+                  if (_this3.$gate.isAdmin()) {
+                    axios.get("api/overbooking/filterkantor", {
+                      params: {
+                        kantor_id: _this3.id_kantor
+                      }
+                    }).then(function (response) {
+                      _this3.overbooking = response.data.data;
+                      _this3.kantor_id = _this3.$kantor_id; // this.form.fill
+                      // console.log(this.overbooking);
+                      // console.log(this.kantor_id)
+                    })["catch"](function (error) {
+                      console.log(error.response.data);
+                    });
+                  }
+                } else {
+                  //Swal.fire("Gagal Filter", "Filter Tanggal Belum Dipilih...!", "warning");
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Error Filter',
+                    text: 'Filter Kantor Belum Dipilih...! ',
+                    width: 600,
+                    padding: '3em',
+                    color: '#ff0000',
+                    background: '#ff0000 url(/images/kayu.jpg)',
+                    backdrop: "\n            rgba(255,0,64,0.4)\n            url(\"/images/nyan-cat.gif\")\n            left top\n            no-repeat\n          "
+                  });
+                }
+
+                _this3.$Progress.finish();
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    filterOtorisator: function filterOtorisator() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var formData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this4.$Progress.start();
+
+                formData = new FormData();
+                formData.set('otorisator_id', _this4.otorisator_id);
+
+                if (_this4.otorisator_id != '') {
+                  if (_this4.$gate.isAdmin() || _this4.$gate.isAK()) {
+                    axios.get("api/overbooking/filterotorisator", {
+                      params: {
+                        otorisator_id: _this4.otorisator_id
+                      }
+                    }).then(function (response) {
+                      _this4.overbooking = response.data.data;
+                      _this4.otorisator_id = _this4.$otorisator_id; // this.form.fill
+                      // console.log(this.overbooking);
+                      // console.log(this.kantor_id)
+                    })["catch"](function (error) {
+                      console.log(error.response.data);
+                    });
+                  }
+                } else {
+                  //Swal.fire("Gagal Filter", "Filter Tanggal Belum Dipilih...!", "warning");
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Error Filter',
+                    text: 'Filter Otorisator Belum Dipilih...! ',
+                    width: 600,
+                    padding: '3em',
+                    color: '#ff0000',
+                    background: '#ff0000 url(/images/kayu.jpg)',
+                    backdrop: "\n            rgba(255,0,64,0.4)\n            url(\"/images/nyan-cat.gif\")\n            left top\n            no-repeat\n          "
+                  });
+                }
+
+                _this4.$Progress.finish();
+
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    initialize: function initialize() {
+      var _this5 = this;
+
+      this.$Progress.start();
+
+      if (this.$gate.isAdmin() || this.$gate.isAK()) {
+        //axios.get("api/user").then((response) => {(this.users = response.data.data)});
+        axios.get("api/overbooking").then(function (response) {
+          _this5.overbooking = response.data.data;
+          _this5.kantor_id = _this5.$kantor_id; // this.form.fill
+          //console.log(this.overbooking);
+          //console.log(this.kantor_id)
+        });
+      } //this.$refs.CBKantor.reset();
+
 
       this.$Progress.finish();
+      this.$refs.cboto.reset();
+      this.$refs.cbkantor.reset();
     },
     editModal: function editModal(item) {
-      this.editmode = true; //this.$refs.form.reset()
-
+      this.editmode = true;
+      this.$refs.form.reset();
       $('#addNew').modal('show');
-      this.editedIndex = this.stock.indexOf(item); // this.editedItem = Object.assign({}, item)
-
-      this.editedItem.kantor_id = this.$kantor_id;
-      this.editedItem.tanggal = item.tanggal; //this.editedItem.dateFormatted      = this.formatDate(this.tanggal);
-
-      this.editedItem.id = item.id;
-      this.editedItem.jenis = item.jenis;
-      this.editedItem.jml_stok_awal = item.jml_stok_awal;
-      this.editedItem.tambahan_stok = item.tambahan_stok;
-      this.editedItem.jml_digunakan = item.jml_digunakan;
-      this.editedItem.jml_rusak = item.jml_rusak;
-      this.editedItem.jml_hilang = item.jml_hilang;
-      this.editedItem.jml_stok_akhir = item.jml_stok_akhir; //  console.log(item.id);
-
-      console.log(this.$kantor_id);
+      this.form.fill(item);
     },
     newModal: function newModal() {
       this.editmode = false;
       $('#addNew').modal('show');
-      this.$refs.form.reset(); //this.namafile = '';
+      this.$refs.form.reset();
+      this.namafile = '';
     },
+    // uploadFile(e){
+    //         // `files` is always an array because the file input may be in multiple mode
+    //         console.log(e);
+    //         this.file = e.target.files[0];
+    // },
     createUser: function createUser() {
-      var _this3 = this;
+      var _this6 = this;
 
       this.$refs.form.validate();
       this.$Progress.start(); // e.preventDefault();
@@ -829,48 +712,54 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         headers: {
           'content-type': 'multipart/form-data'
         }
-      };
-      var formData = new FormData();
-      formData.set('kantor_id', this.editedItem.kantor_id);
-      formData.set('jenis', this.editedItem.jenis);
-      formData.set('tanggal', this.editedItem.tanggal);
-      formData.set('jml_stok_awal', this.editedItem.jml_stok_awal);
-      formData.set('tambahan_stok', this.editedItem.tambahan_stok);
-      formData.set('jml_digunakan', this.editedItem.jml_digunakan);
-      formData.set('jml_rusak', this.editedItem.jml_rusak);
-      formData.set('jml_hilang', this.editedItem.jml_hilang);
-      formData.set('jml_stok_akhir', parseInt(this.editedItem.jml_stok_awal) + parseInt(this.editedItem.tambahan_stok) - parseInt(this.editedItem.jml_digunakan) - parseInt(this.editedItem.jml_rusak) - parseInt(this.editedItem.jml_hilang)); //formData.append('jml_stok_akhir', this.jml_stok_awal);
-      // console.log(this.file);
+      }; // //this.append('file', this.file);
 
-      axios.post('api/stock', formData, config).then(function (response) {
+      var formData = new FormData();
+      formData.set('kantor_id', this.kantor_id);
+      formData.set('namafile', this.namafile);
+      formData.set('tanggal', this.tanggal);
+      formData.set('otorisator_id', this.otorisator_id);
+      formData.set('file', this.file); // formData.append('file', this.file);
+
+      console.log(this.kantor_id);
+      axios.post('api/overbooking', formData, config).then(function (response) {
         $('#addNew').modal('hide');
         Toast.fire({
           icon: 'success',
           title: response.data.message
         });
 
-        _this3.$Progress.finish();
+        _this6.$Progress.finish();
 
-        _this3.initialize();
-      })["catch"](function (response) {
+        _this6.initialize();
+      })["catch"](function (error) {
         //Swal.fire("Failed!", data.message, "warning");
-        Toast.fire({
-          icon: 'error',
-          title: 'Gagal tambah stok, ulangi!' //title: response.message
+        var errors = error.response.data.errors; // Loop this object and pring Key or value or both
 
-        });
+        for (var _i2 = 0, _Object$entries = Object.entries(errors); _i2 < _Object$entries.length; _i2++) {
+          var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
+              key = _Object$entries$_i[0],
+              value = _Object$entries$_i[1];
+
+          // console.log(`${key}: ${value}`);
+          Toast.fire({
+            icon: 'error',
+            title: value //title : "Gagal upload, ulangi..."
+
+          });
+        }
       });
     },
     downloadFile: function downloadFile(id, file) {
       axios({
-        url: 'api/stock/download/' + id,
+        url: 'api/overbooking/download/' + id,
         method: 'GET',
         responseType: 'blob'
       }).then(function (response) {
         var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement('a');
         fileLink.href = fileUrl;
-        fileLink.setAttribute('download', 'stock.zip');
+        fileLink.setAttribute('download', 'overbooking.zip');
         fileLink.download = file;
         document.body.appendChild(fileLink);
         fileLink.click();
@@ -879,53 +768,28 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       });
     },
     updateUser: function updateUser() {
-      var _this4 = this;
+      var _this7 = this;
 
-      var config = {
-        headers: {
-          'accept': 'application/json',
-          'Accept-Language': 'en-US,en;q=0.8',
-          'content-type': 'multipart/form-data'
-        } // headers: {'X-Custom-Header': 'value'}
+      this.$Progress.start(); // console.log('Editing data');
 
-      };
-      this.$refs.form.validate();
-      this.$Progress.start(); //console.log(this.editedItem.id)
-
-      var formData = new FormData();
-      formData.set('kantor_id', this.editedItem.kantor_id);
-      formData.set('jenis', this.editedItem.jenis);
-      formData.set('tanggal', this.editedItem.tanggal);
-      formData.set('jml_stok_awal', this.editedItem.jml_stok_awal);
-      formData.set('tambahan_stok', this.editedItem.tambahan_stok);
-      formData.set('jml_digunakan', this.editedItem.jml_digunakan);
-      formData.set('jml_rusak', this.editedItem.jml_rusak);
-      formData.set('jml_hilang', this.editedItem.jml_hilang);
-      formData.set('jml_stok_akhir', parseInt(this.editedItem.jml_stok_awal) + parseInt(this.editedItem.tambahan_stok) - parseInt(this.editedItem.jml_digunakan) - parseInt(this.editedItem.jml_rusak) - parseInt(this.editedItem.jml_hilang));
-      formData.append("_method", "PUT"); // console.log(formData);
-
-      axios.post('api/stock/' + this.editedItem.id, formData, config) //axios.put('api/stock/27',formData)
-      .then(function (response) {
-        console.log(_this4.editedItem.id); // success
-
+      this.form.put('api/overbooking/' + this.form.id).then(function (response) {
+        // success
         $('#addNew').modal('hide');
         Toast.fire({
           icon: 'success',
           title: response.data.message
         });
 
-        _this4.$Progress.finish(); //  Fire.$emit('AfterCreate');
+        _this7.$Progress.finish(); //  Fire.$emit('AfterCreate');
 
 
-        _this4.initialize();
-      })["catch"](function (error) {
-        console.log(error);
-
-        _this4.$Progress.fail();
+        _this7.initialize();
+      })["catch"](function () {
+        _this7.$Progress.fail();
       });
     },
     deleteUser: function deleteUser(id) {
-      var _this5 = this;
+      var _this8 = this;
 
       Swal.fire({
         title: 'Yakin dihapus?',
@@ -937,10 +801,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this5.form["delete"]('api/stock/' + id).then(function () {
+          _this8.form["delete"]('api/overbooking/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
-            _this5.initialize();
+            _this8.initialize();
           })["catch"](function (data) {
             Swal.fire("Failed!", data.message, "warning");
           });
@@ -952,10 +816,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Stock.vue?vue&type=template&id=c3a2cfba&":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/akunting/Stock.vue?vue&type=template&id=c3a2cfba& ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Overbooking.vue?vue&type=template&id=73efdad2&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/akunting/Overbooking.vue?vue&type=template&id=73efdad2& ***!
+  \***********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -983,7 +847,7 @@ var render = function () {
             [
               _c(
                 "v-col",
-                { attrs: { cols: "12" } },
+                { attrs: { cols: "11" } },
                 [
                   _vm.$gate.isAdmin() || _vm.$gate.isAK()
                     ? _c(
@@ -994,7 +858,7 @@ var render = function () {
                             "v-toolbar",
                             {
                               attrs: {
-                                src: "images/banner-biru-pelayanan.jpg",
+                                src: "images/banner-biru-akunting.jpg",
                                 color: "rgb(39,154,187)",
                                 dark: "",
                                 shaped: "",
@@ -1003,7 +867,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    Stok Buku Tabungan dan Bilyet Deposito\n                "
+                                  "\n                    File Overbooking\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -1020,8 +884,8 @@ var render = function () {
                                   on: { click: _vm.newModal },
                                 },
                                 [
-                                  _c("v-icon", [_vm._v("mdi-archive-plus")]),
-                                  _vm._v(" Tambah Stok\n                  "),
+                                  _c("v-icon", [_vm._v("mdi-file-upload")]),
+                                  _vm._v(" Upload File\n                  "),
                                 ],
                                 1
                               ),
@@ -1037,35 +901,13 @@ var render = function () {
                                 staticClass: "elevation-3",
                                 attrs: {
                                   headers: _vm.headers,
-                                  items: _vm.stock,
+                                  items: _vm.overbooking,
                                   search: _vm.search,
-                                  "items-per-page": 10,
-                                  "footer-props": {
-                                    "items-per-page-options": [
-                                      5, 10, 14, 140, -1,
-                                    ],
-                                    "items-per-page-text": "baris per halaman",
-                                  },
                                   justify: "center",
                                   dense: "",
                                 },
                                 scopedSlots: _vm._u(
                                   [
-                                    {
-                                      key: "item.tanggal",
-                                      fn: function (ref) {
-                                        var item = ref.item
-                                        return [
-                                          _vm._v(
-                                            "\n                " +
-                                              _vm._s(
-                                                _vm.formatDate(item.tanggal)
-                                              ) +
-                                              "\n                "
-                                          ),
-                                        ]
-                                      },
-                                    },
                                     {
                                       key: "footer.prepend",
                                       fn: function () {
@@ -1131,35 +973,73 @@ var render = function () {
                                             "v-toolbar",
                                             { attrs: { flat: "" } },
                                             [
-                                              _c(
-                                                "vue-excel-xlsx",
-                                                {
-                                                  staticClass:
-                                                    "btn btn-success btn-sm",
-                                                  attrs: {
-                                                    data: _vm.stock,
-                                                    columns: _vm.columnsExcel,
-                                                    "file-name": "OP003-A",
-                                                    "file-type": "xls",
-                                                    "sheet-name": "stock",
-                                                  },
-                                                },
-                                                [
-                                                  _c("i", {
-                                                    staticClass:
-                                                      "fa-solid fa-file-excel",
-                                                  }),
-                                                  _vm._v(
-                                                    "\n                        Excel\n                    "
-                                                  ),
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c("v-spacer"),
-                                              _vm._v(" "),
-                                              _c("v-spacer"),
-                                              _vm._v(" "),
-                                              _c("v-spacer"),
+                                              _vm.$gate.isAdmin()
+                                                ? _c(
+                                                    "v-row",
+                                                    [
+                                                      _c(
+                                                        "v-col",
+                                                        {
+                                                          attrs: {
+                                                            cols: "8",
+                                                            sm: "8",
+                                                            md: "8",
+                                                          },
+                                                        },
+                                                        [
+                                                          _c("v-combobox", {
+                                                            ref: "cbkantor",
+                                                            attrs: {
+                                                              label: "Kantor",
+                                                              items:
+                                                                _vm.namaKantor,
+                                                              "item-value":
+                                                                "id",
+                                                              "item-text":
+                                                                "nama_kantor",
+                                                              placeholder:
+                                                                "Pilih Kantor",
+                                                              "single-line": "",
+                                                              "hide-details":
+                                                                "",
+                                                              clearable: "",
+                                                              "return-object": false,
+                                                              "persistent-hint":
+                                                                "",
+                                                              "error-messages":
+                                                                _vm.pesaneror,
+                                                            },
+                                                            on: {
+                                                              click: function (
+                                                                $event
+                                                              ) {
+                                                                return _vm.getKantor()
+                                                              },
+                                                              change: function (
+                                                                $event
+                                                              ) {
+                                                                return _vm.filterKantor()
+                                                              },
+                                                            },
+                                                            model: {
+                                                              value:
+                                                                _vm.id_kantor,
+                                                              callback:
+                                                                function ($$v) {
+                                                                  _vm.id_kantor =
+                                                                    $$v
+                                                                },
+                                                              expression:
+                                                                "id_kantor",
+                                                            },
+                                                          }),
+                                                        ],
+                                                        1
+                                                      ),
+                                                    ],
+                                                    1
+                                                  )
+                                                : _vm._e(),
                                               _vm._v(" "),
                                               _c("v-spacer"),
                                               _vm._v(" "),
@@ -1170,283 +1050,56 @@ var render = function () {
                                                     "v-col",
                                                     {
                                                       attrs: {
-                                                        cols: "12",
-                                                        sm: "6",
-                                                        md: "5",
+                                                        cols: "10",
+                                                        sm: "10",
+                                                        md: "10",
                                                       },
                                                     },
                                                     [
-                                                      _c(
-                                                        "v-menu",
-                                                        {
-                                                          ref: "menu2",
-                                                          attrs: {
-                                                            "close-on-content-click": false,
-                                                            "nudge-right": 40,
-                                                            transition:
-                                                              "scale-transition",
-                                                            "offset-y": "",
-                                                            "min-width": "auto",
+                                                      _c("v-combobox", {
+                                                        ref: "cboto",
+                                                        attrs: {
+                                                          label: "Otorisator",
+                                                          items:
+                                                            _vm.namaOtorisator,
+                                                          "item-value": "id",
+                                                          "item-text":
+                                                            "namaotorisator",
+                                                          placeholder:
+                                                            "Daftar Otorisator",
+                                                          "single-line": "",
+                                                          "hide-details": "",
+                                                          clearable: "",
+                                                          "return-object": false,
+                                                          "persistent-hint": "",
+                                                          "error-messages":
+                                                            _vm.pesaneror,
+                                                        },
+                                                        on: {
+                                                          click: function (
+                                                            $event
+                                                          ) {
+                                                            return _vm.getOtorisator()
                                                           },
-                                                          scopedSlots: _vm._u(
-                                                            [
-                                                              {
-                                                                key: "activator",
-                                                                fn: function (
-                                                                  ref
-                                                                ) {
-                                                                  var on =
-                                                                    ref.on
-                                                                  var attrs =
-                                                                    ref.attrs
-                                                                  return [
-                                                                    _c(
-                                                                      "v-text-field",
-                                                                      _vm._g(
-                                                                        _vm._b(
-                                                                          {
-                                                                            attrs:
-                                                                              {
-                                                                                "single-line":
-                                                                                  "",
-                                                                                label:
-                                                                                  "Dari Tanggal",
-                                                                                "append-icon":
-                                                                                  "mdi-calendar",
-                                                                                "hide-details":
-                                                                                  "",
-                                                                              },
-                                                                            model:
-                                                                              {
-                                                                                value:
-                                                                                  _vm.fromTglText,
-                                                                                callback:
-                                                                                  function (
-                                                                                    $$v
-                                                                                  ) {
-                                                                                    _vm.fromTglText =
-                                                                                      $$v
-                                                                                  },
-                                                                                expression:
-                                                                                  "fromTglText",
-                                                                              },
-                                                                          },
-                                                                          "v-text-field",
-                                                                          attrs,
-                                                                          false
-                                                                        ),
-                                                                        on
-                                                                      )
-                                                                    ),
-                                                                  ]
-                                                                },
-                                                              },
-                                                            ],
-                                                            null,
-                                                            false,
-                                                            3807831418
-                                                          ),
-                                                          model: {
-                                                            value: _vm.menu2,
-                                                            callback: function (
+                                                          change: function (
+                                                            $event
+                                                          ) {
+                                                            return _vm.filterOtorisator()
+                                                          },
+                                                        },
+                                                        model: {
+                                                          value:
+                                                            _vm.otorisator_id,
+                                                          callback: function (
+                                                            $$v
+                                                          ) {
+                                                            _vm.otorisator_id =
                                                               $$v
-                                                            ) {
-                                                              _vm.menu2 = $$v
-                                                            },
-                                                            expression: "menu2",
                                                           },
+                                                          expression:
+                                                            "otorisator_id",
                                                         },
-                                                        [
-                                                          _vm._v(" "),
-                                                          _c("v-date-picker", {
-                                                            attrs: {
-                                                              elevation: "15",
-                                                              "year-icon":
-                                                                "calendar-blank",
-                                                              locale: "id-ID",
-                                                            },
-                                                            on: {
-                                                              input: function (
-                                                                $event
-                                                              ) {
-                                                                _vm.menu2 = false
-                                                              },
-                                                            },
-                                                            model: {
-                                                              value:
-                                                                _vm.fromTgl,
-                                                              callback:
-                                                                function ($$v) {
-                                                                  _vm.fromTgl =
-                                                                    $$v
-                                                                },
-                                                              expression:
-                                                                "fromTgl",
-                                                            },
-                                                          }),
-                                                        ],
-                                                        1
-                                                      ),
-                                                    ],
-                                                    1
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "v-col",
-                                                    {
-                                                      attrs: {
-                                                        cols: "12",
-                                                        sm: "6",
-                                                        md: "5",
-                                                      },
-                                                    },
-                                                    [
-                                                      _c(
-                                                        "v-menu",
-                                                        {
-                                                          ref: "menu3",
-                                                          attrs: {
-                                                            "close-on-content-click": false,
-                                                            "nudge-right": 40,
-                                                            transition:
-                                                              "scale-transition",
-                                                            "offset-y": "",
-                                                            "min-width": "auto",
-                                                          },
-                                                          scopedSlots: _vm._u(
-                                                            [
-                                                              {
-                                                                key: "activator",
-                                                                fn: function (
-                                                                  ref
-                                                                ) {
-                                                                  var on =
-                                                                    ref.on
-                                                                  var attrs =
-                                                                    ref.attrs
-                                                                  return [
-                                                                    _c(
-                                                                      "v-text-field",
-                                                                      _vm._g(
-                                                                        _vm._b(
-                                                                          {
-                                                                            attrs:
-                                                                              {
-                                                                                "single-line":
-                                                                                  "",
-                                                                                label:
-                                                                                  "Sampai Tanggal",
-                                                                                "append-icon":
-                                                                                  "mdi-calendar",
-                                                                                "hide-details":
-                                                                                  "",
-                                                                              },
-                                                                            model:
-                                                                              {
-                                                                                value:
-                                                                                  _vm.toTglText,
-                                                                                callback:
-                                                                                  function (
-                                                                                    $$v
-                                                                                  ) {
-                                                                                    _vm.toTglText =
-                                                                                      $$v
-                                                                                  },
-                                                                                expression:
-                                                                                  "toTglText",
-                                                                              },
-                                                                          },
-                                                                          "v-text-field",
-                                                                          attrs,
-                                                                          false
-                                                                        ),
-                                                                        on
-                                                                      )
-                                                                    ),
-                                                                  ]
-                                                                },
-                                                              },
-                                                            ],
-                                                            null,
-                                                            false,
-                                                            1484171918
-                                                          ),
-                                                          model: {
-                                                            value: _vm.menu3,
-                                                            callback: function (
-                                                              $$v
-                                                            ) {
-                                                              _vm.menu3 = $$v
-                                                            },
-                                                            expression: "menu3",
-                                                          },
-                                                        },
-                                                        [
-                                                          _vm._v(" "),
-                                                          _c("v-date-picker", {
-                                                            attrs: {
-                                                              elevation: "15",
-                                                              "year-icon":
-                                                                "calendar-blank",
-                                                              locale: "id-ID",
-                                                            },
-                                                            on: {
-                                                              input: function (
-                                                                $event
-                                                              ) {
-                                                                _vm.menu3 = false
-                                                              },
-                                                            },
-                                                            model: {
-                                                              value: _vm.toTgl,
-                                                              callback:
-                                                                function ($$v) {
-                                                                  _vm.toTgl =
-                                                                    $$v
-                                                                },
-                                                              expression:
-                                                                "toTgl",
-                                                            },
-                                                          }),
-                                                        ],
-                                                        1
-                                                      ),
-                                                    ],
-                                                    1
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "v-col",
-                                                    [
-                                                      _c(
-                                                        "v-btn",
-                                                        {
-                                                          staticClass: "mx-3",
-                                                          attrs: {
-                                                            fab: "",
-                                                            dark: "",
-                                                            color: "indigo",
-                                                            "x-small": "",
-                                                            fixed: "",
-                                                            bottom: "",
-                                                          },
-                                                          on: {
-                                                            click: function (
-                                                              $event
-                                                            ) {
-                                                              return _vm.filterTanggal()
-                                                            },
-                                                          },
-                                                        },
-                                                        [
-                                                          _c("v-icon", [
-                                                            _vm._v(
-                                                              "\n                        mdi-filter\n                      "
-                                                            ),
-                                                          ]),
-                                                        ],
-                                                        1
-                                                      ),
+                                                      }),
                                                     ],
                                                     1
                                                   ),
@@ -1456,10 +1109,14 @@ var render = function () {
                                               _vm._v(" "),
                                               _c("v-spacer"),
                                               _vm._v(" "),
+                                              _c("v-spacer"),
+                                              _vm._v(" "),
+                                              _c("v-spacer"),
+                                              _vm._v(" "),
                                               _c("v-text-field", {
                                                 attrs: {
                                                   "append-icon": "mdi-magnify",
-                                                  label: "Cari Data Stok",
+                                                  label: "Cari File",
                                                   "single-line": "",
                                                   "hide-details": "",
                                                   loading: "grey",
@@ -1480,7 +1137,7 @@ var render = function () {
                                       proxy: true,
                                     },
                                     {
-                                      key: "item.edit",
+                                      key: "item.file",
                                       fn: function (ref) {
                                         var item = ref.item
                                         return [
@@ -1491,19 +1148,23 @@ var render = function () {
                                               _c(
                                                 "v-icon",
                                                 {
+                                                  staticClass: "mr-4",
                                                   attrs: {
                                                     small: "",
-                                                    color: "green",
+                                                    color: "blue",
                                                   },
                                                   on: {
                                                     click: function ($event) {
-                                                      return _vm.editModal(item)
+                                                      return _vm.downloadFile(
+                                                        item.id,
+                                                        item.file
+                                                      )
                                                     },
                                                   },
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                        mdi-pencil\n                    "
+                                                    "\n                            mdi-download\n                        "
                                                   ),
                                                 ]
                                               ),
@@ -1521,9 +1182,11 @@ var render = function () {
                                           _c(
                                             "v-icon",
                                             {
+                                              staticClass: "mr-4",
                                               attrs: {
                                                 small: "",
                                                 color: "red",
+                                                right: "",
                                               },
                                               on: {
                                                 click: function ($event) {
@@ -1543,7 +1206,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  2067198694
+                                  2665328971
                                 ),
                               }),
                             ],
@@ -1585,7 +1248,7 @@ var render = function () {
                     "div",
                     { staticClass: "modal-content" },
                     [
-                      _c("div", { staticClass: "modal-header primary" }, [
+                      _c("div", { staticClass: "modal-header" }, [
                         _c(
                           "h5",
                           {
@@ -1598,15 +1261,8 @@ var render = function () {
                               },
                             ],
                             staticClass: "modal-title",
-                            staticStyle: { color: "white" },
                           },
-                          [
-                            _c("v-icon", { attrs: { color: "#FFFFFF" } }, [
-                              _vm._v("mdi-archive-plus"),
-                            ]),
-                            _vm._v(" Tambah Stok"),
-                          ],
-                          1
+                          [_vm._v("Upload File")]
                         ),
                         _vm._v(" "),
                         _c(
@@ -1622,7 +1278,7 @@ var render = function () {
                             ],
                             staticClass: "modal-title",
                           },
-                          [_vm._v("Edit Stok")]
+                          [_vm._v("Edit Data User")]
                         ),
                         _vm._v(" "),
                         _c(
@@ -1651,7 +1307,7 @@ var render = function () {
                           on: {
                             submit: function ($event) {
                               $event.preventDefault()
-                              _vm.editmode ? _vm.updateUser() : _vm.createUser()
+                              return _vm.createUser.apply(null, arguments)
                             },
                           },
                           model: {
@@ -1663,178 +1319,253 @@ var render = function () {
                           },
                         },
                         [
-                          _c(
-                            "div",
-                            { staticClass: "modal-body" },
-                            [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.editedItem.kantor_id,
-                                    expression: "editedItem.kantor_id",
-                                  },
-                                ],
-                                attrs: { type: "hidden", name: "kantor_id" },
-                                domProps: { value: _vm.editedItem.kantor_id },
-                                on: {
-                                  input: function ($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.editedItem,
-                                      "kantor_id",
-                                      $event.target.value
-                                    )
-                                  },
+                          _c("div", { staticClass: "modal-body" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.kantor_id,
+                                  expression: "kantor_id",
                                 },
-                              }),
-                              _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.csrf,
-                                    expression: "csrf",
-                                  },
-                                ],
-                                attrs: { type: "hidden", name: "_token" },
-                                domProps: { value: _vm.csrf },
-                                on: {
-                                  input: function ($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.csrf = $event.target.value
-                                  },
+                              ],
+                              attrs: { type: "hidden", name: "kantor_id" },
+                              domProps: { value: _vm.kantor_id },
+                              on: {
+                                input: function ($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.kantor_id = $event.target.value
                                 },
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "v-container",
-                                [
-                                  _c(
-                                    "v-row",
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.csrf,
+                                  expression: "csrf",
+                                },
+                              ],
+                              attrs: { type: "hidden", name: "_token" },
+                              domProps: { value: _vm.csrf },
+                              on: {
+                                input: function ($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.csrf = $event.target.value
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "form-group input-group" },
+                              [
+                                _c(
+                                  "v-col",
+                                  { attrs: { cols: "12", sm: "12", md: "12" } },
+                                  [
+                                    _c("v-text-field", {
+                                      attrs: {
+                                        rules: _vm.nameRules,
+                                        name: "namafile",
+                                        label: "Nama File",
+                                        placeholder: "Nama File",
+                                        outlined: "",
+                                        required: "",
+                                        dense: "",
+                                        "prepend-icon": "mdi-file",
+                                      },
+                                      on: {
+                                        keydown: function ($event) {
+                                          return _vm.pencetKeyboard($event)
+                                        },
+                                      },
+                                      model: {
+                                        value: _vm.namafile,
+                                        callback: function ($$v) {
+                                          _vm.namafile = $$v
+                                        },
+                                        expression: "namafile",
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("has-error", {
+                                      attrs: {
+                                        form: _vm.form,
+                                        field: "namafile",
+                                      },
+                                    }),
+                                    _vm._v(" "),
                                     [
                                       _c(
-                                        "v-col",
-                                        {
-                                          attrs: {
-                                            cols: "12",
-                                            sm: "6",
-                                            md: "6",
-                                          },
-                                        },
+                                        "v-row",
                                         [
                                           _c(
-                                            "v-menu",
+                                            "v-col",
                                             {
-                                              ref: "menu1",
                                               attrs: {
-                                                "close-on-content-click": false,
-                                                "nudge-right": 40,
-                                                transition: "scale-transition",
-                                                "offset-y": "",
-                                                "min-width": "auto",
-                                              },
-                                              scopedSlots: _vm._u([
-                                                {
-                                                  key: "activator",
-                                                  fn: function (ref) {
-                                                    var on = ref.on
-                                                    var attrs = ref.attrs
-                                                    return [
-                                                      _c(
-                                                        "v-text-field",
-                                                        _vm._g(
-                                                          _vm._b(
-                                                            {
-                                                              attrs: {
-                                                                rules:
-                                                                  _vm.editedItem
-                                                                    .tanggalRules,
-                                                                label:
-                                                                  "Tanggal Stok",
-                                                                placeholder:
-                                                                  "tahun-bulan-hari",
-                                                                "prepend-icon":
-                                                                  "mdi-calendar",
-                                                                outlined: "",
-                                                                required: "",
-                                                                dense: "",
-                                                                readonly: "",
-                                                              },
-                                                              on: {
-                                                                blur: function (
-                                                                  $event
-                                                                ) {
-                                                                  _vm.date =
-                                                                    _vm.parseDate(
-                                                                      _vm
-                                                                        .editedItem
-                                                                        .tanggal
-                                                                    )
-                                                                },
-                                                              },
-                                                              model: {
-                                                                value:
-                                                                  _vm.editedItem
-                                                                    .tanggal,
-                                                                callback:
-                                                                  function (
-                                                                    $$v
-                                                                  ) {
-                                                                    _vm.$set(
-                                                                      _vm.editedItem,
-                                                                      "tanggal",
-                                                                      $$v
-                                                                    )
-                                                                  },
-                                                                expression:
-                                                                  "editedItem.tanggal",
-                                                              },
-                                                            },
-                                                            "v-text-field",
-                                                            attrs,
-                                                            false
-                                                          ),
-                                                          on
-                                                        )
-                                                      ),
-                                                    ]
-                                                  },
-                                                },
-                                              ]),
-                                              model: {
-                                                value: _vm.menu1,
-                                                callback: function ($$v) {
-                                                  _vm.menu1 = $$v
-                                                },
-                                                expression: "menu1",
+                                                cols: "12",
+                                                sm: "12",
+                                                md: "12",
                                               },
                                             },
                                             [
-                                              _vm._v(" "),
-                                              _c("v-date-picker", {
+                                              _c(
+                                                "v-menu",
+                                                {
+                                                  ref: "menu1",
+                                                  attrs: {
+                                                    "close-on-content-click": false,
+                                                    "nudge-right": 40,
+                                                    transition:
+                                                      "scale-transition",
+                                                    "offset-y": "",
+                                                    "min-width": "auto",
+                                                  },
+                                                  scopedSlots: _vm._u([
+                                                    {
+                                                      key: "activator",
+                                                      fn: function (ref) {
+                                                        var on = ref.on
+                                                        var attrs = ref.attrs
+                                                        return [
+                                                          _c(
+                                                            "v-text-field",
+                                                            _vm._g(
+                                                              _vm._b(
+                                                                {
+                                                                  attrs: {
+                                                                    rules:
+                                                                      _vm.tanggalRules,
+                                                                    label:
+                                                                      "Tanggal File",
+                                                                    placeholder:
+                                                                      "dd/mm/yyyy",
+                                                                    "prepend-icon":
+                                                                      "mdi-calendar",
+                                                                    outlined:
+                                                                      "",
+                                                                    required:
+                                                                      "",
+                                                                    dense: "",
+                                                                  },
+                                                                  on: {
+                                                                    blur: function (
+                                                                      $event
+                                                                    ) {
+                                                                      _vm.tanggal =
+                                                                        _vm.parseDate(
+                                                                          _vm.dateFormatted
+                                                                        )
+                                                                    },
+                                                                  },
+                                                                  model: {
+                                                                    value:
+                                                                      _vm.dateFormatted,
+                                                                    callback:
+                                                                      function (
+                                                                        $$v
+                                                                      ) {
+                                                                        _vm.dateFormatted =
+                                                                          $$v
+                                                                      },
+                                                                    expression:
+                                                                      "dateFormatted",
+                                                                  },
+                                                                },
+                                                                "v-text-field",
+                                                                attrs,
+                                                                false
+                                                              ),
+                                                              on
+                                                            )
+                                                          ),
+                                                        ]
+                                                      },
+                                                    },
+                                                  ]),
+                                                  model: {
+                                                    value: _vm.menu1,
+                                                    callback: function ($$v) {
+                                                      _vm.menu1 = $$v
+                                                    },
+                                                    expression: "menu1",
+                                                  },
+                                                },
+                                                [
+                                                  _vm._v(" "),
+                                                  _c("v-date-picker", {
+                                                    attrs: {
+                                                      elevation: "15",
+                                                      "year-icon":
+                                                        "calendar-blank",
+                                                      locale: "id-ID",
+                                                    },
+                                                    on: {
+                                                      input: function ($event) {
+                                                        _vm.menu1 = false
+                                                      },
+                                                    },
+                                                    model: {
+                                                      value: _vm.tanggal,
+                                                      callback: function ($$v) {
+                                                        _vm.tanggal = $$v
+                                                      },
+                                                      expression: "tanggal",
+                                                    },
+                                                  }),
+                                                ],
+                                                1
+                                              ),
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            {
+                                              attrs: {
+                                                cols: "12",
+                                                sm: "12",
+                                                md: "12",
+                                              },
+                                            },
+                                            [
+                                              _c("v-combobox", {
                                                 attrs: {
-                                                  elevation: "15",
-                                                  "year-icon": "calendar-blank",
-                                                  locale: "id-ID",
+                                                  label: "Nama Otorisator",
+                                                  "prepend-icon":
+                                                    "nav-icon fas fa-user-secret",
+                                                  items: _vm.namaOtorisator,
+                                                  "item-value": "id",
+                                                  "item-text": "namaotorisator",
+                                                  placeholder:
+                                                    "Daftar Otorisator",
+                                                  outlined: "",
+                                                  required: "",
+                                                  dense: "",
+                                                  "return-object": false,
+                                                  "persistent-hint": "",
+                                                  "error-messages":
+                                                    _vm.pesaneror,
                                                 },
                                                 on: {
-                                                  input: function ($event) {
-                                                    _vm.menu1 = false
+                                                  click: function ($event) {
+                                                    return _vm.getOtorisator()
                                                   },
                                                 },
                                                 model: {
-                                                  value: _vm.date,
+                                                  value: _vm.otorisator_id,
                                                   callback: function ($$v) {
-                                                    _vm.date = $$v
+                                                    _vm.otorisator_id = $$v
                                                   },
-                                                  expression: "date",
+                                                  expression: "otorisator_id",
                                                 },
                                               }),
                                             ],
@@ -1843,359 +1574,100 @@ var render = function () {
                                         ],
                                         1
                                       ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-col",
-                                        { attrs: { cols: "12", sm: "6" } },
-                                        [
-                                          _c("v-combobox", {
-                                            attrs: {
-                                              label: "Jenis",
-                                              "append-outer-icon": "mdi-map",
-                                              items: _vm.editedItem.jenisStok,
-                                              placeholder: "Jenis",
-                                              hint: "1=Tabungan | 2=deposito",
-                                              dense: "",
-                                              outlined: "",
-                                              "return-object": false,
-                                              "persistent-hint": "",
-                                              "error-messages": _vm.pesaneror,
-                                            },
-                                            model: {
-                                              value: _vm.editedItem.jenis,
-                                              callback: function ($$v) {
-                                                _vm.$set(
-                                                  _vm.editedItem,
-                                                  "jenis",
-                                                  $$v
-                                                )
-                                              },
-                                              expression: "editedItem.jenis",
-                                            },
-                                          }),
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-col",
-                                        {
-                                          attrs: {
-                                            cols: "12",
-                                            sm: "6",
-                                            md: "6",
-                                          },
-                                        },
-                                        [
-                                          _c("v-text-field", {
-                                            attrs: {
-                                              rules:
-                                                _vm.editedItem.jmlstokawalRules,
-                                              name: "jml_stok_awal",
-                                              label: "Jumlah Stok Awal",
-                                              placeholder: "input nilai angka",
-                                              "prepend-icon":
-                                                "mdi-numeric-1-box-multiple",
-                                              outlined: "",
-                                              required: "",
-                                              dense: "",
-                                              counter: "",
-                                              maxlength: "6",
-                                              type: "number",
-                                            },
-                                            on: {
-                                              keydown: function ($event) {
-                                                return _vm.pencetKeyboard(
-                                                  $event
-                                                )
-                                              },
-                                              change: _vm.inputStokAkhir,
-                                            },
-                                            model: {
-                                              value:
-                                                _vm.editedItem.jml_stok_awal,
-                                              callback: function ($$v) {
-                                                _vm.$set(
-                                                  _vm.editedItem,
-                                                  "jml_stok_awal",
-                                                  $$v
-                                                )
-                                              },
-                                              expression:
-                                                "editedItem.jml_stok_awal",
-                                            },
-                                          }),
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-col",
-                                        {
-                                          attrs: {
-                                            cols: "12",
-                                            sm: "6",
-                                            md: "6",
-                                          },
-                                        },
-                                        [
-                                          _c("v-text-field", {
-                                            attrs: {
-                                              rules:
-                                                _vm.editedItem
-                                                  .tambahanStokRules,
-                                              name: "tambahan_stok",
-                                              label: "Tambahan Stok",
-                                              placeholder: "input nilai angka",
-                                              "append-outer-icon":
-                                                "mdi-numeric-2-box-multiple",
-                                              outlined: "",
-                                              required: "",
-                                              dense: "",
-                                              counter: "",
-                                              maxlength: "6",
-                                              type: "number",
-                                            },
-                                            on: {
-                                              keydown: function ($event) {
-                                                return _vm.pencetKeyboard(
-                                                  $event
-                                                )
-                                              },
-                                              change: _vm.inputStokAkhir,
-                                            },
-                                            model: {
-                                              value:
-                                                _vm.editedItem.tambahan_stok,
-                                              callback: function ($$v) {
-                                                _vm.$set(
-                                                  _vm.editedItem,
-                                                  "tambahan_stok",
-                                                  $$v
-                                                )
-                                              },
-                                              expression:
-                                                "editedItem.tambahan_stok",
-                                            },
-                                          }),
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-col",
-                                        {
-                                          attrs: {
-                                            cols: "12",
-                                            sm: "6",
-                                            md: "6",
-                                          },
-                                        },
-                                        [
-                                          _c("v-text-field", {
-                                            attrs: {
-                                              rules:
-                                                _vm.editedItem
-                                                  .jmlDigunakanRules,
-                                              name: "jml_digunakan",
-                                              label: "Jml Digunakan",
-                                              placeholder: "input nilai angka",
-                                              "prepend-icon":
-                                                "mdi-numeric-3-box-multiple",
-                                              outlined: "",
-                                              required: "",
-                                              dense: "",
-                                              counter: "",
-                                              maxlength: "6",
-                                              type: "number",
-                                            },
-                                            on: {
-                                              keydown: function ($event) {
-                                                return _vm.pencetKeyboard(
-                                                  $event
-                                                )
-                                              },
-                                              change: _vm.inputStokAkhir,
-                                            },
-                                            model: {
-                                              value:
-                                                _vm.editedItem.jml_digunakan,
-                                              callback: function ($$v) {
-                                                _vm.$set(
-                                                  _vm.editedItem,
-                                                  "jml_digunakan",
-                                                  $$v
-                                                )
-                                              },
-                                              expression:
-                                                "editedItem.jml_digunakan",
-                                            },
-                                          }),
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-col",
-                                        {
-                                          attrs: {
-                                            cols: "12",
-                                            sm: "6",
-                                            md: "6",
-                                          },
-                                        },
-                                        [
-                                          _c("v-text-field", {
-                                            attrs: {
-                                              rules:
-                                                _vm.editedItem.jmlRusakRules,
-                                              name: "jml_rusak",
-                                              label: "Jumlah Rusak",
-                                              placeholder: "input nilai angka",
-                                              "append-outer-icon":
-                                                "mdi-numeric-4-box-multiple",
-                                              outlined: "",
-                                              required: "",
-                                              dense: "",
-                                              counter: "",
-                                              maxlength: "6",
-                                              type: "number",
-                                            },
-                                            on: {
-                                              keydown: function ($event) {
-                                                return _vm.pencetKeyboard(
-                                                  $event
-                                                )
-                                              },
-                                              change: _vm.inputStokAkhir,
-                                            },
-                                            model: {
-                                              value: _vm.editedItem.jml_rusak,
-                                              callback: function ($$v) {
-                                                _vm.$set(
-                                                  _vm.editedItem,
-                                                  "jml_rusak",
-                                                  $$v
-                                                )
-                                              },
-                                              expression:
-                                                "editedItem.jml_rusak",
-                                            },
-                                          }),
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-col",
-                                        {
-                                          attrs: {
-                                            cols: "12",
-                                            sm: "6",
-                                            md: "6",
-                                          },
-                                        },
-                                        [
-                                          _c("v-text-field", {
-                                            attrs: {
-                                              rules:
-                                                _vm.editedItem.jmlHilangRules,
-                                              name: "jml_hilang",
-                                              label: "Jumlah Hilang",
-                                              placeholder: "input nilai angka",
-                                              "prepend-icon":
-                                                "mdi-numeric-5-box-multiple",
-                                              outlined: "",
-                                              required: "",
-                                              dense: "",
-                                              counter: "",
-                                              maxlength: "6",
-                                              type: "number",
-                                            },
-                                            on: {
-                                              keydown: function ($event) {
-                                                return _vm.pencetKeyboard(
-                                                  $event
-                                                )
-                                              },
-                                              change: _vm.inputStokAkhir,
-                                            },
-                                            model: {
-                                              value: _vm.editedItem.jml_hilang,
-                                              callback: function ($$v) {
-                                                _vm.$set(
-                                                  _vm.editedItem,
-                                                  "jml_hilang",
-                                                  $$v
-                                                )
-                                              },
-                                              expression:
-                                                "editedItem.jml_hilang",
-                                            },
-                                          }),
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-col",
-                                        {
-                                          attrs: {
-                                            cols: "12",
-                                            sm: "6",
-                                            md: "6",
-                                          },
-                                        },
-                                        [
-                                          _c("v-text-field", {
-                                            attrs: {
-                                              name: "jml_stok_akhir",
-                                              label: "Jml Stok Akhir",
-                                              placeholder: "input nilai angka",
-                                              "append-outer-icon":
-                                                "mdi-numeric-6-box-multiple",
-                                              outlined: "",
-                                              required: "",
-                                              dense: "",
-                                              readonly: "",
-                                              disabled: "",
-                                              maxlength: "6",
-                                              type: "number",
-                                            },
-                                            on: {
-                                              keydown: function ($event) {
-                                                return _vm.pencetKeyboard(
-                                                  $event
-                                                )
-                                              },
-                                              change: _vm.inputStokAkhir,
-                                            },
-                                            model: {
-                                              value:
-                                                _vm.editedItem.jml_stok_akhir,
-                                              callback: function ($$v) {
-                                                _vm.$set(
-                                                  _vm.editedItem,
-                                                  "jml_stok_akhir",
-                                                  $$v
-                                                )
-                                              },
-                                              expression:
-                                                "editedItem.jml_stok_akhir",
-                                            },
-                                          }),
-                                        ],
-                                        1
-                                      ),
                                     ],
-                                    1
-                                  ),
-                                ],
-                                1
-                              ),
-                            ],
-                            1
-                          ),
+                                    _vm._v(" "),
+                                    _c("has-error", {
+                                      attrs: {
+                                        form: _vm.form,
+                                        field: "tanggal",
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    [
+                                      _c("v-file-input", {
+                                        attrs: {
+                                          rules: _vm.fileRules,
+                                          color: "deep-purple accent-4",
+                                          counter: "",
+                                          label: "File input",
+                                          required: "",
+                                          placeholder: "Ambil File",
+                                          "prepend-icon": "mdi-paperclip",
+                                          outlined: "",
+                                          dense: "",
+                                          "show-size": "",
+                                          accept: ".zip",
+                                        },
+                                        scopedSlots: _vm._u([
+                                          {
+                                            key: "selection",
+                                            fn: function (ref) {
+                                              var index = ref.index
+                                              var text = ref.text
+                                              return [
+                                                index < 2
+                                                  ? _c(
+                                                      "v-chip",
+                                                      {
+                                                        attrs: {
+                                                          color:
+                                                            "deep-purple accent-4",
+                                                          dark: "",
+                                                          label: "",
+                                                          small: "",
+                                                        },
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          "\n                                    " +
+                                                            _vm._s(text) +
+                                                            "\n                                "
+                                                        ),
+                                                      ]
+                                                    )
+                                                  : index === 2
+                                                  ? _c(
+                                                      "span",
+                                                      {
+                                                        staticClass:
+                                                          "text-overline grey--text text--darken-3 mx-2",
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          "\n                                    +" +
+                                                            _vm._s(
+                                                              _vm.files.length -
+                                                                2
+                                                            ) +
+                                                            " File(s)\n                                "
+                                                        ),
+                                                      ]
+                                                    )
+                                                  : _vm._e(),
+                                              ]
+                                            },
+                                          },
+                                        ]),
+                                        model: {
+                                          value: _vm.file,
+                                          callback: function ($$v) {
+                                            _vm.file = $$v
+                                          },
+                                          expression: "file",
+                                        },
+                                      }),
+                                    ],
+                                    _vm._v(" "),
+                                    _c("has-error", {
+                                      attrs: { form: _vm.form, field: "file" },
+                                    }),
+                                  ],
+                                  2
+                                ),
+                              ],
+                              1
+                            ),
+                          ]),
                           _vm._v(" "),
                           _c(
                             "div",
@@ -2264,9 +1736,9 @@ var render = function () {
                                   },
                                 },
                                 [
-                                  _c("v-icon", [_vm._v("mdi-archive-plus")]),
+                                  _c("v-icon", [_vm._v("mdi-file-upload")]),
                                   _vm._v(
-                                    "\n                            Tambah\n                        "
+                                    "\n                            Upload\n                        "
                                   ),
                                 ],
                                 1
@@ -2297,17 +1769,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/akunting/Stock.vue":
-/*!****************************************************!*\
-  !*** ./resources/js/components/akunting/Stock.vue ***!
-  \****************************************************/
+/***/ "./resources/js/components/akunting/Overbooking.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/akunting/Overbooking.vue ***!
+  \**********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Stock_vue_vue_type_template_id_c3a2cfba___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Stock.vue?vue&type=template&id=c3a2cfba& */ "./resources/js/components/akunting/Stock.vue?vue&type=template&id=c3a2cfba&");
-/* harmony import */ var _Stock_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Stock.vue?vue&type=script&lang=js& */ "./resources/js/components/akunting/Stock.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Overbooking_vue_vue_type_template_id_73efdad2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Overbooking.vue?vue&type=template&id=73efdad2& */ "./resources/js/components/akunting/Overbooking.vue?vue&type=template&id=73efdad2&");
+/* harmony import */ var _Overbooking_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Overbooking.vue?vue&type=script&lang=js& */ "./resources/js/components/akunting/Overbooking.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -2317,9 +1789,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Stock_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Stock_vue_vue_type_template_id_c3a2cfba___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Stock_vue_vue_type_template_id_c3a2cfba___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Overbooking_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Overbooking_vue_vue_type_template_id_73efdad2___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Overbooking_vue_vue_type_template_id_73efdad2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -2329,38 +1801,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/akunting/Stock.vue"
+component.options.__file = "resources/js/components/akunting/Overbooking.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/akunting/Stock.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************!*\
-  !*** ./resources/js/components/akunting/Stock.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************/
+/***/ "./resources/js/components/akunting/Overbooking.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/akunting/Overbooking.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Stock_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Stock.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Stock.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Stock_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Overbooking_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Overbooking.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Overbooking.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Overbooking_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/akunting/Stock.vue?vue&type=template&id=c3a2cfba&":
-/*!***********************************************************************************!*\
-  !*** ./resources/js/components/akunting/Stock.vue?vue&type=template&id=c3a2cfba& ***!
-  \***********************************************************************************/
+/***/ "./resources/js/components/akunting/Overbooking.vue?vue&type=template&id=73efdad2&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/akunting/Overbooking.vue?vue&type=template&id=73efdad2& ***!
+  \*****************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Stock_vue_vue_type_template_id_c3a2cfba___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Stock.vue?vue&type=template&id=c3a2cfba& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Stock.vue?vue&type=template&id=c3a2cfba&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Stock_vue_vue_type_template_id_c3a2cfba___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Overbooking_vue_vue_type_template_id_73efdad2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Overbooking.vue?vue&type=template&id=73efdad2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Overbooking.vue?vue&type=template&id=73efdad2&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Overbooking_vue_vue_type_template_id_73efdad2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Stock_vue_vue_type_template_id_c3a2cfba___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Overbooking_vue_vue_type_template_id_73efdad2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

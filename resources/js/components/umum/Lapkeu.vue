@@ -152,7 +152,7 @@
                                     <v-text-field
                                         v-model="dateFormatted"
                                         :value="periodeMomentJS"
-                                        @blur="tanggal = periodeMomentJS"
+                                        @blur="dateFormatted = periodeMomentJS"
                                         :rules="tanggalRules"
                                         label="Periode"
                                         placeholder="Pilih Bulan"
@@ -168,7 +168,7 @@
                                     ></v-text-field>
                                 </template>
                                 <v-date-picker
-                                    v-model="picker"
+                                    v-model="tanggal"
                                     type="month"
                                     elevation="15"
                                     @input="menu1 = false"
