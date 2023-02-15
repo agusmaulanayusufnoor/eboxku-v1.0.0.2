@@ -33,7 +33,7 @@ class PkController extends BaseController
         if($levelLogin === 'admin'){
             $pk  = DB::table('pk')
             ->join('kode_kantors', 'pk.kantor_id', '=', 'kode_kantors.id')
-            ->select('pk.id','pk.no_pk','pk.namafile','pk.tanggal','pk.file',
+            ->select('pk.id','pk.no_pk','pk.namafile','pk.tglmulai','pk.tglakhir','pk.file',
             'pk.kantor_id','kode_kantors.nama_kantor')
             ->orderBy('id','desc')
             ->get();
@@ -41,7 +41,7 @@ class PkController extends BaseController
             $pk  = DB::table('pk')
             ->join('kode_kantors', 'pk.kantor_id', '=', 'kode_kantors.id')
             ->where('kantor_id', $id_kantor)
-            ->select('pk.id','pk.no_pk','pk.namafile','pk.tanggal','pk.file',
+            ->select('pk.id','pk.no_pk','pk.namafile','pk.tglmulai','pk.tglakhir','pk.file',
             'pk.kantor_id','kode_kantors.nama_kantor')
             ->orderBy('id','desc')
             ->get();
@@ -61,8 +61,14 @@ class PkController extends BaseController
         $request->validate([
             'no_pk'  => 'required|unique:pk',
             'namafile'     => 'required',
-            'tanggal'      => 'required',
-            'tanggal' => ['required', function ($attribute, $value, $fail) {
+            'tglmulai'      => 'required',
+            'tglmulai' => ['required', function ($attribute, $value, $fail) {
+                if ($value === 'null') {
+                    $fail($attribute.' harus diisi.');
+                }
+            }],
+            'tglakhir'      => 'required',
+            'tglakhir' => ['required', function ($attribute, $value, $fail) {
                 if ($value === 'null') {
                     $fail($attribute.' harus diisi.');
                 }
@@ -72,7 +78,8 @@ class PkController extends BaseController
             'no_pk.unique' => 'no pk sudah ada dalam data',
             'no_pk.required' => 'no pk harus diisi',
             'namafile.required' => 'nama file harus diisi',
-            'tanggal.required' => 'tanggal harus diisi',
+            'tglmulai.required' => 'tglmulai harus diisi',
+            'tglakhir.required' => 'tglakhir harus diisi',
             'file.required' => 'file belum di input',
             'file.mimes' => 'file yang di upload harus berbentuk .pdf'
         ]);
@@ -80,21 +87,30 @@ class PkController extends BaseController
 
         $nm         = $request->file('file');
 
-        $hari       = substr($request->tanggal,8,2);
-        $bulan      = substr($request->tanggal,5,2);
-        $tahun      = substr($request->tanggal,0,4);
+        //tgl mulai
+        $hari       = substr($request->tglmulai,8,2);
+        $bulan      = substr($request->tglmulai,5,2);
+        $tahun      = substr($request->tglmulai,0,4);
         $arr        = array($hari,"/",$bulan,"/",$tahun);
+        //tgl akhir
+        $hari2       = substr($request->tglakhir,8,2);
+        $bulan2      = substr($request->tglakhir,5,2);
+        $tahun2      = substr($request->tglakhir,0,4);
+        $arr2        = array($hari2,"/",$bulan2,"/",$tahun2);
+
         $arrnamefile        = array($hari,$bulan,$tahun);
         $datefile   = implode("",$arrnamefile);
 
-        $date       = implode("",$arr);
-
-        $file   = "00".$request->kantor_id.".".$request->namafile.".".$datefile.".".$nm->getClientOriginalName();
+        $datemulai       = implode("",$arr);
+        $dateakhir       = implode("",$arr2);
+        $acak = $this->acak_string(5);
+        $file   = $request->namafile.".".$acak.".".$nm->getClientOriginalName();
         $pk = $this->pk->create([
             'kantor_id'     => $request->get('kantor_id'),
             'no_pk'         => $request->get('no_pk'),
             'namafile'      => $request->get('namafile'),
-            'tanggal'       => $date,
+            'tglmulai'       => $datemulai,
+            'tglakhir'       => $dateakhir,
             'file'          => $file,
         ]);
         $nm->move(public_path().'/file/pk', $file);
@@ -164,19 +180,13 @@ class PkController extends BaseController
         }
 
     }
-    public function ceknorek(Request $request)
-    {
-      $norek = $request->no_pk;
-      $pk  = DB::table('pk')
-      ->where('no_pk', $norek)
-      ->select('pk.no_pk')
-      ->get();
-
-      if(!$pk->isEmpty()){
-        return $this->sendResponse($pk, 'adarek');
-      }else{
-        return $this->sendResponse($pk, 'kosong');
-      }
-
+    function acak_string($panjang) {
+        $karakter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        $string = '';
+        for ($i = 0; $i < $panjang; $i++) {
+            $pos = rand(0, strlen($karakter)-1);
+            $string .= $karakter[$pos];
+        }
+        return $string;
     }
 }

@@ -289,6 +289,52 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data(vm) {
     return {
@@ -315,9 +361,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       menu1: false,
       menu2: false,
       dateFormatted: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
-      tanggal: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
-      tanggalRules: [function (v) {
-        return !!v || 'Tanggal file belum diisi';
+      dateFormatted2: vm.formatDate2(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
+      tglmulai: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
+      tglmulaiRules: [function (v) {
+        return !!v || 'Tanggal mulai belum diisi';
+      }],
+      tglakhir: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
+      tglakhirRules: [function (v) {
+        return !!v || 'Tanggal akhir belum diisi';
       }],
       fileRules: [function (v) {
         return !!v || 'File belum dimasukan';
@@ -327,7 +378,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         id: '',
         kantor_id: '',
         namafile: '',
-        tanggal: '',
+        tglmulai: '',
+        tglakhir: '',
         file: ''
       })
     };
@@ -343,14 +395,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         text: 'No PK',
         value: 'no_pk'
       }, {
-        text: 'Tanggal File',
-        value: 'tanggal'
-      }, {
-        text: 'Kantor',
-        value: 'nama_kantor',
+        text: 'Tanggal Mulai',
+        value: 'tglmulai',
         align: 'start'
       }, {
-        text: 'Nama File',
+        text: 'Tanggal Berakhir',
+        value: 'tglakhir'
+      }, {
+        text: 'Nama Mitra',
         value: 'namafile'
       }];
       headers.push({
@@ -371,15 +423,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return headers;
     },
     computedDateFormatted: function computedDateFormatted() {
-      return this.formatDate(this.tanggal);
+      return this.formatDate(this.tglmulai);
     },
     formTitle: function formTitle() {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item';
     }
   },
   watch: {
-    tanggal: function tanggal(val) {
-      this.dateFormatted = this.formatDate(this.tanggal);
+    tglmulai: function tglmulai(val) {
+      this.dateFormatted = this.formatDate(this.tglmulai);
+    },
+    tglakhir: function tglakhir(val) {
+      this.dateFormatted2 = this.formatDate2(this.tglakhir);
     },
     dialog: function dialog(val) {
       val || this.close();
@@ -469,25 +524,47 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return true;
       }
     },
-    formatDate: function formatDate(tanggal) {
-      if (!tanggal) return null;
+    formatDate: function formatDate(tglmulai) {
+      if (!tglmulai) return null;
 
-      var _tanggal$split = tanggal.split('-'),
-          _tanggal$split2 = _slicedToArray(_tanggal$split, 3),
-          year = _tanggal$split2[0],
-          month = _tanggal$split2[1],
-          day = _tanggal$split2[2];
+      var _tglmulai$split = tglmulai.split('-'),
+          _tglmulai$split2 = _slicedToArray(_tglmulai$split, 3),
+          year = _tglmulai$split2[0],
+          month = _tglmulai$split2[1],
+          day = _tglmulai$split2[2];
 
       return "".concat(day, "/").concat(month, "/").concat(year);
     },
-    parseDate: function parseDate(tanggal) {
-      if (!tanggal) return null;
+    parseDate: function parseDate(tglmulai) {
+      if (!tglmulai) return null;
 
-      var _tanggal$split3 = tanggal.split('/'),
-          _tanggal$split4 = _slicedToArray(_tanggal$split3, 3),
-          day = _tanggal$split4[0],
-          month = _tanggal$split4[1],
-          year = _tanggal$split4[2];
+      var _tglmulai$split3 = tglmulai.split('/'),
+          _tglmulai$split4 = _slicedToArray(_tglmulai$split3, 3),
+          day = _tglmulai$split4[0],
+          month = _tglmulai$split4[1],
+          year = _tglmulai$split4[2];
+
+      return "".concat(year, "-").concat(month.padStart(2, '0'), "-").concat(day.padStart(2, '0'));
+    },
+    formatDate2: function formatDate2(tglakhir) {
+      if (!tglakhir) return null;
+
+      var _tglakhir$split = tglakhir.split('-'),
+          _tglakhir$split2 = _slicedToArray(_tglakhir$split, 3),
+          year = _tglakhir$split2[0],
+          month = _tglakhir$split2[1],
+          day = _tglakhir$split2[2];
+
+      return "".concat(day, "/").concat(month, "/").concat(year);
+    },
+    parseDate2: function parseDate2(tglakhir) {
+      if (!tglakhir) return null;
+
+      var _tglakhir$split3 = tglakhir.split('/'),
+          _tglakhir$split4 = _slicedToArray(_tglakhir$split3, 3),
+          day = _tglakhir$split4[0],
+          month = _tglakhir$split4[1],
+          year = _tglakhir$split4[2];
 
       return "".concat(year, "-").concat(month.padStart(2, '0'), "-").concat(day.padStart(2, '0'));
     },
@@ -537,7 +614,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       formData.set('kantor_id', this.kantor_id);
       formData.set('no_pk', this.no_pk);
       formData.set('namafile', this.namafile);
-      formData.set('tanggal', this.tanggal);
+      formData.set('tglmulai', this.tglmulai);
+      formData.set('tglakhir', this.tglakhir);
       formData.set('file', this.file); // formData.append('file', this.file);
       // console.log(this.file);
 
@@ -688,7 +766,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\r\n                    File Perjanjian Kerjasama\r\n                "
+                                  "\n                    File Perjanjian Kerjasama\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -706,7 +784,7 @@ var render = function () {
                                 },
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
-                                  _vm._v(" Upload File\r\n                  "),
+                                  _vm._v(" Upload File\n                  "),
                                 ],
                                 1
                               ),
@@ -735,9 +813,9 @@ var render = function () {
                                         var index = ref.index
                                         return [
                                           _vm._v(
-                                            "\r\n                    " +
+                                            "\n                    " +
                                               _vm._s(index + 1) +
-                                              "\r\n                "
+                                              "\n                "
                                           ),
                                         ]
                                       },
@@ -809,7 +887,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\r\n                            mdi-download\r\n                        "
+                                                    "\n                            mdi-download\n                        "
                                                   ),
                                                 ]
                                               ),
@@ -841,7 +919,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                    mdi-delete\r\n                "
+                                                "\n                    mdi-delete\n                "
                                               ),
                                             ]
                                           ),
@@ -851,7 +929,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  836955976
+                                  3538273480
                                 ),
                               }),
                             ],
@@ -1056,8 +1134,8 @@ var render = function () {
                                       attrs: {
                                         rules: _vm.nameRules,
                                         name: "namafile",
-                                        label: "Nama File",
-                                        placeholder: "input nama pk",
+                                        label: "Nama Mitra",
+                                        placeholder: "input nama mitra",
                                         outlined: "",
                                         required: "",
                                         dense: "",
@@ -1124,11 +1202,11 @@ var render = function () {
                                                                 {
                                                                   attrs: {
                                                                     rules:
-                                                                      _vm.tanggalRules,
+                                                                      _vm.tglmulaiRules,
                                                                     label:
-                                                                      "Tanggal File",
+                                                                      "Tanggal Mulai",
                                                                     placeholder:
-                                                                      "Tanggal Perjanjian Kerjasama",
+                                                                      "Tanggal Mulai PKS",
                                                                     "prepend-icon":
                                                                       "mdi-calendar",
                                                                     outlined:
@@ -1141,7 +1219,7 @@ var render = function () {
                                                                     blur: function (
                                                                       $event
                                                                     ) {
-                                                                      _vm.tanggal =
+                                                                      _vm.tglmulai =
                                                                         _vm.parseDate(
                                                                           _vm.dateFormatted
                                                                         )
@@ -1195,11 +1273,11 @@ var render = function () {
                                                       },
                                                     },
                                                     model: {
-                                                      value: _vm.tanggal,
+                                                      value: _vm.tglmulai,
                                                       callback: function ($$v) {
-                                                        _vm.tanggal = $$v
+                                                        _vm.tglmulai = $$v
                                                       },
-                                                      expression: "tanggal",
+                                                      expression: "tglmulai",
                                                     },
                                                   }),
                                                 ],
@@ -1216,7 +1294,143 @@ var render = function () {
                                     _c("has-error", {
                                       attrs: {
                                         form: _vm.form,
-                                        field: "tanggal",
+                                        field: "tglmulai",
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    [
+                                      _c(
+                                        "v-row",
+                                        [
+                                          _c(
+                                            "v-col",
+                                            {
+                                              attrs: {
+                                                cols: "12",
+                                                sm: "12",
+                                                md: "12",
+                                              },
+                                            },
+                                            [
+                                              _c(
+                                                "v-menu",
+                                                {
+                                                  ref: "menu1",
+                                                  attrs: {
+                                                    "close-on-content-click": false,
+                                                    "nudge-right": 40,
+                                                    transition:
+                                                      "scale-transition",
+                                                    "offset-y": "",
+                                                    "min-width": "auto",
+                                                  },
+                                                  scopedSlots: _vm._u([
+                                                    {
+                                                      key: "activator",
+                                                      fn: function (ref) {
+                                                        var on = ref.on
+                                                        var attrs = ref.attrs
+                                                        return [
+                                                          _c(
+                                                            "v-text-field",
+                                                            _vm._g(
+                                                              _vm._b(
+                                                                {
+                                                                  attrs: {
+                                                                    rules:
+                                                                      _vm.tglakhirRules,
+                                                                    label:
+                                                                      "Tanggal Akhir",
+                                                                    placeholder:
+                                                                      "Tanggal Akhir PKS",
+                                                                    "prepend-icon":
+                                                                      "mdi-calendar",
+                                                                    outlined:
+                                                                      "",
+                                                                    required:
+                                                                      "",
+                                                                    dense: "",
+                                                                  },
+                                                                  on: {
+                                                                    blur: function (
+                                                                      $event
+                                                                    ) {
+                                                                      _vm.tglakhir =
+                                                                        _vm.parseDate2(
+                                                                          _vm.dateFormatted2
+                                                                        )
+                                                                    },
+                                                                  },
+                                                                  model: {
+                                                                    value:
+                                                                      _vm.dateFormatted2,
+                                                                    callback:
+                                                                      function (
+                                                                        $$v
+                                                                      ) {
+                                                                        _vm.dateFormatted2 =
+                                                                          $$v
+                                                                      },
+                                                                    expression:
+                                                                      "dateFormatted2",
+                                                                  },
+                                                                },
+                                                                "v-text-field",
+                                                                attrs,
+                                                                false
+                                                              ),
+                                                              on
+                                                            )
+                                                          ),
+                                                        ]
+                                                      },
+                                                    },
+                                                  ]),
+                                                  model: {
+                                                    value: _vm.menu1,
+                                                    callback: function ($$v) {
+                                                      _vm.menu1 = $$v
+                                                    },
+                                                    expression: "menu1",
+                                                  },
+                                                },
+                                                [
+                                                  _vm._v(" "),
+                                                  _c("v-date-picker", {
+                                                    attrs: {
+                                                      elevation: "15",
+                                                      "year-icon":
+                                                        "calendar-blank",
+                                                      locale: "id-ID",
+                                                    },
+                                                    on: {
+                                                      input: function ($event) {
+                                                        _vm.menu1 = false
+                                                      },
+                                                    },
+                                                    model: {
+                                                      value: _vm.tglakhir,
+                                                      callback: function ($$v) {
+                                                        _vm.tglakhir = $$v
+                                                      },
+                                                      expression: "tglakhir",
+                                                    },
+                                                  }),
+                                                ],
+                                                1
+                                              ),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                    ],
+                                    _vm._v(" "),
+                                    _c("has-error", {
+                                      attrs: {
+                                        form: _vm.form,
+                                        field: "tglakhir",
                                       },
                                     }),
                                     _vm._v(" "),
@@ -1256,9 +1470,9 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\r\n                                    " +
+                                                          "\n                                    " +
                                                             _vm._s(text) +
-                                                            "\r\n                                "
+                                                            "\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1271,12 +1485,12 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\r\n                                    +" +
+                                                          "\n                                    +" +
                                                             _vm._s(
                                                               _vm.files.length -
                                                                 2
                                                             ) +
-                                                            " File(s)\r\n                                "
+                                                            " File(s)\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1323,7 +1537,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-cancel")]),
                                   _vm._v(
-                                    "\r\n                            Batal\r\n                        "
+                                    "\n                            Batal\n                        "
                                   ),
                                 ],
                                 1
@@ -1349,7 +1563,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-pencil")]),
                                   _vm._v(
-                                    "\r\n                            Ubah\r\n                        "
+                                    "\n                            Ubah\n                        "
                                   ),
                                 ],
                                 1
@@ -1375,7 +1589,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
                                   _vm._v(
-                                    "\r\n                            Upload\r\n                        "
+                                    "\n                            Upload\n                        "
                                   ),
                                 ],
                                 1

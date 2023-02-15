@@ -138,8 +138,8 @@
                                 v-model="namafile"
                                 :rules="nameRules"
                                 name="namafile"
-                                label="Nama File"
-                                placeholder="input nama pk"
+                                label="Nama Mitra"
+                                placeholder="input nama mitra"
                                 outlined
                                 required
                                 dense
@@ -148,7 +148,7 @@
                             ></v-text-field>
                             <has-error :form="form" field="namafile"></has-error>
 
-                        <!-- tanggal -->
+                        <!-- tglmulai -->
                         <template>
                         <v-row>
                             <v-col
@@ -168,10 +168,10 @@
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-text-field
                                         v-model="dateFormatted"
-                                        @blur="tanggal = parseDate(dateFormatted)"
-                                        :rules="tanggalRules"
-                                        label="Tanggal File"
-                                        placeholder="Tanggal Perjanjian Kerjasama"
+                                        @blur="tglmulai = parseDate(dateFormatted)"
+                                        :rules="tglmulaiRules"
+                                        label="Tanggal Mulai"
+                                        placeholder="Tanggal Mulai PKS"
                                         prepend-icon="mdi-calendar"
                                         v-bind="attrs"
                                         v-on="on"
@@ -181,7 +181,7 @@
                                     ></v-text-field>
                                 </template>
                                 <v-date-picker
-                                    v-model="tanggal"
+                                    v-model="tglmulai"
                                     elevation="15"
                                     @input="menu1 = false"
                                     year-icon="calendar-blank"
@@ -192,7 +192,53 @@
                             </v-col>
                         </v-row>
                         </template>
-                            <has-error :form="form" field="tanggal"></has-error>
+                            <has-error :form="form" field="tglmulai"></has-error>
+
+                                                <!-- tglakhir -->
+                        <template>
+                        <v-row>
+                            <v-col
+                            cols="12"
+                            sm="12"
+                            md="12"
+                            >
+                                <v-menu
+                                    ref="menu1"
+                                    v-model="menu1"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    transition="scale-transition"
+                                    offset-y
+                                    min-width="auto"
+                                >
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field
+                                        v-model="dateFormatted2"
+                                        @blur="tglakhir = parseDate2(dateFormatted2)"
+                                        :rules="tglakhirRules"
+                                        label="Tanggal Akhir"
+                                        placeholder="Tanggal Akhir PKS"
+                                        prepend-icon="mdi-calendar"
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        outlined
+                                        required
+                                        dense
+                                    ></v-text-field>
+                                </template>
+                                <v-date-picker
+                                    v-model="tglakhir"
+                                    elevation="15"
+                                    @input="menu1 = false"
+                                    year-icon="calendar-blank"
+                                    locale="id-ID"
+                                ></v-date-picker>
+
+                                </v-menu>
+                            </v-col>
+                        </v-row>
+                        </template>
+                            <has-error :form="form" field="tglakhir"></has-error>
                         <!-- <input type="file" @change="uploadFile"> -->
                          <template>
 
@@ -286,9 +332,15 @@
       menu2:false,
 
       dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
-      tanggal:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-         tanggalRules: [
-        v => !!v || 'Tanggal file belum diisi',
+      dateFormatted2: vm.formatDate2((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+
+      tglmulai:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+         tglmulaiRules: [
+        v => !!v || 'Tanggal mulai belum diisi',
+      ],
+      tglakhir:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+         tglakhirRules: [
+        v => !!v || 'Tanggal akhir belum diisi',
       ],
        fileRules: [
         v => !!v || 'File belum dimasukan',
@@ -298,7 +350,8 @@
         id : '',
         kantor_id: '',
         namafile: '',
-        tanggal: '',
+        tglmulai: '',
+        tglakhir: '',
         file: '',
     }),
 
@@ -314,10 +367,10 @@
                 sortable: false
                 },
                 { text: 'No PK', value: 'no_pk' },
-                { text: 'Tanggal File', value: 'tanggal' },
-                { text: 'Kantor', value: 'nama_kantor',align: 'start', },
+                { text: 'Tanggal Mulai', value: 'tglmulai',align: 'start', },
+                { text: 'Tanggal Berakhir', value: 'tglakhir' },
                 {
-                text: 'Nama File',
+                text: 'Nama Mitra',
                 value: 'namafile',
                 },
 
@@ -329,7 +382,7 @@
             return headers
         },
         computedDateFormatted () {
-            return this.formatDate(this.tanggal);
+            return this.formatDate(this.tglmulai);
         },
 
       formTitle () {
@@ -339,8 +392,11 @@
     },
 
     watch: {
-      tanggal (val) {
-        this.dateFormatted = this.formatDate(this.tanggal)
+      tglmulai (val) {
+        this.dateFormatted = this.formatDate(this.tglmulai)
+      },
+      tglakhir (val) {
+        this.dateFormatted2 = this.formatDate2(this.tglakhir)
       },
       dialog (val) {
         val || this.close()
@@ -410,16 +466,31 @@
         return true;
       }
     },
-    formatDate (tanggal) {
-        if (!tanggal) return null
+    formatDate (tglmulai) {
+        if (!tglmulai) return null
 
-        const [year, month, day] = tanggal.split('-')
+        const [year, month, day] = tglmulai.split('-')
         return `${day}/${month}/${year}`
       },
-       parseDate (tanggal) {
-        if (!tanggal) return null
 
-        const [day, month,  year] = tanggal.split('/')
+       parseDate (tglmulai) {
+        if (!tglmulai) return null
+
+        const [day, month,  year] = tglmulai.split('/')
+        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+      },
+
+      formatDate2 (tglakhir) {
+        if (!tglakhir) return null
+
+        const [year, month, day] = tglakhir.split('-')
+        return `${day}/${month}/${year}`
+      },
+
+       parseDate2 (tglakhir) {
+        if (!tglakhir) return null
+
+        const [day, month,  year] = tglakhir.split('/')
         return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
       },
       initialize() {
@@ -465,7 +536,8 @@
             formData.set('kantor_id', this.kantor_id)
             formData.set('no_pk', this.no_pk)
             formData.set('namafile', this.namafile)
-            formData.set('tanggal', this.tanggal)
+            formData.set('tglmulai', this.tglmulai)
+            formData.set('tglakhir', this.tglakhir)
             formData.set('file', this.file)
             // formData.append('file', this.file);
            // console.log(this.file);

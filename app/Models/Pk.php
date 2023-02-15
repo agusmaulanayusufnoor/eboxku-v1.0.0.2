@@ -13,7 +13,8 @@ class Pk extends Model
         'id',
         'kantor_id',
         'no_pk',
-        'tanggal',
+        'tglmulai',
+        'tglakhir',
         'namafile',
         'file',
     ];
