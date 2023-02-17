@@ -1003,7 +1003,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    Stok Buku Tabungan dan Bilyet Deposito\n                "
+                                  "\r\n                    Stok Buku Tabungan dan Bilyet Deposito\r\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -1021,7 +1021,7 @@ var render = function () {
                                 },
                                 [
                                   _c("v-icon", [_vm._v("mdi-archive-plus")]),
-                                  _vm._v(" Tambah Stok\n                  "),
+                                  _vm._v(" Tambah Stok\r\n                  "),
                                 ],
                                 1
                               ),
@@ -1057,11 +1057,11 @@ var render = function () {
                                         var item = ref.item
                                         return [
                                           _vm._v(
-                                            "\n                " +
+                                            "\r\n                " +
                                               _vm._s(
                                                 _vm.formatDate(item.tanggal)
                                               ) +
-                                              "\n                "
+                                              "\r\n                "
                                           ),
                                         ]
                                       },
@@ -1087,7 +1087,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                      Refresh\n                      "
+                                                "\r\n                      Refresh\r\n                      "
                                               ),
                                               _c(
                                                 "v-icon",
@@ -1099,7 +1099,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                        mdi-reload\n                      "
+                                                    "\r\n                        mdi-reload\r\n                      "
                                                   ),
                                                 ]
                                               ),
@@ -1116,9 +1116,9 @@ var render = function () {
                                         var index = ref.index
                                         return [
                                           _vm._v(
-                                            "\n                    " +
+                                            "\r\n                    " +
                                               _vm._s(index + 1) +
-                                              "\n                "
+                                              "\r\n                "
                                           ),
                                         ]
                                       },
@@ -1150,7 +1150,7 @@ var render = function () {
                                                       "fa-solid fa-file-excel",
                                                   }),
                                                   _vm._v(
-                                                    "\n                        Excel\n                    "
+                                                    "\r\n                        Excel\r\n                    "
                                                   ),
                                                 ]
                                               ),
@@ -1441,7 +1441,7 @@ var render = function () {
                                                         [
                                                           _c("v-icon", [
                                                             _vm._v(
-                                                              "\n                        mdi-filter\n                      "
+                                                              "\r\n                        mdi-filter\r\n                      "
                                                             ),
                                                           ]),
                                                         ],
@@ -1503,7 +1503,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                        mdi-pencil\n                    "
+                                                    "\r\n                        mdi-pencil\r\n                    "
                                                   ),
                                                 ]
                                               ),
@@ -1533,7 +1533,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                    mdi-delete\n                "
+                                                "\r\n                    mdi-delete\r\n                "
                                               ),
                                             ]
                                           ),
@@ -1543,7 +1543,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  2067198694
+                                  3709106150
                                 ),
                               }),
                             ],
@@ -2214,7 +2214,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-cancel")]),
                                   _vm._v(
-                                    "\n                            Batal\n                        "
+                                    "\r\n                            Batal\r\n                        "
                                   ),
                                 ],
                                 1
@@ -2240,7 +2240,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-pencil")]),
                                   _vm._v(
-                                    "\n                            Ubah\n                        "
+                                    "\r\n                            Ubah\r\n                        "
                                   ),
                                 ],
                                 1
@@ -2266,7 +2266,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-archive-plus")]),
                                   _vm._v(
-                                    "\n                            Tambah\n                        "
+                                    "\r\n                            Tambah\r\n                        "
                                   ),
                                 ],
                                 1

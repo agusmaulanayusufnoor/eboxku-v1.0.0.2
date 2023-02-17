@@ -78,6 +78,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('pk/download/{pk}', 'PkController@downloadfile');
     Route::post('pk/ceknorek', 'PkController@ceknorek');
     Route::get('pk/filtertglmulai', 'PkController@filtertglmulai');
+    Route::get('pk/filtertglakhir', 'PkController@filtertglakhir');
     Route::get('pjkbadan/download/{pjkbadan}', 'PjkbadanController@downloadfile');
     Route::get('pjksewa/download/{pjksewa}', 'PjksewaController@downloadfile');
     Route::get('pjkpph21/download/{pjkpph21}', 'Pjkpph21Controller@downloadfile');

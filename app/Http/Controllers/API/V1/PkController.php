@@ -225,4 +225,27 @@ class PkController extends BaseController
 
         return $this->sendResponse($pk, 'pk list');
     }
+
+    public function filtertglakhir(Request $request)
+    {
+       // dd($request->all());
+         $tglakhir = $request->tglakhir;
+        //2023-02-01 s/d 2023-02-04
+        //tgl mulai from
+      
+        $fromtgl    = substr($tglakhir,0,10);
+        //tgl mulai to
+        $totgl    = substr($tglakhir,15,10);
+
+
+            $pk  = DB::table('pk')
+            ->join('kode_kantors', 'pk.kantor_id', '=', 'kode_kantors.id')
+            ->whereBetween('pk.tglakhir',[$fromtgl,$totgl])
+            ->select('pk.id','pk.no_pk','pk.namafile','pk.tglmulai','pk.tglakhir','pk.file',
+            'pk.kantor_id','kode_kantors.nama_kantor')
+            ->orderBy('id','desc')
+            ->get();
+
+        return $this->sendResponse($pk, 'pk list');
+    }
 }

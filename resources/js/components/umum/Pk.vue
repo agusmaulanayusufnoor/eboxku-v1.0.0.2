@@ -56,7 +56,7 @@
 
                      <v-dialog
                         ref="dialog"
-                        v-model="modal"
+                        v-model="modal1"
                         :return-value.sync="filterDatemulai"
                         persistent
                         width="290px"
@@ -69,7 +69,8 @@
                                         prepend-icon="mdi-calendar"
                                         v-bind="attrs"
                                         v-on="on"
-                                        single-line
+                                        single-line                                        
+                                        hide-details
                                         readonly
                                         clearable
                                         :return-object="false"
@@ -89,7 +90,7 @@
                                     <v-btn
                                         text
                                         color="primary"
-                                        @click="modal = false"
+                                        @click="modal1 = false"
                                     >
                                         Batal
                                     </v-btn>
@@ -103,10 +104,61 @@
                                     </v-btn>
                                 </v-date-picker>
                      </v-dialog>
-                            <has-error :form="form" field="tglmulai"></has-error>
+                            <has-error :form="form" field="filterTglmulai"></has-error>
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
+                     <!-- filter tanggal akhir -->
+                     <v-dialog
+                        ref="dialog"
+                        v-model="modal2"
+                        :return-value.sync="filterDateakhir"
+                        persistent
+                        width="290px"
+                    >
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field
+                                        v-model="filterTglakhir"
+                                        label="Filter Tanggal Akhir"
+                                        placeholder="Filter Tanggal Akhir"
+                                        prepend-icon="mdi-calendar"
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        single-line                                        
+                                        hide-details
+                                        readonly
+                                        clearable
+                                        :return-object="false"
+                                        persistent-hint :error-messages="pesaneror"
 
+                                    ></v-text-field>
+                                </template>
+                                <v-date-picker
+                                    v-model="filterDateakhir"
+                                    range
+                                    scrollable
+                                    year-icon="calendar-blank"
+                                    locale="id-ID"
+                                    elevation="15"
+                                >
+                                <v-spacer></v-spacer>
+                                    <v-btn
+                                        text
+                                        color="primary"
+                                        @click="modal2 = false"
+                                    >
+                                        Batal
+                                    </v-btn>
+                                    <v-btn
+                                        text
+                                        color="primary"
+                                        @click="$refs.dialog.save(filterDateakhir),getFiltertglakhir()"
+
+                                    >
+                                        OK
+                                    </v-btn>
+                                </v-date-picker>
+                     </v-dialog>
+                            <has-error :form="form" field="filterTglakhir"></has-error>
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
                     <v-text-field
@@ -386,10 +438,11 @@ import moment from 'moment';
       menu1: false,
       menu2:false,
       menu3:false,
-      modal:false,
-      //filterDatemulai:[(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),, (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),],
+      modal1:false,
+      modal2:false,
+     // filterTglmulai:[vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10))],
       filterDatemulai:[],
-
+      filterDateakhir:[],
       dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
       dateFormatted2: vm.formatDate2((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
 
@@ -453,9 +506,18 @@ import moment from 'moment';
                 this.filterDatemulai[0] = temp
         }
 
-       // this.filterDatemulai = this.filterDatemulai ? moment(this.filterDatemulai).format('DD-MM-YYYY') : '';
 
         return this.filterDatemulai.join(' s/d ')
+        },
+        filterTglakhir(){
+        if (Date.parse(this.filterDateakhir[1]) < Date.parse(this.filterDateakhir[0])) {
+                let temp = this.filterDateakhir[1]
+                this.filterDateakhir[1] = this.filterDateakhir[0]
+                this.filterDateakhir[0] = temp
+        }
+
+
+        return this.filterDateakhir.join(' s/d ')
         },
       formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
@@ -467,6 +529,7 @@ import moment from 'moment';
     //   filterTglmulai (val) {
     //     this.filterTglmulai = this.filterDatemulai
     //   },
+   
       tglmulai (val) {
         this.dateFormatted = this.formatDate(this.tglmulai)
       },
@@ -508,8 +571,8 @@ import moment from 'moment';
                 this.pk = response.data.data;
                 //this.kantor_id = this.$kantor_id;
                 // this.form.fill
-             console.log(this.pk);
-             console.log(this.filterTglmulai)
+             //console.log(this.pk);
+           //  console.log(this.filterTglmulai)
                 }).catch((error)=>{
                 console.log(error.response.data);
                 });
@@ -536,6 +599,50 @@ import moment from 'moment';
         this.$Progress.finish();
     },
 
+
+    async getFiltertglakhir(){
+
+        this.$Progress.start();
+            const formData = new FormData
+                formData.set('tglakhir', this.filterTglakhir);
+        if(this.filterTglakhir !=''){
+        if(this.$gate.isAdmin() || this.$gate.isUM() || this.$gate.isSekdir()){
+        axios.get("api/pk/filtertglakhir",{
+            params: {
+            tglakhir: this.filterTglakhir
+            }
+        })
+            .then((response) => {
+                this.pk = response.data.data;
+                //this.kantor_id = this.$kantor_id;
+                // this.form.fill
+            //console.log(this.pk);
+           // console.log(this.filterTglakhir)
+                }).catch((error)=>{
+                console.log(error.response.data);
+                });
+        }
+        }else{
+        //Swal.fire("Gagal Filter", "Filter Tanggal Belum Dipilih...!", "warning");
+        Swal.fire({
+        icon: 'error',
+        title: 'Error Filter',
+        text: 'Filter Tanggal Akhir Belum Dipilih...! ',
+        width: 600,
+        padding: '3em',
+        color: '#ff0000',
+        background: '#ff0000 url(/images/kayu.jpg)',
+        backdrop: `
+            rgba(255,0,64,0.4)
+            url("/images/nyan-cat.gif")
+            left top
+            no-repeat
+        `
+        })
+        }
+
+        this.$Progress.finish();
+    },
     norekKeyboard: function(evt) {
       evt = (evt) ? evt : window.event;
       var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -561,15 +668,11 @@ import moment from 'moment';
         return true;
       }
     },
-    formatsplitTgl(){
-        const [date1,date2] = tglmulai.split(' s/d ')
-        return `${date1}~${date2}`
-    },
-    formatfilterDate () {
-        if (!tglmulai) return null
+    formatfilterDate (filterTglmulai) {
+        if (!filterTglmulai) return null
 
-        const [year, month, day] = tglmulai.split('-')
-        return `${day}/${month}/${year}`
+        const [year1, month1, day1,year2,month2,day2] = tglmulai.split('-')
+        return `${day1}/${month1}/${year1} s/d ${day2}/${month2}/${year2}`
     },
     formatDate (tglmulai) {
         if (!tglmulai) return null

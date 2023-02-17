@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[16],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pelayanan/Teller.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pelayanan/Teller.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pelayanan/Tabungan.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pelayanan/Tabungan.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11,12 +11,6 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -29,44 +23,12 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -353,33 +315,20 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       dialog: false,
       dialogDelete: false,
       search: '',
-      //   headers: [
-      //     {
-      //     text: 'No',
-      //     value: 'index',
-      //     },
-      //     { text: 'Kantor', value: 'nama_kantor',align: 'start', },
-      //     {
-      //       text: 'Nama File',
-      //       value: 'namafile',
-      //     },
-      //     { text: 'Tanggal File', value: 'tanggal' },
-      //     { text: 'Download File', value: 'file', sortable: false,align: 'center'  },
-      //     { text: 'Hapus', value: 'actions', sortable: false },
-      //   ],
-      namaOtorisator: [],
-      otorisator_id: '',
-      nama_kantor: '',
-      namaKantor: [],
-      pesaneror: '',
-      teller: [],
+      tabungan: [],
       valid: true,
       file: null,
       id: '',
       kantor_id: '',
+      cekNorekData: [],
+      pesaneror: [],
+      no_rekening: '',
+      norekRules: [function (v) {
+        return !!v || 'No Rekening Belum Diisi';
+      }],
       namafile: '',
       nameRules: [function (v) {
-        return !!v || 'Nama file belum diisi';
+        return !!v || 'Nama File Belum Diisi';
       }],
       menu1: false,
       menu2: false,
@@ -397,7 +346,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         kantor_id: '',
         namafile: '',
         tanggal: '',
-        otorisator_id: '',
         file: ''
       })
     };
@@ -410,18 +358,18 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         align: 'center',
         sortable: false
       }, {
+        text: 'No Rekening',
+        value: 'no_rekening'
+      }, {
+        text: 'Tanggal File',
+        value: 'tanggal'
+      }, {
         text: 'Kantor',
         value: 'nama_kantor',
         align: 'start'
       }, {
         text: 'Nama File',
         value: 'namafile'
-      }, {
-        text: 'Tanggal File',
-        value: 'tanggal'
-      }, {
-        text: 'Otorisator',
-        value: 'namaotorisator'
       }];
       headers.push({
         text: 'Download File',
@@ -466,10 +414,66 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
     this.initialize();
     this.$Progress.finish();
-    this.$refs.cboto.reset();
-    this.$refs.cbkantor.reset();
   },
   methods: {
+    cekNorek: function cekNorek() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var formData, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(_this.$gate.isAdmin() || _this.$gate.isPelayanan())) {
+                  _context.next = 7;
+                  break;
+                }
+
+                formData = new FormData();
+                formData.set('no_rekening', _this.no_rekening); //const response = await axios.get('api/tabungan/ceknama')
+
+                _context.next = 5;
+                return axios.post('api/tabungan/ceknorek', formData);
+
+              case 5:
+                response = _context.sent;
+
+                if (response.data.message == 'adarek') {
+                  _this.cekNorekData = response.data.data[0].no_rekening;
+                  _this.pesaneror = 'No Rekening ' + _this.cekNorekData + ' Sudah Ada'; // console.log(this.cekNorekData);
+
+                  Toast.fire({
+                    icon: 'error',
+                    //title: response.data.message
+                    title: 'No Rekening ' + response.data.data[0].no_rekening + ' Sudah Ada Dalam Data'
+                  });
+
+                  _this.initialize();
+                } //endif response
+
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    norekKeyboard: function norekKeyboard(evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul
+
+      if (charCode > 31 && (charCode < 48 || charCode > 57) && (charCode < 95 || charCode > 105) && charCode !== 46) {
+        //tidak boleh tombol '/' dan '\'
+        //if (charCode === 191 || charCode===220) {
+        evt.preventDefault();
+        ;
+      } else {
+        return true;
+      }
+    },
     pencetKeyboard: function pencetKeyboard(evt) {
       evt = evt ? evt : window.event;
       var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul
@@ -505,171 +509,22 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       return "".concat(year, "-").concat(month.padStart(2, '0'), "-").concat(day.padStart(2, '0'));
     },
-    getOtorisator: function getOtorisator() {
-      var _this = this;
-
-      if (this.$gate.isAdmin() || this.$gate.isPelayanan()) {
-        //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/teller/getotorisator").then(function (response) {
-          _this.namaOtorisator = response.data.data; //console.log(this.editedItem.namaBarang);
-          //console.log(this.kantor_id)
-        })["catch"](function (error) {
-          console.log(error.response.data);
-        });
-      }
-    },
-    getKantor: function getKantor() {
-      var _this2 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if (_this2.$gate.isAdmin()) {
-                  //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-                  axios.get("api/teller/getkantor").then(function (response) {
-                    _this2.namaKantor = response.data.data;
-                    console.log(_this2.namaKantor);
-                    console.log(_this2.kantor_id);
-                  })["catch"](function (error) {
-                    console.log(error.response.data);
-                  });
-                }
-
-              case 1:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    filterKantor: function filterKantor() {
-      var _this3 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var formData;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _this3.$Progress.start();
-
-                formData = new FormData();
-                formData.set('kantor_id', _this3.nama_kantor);
-
-                if (_this3.nama_kantor != '') {
-                  if (_this3.$gate.isAdmin()) {
-                    axios.get("api/teller/filterkantor", {
-                      params: {
-                        kantor_id: _this3.nama_kantor
-                      }
-                    }).then(function (response) {
-                      _this3.teller = response.data.data;
-                      _this3.kantor_id = _this3.$nama_kantor; // this.form.fill
-                      // console.log(this.teller);
-
-                      console.log(_this3.nama_kantor);
-                    })["catch"](function (error) {
-                      console.log(error.response.data);
-                    });
-                  }
-                } else {
-                  //Swal.fire("Gagal Filter", "Filter Tanggal Belum Dipilih...!", "warning");
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Error Filter',
-                    text: 'Filter Kantor Belum Dipilih...! ',
-                    width: 600,
-                    padding: '3em',
-                    color: '#ff0000',
-                    background: '#ff0000 url(/images/kayu.jpg)',
-                    backdrop: "\n            rgba(255,0,64,0.4)\n            url(\"/images/nyan-cat.gif\")\n            left top\n            no-repeat\n        "
-                  });
-                }
-
-                _this3.$Progress.finish();
-
-              case 5:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
-    },
-    filterOtorisator: function filterOtorisator() {
-      var _this4 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var formData;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _this4.$Progress.start();
-
-                formData = new FormData();
-                formData.set('otorisator_id', _this4.otorisator_id);
-
-                if (_this4.otorisator_id != '') {
-                  if (_this4.$gate.isAdmin() || _this4.$gate.isPelayanan()) {
-                    axios.get("api/teller/filterotorisator", {
-                      params: {
-                        otorisator_id: _this4.otorisator_id
-                      }
-                    }).then(function (response) {
-                      _this4.teller = response.data.data;
-                      _this4.otorisator_id = _this4.$otorisator_id; // this.form.fill
-                      // console.log(this.teller);
-                      // console.log(this.kantor_id)
-                    })["catch"](function (error) {
-                      console.log(error.response.data);
-                    });
-                  }
-                } else {
-                  //Swal.fire("Gagal Filter", "Filter Tanggal Belum Dipilih...!", "warning");
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Error Filter',
-                    text: 'Filter Otorisator Belum Dipilih...! ',
-                    width: 600,
-                    padding: '3em',
-                    color: '#ff0000',
-                    background: '#ff0000 url(/images/kayu.jpg)',
-                    backdrop: "\n            rgba(255,0,64,0.4)\n            url(\"/images/nyan-cat.gif\")\n            left top\n            no-repeat\n        "
-                  });
-                }
-
-                _this4.$Progress.finish();
-
-              case 5:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }))();
-    },
     initialize: function initialize() {
-      var _this5 = this;
+      var _this2 = this;
 
       this.$Progress.start();
 
       if (this.$gate.isAdmin() || this.$gate.isPelayanan()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/teller").then(function (response) {
-          _this5.teller = response.data.data;
-          _this5.kantor_id = _this5.$kantor_id; // this.form.fill
-          //console.log(this.teller);
-          //console.log(this.kantor_id)
+        axios.get("api/tabungan").then(function (response) {
+          _this2.tabungan = response.data.data;
+          _this2.kantor_id = _this2.$kantor_id; // this.form.fill
+          // console.log(this.tabungan);
+          // console.log(this.kantor_id)
         });
       }
 
       this.$Progress.finish();
-      this.$refs.cboto.reset();
-      this.$refs.cbkantor.reset();
     },
     editModal: function editModal(item) {
       this.editmode = true;
@@ -682,14 +537,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       $('#addNew').modal('show');
       this.$refs.form.reset();
       this.namafile = '';
+      this.no_rekening = '';
+      this.pesaneror = '';
     },
-    // uploadFile(e){
-    //         // `files` is always an array because the file input may be in multiple mode
-    //         console.log(e);
-    //         this.file = e.target.files[0];
-    // },
     createUser: function createUser() {
-      var _this6 = this;
+      var _this3 = this;
 
       this.$refs.form.validate();
       this.$Progress.start(); // e.preventDefault();
@@ -702,22 +554,22 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       var formData = new FormData();
       formData.set('kantor_id', this.kantor_id);
+      formData.set('no_rekening', this.no_rekening);
       formData.set('namafile', this.namafile);
       formData.set('tanggal', this.tanggal);
-      formData.set('otorisator_id', this.otorisator_id);
       formData.set('file', this.file); // formData.append('file', this.file);
       // console.log(this.file);
 
-      axios.post('api/teller', formData, config).then(function (response) {
+      axios.post('api/tabungan', formData, config).then(function (response) {
         $('#addNew').modal('hide');
         Toast.fire({
           icon: 'success',
           title: response.data.message
         });
 
-        _this6.$Progress.finish();
+        _this3.$Progress.finish();
 
-        _this6.initialize();
+        _this3.initialize();
       })["catch"](function (error) {
         //Swal.fire("Failed!", data.message, "warning");
         var errors = error.response.data.errors; // Loop this object and pring Key or value or both
@@ -738,14 +590,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     },
     downloadFile: function downloadFile(id, file) {
       axios({
-        url: 'api/teller/download/' + id,
+        url: 'api/tabungan/download/' + id,
         method: 'GET',
         responseType: 'blob'
       }).then(function (response) {
         var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement('a');
         fileLink.href = fileUrl;
-        fileLink.setAttribute('download', 'teller.zip');
+        fileLink.setAttribute('download', 'tabfile.zip');
         fileLink.download = file;
         document.body.appendChild(fileLink);
         fileLink.click();
@@ -754,11 +606,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       });
     },
     updateUser: function updateUser() {
-      var _this7 = this;
+      var _this4 = this;
 
       this.$Progress.start(); // console.log('Editing data');
 
-      this.form.put('api/teller/' + this.form.id).then(function (response) {
+      this.form.put('api/tabungan/' + this.form.id).then(function (response) {
         // success
         $('#addNew').modal('hide');
         Toast.fire({
@@ -766,16 +618,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           title: response.data.message
         });
 
-        _this7.$Progress.finish(); //  Fire.$emit('AfterCreate');
+        _this4.$Progress.finish(); //  Fire.$emit('AfterCreate');
 
 
-        _this7.initialize();
+        _this4.initialize();
       })["catch"](function () {
-        _this7.$Progress.fail();
+        _this4.$Progress.fail();
       });
     },
     deleteUser: function deleteUser(id) {
-      var _this8 = this;
+      var _this5 = this;
 
       Swal.fire({
         title: 'Yakin dihapus?',
@@ -787,10 +639,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this8.form["delete"]('api/teller/' + id).then(function () {
+          _this5.form["delete"]('api/tabungan/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
-            _this8.initialize();
+            _this5.initialize();
           })["catch"](function (data) {
             Swal.fire("Failed!", data.message, "warning");
           });
@@ -802,10 +654,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pelayanan/Teller.vue?vue&type=template&id=67981c2f&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pelayanan/Teller.vue?vue&type=template&id=67981c2f& ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pelayanan/Tabungan.vue?vue&type=template&id=1d160e12&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pelayanan/Tabungan.vue?vue&type=template&id=1d160e12& ***!
+  \*********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -853,7 +705,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    File Teller\n                "
+                                  "\r\n                    File Tabungan\r\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -871,7 +723,7 @@ var render = function () {
                                 },
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
-                                  _vm._v(" Upload File\n                  "),
+                                  _vm._v(" Upload File\r\n                  "),
                                 ],
                                 1
                               ),
@@ -887,7 +739,7 @@ var render = function () {
                                 staticClass: "elevation-3",
                                 attrs: {
                                   headers: _vm.headers,
-                                  items: _vm.teller,
+                                  items: _vm.tabungan,
                                   search: _vm.search,
                                   justify: "center",
                                   dense: "",
@@ -915,7 +767,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                      Refresh\n                      "
+                                                "\r\n                      Refresh\r\n                      "
                                               ),
                                               _c(
                                                 "v-icon",
@@ -927,7 +779,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                        mdi-reload\n                      "
+                                                    "\r\n                        mdi-reload\r\n                      "
                                                   ),
                                                 ]
                                               ),
@@ -944,9 +796,9 @@ var render = function () {
                                         var index = ref.index
                                         return [
                                           _vm._v(
-                                            "\n                    " +
+                                            "\r\n                    " +
                                               _vm._s(index + 1) +
-                                              "\n                "
+                                              "\r\n                "
                                           ),
                                         ]
                                       },
@@ -959,139 +811,7 @@ var render = function () {
                                             "v-toolbar",
                                             { attrs: { flat: "" } },
                                             [
-                                              _vm.$gate.isAdmin()
-                                                ? _c(
-                                                    "v-row",
-                                                    [
-                                                      _c(
-                                                        "v-col",
-                                                        {
-                                                          attrs: {
-                                                            cols: "8",
-                                                            sm: "8",
-                                                            md: "8",
-                                                          },
-                                                        },
-                                                        [
-                                                          _c("v-combobox", {
-                                                            ref: "cbkantor",
-                                                            attrs: {
-                                                              label: "Kantor",
-                                                              items:
-                                                                _vm.namaKantor,
-                                                              "item-value":
-                                                                "nama_kantor",
-                                                              "item-text":
-                                                                "nama_kantor",
-                                                              placeholder:
-                                                                "Pilih Kantor",
-                                                              "single-line": "",
-                                                              "hide-details":
-                                                                "",
-                                                              clearable: "",
-                                                              "return-object": false,
-                                                              "persistent-hint":
-                                                                "",
-                                                              "error-messages":
-                                                                _vm.pesaneror,
-                                                            },
-                                                            on: {
-                                                              click: function (
-                                                                $event
-                                                              ) {
-                                                                return _vm.getKantor()
-                                                              },
-                                                              change: function (
-                                                                $event
-                                                              ) {
-                                                                return _vm.filterKantor()
-                                                              },
-                                                            },
-                                                            model: {
-                                                              value:
-                                                                _vm.nama_kantor,
-                                                              callback:
-                                                                function ($$v) {
-                                                                  _vm.nama_kantor =
-                                                                    $$v
-                                                                },
-                                                              expression:
-                                                                "nama_kantor",
-                                                            },
-                                                          }),
-                                                        ],
-                                                        1
-                                                      ),
-                                                    ],
-                                                    1
-                                                  )
-                                                : _vm._e(),
-                                              _vm._v(" "),
                                               _c("v-spacer"),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-row",
-                                                [
-                                                  _c(
-                                                    "v-col",
-                                                    {
-                                                      attrs: {
-                                                        cols: "10",
-                                                        sm: "10",
-                                                        md: "10",
-                                                      },
-                                                    },
-                                                    [
-                                                      _c("v-combobox", {
-                                                        ref: "cboto",
-                                                        attrs: {
-                                                          label: "Otorisator",
-                                                          items:
-                                                            _vm.namaOtorisator,
-                                                          "item-value": "id",
-                                                          "item-text":
-                                                            "namaotorisator",
-                                                          placeholder:
-                                                            "Daftar Otorisator",
-                                                          "single-line": "",
-                                                          "hide-details": "",
-                                                          clearable: "",
-                                                          "return-object": false,
-                                                          "persistent-hint": "",
-                                                          "error-messages":
-                                                            _vm.pesaneror,
-                                                        },
-                                                        on: {
-                                                          click: function (
-                                                            $event
-                                                          ) {
-                                                            return _vm.getOtorisator()
-                                                          },
-                                                          change: function (
-                                                            $event
-                                                          ) {
-                                                            return _vm.filterOtorisator()
-                                                          },
-                                                        },
-                                                        model: {
-                                                          value:
-                                                            _vm.otorisator_id,
-                                                          callback: function (
-                                                            $$v
-                                                          ) {
-                                                            _vm.otorisator_id =
-                                                              $$v
-                                                          },
-                                                          expression:
-                                                            "otorisator_id",
-                                                        },
-                                                      }),
-                                                    ],
-                                                    1
-                                                  ),
-                                                ],
-                                                1
-                                              ),
                                               _vm._v(" "),
                                               _c("v-spacer"),
                                               _vm._v(" "),
@@ -1150,7 +870,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                            mdi-download\n                        "
+                                                    "\r\n                            mdi-download\r\n                        "
                                                   ),
                                                 ]
                                               ),
@@ -1182,7 +902,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                    mdi-delete\n                "
+                                                "\r\n                    mdi-delete\r\n                "
                                               ),
                                             ]
                                           ),
@@ -1192,7 +912,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  3968794873
+                                  3070934507
                                 ),
                               }),
                             ],
@@ -1358,10 +1078,51 @@ var render = function () {
                                   [
                                     _c("v-text-field", {
                                       attrs: {
+                                        rules: _vm.norekRules,
+                                        name: "no_rekening",
+                                        label: "Nomor Rekening Tabungan",
+                                        placeholder: "No. Rekening Tanpa Titik",
+                                        counter: "",
+                                        maxlength: "12",
+                                        outlined: "",
+                                        required: "",
+                                        dense: "",
+                                        "prepend-icon": "mdi-file",
+                                        hint: "",
+                                        "persistent-hint": "",
+                                        "error-messages": _vm.pesaneror,
+                                      },
+                                      on: {
+                                        keydown: function ($event) {
+                                          return _vm.norekKeyboard($event)
+                                        },
+                                        change: function ($event) {
+                                          return _vm.cekNorek()
+                                        },
+                                      },
+                                      model: {
+                                        value: _vm.no_rekening,
+                                        callback: function ($$v) {
+                                          _vm.no_rekening = $$v
+                                        },
+                                        expression: "no_rekening",
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("has-error", {
+                                      attrs: {
+                                        form: _vm.form,
+                                        field: "namafile",
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("v-text-field", {
+                                      attrs: {
                                         rules: _vm.nameRules,
                                         name: "namafile",
                                         label: "Nama File",
-                                        placeholder: "Nama File",
+                                        placeholder:
+                                          "Nama File: 'nama_nasabah'",
                                         outlined: "",
                                         required: "",
                                         dense: "",
@@ -1388,137 +1149,134 @@ var render = function () {
                                       },
                                     }),
                                     _vm._v(" "),
-                                    _c(
-                                      "v-menu",
-                                      {
-                                        ref: "menu1",
-                                        attrs: {
-                                          "close-on-content-click": false,
-                                          "nudge-right": 40,
-                                          transition: "scale-transition",
-                                          "offset-y": "",
-                                          "min-width": "auto",
-                                        },
-                                        scopedSlots: _vm._u([
-                                          {
-                                            key: "activator",
-                                            fn: function (ref) {
-                                              var on = ref.on
-                                              var attrs = ref.attrs
-                                              return [
-                                                _c(
-                                                  "v-text-field",
-                                                  _vm._g(
-                                                    _vm._b(
-                                                      {
-                                                        attrs: {
-                                                          rules:
-                                                            _vm.tanggalRules,
-                                                          label: "Tanggal File",
-                                                          placeholder:
-                                                            "dd/mm/yyyy",
-                                                          "prepend-icon":
-                                                            "mdi-calendar",
-                                                          outlined: "",
-                                                          required: "",
-                                                          dense: "",
-                                                        },
-                                                        on: {
-                                                          blur: function (
-                                                            $event
-                                                          ) {
-                                                            _vm.tanggal =
-                                                              _vm.parseDate(
-                                                                _vm.dateFormatted
-                                                              )
-                                                          },
-                                                        },
-                                                        model: {
-                                                          value:
-                                                            _vm.dateFormatted,
-                                                          callback: function (
-                                                            $$v
-                                                          ) {
-                                                            _vm.dateFormatted =
-                                                              $$v
-                                                          },
-                                                          expression:
-                                                            "dateFormatted",
-                                                        },
+                                    [
+                                      _c(
+                                        "v-row",
+                                        [
+                                          _c(
+                                            "v-col",
+                                            {
+                                              attrs: {
+                                                cols: "12",
+                                                sm: "12",
+                                                md: "12",
+                                              },
+                                            },
+                                            [
+                                              _c(
+                                                "v-menu",
+                                                {
+                                                  ref: "menu1",
+                                                  attrs: {
+                                                    "close-on-content-click": false,
+                                                    "nudge-right": 40,
+                                                    transition:
+                                                      "scale-transition",
+                                                    "offset-y": "",
+                                                    "min-width": "auto",
+                                                  },
+                                                  scopedSlots: _vm._u([
+                                                    {
+                                                      key: "activator",
+                                                      fn: function (ref) {
+                                                        var on = ref.on
+                                                        var attrs = ref.attrs
+                                                        return [
+                                                          _c(
+                                                            "v-text-field",
+                                                            _vm._g(
+                                                              _vm._b(
+                                                                {
+                                                                  attrs: {
+                                                                    rules:
+                                                                      _vm.tanggalRules,
+                                                                    label:
+                                                                      "Tanggal File",
+                                                                    placeholder:
+                                                                      "Tanggal Buka Rekening",
+                                                                    "prepend-icon":
+                                                                      "mdi-calendar",
+                                                                    outlined:
+                                                                      "",
+                                                                    required:
+                                                                      "",
+                                                                    dense: "",
+                                                                  },
+                                                                  on: {
+                                                                    blur: function (
+                                                                      $event
+                                                                    ) {
+                                                                      _vm.tanggal =
+                                                                        _vm.parseDate(
+                                                                          _vm.dateFormatted
+                                                                        )
+                                                                    },
+                                                                  },
+                                                                  model: {
+                                                                    value:
+                                                                      _vm.dateFormatted,
+                                                                    callback:
+                                                                      function (
+                                                                        $$v
+                                                                      ) {
+                                                                        _vm.dateFormatted =
+                                                                          $$v
+                                                                      },
+                                                                    expression:
+                                                                      "dateFormatted",
+                                                                  },
+                                                                },
+                                                                "v-text-field",
+                                                                attrs,
+                                                                false
+                                                              ),
+                                                              on
+                                                            )
+                                                          ),
+                                                        ]
                                                       },
-                                                      "v-text-field",
-                                                      attrs,
-                                                      false
-                                                    ),
-                                                    on
-                                                  )
-                                                ),
-                                              ]
-                                            },
-                                          },
-                                        ]),
-                                        model: {
-                                          value: _vm.menu1,
-                                          callback: function ($$v) {
-                                            _vm.menu1 = $$v
-                                          },
-                                          expression: "menu1",
-                                        },
-                                      },
-                                      [
-                                        _vm._v(" "),
-                                        _c("v-date-picker", {
-                                          attrs: {
-                                            elevation: "15",
-                                            "year-icon": "calendar-blank",
-                                            locale: "id-ID",
-                                          },
-                                          on: {
-                                            input: function ($event) {
-                                              _vm.menu1 = false
-                                            },
-                                          },
-                                          model: {
-                                            value: _vm.tanggal,
-                                            callback: function ($$v) {
-                                              _vm.tanggal = $$v
-                                            },
-                                            expression: "tanggal",
-                                          },
-                                        }),
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c("v-combobox", {
-                                      attrs: {
-                                        label: "Nama Otorisator",
-                                        "prepend-icon":
-                                          "nav-icon fas fa-user-secret",
-                                        items: _vm.namaOtorisator,
-                                        "item-value": "id",
-                                        "item-text": "namaotorisator",
-                                        placeholder: "Daftar Otorisator",
-                                        outlined: "",
-                                        required: "",
-                                        dense: "",
-                                        "return-object": false,
-                                        "persistent-hint": "",
-                                        "error-messages": _vm.pesaneror,
-                                      },
-                                      on: {
-                                        click: function ($event) {
-                                          return _vm.getOtorisator()
-                                        },
-                                      },
-                                      model: {
-                                        value: _vm.otorisator_id,
-                                        callback: function ($$v) {
-                                          _vm.otorisator_id = $$v
-                                        },
-                                        expression: "otorisator_id",
-                                      },
-                                    }),
+                                                    },
+                                                  ]),
+                                                  model: {
+                                                    value: _vm.menu1,
+                                                    callback: function ($$v) {
+                                                      _vm.menu1 = $$v
+                                                    },
+                                                    expression: "menu1",
+                                                  },
+                                                },
+                                                [
+                                                  _vm._v(" "),
+                                                  _c("v-date-picker", {
+                                                    attrs: {
+                                                      elevation: "15",
+                                                      "year-icon":
+                                                        "calendar-blank",
+                                                      locale: "id-ID",
+                                                    },
+                                                    on: {
+                                                      input: function ($event) {
+                                                        _vm.menu1 = false
+                                                      },
+                                                    },
+                                                    model: {
+                                                      value: _vm.tanggal,
+                                                      callback: function ($$v) {
+                                                        _vm.tanggal = $$v
+                                                      },
+                                                      expression: "tanggal",
+                                                    },
+                                                  }),
+                                                ],
+                                                1
+                                              ),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                    ],
                                     _vm._v(" "),
                                     _c("has-error", {
                                       attrs: {
@@ -1563,9 +1321,9 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\n                                    " +
+                                                          "\r\n                                    " +
                                                             _vm._s(text) +
-                                                            "\n                                "
+                                                            "\r\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1578,12 +1336,12 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\n                                    +" +
+                                                          "\r\n                                    +" +
                                                             _vm._s(
                                                               _vm.files.length -
                                                                 2
                                                             ) +
-                                                            " File(s)\n                                "
+                                                            " File(s)\r\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1630,7 +1388,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-cancel")]),
                                   _vm._v(
-                                    "\n                            Batal\n                        "
+                                    "\r\n                            Batal\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1656,7 +1414,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-pencil")]),
                                   _vm._v(
-                                    "\n                            Ubah\n                        "
+                                    "\r\n                            Ubah\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1682,7 +1440,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
                                   _vm._v(
-                                    "\n                            Upload\n                        "
+                                    "\r\n                            Upload\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1713,17 +1471,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/pelayanan/Teller.vue":
-/*!******************************************************!*\
-  !*** ./resources/js/components/pelayanan/Teller.vue ***!
-  \******************************************************/
+/***/ "./resources/js/components/pelayanan/Tabungan.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/pelayanan/Tabungan.vue ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Teller_vue_vue_type_template_id_67981c2f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Teller.vue?vue&type=template&id=67981c2f& */ "./resources/js/components/pelayanan/Teller.vue?vue&type=template&id=67981c2f&");
-/* harmony import */ var _Teller_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Teller.vue?vue&type=script&lang=js& */ "./resources/js/components/pelayanan/Teller.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Tabungan_vue_vue_type_template_id_1d160e12___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Tabungan.vue?vue&type=template&id=1d160e12& */ "./resources/js/components/pelayanan/Tabungan.vue?vue&type=template&id=1d160e12&");
+/* harmony import */ var _Tabungan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Tabungan.vue?vue&type=script&lang=js& */ "./resources/js/components/pelayanan/Tabungan.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1733,9 +1491,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Teller_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Teller_vue_vue_type_template_id_67981c2f___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Teller_vue_vue_type_template_id_67981c2f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Tabungan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Tabungan_vue_vue_type_template_id_1d160e12___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Tabungan_vue_vue_type_template_id_1d160e12___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1745,38 +1503,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/pelayanan/Teller.vue"
+component.options.__file = "resources/js/components/pelayanan/Tabungan.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/pelayanan/Teller.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/components/pelayanan/Teller.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************/
+/***/ "./resources/js/components/pelayanan/Tabungan.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/pelayanan/Tabungan.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Teller_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Teller.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pelayanan/Teller.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Teller_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Tabungan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Tabungan.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pelayanan/Tabungan.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Tabungan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/pelayanan/Teller.vue?vue&type=template&id=67981c2f&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/components/pelayanan/Teller.vue?vue&type=template&id=67981c2f& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/components/pelayanan/Tabungan.vue?vue&type=template&id=1d160e12&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/pelayanan/Tabungan.vue?vue&type=template&id=1d160e12& ***!
+  \***************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Teller_vue_vue_type_template_id_67981c2f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Teller.vue?vue&type=template&id=67981c2f& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pelayanan/Teller.vue?vue&type=template&id=67981c2f&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Teller_vue_vue_type_template_id_67981c2f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Tabungan_vue_vue_type_template_id_1d160e12___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Tabungan.vue?vue&type=template&id=1d160e12& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pelayanan/Tabungan.vue?vue&type=template&id=1d160e12&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Tabungan_vue_vue_type_template_id_1d160e12___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Teller_vue_vue_type_template_id_67981c2f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Tabungan_vue_vue_type_template_id_1d160e12___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
