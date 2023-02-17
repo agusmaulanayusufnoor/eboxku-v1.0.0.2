@@ -444,6 +444,94 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data(vm) {
@@ -451,33 +539,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       editmode: false,
       dialog: false,
+      dialog2: false,
       dialogDelete: false,
       search: '',
+      //editmode
+      snack: false,
+      multiLine: true,
+      snackColor: '',
+      snackText: '',
+      max200chars: function max200chars(v) {
+        return v.length <= 200 || 'Input terlalu panjang [max. 200 karakter]';
+      },
+      //endeditmode
       pk: [],
       valid: true,
-      file: null,
-      id: '',
       kantor_id: '',
-      no_pk: '',
-      norekRules: [function (v) {
-        return !!v || 'No Perjanjian Kerjasama Belum Diisi';
-      }],
-      cekNorekData: [],
-      pesaneror: [],
-      namafile: '',
-      nameRules: [function (v) {
-        return !!v || 'Nama File Belum Diisi';
-      }],
-      menu1: false,
-      menu2: false,
-      menu3: false,
-      modal1: false,
-      modal2: false,
-      // filterTglmulai:[vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10))],
-      filterDatemulai: [],
-      filterDateakhir: [],
-      dateFormatted: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
-      dateFormatted2: vm.formatDate2(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
+      editedItem: {
+        id: '',
+        no_pk: '',
+        nopkRules: [function (v) {
+          return !!v || 'No Perjanjian Kerjasama Belum Diisi';
+        }],
+        namamitra: '',
+        namemitraRules: [function (v) {
+          return !!v || 'Nama Mitra Belum Diisi';
+        }],
+        namafile: '',
+        nameRules: [function (v) {
+          return !!v || 'Jenis PKS Belum Diisi';
+        }],
+        file: null,
+        fileRules: [function (v) {
+          return !!v || 'File belum dimasukan';
+        }]
+      },
       tglmulai: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       tglmulaiRules: [function (v) {
         return !!v || 'Tanggal mulai belum diisi';
@@ -486,13 +581,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       tglakhirRules: [function (v) {
         return !!v || 'Tanggal akhir belum diisi';
       }],
-      fileRules: [function (v) {
-        return !!v || 'File belum dimasukan';
-      }],
+      dateFormatted: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
+      dateFormatted2: vm.formatDate2(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
+      pesaneror: [],
+      menu1: false,
+      menu2: false,
+      menu3: false,
+      modal1: false,
+      modal2: false,
+      // filterTglmulai:[vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10))],
+      filterDatemulai: [],
+      filterDateakhir: [],
       //file: '',
       form: new Form({
         id: '',
         kantor_id: '',
+        namamitra: '',
         namafile: '',
         tglmulai: '',
         tglakhir: '',
@@ -512,6 +616,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         value: 'no_pk'
       }, {
         text: 'Nama Mitra',
+        value: 'namamitra'
+      }, {
+        text: 'Jenis Kerjasama',
         value: 'namafile'
       }, {
         text: 'Tanggal Mulai',
@@ -538,7 +645,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return headers;
     },
     computedDateFormatted: function computedDateFormatted() {
-      return this.formatDate(this.tglmulai);
+      return this.formatDate(this.editedItem.tglmulai);
     },
     filterTglmulai: function filterTglmulai() {
       if (Date.parse(this.filterDatemulai[1]) < Date.parse(this.filterDatemulai[0])) {
@@ -575,6 +682,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     dialog: function dialog(val) {
       val || this.close();
     },
+    dialog2: function dialog2(val) {
+      val || this.close();
+    },
     dialogDelete: function dialogDelete(val) {
       val || this.closeDelete();
     }
@@ -589,6 +699,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.$Progress.finish();
   },
   methods: {
+    save: function save() {
+      this.snack = true;
+      this.snackColor = 'success';
+      this.snackText = 'Data disimpan';
+      this.updateUser();
+    },
+    cancel: function cancel() {
+      this.snack = true;
+      this.snackColor = 'error';
+      this.snackText = 'Dibatalkan';
+    },
+    open: function open(item) {
+      this.snack = true;
+      this.snackColor = 'info';
+      this.snackText = 'Enter = Simpan';
+      this.editedItem.id = item.id;
+      this.editedItem.no_pk = item.no_pk;
+      this.editedItem.namafile = item.namafile;
+      this.editedItem.namamitra = item.namamitra; //console.log(this.item.namabarang);
+      //alert(this.item.id)
+    },
+    close: function close() {
+      console.log('Dialog closed');
+    },
     getFiltertglmulai: function getFiltertglmulai() {
       var _this = this;
 
@@ -720,39 +854,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return true;
       }
     },
-    formatfilterDate: function formatfilterDate(filterTglmulai) {
-      if (!filterTglmulai) return null;
-
-      var _tglmulai$split = tglmulai.split('-'),
-          _tglmulai$split2 = _slicedToArray(_tglmulai$split, 6),
-          year1 = _tglmulai$split2[0],
-          month1 = _tglmulai$split2[1],
-          day1 = _tglmulai$split2[2],
-          year2 = _tglmulai$split2[3],
-          month2 = _tglmulai$split2[4],
-          day2 = _tglmulai$split2[5];
-
-      return "".concat(day1, "/").concat(month1, "/").concat(year1, " s/d ").concat(day2, "/").concat(month2, "/").concat(year2);
-    },
     formatDate: function formatDate(tglmulai) {
       if (!tglmulai) return null;
 
-      var _tglmulai$split3 = tglmulai.split('-'),
-          _tglmulai$split4 = _slicedToArray(_tglmulai$split3, 3),
-          year = _tglmulai$split4[0],
-          month = _tglmulai$split4[1],
-          day = _tglmulai$split4[2];
+      var _tglmulai$split = tglmulai.split('-'),
+          _tglmulai$split2 = _slicedToArray(_tglmulai$split, 3),
+          year = _tglmulai$split2[0],
+          month = _tglmulai$split2[1],
+          day = _tglmulai$split2[2];
 
       return "".concat(day, "/").concat(month, "/").concat(year);
     },
     parseDate: function parseDate(tglmulai) {
       if (!tglmulai) return null;
 
-      var _tglmulai$split5 = tglmulai.split('/'),
-          _tglmulai$split6 = _slicedToArray(_tglmulai$split5, 3),
-          day = _tglmulai$split6[0],
-          month = _tglmulai$split6[1],
-          year = _tglmulai$split6[2];
+      var _tglmulai$split3 = tglmulai.split('/'),
+          _tglmulai$split4 = _slicedToArray(_tglmulai$split3, 3),
+          day = _tglmulai$split4[0],
+          month = _tglmulai$split4[1],
+          year = _tglmulai$split4[2];
 
       return "".concat(year, "-").concat(month.padStart(2, '0'), "-").concat(day.padStart(2, '0'));
     },
@@ -804,9 +924,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.editmode = false;
       $('#addNew').modal('show');
       this.$refs.form.reset();
-      this.namafile = '';
-      this.no_pk = '';
-      this.pesaneror = '';
+      this.editedItem.namafile = '';
+      this.editedItem.no_pk = '';
+      this.editedItem.pesaneror = '';
     },
     createUser: function createUser() {
       var _this4 = this;
@@ -822,11 +942,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       var formData = new FormData();
       formData.set('kantor_id', this.kantor_id);
-      formData.set('no_pk', this.no_pk);
-      formData.set('namafile', this.namafile);
+      formData.set('no_pk', this.editedItem.no_pk);
+      formData.set('namamitra', this.editedItem.namamitra);
+      formData.set('namafile', this.editedItem.namafile);
       formData.set('tglmulai', this.tglmulai);
       formData.set('tglakhir', this.tglakhir);
-      formData.set('file', this.file); // formData.append('file', this.file);
+      formData.set('file', this.editedItem.file); // formData.append('file', this.file);
       // console.log(this.file);
 
       axios.post('api/pk', formData, config).then(function (response) {
@@ -877,9 +998,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     updateUser: function updateUser() {
       var _this5 = this;
 
+      var config = {
+        headers: {
+          'accept': 'application/json',
+          'Accept-Language': 'en-US,en;q=0.8',
+          'content-type': 'multipart/form-data'
+        } // headers: {'X-Custom-Header': 'value'}
+
+      };
       this.$Progress.start(); // console.log('Editing data');
 
-      this.form.put('api/pk/' + this.form.id).then(function (response) {
+      var formData = new FormData();
+      formData.set('no_pk', this.editedItem.no_pk);
+      formData.set('namafile', this.editedItem.namafile);
+      formData.set('namamitra', this.editedItem.namamitra);
+      formData.append("_method", "PUT");
+      axios.post('api/pk/' + this.editedItem.id, formData).then(function (response) {
         // success
         $('#addNew').modal('hide');
         Toast.fire({
@@ -1301,7 +1435,7 @@ var render = function () {
                                               _c(
                                                 "v-dialog",
                                                 {
-                                                  ref: "dialog",
+                                                  ref: "dialog2",
                                                   attrs: {
                                                     "return-value":
                                                       _vm.filterDateakhir,
@@ -1453,7 +1587,7 @@ var render = function () {
                                                             click: function (
                                                               $event
                                                             ) {
-                                                              _vm.$refs.dialog.save(
+                                                              _vm.$refs.dialog2.save(
                                                                 _vm.filterDateakhir
                                                               ),
                                                                 _vm.getFiltertglakhir()
@@ -1574,10 +1708,253 @@ var render = function () {
                                         ]
                                       },
                                     },
+                                    {
+                                      key: "item.no_pk",
+                                      fn: function (ref) {
+                                        var item = ref.item
+                                        return [
+                                          _c(
+                                            "v-edit-dialog",
+                                            {
+                                              on: {
+                                                save: _vm.save,
+                                                cancel: _vm.cancel,
+                                                open: function ($event) {
+                                                  return _vm.open(item)
+                                                },
+                                                close: _vm.close,
+                                              },
+                                              scopedSlots: _vm._u(
+                                                [
+                                                  {
+                                                    key: "input",
+                                                    fn: function () {
+                                                      return [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "mt-4 text-h6",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\r\n                            Edit Jenis PKS\r\n                            "
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            rules: [
+                                                              _vm.max200chars,
+                                                            ],
+                                                            label: "Edit",
+                                                            "single-line": "",
+                                                            counter: "",
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedItem
+                                                                .no_pk,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedItem,
+                                                                "no_pk",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedItem.no_pk",
+                                                          },
+                                                        }),
+                                                      ]
+                                                    },
+                                                    proxy: true,
+                                                  },
+                                                ],
+                                                null,
+                                                true
+                                              ),
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\r\n                        " +
+                                                  _vm._s(item.no_pk) +
+                                                  "\r\n                        "
+                                              ),
+                                            ]
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                    {
+                                      key: "item.namafile",
+                                      fn: function (ref) {
+                                        var item = ref.item
+                                        return [
+                                          _c(
+                                            "v-edit-dialog",
+                                            {
+                                              on: {
+                                                save: _vm.save,
+                                                cancel: _vm.cancel,
+                                                open: function ($event) {
+                                                  return _vm.open(item)
+                                                },
+                                                close: _vm.close,
+                                              },
+                                              scopedSlots: _vm._u(
+                                                [
+                                                  {
+                                                    key: "input",
+                                                    fn: function () {
+                                                      return [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "mt-4 text-h6",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\r\n                            Edit Jenis PKS\r\n                            "
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            rules: [
+                                                              _vm.max200chars,
+                                                            ],
+                                                            label: "Edit",
+                                                            "single-line": "",
+                                                            counter: "",
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedItem
+                                                                .namafile,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedItem,
+                                                                "namafile",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedItem.namafile",
+                                                          },
+                                                        }),
+                                                      ]
+                                                    },
+                                                    proxy: true,
+                                                  },
+                                                ],
+                                                null,
+                                                true
+                                              ),
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\r\n                        " +
+                                                  _vm._s(item.namafile) +
+                                                  "\r\n                        "
+                                              ),
+                                            ]
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                    {
+                                      key: "item.namamitra",
+                                      fn: function (ref) {
+                                        var item = ref.item
+                                        return [
+                                          _c(
+                                            "v-edit-dialog",
+                                            {
+                                              on: {
+                                                save: _vm.save,
+                                                cancel: _vm.cancel,
+                                                open: function ($event) {
+                                                  return _vm.open(item)
+                                                },
+                                                close: _vm.close,
+                                              },
+                                              scopedSlots: _vm._u(
+                                                [
+                                                  {
+                                                    key: "input",
+                                                    fn: function () {
+                                                      return [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "mt-4 text-h6",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\r\n                            Edit Nama Mitra\r\n                            "
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            rules: [
+                                                              _vm.max200chars,
+                                                            ],
+                                                            label: "Edit",
+                                                            "single-line": "",
+                                                            counter: "",
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedItem
+                                                                .namamitra,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedItem,
+                                                                "namamitra",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedItem.namamitra",
+                                                          },
+                                                        }),
+                                                      ]
+                                                    },
+                                                    proxy: true,
+                                                  },
+                                                ],
+                                                null,
+                                                true
+                                              ),
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\r\n                        " +
+                                                  _vm._s(item.namamitra) +
+                                                  "\r\n                        "
+                                              ),
+                                            ]
+                                          ),
+                                        ]
+                                      },
+                                    },
                                   ],
                                   null,
                                   false,
-                                  1885104208
+                                  1225602059
                                 ),
                               }),
                             ],
@@ -1743,7 +2120,7 @@ var render = function () {
                                   [
                                     _c("v-text-field", {
                                       attrs: {
-                                        rules: _vm.norekRules,
+                                        rules: _vm.editedItem.nopkRules,
                                         name: "no_pk",
                                         label: "Nomor PKS",
                                         placeholder: "input no. pks",
@@ -1758,11 +2135,39 @@ var render = function () {
                                         "error-messages": _vm.pesaneror,
                                       },
                                       model: {
-                                        value: _vm.no_pk,
+                                        value: _vm.editedItem.no_pk,
                                         callback: function ($$v) {
-                                          _vm.no_pk = $$v
+                                          _vm.$set(_vm.editedItem, "no_pk", $$v)
                                         },
-                                        expression: "no_pk",
+                                        expression: "editedItem.no_pk",
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("has-error", {
+                                      attrs: { form: _vm.form, field: "no_pk" },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("v-text-field", {
+                                      attrs: {
+                                        rules: _vm.editedItem.namemitraRules,
+                                        name: "namamitra",
+                                        label: "Nama Mitra",
+                                        placeholder: "input nama mitra",
+                                        outlined: "",
+                                        required: "",
+                                        dense: "",
+                                        "prepend-icon": "mdi-file",
+                                      },
+                                      model: {
+                                        value: _vm.editedItem.namamitra,
+                                        callback: function ($$v) {
+                                          _vm.$set(
+                                            _vm.editedItem,
+                                            "namamitra",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "editedItem.namamitra",
                                       },
                                     }),
                                     _vm._v(" "),
@@ -1775,26 +2180,25 @@ var render = function () {
                                     _vm._v(" "),
                                     _c("v-text-field", {
                                       attrs: {
-                                        rules: _vm.nameRules,
+                                        rules: _vm.editedItem.nameRules,
                                         name: "namafile",
-                                        label: "Nama Mitra",
-                                        placeholder: "input nama mitra",
+                                        label: "Jenis Kerjasama",
+                                        placeholder: "input PKS",
                                         outlined: "",
                                         required: "",
                                         dense: "",
                                         "prepend-icon": "mdi-file",
                                       },
-                                      on: {
-                                        keydown: function ($event) {
-                                          return _vm.pencetKeyboard($event)
-                                        },
-                                      },
                                       model: {
-                                        value: _vm.namafile,
+                                        value: _vm.editedItem.namafile,
                                         callback: function ($$v) {
-                                          _vm.namafile = $$v
+                                          _vm.$set(
+                                            _vm.editedItem,
+                                            "namafile",
+                                            $$v
+                                          )
                                         },
-                                        expression: "namafile",
+                                        expression: "editedItem.namafile",
                                       },
                                     }),
                                     _vm._v(" "),
@@ -2028,7 +2432,7 @@ var render = function () {
                                     [
                                       _c("v-file-input", {
                                         attrs: {
-                                          rules: _vm.fileRules,
+                                          rules: _vm.editedItem.fileRules,
                                           color: "deep-purple accent-4",
                                           counter: "",
                                           label: "File input",
@@ -2091,11 +2495,15 @@ var render = function () {
                                           },
                                         ]),
                                         model: {
-                                          value: _vm.file,
+                                          value: _vm.editedItem.file,
                                           callback: function ($$v) {
-                                            _vm.file = $$v
+                                            _vm.$set(
+                                              _vm.editedItem,
+                                              "file",
+                                              $$v
+                                            )
                                           },
-                                          expression: "file",
+                                          expression: "editedItem.file",
                                         },
                                       }),
                                     ],

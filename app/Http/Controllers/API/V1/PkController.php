@@ -34,7 +34,7 @@ class PkController extends BaseController
         if($levelLogin === 'admin'){
             $pk  = DB::table('pk')
             ->join('kode_kantors', 'pk.kantor_id', '=', 'kode_kantors.id')
-            ->select('pk.id','pk.no_pk','pk.namafile','pk.tglmulai','pk.tglakhir','pk.file',
+            ->select('pk.id','pk.no_pk','pk.namamitra','pk.namafile','pk.tglmulai','pk.tglakhir','pk.file',
             'pk.kantor_id','kode_kantors.nama_kantor')
             ->orderBy('id','desc')
             ->get();
@@ -42,7 +42,7 @@ class PkController extends BaseController
             $pk  = DB::table('pk')
             ->join('kode_kantors', 'pk.kantor_id', '=', 'kode_kantors.id')
             ->where('kantor_id', $id_kantor)
-            ->select('pk.id','pk.no_pk','pk.namafile','pk.tglmulai','pk.tglakhir','pk.file',
+            ->select('pk.id','pk.no_pk','pk.namamitra','pk.namafile','pk.tglmulai','pk.tglakhir','pk.file',
             'pk.kantor_id','kode_kantors.nama_kantor')
             ->orderBy('id','desc')
             ->get();
@@ -63,6 +63,7 @@ class PkController extends BaseController
         $request->validate([
             'no_pk'  => 'required|unique:pk',
             'namafile'     => 'required',
+            'namamitra'     => 'required',
             'tglmulai'      => 'required',
             'tglmulai' => ['required', function ($attribute, $value, $fail) {
                 if ($value === 'null') {
@@ -77,9 +78,10 @@ class PkController extends BaseController
             }],
             'file'         => 'required|mimes:pdf'
         ],[
-            'no_pk.unique' => 'no pk sudah ada dalam data',
-            'no_pk.required' => 'no pk harus diisi',
-            'namafile.required' => 'nama file harus diisi',
+            'no_pk.unique' => 'no pks sudah ada dalam data',
+            'no_pk.required' => 'no pks harus diisi',
+            'namafile.required' => 'jenis pks harus diisi',
+            'namamitra.required' => 'nama mitra harus diisi',
             'tglmulai.required' => 'tglmulai harus diisi',
             'tglakhir.required' => 'tglakhir harus diisi',
             'file.required' => 'file belum di input',
@@ -107,11 +109,12 @@ class PkController extends BaseController
         $dateakhir       = $request->tglakhir;
 
 
-        $acak = $this->acak_string(5);
-        $file   = $request->namafile.".".$acak.".".$nm->getClientOriginalName();
+        $acak = $this->acak_string(6);
+        $file   = $acak.".".$nm->getClientOriginalName();
         $pk = $this->pk->create([
             'kantor_id'     => $request->get('kantor_id'),
             'no_pk'         => $request->get('no_pk'),
+            'namamitra'      => $request->get('namamitra'),
             'namafile'      => $request->get('namafile'),
             'tglmulai'       => $datemulai,
             'tglakhir'       => $dateakhir,
@@ -142,7 +145,22 @@ class PkController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
+       $pk = Pk::findOrFail($id);
+       // dd($request->namafile);
+
+       $pk->update($request->all());
+
+        return $this->sendResponse($pk, 'Data PKS Diubah!');
+    }
+    public function updateData(Request $request, $id)
+    {
+        $pk = Pk::findOrFail($id);
+       // dd($request->namabarang);
+       $pk->update($request->no_pk);
+       $pk->update($request->namafile);
+       $pk->update($request->namamitra);
+
+        return $this->sendResponse($pk, 'Data PKS Diubah!');
     }
 
     /**
@@ -218,7 +236,7 @@ class PkController extends BaseController
             $pk  = DB::table('pk')
             ->join('kode_kantors', 'pk.kantor_id', '=', 'kode_kantors.id')
             ->whereBetween('pk.tglmulai',[$fromtgl,$totgl])
-            ->select('pk.id','pk.no_pk','pk.namafile','pk.tglmulai','pk.tglakhir','pk.file',
+            ->select('pk.id','pk.no_pk','pk.namamitra','pk.namafile','pk.tglmulai','pk.tglakhir','pk.file',
             'pk.kantor_id','kode_kantors.nama_kantor')
             ->orderBy('id','desc')
             ->get();
@@ -241,7 +259,7 @@ class PkController extends BaseController
             $pk  = DB::table('pk')
             ->join('kode_kantors', 'pk.kantor_id', '=', 'kode_kantors.id')
             ->whereBetween('pk.tglakhir',[$fromtgl,$totgl])
-            ->select('pk.id','pk.no_pk','pk.namafile','pk.tglmulai','pk.tglakhir','pk.file',
+            ->select('pk.id','pk.no_pk','pk.namamitra','pk.namafile','pk.tglmulai','pk.tglakhir','pk.file',
             'pk.kantor_id','kode_kantors.nama_kantor')
             ->orderBy('id','desc')
             ->get();

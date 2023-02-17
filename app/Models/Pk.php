@@ -15,6 +15,7 @@ class Pk extends Model
         'no_pk',
         'tglmulai',
         'tglakhir',
+        'namamitra',
         'namafile',
         'file',
     ];

@@ -7,7 +7,7 @@
 /*! exports provided: default */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\xampp\\htdocs\\eboxku\\resources\\js\\components\\umum\\Pk.vue: Missing semicolon. (574:16)\n\n\u001b[0m \u001b[90m 572 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 573 |\u001b[39m \u001b[32m        const [year, month, day] = tglmulai.split('-')\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 574 |\u001b[39m \u001b[32m        return `\u001b[39m${day}\u001b[33m/\u001b[39m${month}\u001b[33m/\u001b[39m${year}\u001b[32m`\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     |\u001b[39m                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 575 |\u001b[39m \u001b[32m      },\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 576 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 577 |\u001b[39m \u001b[32m       parseDate (tglmulai) {\u001b[39m\u001b[0m\n    at Parser._raise (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:476:17)\n    at Parser.raiseWithData (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:469:17)\n    at Parser.raise (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:430:17)\n    at Parser.semicolon (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:3767:10)\n    at Parser.parseReturnStatement (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:14519:12)\n    at Parser.parseStatementContent (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:14167:21)\n    at Parser.parseStatement (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:14113:17)\n    at Parser.parseBlockOrModuleBlockBody (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:14739:25)\n    at Parser.parseBlockBody (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:14730:10)\n    at Parser.parseBlock (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:14714:10)\n    at Parser.parseFunctionBody (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:13440:24)\n    at Parser.parseFunctionBodyAndFinish (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:13424:10)\n    at Parser.parseMethod (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:13374:10)\n    at Parser.parseObjectMethod (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:13250:19)\n    at Parser.parseObjPropValue (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:13291:23)\n    at Parser.parsePropertyDefinition (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:13208:10)");
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\xampp\\htdocs\\eboxku\\resources\\js\\components\\umum\\Pk.vue: Unexpected token, expected \",\" (916:16)\n\n\u001b[0m \u001b[90m 914 |\u001b[39m                 \u001b[36mconst\u001b[39m formData \u001b[33m=\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mFormData\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 915 |\u001b[39m                 formData\u001b[33m.\u001b[39m\u001b[36mset\u001b[39m(\u001b[32m'no_pk'\u001b[39m\u001b[33m,\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39meditedItem\u001b[33m.\u001b[39mno_pk\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 916 |\u001b[39m                 formData\u001b[33m.\u001b[39m\u001b[36mset\u001b[39m(\u001b[32m'namafile'\u001b[39m\u001b[33m,\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39meditedItem\u001b[33m.\u001b[39mnamafile)\u001b[0m\n\u001b[0m \u001b[90m     |\u001b[39m                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 917 |\u001b[39m                 formData\u001b[33m.\u001b[39m\u001b[36mset\u001b[39m(\u001b[32m'namamitra'\u001b[39m\u001b[33m,\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39meditedItem\u001b[33m.\u001b[39mnamamitra)\u001b[0m\n\u001b[0m \u001b[90m 918 |\u001b[39m                 formData\u001b[33m.\u001b[39mappend(\u001b[32m\"_method\"\u001b[39m\u001b[33m,\u001b[39m \u001b[32m\"PUT\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 919 |\u001b[39m                 axios\u001b[33m.\u001b[39mpost(\u001b[32m'api/pk/'\u001b[39m\u001b[33m+\u001b[39m\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39meditedItem\u001b[33m.\u001b[39mid\u001b[33m,\u001b[39mformData)\u001b[0m\n    at Parser._raise (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:476:17)\n    at Parser.raiseWithData (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:469:17)\n    at Parser.raise (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:430:17)\n    at Parser.unexpected (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:3789:16)\n    at Parser.expect (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:3773:28)\n    at Parser.parseCallExpressionArguments (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:12356:14)\n    at Parser.parseCoverCallAndAsyncArrowHead (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:12272:29)\n    at Parser.parseSubscript (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:12197:19)\n    at Parser.parseSubscripts (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:12166:19)\n    at Parser.parseExprSubscripts (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:12155:17)\n    at Parser.parseUpdate (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:12129:21)\n    at Parser.parseMaybeUnary (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:12104:23)\n    at Parser.parseMaybeUnaryOrPrivate (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:11901:61)\n    at Parser.parseExprOps (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:11908:23)\n    at Parser.parseMaybeConditional (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:11878:23)\n    at Parser.parseMaybeAssign (C:\\xampp\\htdocs\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:11833:21)");
 
 /***/ }),
 
@@ -244,6 +244,8 @@ var render = function () {
                                                                         "mdi-calendar",
                                                                       "single-line":
                                                                         "",
+                                                                      "hide-details":
+                                                                        "",
                                                                       readonly:
                                                                         "",
                                                                       clearable:
@@ -281,14 +283,14 @@ var render = function () {
                                                     ],
                                                     null,
                                                     false,
-                                                    3020365678
+                                                    3336465079
                                                   ),
                                                   model: {
-                                                    value: _vm.modal,
+                                                    value: _vm.modal1,
                                                     callback: function ($$v) {
-                                                      _vm.modal = $$v
+                                                      _vm.modal1 = $$v
                                                     },
-                                                    expression: "modal",
+                                                    expression: "modal1",
                                                   },
                                                 },
                                                 [
@@ -331,7 +333,7 @@ var render = function () {
                                                             click: function (
                                                               $event
                                                             ) {
-                                                              _vm.modal = false
+                                                              _vm.modal1 = false
                                                             },
                                                           },
                                                         },
@@ -376,13 +378,195 @@ var render = function () {
                                               _c("has-error", {
                                                 attrs: {
                                                   form: _vm.form,
-                                                  field: "tglmulai",
+                                                  field: "filterTglmulai",
                                                 },
                                               }),
                                               _vm._v(" "),
                                               _c("v-spacer"),
                                               _vm._v(" "),
                                               _c("v-spacer"),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-dialog",
+                                                {
+                                                  ref: "dialog",
+                                                  attrs: {
+                                                    "return-value":
+                                                      _vm.filterDateakhir,
+                                                    persistent: "",
+                                                    width: "290px",
+                                                  },
+                                                  on: {
+                                                    "update:returnValue":
+                                                      function ($event) {
+                                                        _vm.filterDateakhir =
+                                                          $event
+                                                      },
+                                                    "update:return-value":
+                                                      function ($event) {
+                                                        _vm.filterDateakhir =
+                                                          $event
+                                                      },
+                                                  },
+                                                  scopedSlots: _vm._u(
+                                                    [
+                                                      {
+                                                        key: "activator",
+                                                        fn: function (ref) {
+                                                          var on = ref.on
+                                                          var attrs = ref.attrs
+                                                          return [
+                                                            _c(
+                                                              "v-text-field",
+                                                              _vm._g(
+                                                                _vm._b(
+                                                                  {
+                                                                    attrs: {
+                                                                      label:
+                                                                        "Filter Tanggal Akhir",
+                                                                      placeholder:
+                                                                        "Filter Tanggal Akhir",
+                                                                      "prepend-icon":
+                                                                        "mdi-calendar",
+                                                                      "single-line":
+                                                                        "",
+                                                                      "hide-details":
+                                                                        "",
+                                                                      readonly:
+                                                                        "",
+                                                                      clearable:
+                                                                        "",
+                                                                      "return-object": false,
+                                                                      "persistent-hint":
+                                                                        "",
+                                                                      "error-messages":
+                                                                        _vm.pesaneror,
+                                                                    },
+                                                                    model: {
+                                                                      value:
+                                                                        _vm.filterTglakhir,
+                                                                      callback:
+                                                                        function (
+                                                                          $$v
+                                                                        ) {
+                                                                          _vm.filterTglakhir =
+                                                                            $$v
+                                                                        },
+                                                                      expression:
+                                                                        "filterTglakhir",
+                                                                    },
+                                                                  },
+                                                                  "v-text-field",
+                                                                  attrs,
+                                                                  false
+                                                                ),
+                                                                on
+                                                              )
+                                                            ),
+                                                          ]
+                                                        },
+                                                      },
+                                                    ],
+                                                    null,
+                                                    false,
+                                                    2865023058
+                                                  ),
+                                                  model: {
+                                                    value: _vm.modal2,
+                                                    callback: function ($$v) {
+                                                      _vm.modal2 = $$v
+                                                    },
+                                                    expression: "modal2",
+                                                  },
+                                                },
+                                                [
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "v-date-picker",
+                                                    {
+                                                      attrs: {
+                                                        range: "",
+                                                        scrollable: "",
+                                                        "year-icon":
+                                                          "calendar-blank",
+                                                        locale: "id-ID",
+                                                        elevation: "15",
+                                                      },
+                                                      model: {
+                                                        value:
+                                                          _vm.filterDateakhir,
+                                                        callback: function (
+                                                          $$v
+                                                        ) {
+                                                          _vm.filterDateakhir =
+                                                            $$v
+                                                        },
+                                                        expression:
+                                                          "filterDateakhir",
+                                                      },
+                                                    },
+                                                    [
+                                                      _c("v-spacer"),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-btn",
+                                                        {
+                                                          attrs: {
+                                                            text: "",
+                                                            color: "primary",
+                                                          },
+                                                          on: {
+                                                            click: function (
+                                                              $event
+                                                            ) {
+                                                              _vm.modal2 = false
+                                                            },
+                                                          },
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\r\n                                        Batal\r\n                                    "
+                                                          ),
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-btn",
+                                                        {
+                                                          attrs: {
+                                                            text: "",
+                                                            color: "primary",
+                                                          },
+                                                          on: {
+                                                            click: function (
+                                                              $event
+                                                            ) {
+                                                              _vm.$refs.dialog.save(
+                                                                _vm.filterDateakhir
+                                                              ),
+                                                                _vm.getFiltertglakhir()
+                                                            },
+                                                          },
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\r\n                                        OK\r\n                                    "
+                                                          ),
+                                                        ]
+                                                      ),
+                                                    ],
+                                                    1
+                                                  ),
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c("has-error", {
+                                                attrs: {
+                                                  form: _vm.form,
+                                                  field: "filterTglakhir",
+                                                },
+                                              }),
                                               _vm._v(" "),
                                               _c("v-spacer"),
                                               _vm._v(" "),
@@ -478,10 +662,172 @@ var render = function () {
                                         ]
                                       },
                                     },
+                                    {
+                                      key: "item.namafile",
+                                      fn: function (ref) {
+                                        var item = ref.item
+                                        return [
+                                          _c(
+                                            "v-edit-dialog",
+                                            {
+                                              on: {
+                                                save: _vm.save,
+                                                cancel: _vm.cancel,
+                                                open: function ($event) {
+                                                  return _vm.open(item)
+                                                },
+                                                close: _vm.close,
+                                              },
+                                              scopedSlots: _vm._u(
+                                                [
+                                                  {
+                                                    key: "input",
+                                                    fn: function () {
+                                                      return [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "mt-4 text-h6",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\r\n                            Edit Jenis PKS\r\n                            "
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            rules: [
+                                                              _vm.max200chars,
+                                                            ],
+                                                            label: "Edit",
+                                                            "single-line": "",
+                                                            counter: "",
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedItem
+                                                                .namafile,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedItem,
+                                                                "namafile",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedItem.namafile",
+                                                          },
+                                                        }),
+                                                      ]
+                                                    },
+                                                    proxy: true,
+                                                  },
+                                                ],
+                                                null,
+                                                true
+                                              ),
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\r\n                        " +
+                                                  _vm._s(item.namafile) +
+                                                  "\r\n                        "
+                                              ),
+                                            ]
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                    {
+                                      key: "item.namamitra",
+                                      fn: function (ref) {
+                                        var item = ref.item
+                                        return [
+                                          _c(
+                                            "v-edit-dialog",
+                                            {
+                                              on: {
+                                                save: _vm.save,
+                                                cancel: _vm.cancel,
+                                                open: function ($event) {
+                                                  return _vm.open(item)
+                                                },
+                                                close: _vm.close,
+                                              },
+                                              scopedSlots: _vm._u(
+                                                [
+                                                  {
+                                                    key: "input",
+                                                    fn: function () {
+                                                      return [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "mt-4 text-h6",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\r\n                            Edit Nama Mitra\r\n                            "
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            rules: [
+                                                              _vm.max200chars,
+                                                            ],
+                                                            label: "Edit",
+                                                            "single-line": "",
+                                                            counter: "",
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedItem
+                                                                .namamitra,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedItem,
+                                                                "namamitra",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedItem.namamitra",
+                                                          },
+                                                        }),
+                                                      ]
+                                                    },
+                                                    proxy: true,
+                                                  },
+                                                ],
+                                                null,
+                                                true
+                                              ),
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\r\n                        " +
+                                                  _vm._s(item.namamitra) +
+                                                  "\r\n                        "
+                                              ),
+                                            ]
+                                          ),
+                                        ]
+                                      },
+                                    },
                                   ],
                                   null,
                                   false,
-                                  3523494329
+                                  2131735238
                                 ),
                               }),
                             ],
@@ -647,7 +993,7 @@ var render = function () {
                                   [
                                     _c("v-text-field", {
                                       attrs: {
-                                        rules: _vm.norekRules,
+                                        rules: _vm.editedItem.nopkRules,
                                         name: "no_pk",
                                         label: "Nomor PKS",
                                         placeholder: "input no. pks",
@@ -662,11 +1008,39 @@ var render = function () {
                                         "error-messages": _vm.pesaneror,
                                       },
                                       model: {
-                                        value: _vm.no_pk,
+                                        value: _vm.editedItem.no_pk,
                                         callback: function ($$v) {
-                                          _vm.no_pk = $$v
+                                          _vm.$set(_vm.editedItem, "no_pk", $$v)
                                         },
-                                        expression: "no_pk",
+                                        expression: "editedItem.no_pk",
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("has-error", {
+                                      attrs: { form: _vm.form, field: "no_pk" },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("v-text-field", {
+                                      attrs: {
+                                        rules: _vm.editedItem.namemitraRules,
+                                        name: "namamitra",
+                                        label: "Nama Mitra",
+                                        placeholder: "input nama mitra",
+                                        outlined: "",
+                                        required: "",
+                                        dense: "",
+                                        "prepend-icon": "mdi-file",
+                                      },
+                                      model: {
+                                        value: _vm.editedItem.namamitra,
+                                        callback: function ($$v) {
+                                          _vm.$set(
+                                            _vm.editedItem,
+                                            "namamitra",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "editedItem.namamitra",
                                       },
                                     }),
                                     _vm._v(" "),
@@ -679,26 +1053,25 @@ var render = function () {
                                     _vm._v(" "),
                                     _c("v-text-field", {
                                       attrs: {
-                                        rules: _vm.nameRules,
+                                        rules: _vm.editedItem.nameRules,
                                         name: "namafile",
-                                        label: "Nama Mitra",
-                                        placeholder: "input nama mitra",
+                                        label: "Jenis Kerjasama",
+                                        placeholder: "input PKS",
                                         outlined: "",
                                         required: "",
                                         dense: "",
                                         "prepend-icon": "mdi-file",
                                       },
-                                      on: {
-                                        keydown: function ($event) {
-                                          return _vm.pencetKeyboard($event)
-                                        },
-                                      },
                                       model: {
-                                        value: _vm.namafile,
+                                        value: _vm.editedItem.namafile,
                                         callback: function ($$v) {
-                                          _vm.namafile = $$v
+                                          _vm.$set(
+                                            _vm.editedItem,
+                                            "namafile",
+                                            $$v
+                                          )
                                         },
-                                        expression: "namafile",
+                                        expression: "editedItem.namafile",
                                       },
                                     }),
                                     _vm._v(" "),
@@ -932,7 +1305,7 @@ var render = function () {
                                     [
                                       _c("v-file-input", {
                                         attrs: {
-                                          rules: _vm.fileRules,
+                                          rules: _vm.editedItem.fileRules,
                                           color: "deep-purple accent-4",
                                           counter: "",
                                           label: "File input",
@@ -995,11 +1368,15 @@ var render = function () {
                                           },
                                         ]),
                                         model: {
-                                          value: _vm.file,
+                                          value: _vm.editedItem.file,
                                           callback: function ($$v) {
-                                            _vm.file = $$v
+                                            _vm.$set(
+                                              _vm.editedItem,
+                                              "file",
+                                              $$v
+                                            )
                                           },
-                                          expression: "file",
+                                          expression: "editedItem.file",
                                         },
                                       }),
                                     ],

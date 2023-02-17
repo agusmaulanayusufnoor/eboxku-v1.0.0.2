@@ -109,7 +109,7 @@
                     <v-spacer></v-spacer>
                      <!-- filter tanggal akhir -->
                      <v-dialog
-                        ref="dialog"
+                        ref="dialog2"
                         v-model="modal2"
                         :return-value.sync="filterDateakhir"
                         persistent
@@ -151,7 +151,7 @@
                                     <v-btn
                                         text
                                         color="primary"
-                                        @click="$refs.dialog.save(filterDateakhir),getFiltertglakhir()"
+                                        @click="$refs.dialog2.save(filterDateakhir),getFiltertglakhir()"
 
                                     >
                                         OK
@@ -198,7 +198,85 @@
                     mdi-delete
                 </v-icon>
                 </template>
+                <!-- edit table -->
+                <template v-slot:item.no_pk="{ item }">
+                     <v-edit-dialog
 
+                        @save="save"
+                        @cancel="cancel"
+                        @open="open(item)"
+                        @close="close"
+
+                        >
+                        {{ item.no_pk }}
+                        <template v-slot:input>
+                            <div class="mt-4 text-h6">
+                            Edit Jenis PKS
+                            </div>
+                            <v-text-field
+                            v-model="editedItem.no_pk"
+                            :rules="[max200chars]"
+                            label="Edit"
+                            single-line
+                            counter
+                            ></v-text-field>
+                        </template>
+                        </v-edit-dialog>
+                        
+                </template>
+                <template v-slot:item.namafile="{ item }">
+                     <v-edit-dialog
+
+                        @save="save"
+                        @cancel="cancel"
+                        @open="open(item)"
+                        @close="close"
+
+                        >
+                        {{ item.namafile }}
+                        <template v-slot:input>
+                            <div class="mt-4 text-h6">
+                            Edit Jenis PKS
+                            </div>
+                            <v-text-field
+                            v-model="editedItem.namafile"
+                            :rules="[max200chars]"
+                            label="Edit"
+                            single-line
+                            counter
+                            ></v-text-field>
+                        </template>
+                        </v-edit-dialog>
+                        
+                </template>
+
+
+                    <template v-slot:item.namamitra="{ item }">
+                     <v-edit-dialog
+
+                        @save="save"
+                        @cancel="cancel"
+                        @open="open(item)"
+                        @close="close"
+
+                        >
+                        {{ item.namamitra }}
+                        <template v-slot:input>
+                            <div class="mt-4 text-h6">
+                            Edit Nama Mitra
+                            </div>
+                            <v-text-field
+                            v-model="editedItem.namamitra"
+                            :rules="[max200chars]"
+                            label="Edit"
+                            single-line
+                            counter
+                            ></v-text-field>
+                        </template>
+                        </v-edit-dialog>
+                        
+                    </template>
+                <!-- end edit table -->
                </v-data-table>
              </div>
               <!-- /.card-body -->
@@ -246,8 +324,8 @@
                                 md="12"
                              >
                              <v-text-field
-                                v-model="no_pk"
-                                :rules="norekRules"
+                                v-model="editedItem.no_pk"
+                                :rules="editedItem.nopkRules"
                                 name="no_pk"
                                 label="Nomor PKS"
                                 placeholder="input no. pks"
@@ -260,21 +338,31 @@
                                 hint=""
                                 persistent-hint :error-messages="pesaneror"
                             ></v-text-field>
-                            <has-error :form="form" field="namafile"></has-error>
+                            <has-error :form="form" field="no_pk"></has-error>
                              <v-text-field
-                                v-model="namafile"
-                                :rules="nameRules"
-                                name="namafile"
+                                v-model="editedItem.namamitra"
+                                :rules="editedItem.namemitraRules"
+                                name="namamitra"
                                 label="Nama Mitra"
                                 placeholder="input nama mitra"
                                 outlined
                                 required
                                 dense
                                 prepend-icon="mdi-file"
-                                @keydown="pencetKeyboard($event)"
                             ></v-text-field>
                             <has-error :form="form" field="namafile"></has-error>
-
+                            <v-text-field
+                                v-model="editedItem.namafile"
+                                :rules="editedItem.nameRules"
+                                name="namafile"
+                                label="Jenis Kerjasama"
+                                placeholder="input PKS"
+                                outlined
+                                required
+                                dense
+                                prepend-icon="mdi-file"
+                            ></v-text-field>
+                            <has-error :form="form" field="namafile"></has-error>
                         <!-- tglmulai -->
 
                                 <v-menu
@@ -350,8 +438,8 @@
                          <template>
 
                             <v-file-input
-                                v-model="file"
-                                :rules="fileRules"
+                                v-model="editedItem.file"
+                                :rules="editedItem.fileRules"
                                 color="deep-purple accent-4"
                                 counter
                                 label="File input"
@@ -418,23 +506,53 @@ import moment from 'moment';
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       editmode: false,
       dialog: false,
+      dialog2: false,
       dialogDelete: false,
       search:'',
+      //editmode
+      snack: false,
+      multiLine: true,
+        snackColor: '',
+        snackText: '',
+        max200chars: v => v.length <= 200|| 'Input terlalu panjang [max. 200 karakter]',
+        //endeditmode
      pk:[],
      valid:true,
-        file: null,
+     kantor_id: '',
+     editedItem : {
         id : '',
-        kantor_id: '',
+        
         no_pk: '',
-        norekRules: [
-        v => !!v || 'No Perjanjian Kerjasama Belum Diisi',
-      ],
-        cekNorekData:[],
-        pesaneror:[],
+        nopkRules: [
+            v => !!v || 'No Perjanjian Kerjasama Belum Diisi',
+        ],
+       
+        namamitra: '',
+        namemitraRules: [
+        v => !!v || 'Nama Mitra Belum Diisi',
+        ],
         namafile: '',
         nameRules: [
-        v => !!v || 'Nama File Belum Diisi',
-      ],
+        v => !!v || 'Jenis PKS Belum Diisi',
+        ],
+        file: null,
+        fileRules: [
+        v => !!v || 'File belum dimasukan',
+        ],
+        
+     },
+     tglmulai:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+         tglmulaiRules: [
+        v => !!v || 'Tanggal mulai belum diisi',
+        ],
+        tglakhir:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+         tglakhirRules: [
+        v => !!v || 'Tanggal akhir belum diisi',
+        ],
+     dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        dateFormatted2: vm.formatDate2((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        pesaneror:[],
+       
       menu1: false,
       menu2:false,
       menu3:false,
@@ -443,24 +561,13 @@ import moment from 'moment';
      // filterTglmulai:[vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10))],
       filterDatemulai:[],
       filterDateakhir:[],
-      dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
-      dateFormatted2: vm.formatDate2((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+      
 
-      tglmulai:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-         tglmulaiRules: [
-        v => !!v || 'Tanggal mulai belum diisi',
-      ],
-      tglakhir:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-         tglakhirRules: [
-        v => !!v || 'Tanggal akhir belum diisi',
-      ],
-       fileRules: [
-        v => !!v || 'File belum dimasukan',
-      ],
         //file: '',
     form: new Form({
         id : '',
         kantor_id: '',
+        namamitra: '',
         namafile: '',
         tglmulai: '',
         tglakhir: '',
@@ -482,6 +589,10 @@ import moment from 'moment';
                 { text: 'No PK', value: 'no_pk' },
                 {
                 text: 'Nama Mitra',
+                value: 'namamitra',
+                },
+                {
+                text: 'Jenis Kerjasama',
                 value: 'namafile',
                 },
                 { text: 'Tanggal Mulai', value: 'tglmulai'},
@@ -496,7 +607,7 @@ import moment from 'moment';
             return headers
         },
         computedDateFormatted () {
-            return this.formatDate(this.tglmulai);
+            return this.formatDate(this.editedItem.tglmulai);
         },
 
       filterTglmulai(){
@@ -539,6 +650,9 @@ import moment from 'moment';
       dialog (val) {
         val || this.close()
       },
+      dialog2 (val) {
+        val || this.close()
+      },
       dialogDelete (val) {
         val || this.closeDelete()
       },
@@ -555,6 +669,31 @@ import moment from 'moment';
     },
 
     methods: {
+      save () {
+        this.snack = true
+        this.snackColor = 'success'
+        this.snackText = 'Data disimpan'
+        this.updateUser()
+      },
+      cancel () {
+        this.snack = true
+        this.snackColor = 'error'
+        this.snackText = 'Dibatalkan'
+      },
+      open (item) {
+        this.snack = true
+        this.snackColor = 'info'
+        this.snackText = 'Enter = Simpan'
+        this.editedItem.id = item.id
+        this.editedItem.no_pk = item.no_pk
+        this.editedItem.namafile = item.namafile
+        this.editedItem.namamitra = item.namamitra
+        //console.log(this.item.namabarang);
+        //alert(this.item.id)
+      },
+      close () {
+        console.log('Dialog closed')
+      },
     async getFiltertglmulai(){
 
         this.$Progress.start();
@@ -668,12 +807,6 @@ import moment from 'moment';
         return true;
       }
     },
-    formatfilterDate (filterTglmulai) {
-        if (!filterTglmulai) return null
-
-        const [year1, month1, day1,year2,month2,day2] = tglmulai.split('-')
-        return `${day1}/${month1}/${year1} s/d ${day2}/${month2}/${year2}`
-    },
     formatDate (tglmulai) {
         if (!tglmulai) return null
 
@@ -728,9 +861,9 @@ import moment from 'moment';
         this.editmode = false;
         $('#addNew').modal('show');
         this.$refs.form.reset()
-        this.namafile = '';
-        this.no_pk = '';
-        this.pesaneror = '';
+        this.editedItem.namafile = '';
+        this.editedItem.no_pk = '';
+        this.editedItem.pesaneror = '';
     },
      createUser(){
          this.$refs.form.validate();
@@ -742,11 +875,12 @@ import moment from 'moment';
             // //this.append('file', this.file);
             const formData = new FormData
             formData.set('kantor_id', this.kantor_id)
-            formData.set('no_pk', this.no_pk)
-            formData.set('namafile', this.namafile)
+            formData.set('no_pk', this.editedItem.no_pk)
+            formData.set('namamitra', this.editedItem.namamitra)
+            formData.set('namafile', this.editedItem.namafile)
             formData.set('tglmulai', this.tglmulai)
             formData.set('tglakhir', this.tglakhir)
-            formData.set('file', this.file)
+            formData.set('file', this.editedItem.file)
             // formData.append('file', this.file);
            // console.log(this.file);
             axios.post('api/pk',formData,config)
@@ -797,9 +931,22 @@ import moment from 'moment';
                               });
           },
           updateUser(){
+            const config = {
+                headers: {
+                  'accept': 'application/json',
+                  'Accept-Language': 'en-US,en;q=0.8',
+                  'content-type': 'multipart/form-data'
+                  }
+               // headers: {'X-Custom-Header': 'value'}
+                }
                 this.$Progress.start();
                 // console.log('Editing data');
-                this.form.put('api/pk/'+this.form.id)
+                const formData = new FormData
+                formData.set('no_pk', this.editedItem.no_pk)
+                formData.set('namafile', this.editedItem.namafile)
+                formData.set('namamitra', this.editedItem.namamitra)
+                formData.append("_method", "PUT");
+                axios.post('api/pk/'+this.editedItem.id,formData)
                 .then((response) => {
                     // success
                     $('#addNew').modal('hide');
