@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[37],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Pjkbadan.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Pjkbadan.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Peraturan.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Peraturan.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -286,7 +286,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       //     { text: 'Download File', value: 'file', sortable: false,align: 'center'  },
       //     { text: 'Hapus', value: 'actions', sortable: false },
       //   ],
-      pjkbadan: [],
+      peraturan: [],
       valid: true,
       file: null,
       id: '',
@@ -418,12 +418,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       this.$Progress.start();
 
-      if (this.$gate.isAdmin() || this.$gate.isUM()) {
+      if (this.$gate.isAdmin() || this.$gate.isUM() || this.$gate.isSekdir()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/pjkbadan").then(function (response) {
-          _this.pjkbadan = response.data.data;
+        axios.get("api/peraturan").then(function (response) {
+          _this.peraturan = response.data.data;
           _this.kantor_id = _this.$kantor_id; // this.form.fill
-          //console.log(this.pjkbadan);
+          //console.log(this.peraturan);
           //console.log(this.kantor_id)
         });
       }
@@ -464,9 +464,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       formData.set('namafile', this.namafile);
       formData.set('tanggal', this.tanggal);
       formData.set('file', this.file); // formData.append('file', this.file);
-      // console.log(this.file);
+      //console.log(this.tanggal);
 
-      axios.post('api/pjkbadan', formData, config).then(function (response) {
+      axios.post('api/peraturan', formData, config).then(function (response) {
         $('#addNew').modal('hide');
         Toast.fire({
           icon: 'success',
@@ -496,14 +496,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     },
     downloadFile: function downloadFile(id, file) {
       axios({
-        url: 'api/pjkbadan/download/' + id,
+        url: 'api/peraturan/download/' + id,
         method: 'GET',
         responseType: 'blob'
       }).then(function (response) {
         var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement('a');
         fileLink.href = fileUrl;
-        fileLink.setAttribute('download', 'pjkbadan.zip');
+        fileLink.setAttribute('download', 'peraturan.pdf');
         fileLink.download = file;
         document.body.appendChild(fileLink);
         fileLink.click();
@@ -516,7 +516,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       this.$Progress.start(); // console.log('Editing data');
 
-      this.form.put('api/pjkbadan/' + this.form.id).then(function (response) {
+      this.form.put('api/peraturan/' + this.form.id).then(function (response) {
         // success
         $('#addNew').modal('hide');
         Toast.fire({
@@ -545,7 +545,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this4.form["delete"]('api/pjkbadan/' + id).then(function () {
+          _this4.form["delete"]('api/peraturan/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
             _this4.initialize();
@@ -560,10 +560,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Pjkbadan.vue?vue&type=template&id=daffa076&":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Pjkbadan.vue?vue&type=template&id=daffa076& ***!
-  \****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Peraturan.vue?vue&type=template&id=0c8d52e6&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Peraturan.vue?vue&type=template&id=0c8d52e6& ***!
+  \*****************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -593,7 +593,9 @@ var render = function () {
                 "v-col",
                 { attrs: { cols: "11" } },
                 [
-                  _vm.$gate.isAdmin() || _vm.$gate.isUM()
+                  _vm.$gate.isAdmin() ||
+                  _vm.$gate.isUM() ||
+                  _vm.$gate.isSekdir()
                     ? _c(
                         "v-card",
                         { staticClass: "pa-2 mx-auto" },
@@ -611,7 +613,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    File Pajak Badan\n                "
+                                  "\r\n                    File Peraturan dan Pedemoan Perusahaan\r\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -629,7 +631,7 @@ var render = function () {
                                 },
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
-                                  _vm._v(" Upload File\n                  "),
+                                  _vm._v(" Upload File\r\n                  "),
                                 ],
                                 1
                               ),
@@ -645,7 +647,7 @@ var render = function () {
                                 staticClass: "elevation-3",
                                 attrs: {
                                   headers: _vm.headers,
-                                  items: _vm.pjkbadan,
+                                  items: _vm.peraturan,
                                   search: _vm.search,
                                   justify: "center",
                                   dense: "",
@@ -658,9 +660,9 @@ var render = function () {
                                         var index = ref.index
                                         return [
                                           _vm._v(
-                                            "\n                    " +
+                                            "\r\n                    " +
                                               _vm._s(index + 1) +
-                                              "\n                "
+                                              "\r\n                "
                                           ),
                                         ]
                                       },
@@ -732,7 +734,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                            mdi-download\n                        "
+                                                    "\r\n                            mdi-download\r\n                        "
                                                   ),
                                                 ]
                                               ),
@@ -764,7 +766,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                    mdi-delete\n                "
+                                                "\r\n                    mdi-delete\r\n                "
                                               ),
                                             ]
                                           ),
@@ -774,7 +776,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  3538273480
+                                  836955976
                                 ),
                               }),
                             ],
@@ -791,7 +793,7 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          !_vm.$gate.isAdmin() && !_vm.$gate.isUM()
+          !_vm.$gate.isAdmin() && !_vm.$gate.isUM() && !_vm.$gate.isSekdir()
             ? _c("div", [_c("not-found")], 1)
             : _vm._e(),
           _vm._v(" "),
@@ -1142,9 +1144,9 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\n                                    " +
+                                                          "\r\n                                    " +
                                                             _vm._s(text) +
-                                                            "\n                                "
+                                                            "\r\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1157,12 +1159,12 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\n                                    +" +
+                                                          "\r\n                                    +" +
                                                             _vm._s(
                                                               _vm.files.length -
                                                                 2
                                                             ) +
-                                                            " File(s)\n                                "
+                                                            " File(s)\r\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1209,7 +1211,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-cancel")]),
                                   _vm._v(
-                                    "\n                            Batal\n                        "
+                                    "\r\n                            Batal\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1235,7 +1237,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-pencil")]),
                                   _vm._v(
-                                    "\n                            Ubah\n                        "
+                                    "\r\n                            Ubah\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1261,7 +1263,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
                                   _vm._v(
-                                    "\n                            Upload\n                        "
+                                    "\r\n                            Upload\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1292,17 +1294,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/umum/Pjkbadan.vue":
-/*!***************************************************!*\
-  !*** ./resources/js/components/umum/Pjkbadan.vue ***!
-  \***************************************************/
+/***/ "./resources/js/components/umum/Peraturan.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/umum/Peraturan.vue ***!
+  \****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Pjkbadan_vue_vue_type_template_id_daffa076___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pjkbadan.vue?vue&type=template&id=daffa076& */ "./resources/js/components/umum/Pjkbadan.vue?vue&type=template&id=daffa076&");
-/* harmony import */ var _Pjkbadan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pjkbadan.vue?vue&type=script&lang=js& */ "./resources/js/components/umum/Pjkbadan.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Peraturan_vue_vue_type_template_id_0c8d52e6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Peraturan.vue?vue&type=template&id=0c8d52e6& */ "./resources/js/components/umum/Peraturan.vue?vue&type=template&id=0c8d52e6&");
+/* harmony import */ var _Peraturan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Peraturan.vue?vue&type=script&lang=js& */ "./resources/js/components/umum/Peraturan.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1312,9 +1314,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Pjkbadan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Pjkbadan_vue_vue_type_template_id_daffa076___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Pjkbadan_vue_vue_type_template_id_daffa076___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Peraturan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Peraturan_vue_vue_type_template_id_0c8d52e6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Peraturan_vue_vue_type_template_id_0c8d52e6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1324,38 +1326,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/umum/Pjkbadan.vue"
+component.options.__file = "resources/js/components/umum/Peraturan.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/umum/Pjkbadan.vue?vue&type=script&lang=js&":
-/*!****************************************************************************!*\
-  !*** ./resources/js/components/umum/Pjkbadan.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************/
+/***/ "./resources/js/components/umum/Peraturan.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/umum/Peraturan.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkbadan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Pjkbadan.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Pjkbadan.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkbadan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Peraturan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Peraturan.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Peraturan.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Peraturan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/umum/Pjkbadan.vue?vue&type=template&id=daffa076&":
-/*!**********************************************************************************!*\
-  !*** ./resources/js/components/umum/Pjkbadan.vue?vue&type=template&id=daffa076& ***!
-  \**********************************************************************************/
+/***/ "./resources/js/components/umum/Peraturan.vue?vue&type=template&id=0c8d52e6&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/umum/Peraturan.vue?vue&type=template&id=0c8d52e6& ***!
+  \***********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkbadan_vue_vue_type_template_id_daffa076___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Pjkbadan.vue?vue&type=template&id=daffa076& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Pjkbadan.vue?vue&type=template&id=daffa076&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkbadan_vue_vue_type_template_id_daffa076___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Peraturan_vue_vue_type_template_id_0c8d52e6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Peraturan.vue?vue&type=template&id=0c8d52e6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Peraturan.vue?vue&type=template&id=0c8d52e6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Peraturan_vue_vue_type_template_id_0c8d52e6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkbadan_vue_vue_type_template_id_daffa076___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Peraturan_vue_vue_type_template_id_0c8d52e6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

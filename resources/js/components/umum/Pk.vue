@@ -22,6 +22,29 @@
                 justify="center"
                 dense
                 class="elevation-3">
+                <template v-slot:item.tglmulai="{ item }">
+                {{ formatDate(item.tglmulai) }}
+                </template>
+                <template v-slot:item.tglakhir="{ item }">
+                {{ formatDate2(item.tglakhir) }}
+                </template>
+                <template v-slot:footer.prepend>
+                  <v-btn
+                    color="success"
+                    dark
+                    class="ma-2"
+                    small
+                    @click="initialize()"
+                    >
+                      Refresh
+                      <v-icon
+                        right
+                        dark
+                      >
+                        mdi-reload
+                      </v-icon>
+                    </v-btn>
+                </template>
 
                 <template v-slot:item.index="{ index }">
                     {{ index + 1 }}
@@ -29,8 +52,61 @@
 
                 <template v-slot:top>
                 <v-toolbar flat >
+                     <!-- tglmulai -->
+
+                     <v-dialog
+                        ref="dialog"
+                        v-model="modal"
+                        :return-value.sync="filterDatemulai"
+                        persistent
+                        width="290px"
+                    >
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field
+                                        v-model="filterTglmulai"
+                                        label="Filter Tanggal Mulai"
+                                        placeholder="Filter Tanggal Mulai"
+                                        prepend-icon="mdi-calendar"
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        single-line
+                                        readonly
+                                        clearable
+                                        :return-object="false"
+                                        persistent-hint :error-messages="pesaneror"
+
+                                    ></v-text-field>
+                                </template>
+                                <v-date-picker
+                                    v-model="filterDatemulai"
+                                    range
+                                    scrollable
+                                    year-icon="calendar-blank"
+                                    locale="id-ID"
+                                    elevation="15"
+                                >
+                                <v-spacer></v-spacer>
+                                    <v-btn
+                                        text
+                                        color="primary"
+                                        @click="modal = false"
+                                    >
+                                        Batal
+                                    </v-btn>
+                                    <v-btn
+                                        text
+                                        color="primary"
+                                        @click="$refs.dialog.save(filterDatemulai),getFiltertglmulai()"
+
+                                    >
+                                        OK
+                                    </v-btn>
+                                </v-date-picker>
+                     </v-dialog>
+                            <has-error :form="form" field="tglmulai"></has-error>
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
+
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
                     <v-text-field
@@ -121,8 +197,8 @@
                                 v-model="no_pk"
                                 :rules="norekRules"
                                 name="no_pk"
-                                label="Nomor PK"
-                                placeholder="input no. pk"
+                                label="Nomor PKS"
+                                placeholder="input no. pks"
                                 counter
                                 maxlength="100"
                                 outlined
@@ -131,7 +207,6 @@
                                 prepend-icon="mdi-file"
                                 hint=""
                                 persistent-hint :error-messages="pesaneror"
-                                @change="cekNorek()"
                             ></v-text-field>
                             <has-error :form="form" field="namafile"></has-error>
                              <v-text-field
@@ -149,13 +224,7 @@
                             <has-error :form="form" field="namafile"></has-error>
 
                         <!-- tglmulai -->
-                        <template>
-                        <v-row>
-                            <v-col
-                            cols="12"
-                            sm="12"
-                            md="12"
-                            >
+
                                 <v-menu
                                     ref="menu1"
                                     v-model="menu1"
@@ -187,24 +256,14 @@
                                     year-icon="calendar-blank"
                                     locale="id-ID"
                                 ></v-date-picker>
-
                                 </v-menu>
-                            </v-col>
-                        </v-row>
-                        </template>
                             <has-error :form="form" field="tglmulai"></has-error>
 
-                                                <!-- tglakhir -->
-                        <template>
-                        <v-row>
-                            <v-col
-                            cols="12"
-                            sm="12"
-                            md="12"
-                            >
-                                <v-menu
-                                    ref="menu1"
-                                    v-model="menu1"
+                            <!-- tglakhir-->
+
+                            <v-menu
+                                    ref="menu2"
+                                    v-model="menu2"
                                     :close-on-content-click="false"
                                     :nudge-right="40"
                                     transition="scale-transition"
@@ -229,15 +288,11 @@
                                 <v-date-picker
                                     v-model="tglakhir"
                                     elevation="15"
-                                    @input="menu1 = false"
+                                    @input="menu2 = false"
                                     year-icon="calendar-blank"
                                     locale="id-ID"
                                 ></v-date-picker>
-
                                 </v-menu>
-                            </v-col>
-                        </v-row>
-                        </template>
                             <has-error :form="form" field="tglakhir"></has-error>
                         <!-- <input type="file" @change="uploadFile"> -->
                          <template>
@@ -305,7 +360,7 @@
 </template>
 
 <script>
-
+import moment from 'moment';
   export default {
     data: vm => ({
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -330,6 +385,10 @@
       ],
       menu1: false,
       menu2:false,
+      menu3:false,
+      modal:false,
+      //filterDatemulai:[(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),, (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),],
+      filterDatemulai:[],
 
       dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
       dateFormatted2: vm.formatDate2((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
@@ -358,6 +417,7 @@
     }),
 
     computed: {
+
         headers(){
             let headers = [
                 {
@@ -367,12 +427,13 @@
                 sortable: false
                 },
                 { text: 'No PK', value: 'no_pk' },
-                { text: 'Tanggal Mulai', value: 'tglmulai',align: 'start', },
-                { text: 'Tanggal Berakhir', value: 'tglakhir' },
                 {
                 text: 'Nama Mitra',
                 value: 'namafile',
                 },
+                { text: 'Tanggal Mulai', value: 'tglmulai'},
+                { text: 'Tanggal Berakhir', value: 'tglakhir', },
+
 
       ]
             headers.push({ text: 'Download File', value: 'file', sortable: false,align: 'center' })
@@ -385,6 +446,17 @@
             return this.formatDate(this.tglmulai);
         },
 
+      filterTglmulai(){
+        if (Date.parse(this.filterDatemulai[1]) < Date.parse(this.filterDatemulai[0])) {
+                let temp = this.filterDatemulai[1]
+                this.filterDatemulai[1] = this.filterDatemulai[0]
+                this.filterDatemulai[0] = temp
+        }
+
+       // this.filterDatemulai = this.filterDatemulai ? moment(this.filterDatemulai).format('DD-MM-YYYY') : '';
+
+        return this.filterDatemulai.join(' s/d ')
+        },
       formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
       },
@@ -392,6 +464,9 @@
     },
 
     watch: {
+    //   filterTglmulai (val) {
+    //     this.filterTglmulai = this.filterDatemulai
+    //   },
       tglmulai (val) {
         this.dateFormatted = this.formatDate(this.tglmulai)
       },
@@ -417,30 +492,50 @@
     },
 
     methods: {
+    async getFiltertglmulai(){
 
-    async cekNorek (){
-      if(this.$gate.isAdmin() || this.$gate.isUM() || this.$gate.isSekdir()){
-        const formData = new FormData
-        formData.set('no_pk', this.no_pk)
-        //const response = await axios.get('api/pk/ceknama')
-          const response = await axios.post('api/pk/ceknorek',formData)
-          //this.cekNorekData = response.data.data[0].no_pk;
-          if (response.data.message=='adarek'){
-            this.cekNorekData = response.data.data[0].no_pk;
-            this.pesaneror = 'No PK '+this.cekNorekData+' Sudah Ada'
+        this.$Progress.start();
+            const formData = new FormData
+                formData.set('tglmulai', this.filterTglmulai);
+        if(this.filterTglmulai !=''){
+    if(this.$gate.isAdmin() || this.$gate.isUM() || this.$gate.isSekdir()){
+        axios.get("api/pk/filtertglmulai",{
+            params: {
+            tglmulai: this.filterTglmulai
+            }
+        })
+            .then((response) => {
+                this.pk = response.data.data;
+                //this.kantor_id = this.$kantor_id;
+                // this.form.fill
+             console.log(this.pk);
+             console.log(this.filterTglmulai)
+                }).catch((error)=>{
+                console.log(error.response.data);
+                });
+        }
+        }else{
+        //Swal.fire("Gagal Filter", "Filter Tanggal Belum Dipilih...!", "warning");
+        Swal.fire({
+        icon: 'error',
+        title: 'Error Filter',
+        text: 'Filter Tanggal Mulai Belum Dipilih...! ',
+        width: 600,
+        padding: '3em',
+        color: '#ff0000',
+        background: '#ff0000 url(/images/kayu.jpg)',
+        backdrop: `
+            rgba(255,0,64,0.4)
+            url("/images/nyan-cat.gif")
+            left top
+            no-repeat
+        `
+        })
+        }
 
-           // console.log(this.cekNorekData);
-
-            Toast.fire({
-                  icon: 'error',
-                  //title: response.data.message
-                  title: 'No PK '+response.data.data[0].no_pk+' Sudah Ada Dalam Data'
-            });
-            this.initialize();
-          }//endif response
-
-      }//endif gate
+        this.$Progress.finish();
     },
+
     norekKeyboard: function(evt) {
       evt = (evt) ? evt : window.event;
       var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -465,6 +560,16 @@
       } else {
         return true;
       }
+    },
+    formatsplitTgl(){
+        const [date1,date2] = tglmulai.split(' s/d ')
+        return `${date1}~${date2}`
+    },
+    formatfilterDate () {
+        if (!tglmulai) return null
+
+        const [year, month, day] = tglmulai.split('-')
+        return `${day}/${month}/${year}`
     },
     formatDate (tglmulai) {
         if (!tglmulai) return null

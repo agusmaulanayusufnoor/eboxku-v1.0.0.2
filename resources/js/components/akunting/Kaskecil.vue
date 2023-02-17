@@ -197,14 +197,6 @@
                             ></v-text-field>
                             <has-error :form="form" field="namafile"></has-error>
 
-                        <!-- tanggal -->
-                        <template>
-                        <v-row>
-                            <v-col
-                            cols="12"
-                            sm="12"
-                            md="12"
-                            >
                                 <v-menu
                                     ref="menu1"
                                     v-model="menu1"
@@ -238,12 +230,7 @@
                                 ></v-date-picker>
 
                                 </v-menu>
-                            </v-col>
-                            <v-col
-                                cols="12"
-                                sm="12"
-                                md="12"
-                            >
+
                                 <v-combobox
                                 v-model="otorisator_id"
                                 label="Nama Otorisator"
@@ -259,9 +246,7 @@
                                 persistent-hint :error-messages="pesaneror"
                                 @click="getOtorisator()"
                                 ></v-combobox>
-                            </v-col>
-                        </v-row>
-                        </template>
+
                             <has-error :form="form" field="tanggal"></has-error>
                         <!-- <input type="file" @change="uploadFile"> -->
                          <template>

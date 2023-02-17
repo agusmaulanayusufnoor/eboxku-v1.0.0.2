@@ -77,6 +77,7 @@ export default [
     { path: '/overbooking', component: () => import(/* webpackPrefetch: true */'./components/akunting/Overbooking.vue') },
     { path: '/rekkoranaba', component: () => import(/* webpackPrefetch: true */'./components/akunting/Rekkoranaba.vue') },
     { path: '/stock', component: () => import(/* webpackPrefetch: true */'./components/akunting/Stock.vue') },
+    { path: '/stockctk', component: () => import(/* webpackPrefetch: true */'./components/akunting/Stockctk.vue') },
     { path: '/stockpromosi', component: () => import(/* webpackPrefetch: true */'./components/akunting/Stockpromosi.vue') },
     { path: '/jtakuntingpusat', component: () => import(/* webpackPrefetch: true */'./components/akunting/Jtakuntingpusat.vue') },
     { path: '/jtpelayananpusat', component: () => import(/* webpackPrefetch: true */'./components/akunting/Jtpelayananpusat.vue') },

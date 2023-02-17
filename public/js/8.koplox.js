@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[8],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Stockctk.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/akunting/Stockctk.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Stockpromosi.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/akunting/Stockpromosi.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -23,8 +23,8 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-//
-//
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -562,6 +562,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data(vm) {
+    var _editedItem;
+
     return {
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       editmode: false,
@@ -574,7 +576,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       stock: [],
       valid: true,
       editedIndex: -1,
-      editedItem: {
+      editedItem: (_editedItem = {
         id: '',
         kantor_id: '',
         keterangan: '',
@@ -605,7 +607,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         }, function (v) {
           return v > -1 || 'angka tidak boleh minus';
         }],
-        //stok_akhir: 0,
+        stok_akhir: 0,
         nom_awal: 0,
         nomAwalRules: [function (v) {
           return v > -1 || 'angka tidak boleh minus';
@@ -617,16 +619,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         nom_keluar: 0,
         nomKeluarRules: [function (v) {
           return v > -1 || 'angka tidak boleh minus';
-        }],
-        stok_akhir: 0,
-        nom_akhir: 0,
-        barang_id: '',
-        namaBarang: [],
-        satuan_id: '',
-        namaSatuan: [],
-        id_kantor: '',
-        namaKantor: []
-      },
+        }]
+      }, _defineProperty(_editedItem, "stok_akhir", ''), _defineProperty(_editedItem, "nom_akhir", ''), _defineProperty(_editedItem, "barang_id", ''), _defineProperty(_editedItem, "namaBarang", []), _defineProperty(_editedItem, "satuan_id", ''), _defineProperty(_editedItem, "namaSatuan", []), _defineProperty(_editedItem, "id_kantor", ''), _defineProperty(_editedItem, "namaKantor", []), _editedItem),
       menu1: false,
       menu2: false,
       menu3: false,
@@ -879,7 +873,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       if (this.editedItem.id_kantor != '') {
         if (this.$gate.isAdmin() || this.$gate.isAK()) {
-          axios.get("api/stockctk/filterkantor", {
+          axios.get("api/stockpromosi/filterkantor", {
             params: {
               kantor_id: this.editedItem.id_kantor
             }
@@ -897,7 +891,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         Swal.fire({
           icon: 'error',
           title: 'Error Filter',
-          text: 'Filter Tanggal Belum Dipilih...! ',
+          text: 'Filter Kantor Belum Dipilih...! ',
           width: 600,
           padding: '3em',
           color: '#ff0000',
@@ -917,7 +911,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       if (this.editedItem.barang_id != '') {
         if (this.$gate.isAdmin() || this.$gate.isAK()) {
-          axios.get("api/stockctk/filterbarang", {
+          axios.get("api/stockpromosi/filterbarang", {
             params: {
               barang_id: this.editedItem.barang_id
             }
@@ -955,7 +949,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       if (this.periodeTglText != '') {
         if (this.$gate.isAdmin() || this.$gate.isAK()) {
-          axios.get("api/stockctk/filtertanggal", {
+          axios.get("api/stockpromosi/filtertanggal", {
             params: {
               periodetgl: this.periodeTglText
             }
@@ -989,7 +983,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       if (this.$gate.isAdmin() || this.$gate.isAK()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/stockctk/getbarang").then(function (response) {
+        axios.get("api/stockpromosi/getbarang").then(function (response) {
           _this4.editedItem.namaBarang = response.data.data; //console.log(this.editedItem.namaBarang);
           //console.log(this.kantor_id)
         })["catch"](function (error) {
@@ -1002,7 +996,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       if (this.$gate.isAdmin() || this.$gate.isAK()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/stockctk/getkantor").then(function (response) {
+        axios.get("api/stockpromosi/getkantor").then(function (response) {
           _this5.editedItem.namaKantor = response.data.data; //console.log(this.editedItem.namaKantor);
           //console.log(this.kantor_id)
         })["catch"](function (error) {
@@ -1015,7 +1009,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       if (this.$gate.isAdmin() || this.$gate.isAK()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/stockctk/getsatuan").then(function (response) {
+        axios.get("api/stockpromosi/getsatuan").then(function (response) {
           _this6.editedItem.namaSatuan = response.data.data; //console.log(this.editedItem.namaBarang);
           //console.log(this.kantor_id)
         })["catch"](function (error) {
@@ -1030,7 +1024,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       if (this.$gate.isAdmin() || this.$gate.isAK()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/stockctk").then(function (response) {
+        axios.get("api/stockpromosi").then(function (response) {
           _this7.stock = response.data.data;
           _this7.editedItem.kantor_id = _this7.$kantor_id; // this.form.fill
 
@@ -1081,40 +1075,43 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           'content-type': 'multipart/form-data'
         }
       };
-      var formData = new FormData();
-      formData.set('kantor_id', this.editedItem.kantor_id);
-      formData.set('periode', this.editedItem.periode);
-      formData.set('barang_id', this.editedItem.barang_id);
-      formData.set('satuan_id', this.editedItem.satuan_id);
-      formData.set('harga_satuan', this.editedItem.harga_satuan);
-      formData.set('stok_awal', this.editedItem.stok_awal);
-      formData.set('stok_masuk', this.editedItem.stok_masuk);
-      formData.set('stok_keluar', this.editedItem.stok_keluar);
-      formData.set('stok_akhir', parseInt(this.editedItem.stok_awal) + parseInt(this.editedItem.stok_masuk) - parseInt(this.editedItem.stok_keluar));
-      formData.set('nom_awal', this.editedItem.nom_awal);
-      formData.set('nom_masuk', this.editedItem.nom_masuk);
-      formData.set('nom_keluar', this.editedItem.nom_keluar);
-      formData.set('nom_akhir', parseInt(this.editedItem.nom_awal) + parseInt(this.editedItem.nom_masuk) - parseInt(this.editedItem.nom_keluar));
-      formData.set('keterangan', this.editedItem.keterangan); //formData.append('jml_stok_akhir', this.jml_stok_awal);
-      // console.log(this.file);
 
-      axios.post('api/stockctk', formData, config).then(function (response) {
-        $('#addNew').modal('hide');
-        Toast.fire({
-          icon: 'success',
-          title: response.data.message
+      if (this.$gate.isAdmin() || this.$gate.isAK()) {
+        var formData = new FormData();
+        formData.set('kantor_id', this.editedItem.kantor_id);
+        formData.set('periode', this.editedItem.periode);
+        formData.set('barang_id', this.editedItem.barang_id);
+        formData.set('satuan_id', this.editedItem.satuan_id);
+        formData.set('harga_satuan', this.editedItem.harga_satuan);
+        formData.set('stok_awal', this.editedItem.stok_awal);
+        formData.set('stok_masuk', this.editedItem.stok_masuk);
+        formData.set('stok_keluar', this.editedItem.stok_keluar);
+        formData.set('stok_akhir', parseInt(this.editedItem.stok_awal) + parseInt(this.editedItem.stok_masuk) - parseInt(this.editedItem.stok_keluar));
+        formData.set('nom_awal', this.editedItem.nom_awal);
+        formData.set('nom_masuk', this.editedItem.nom_masuk);
+        formData.set('nom_keluar', this.editedItem.nom_keluar);
+        formData.set('nom_akhir', parseInt(this.editedItem.nom_awal) + parseInt(this.editedItem.nom_masuk) - parseInt(this.editedItem.nom_keluar));
+        formData.set('keterangan', this.editedItem.keterangan); //formData.append('jml_stok_akhir', this.jml_stok_awal);
+        // console.log(this.file);
+
+        axios.post('api/stockpromosi', formData, config).then(function (response) {
+          $('#addNew').modal('hide');
+          Toast.fire({
+            icon: 'success',
+            title: response.data.message
+          });
+
+          _this8.$Progress.finish();
+
+          _this8.initialize();
+        })["catch"](function (response) {
+          Swal.fire("Failed!", data.message, "warning"); // Toast.fire({
+          //     icon: 'error',
+          //     title: 'Gagal tambah stok, ulangi!'
+          //     //title: response.message
+          // });
         });
-
-        _this8.$Progress.finish();
-
-        _this8.initialize();
-      })["catch"](function (response) {
-        Swal.fire("Failed!", data.message, "warning"); // Toast.fire({
-        //     icon: 'error',
-        //     title: 'Gagal tambah stok, ulangi!'
-        //     //title: response.message
-        // });
-      });
+      }
     },
     updateUser: function updateUser() {
       var _this9 = this;
@@ -1175,7 +1172,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this10.form["delete"]('api/stockctk/' + id).then(function () {
+          _this10.form["delete"]('api/stockpromosi/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
             _this10.initialize();
@@ -1190,10 +1187,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Stockctk.vue?vue&type=template&id=80527b72&":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/akunting/Stockctk.vue?vue&type=template&id=80527b72& ***!
-  \********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Stockpromosi.vue?vue&type=template&id=aca4005c&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/akunting/Stockpromosi.vue?vue&type=template&id=aca4005c& ***!
+  \************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1241,7 +1238,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    Stok Barang Cetakan\n                "
+                                  "\n                    Stok Barang Promosi\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -2647,7 +2644,6 @@ var render = function () {
                                               dense: "",
                                               hint: "input spasi jika tidak ada keterangan",
                                               "persistent-hint": "",
-                                              value: " ",
                                             },
                                             model: {
                                               value: _vm.editedItem.keterangan,
@@ -2775,17 +2771,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/akunting/Stockctk.vue":
-/*!*******************************************************!*\
-  !*** ./resources/js/components/akunting/Stockctk.vue ***!
-  \*******************************************************/
+/***/ "./resources/js/components/akunting/Stockpromosi.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/akunting/Stockpromosi.vue ***!
+  \***********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Stockctk_vue_vue_type_template_id_80527b72___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Stockctk.vue?vue&type=template&id=80527b72& */ "./resources/js/components/akunting/Stockctk.vue?vue&type=template&id=80527b72&");
-/* harmony import */ var _Stockctk_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Stockctk.vue?vue&type=script&lang=js& */ "./resources/js/components/akunting/Stockctk.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Stockpromosi_vue_vue_type_template_id_aca4005c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Stockpromosi.vue?vue&type=template&id=aca4005c& */ "./resources/js/components/akunting/Stockpromosi.vue?vue&type=template&id=aca4005c&");
+/* harmony import */ var _Stockpromosi_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Stockpromosi.vue?vue&type=script&lang=js& */ "./resources/js/components/akunting/Stockpromosi.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -2795,9 +2791,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Stockctk_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Stockctk_vue_vue_type_template_id_80527b72___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Stockctk_vue_vue_type_template_id_80527b72___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Stockpromosi_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Stockpromosi_vue_vue_type_template_id_aca4005c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Stockpromosi_vue_vue_type_template_id_aca4005c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -2807,38 +2803,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/akunting/Stockctk.vue"
+component.options.__file = "resources/js/components/akunting/Stockpromosi.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/akunting/Stockctk.vue?vue&type=script&lang=js&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/akunting/Stockctk.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************/
+/***/ "./resources/js/components/akunting/Stockpromosi.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/akunting/Stockpromosi.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Stockctk_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Stockctk.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Stockctk.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Stockctk_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Stockpromosi_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Stockpromosi.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Stockpromosi.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Stockpromosi_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/akunting/Stockctk.vue?vue&type=template&id=80527b72&":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/components/akunting/Stockctk.vue?vue&type=template&id=80527b72& ***!
-  \**************************************************************************************/
+/***/ "./resources/js/components/akunting/Stockpromosi.vue?vue&type=template&id=aca4005c&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/akunting/Stockpromosi.vue?vue&type=template&id=aca4005c& ***!
+  \******************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Stockctk_vue_vue_type_template_id_80527b72___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Stockctk.vue?vue&type=template&id=80527b72& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Stockctk.vue?vue&type=template&id=80527b72&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Stockctk_vue_vue_type_template_id_80527b72___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Stockpromosi_vue_vue_type_template_id_aca4005c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Stockpromosi.vue?vue&type=template&id=aca4005c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Stockpromosi.vue?vue&type=template&id=aca4005c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Stockpromosi_vue_vue_type_template_id_aca4005c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Stockctk_vue_vue_type_template_id_80527b72___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Stockpromosi_vue_vue_type_template_id_aca4005c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

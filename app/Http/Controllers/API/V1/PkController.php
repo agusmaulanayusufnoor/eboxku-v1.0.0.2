@@ -27,6 +27,7 @@ class PkController extends BaseController
      */
     public function index()
     {
+
         $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
 
@@ -58,6 +59,7 @@ class PkController extends BaseController
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'no_pk'  => 'required|unique:pk',
             'namafile'     => 'required',
@@ -101,8 +103,10 @@ class PkController extends BaseController
         $arrnamefile        = array($hari,$bulan,$tahun);
         $datefile   = implode("",$arrnamefile);
 
-        $datemulai       = implode("",$arr);
-        $dateakhir       = implode("",$arr2);
+        $datemulai       = $request->tglmulai;
+        $dateakhir       = $request->tglakhir;
+
+
         $acak = $this->acak_string(5);
         $file   = $request->namafile.".".$acak.".".$nm->getClientOriginalName();
         $pk = $this->pk->create([
@@ -188,5 +192,37 @@ class PkController extends BaseController
             $string .= $karakter[$pos];
         }
         return $string;
+    }
+
+    public function filtertglmulai(Request $request)
+    {
+       // dd($request->all());
+         $tglmulai = $request->tglmulai;
+        //2023-02-01 s/d 2023-02-04
+        //tgl mulai from
+        $hari       = substr($request->tglmulai,8,2);
+        $bulan      = substr($request->tglmulai,5,2);
+        $tahun      = substr($request->tglmulai,0,4);
+        $arr        = array($hari,"/",$bulan,"/",$tahun);
+        $date1       = implode("",$arr);
+        $fromtgl    = substr($tglmulai,0,10);
+        //tgl mulai to
+        $hari2       = substr($request->tglmulai,23,2);
+        $bulan2      = substr($request->tglmulai,20,2);
+        $tahun2      = substr($request->tglmulai,15,4);
+        $arr2        = array($hari2,"/",$bulan2,"/",$tahun2);
+        $date2       = implode("",$arr2);
+        $totgl    = substr($tglmulai,15,10);
+
+
+            $pk  = DB::table('pk')
+            ->join('kode_kantors', 'pk.kantor_id', '=', 'kode_kantors.id')
+            ->whereBetween('pk.tglmulai',[$fromtgl,$totgl])
+            ->select('pk.id','pk.no_pk','pk.namafile','pk.tglmulai','pk.tglakhir','pk.file',
+            'pk.kantor_id','kode_kantors.nama_kantor')
+            ->orderBy('id','desc')
+            ->get();
+
+        return $this->sendResponse($pk, 'pk list');
     }
 }

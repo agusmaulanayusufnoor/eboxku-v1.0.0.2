@@ -345,20 +345,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data(vm) {
     return {
@@ -1402,179 +1388,137 @@ var render = function () {
                                       },
                                     }),
                                     _vm._v(" "),
-                                    [
-                                      _c(
-                                        "v-row",
-                                        [
-                                          _c(
-                                            "v-col",
-                                            {
-                                              attrs: {
-                                                cols: "12",
-                                                sm: "12",
-                                                md: "12",
-                                              },
+                                    _c(
+                                      "v-menu",
+                                      {
+                                        ref: "menu1",
+                                        attrs: {
+                                          "close-on-content-click": false,
+                                          "nudge-right": 40,
+                                          transition: "scale-transition",
+                                          "offset-y": "",
+                                          "min-width": "auto",
+                                        },
+                                        scopedSlots: _vm._u([
+                                          {
+                                            key: "activator",
+                                            fn: function (ref) {
+                                              var on = ref.on
+                                              var attrs = ref.attrs
+                                              return [
+                                                _c(
+                                                  "v-text-field",
+                                                  _vm._g(
+                                                    _vm._b(
+                                                      {
+                                                        attrs: {
+                                                          rules:
+                                                            _vm.tanggalRules,
+                                                          label: "Tanggal File",
+                                                          placeholder:
+                                                            "dd/mm/yyyy",
+                                                          "prepend-icon":
+                                                            "mdi-calendar",
+                                                          outlined: "",
+                                                          required: "",
+                                                          dense: "",
+                                                        },
+                                                        on: {
+                                                          blur: function (
+                                                            $event
+                                                          ) {
+                                                            _vm.tanggal =
+                                                              _vm.parseDate(
+                                                                _vm.dateFormatted
+                                                              )
+                                                          },
+                                                        },
+                                                        model: {
+                                                          value:
+                                                            _vm.dateFormatted,
+                                                          callback: function (
+                                                            $$v
+                                                          ) {
+                                                            _vm.dateFormatted =
+                                                              $$v
+                                                          },
+                                                          expression:
+                                                            "dateFormatted",
+                                                        },
+                                                      },
+                                                      "v-text-field",
+                                                      attrs,
+                                                      false
+                                                    ),
+                                                    on
+                                                  )
+                                                ),
+                                              ]
                                             },
-                                            [
-                                              _c(
-                                                "v-menu",
-                                                {
-                                                  ref: "menu1",
-                                                  attrs: {
-                                                    "close-on-content-click": false,
-                                                    "nudge-right": 40,
-                                                    transition:
-                                                      "scale-transition",
-                                                    "offset-y": "",
-                                                    "min-width": "auto",
-                                                  },
-                                                  scopedSlots: _vm._u([
-                                                    {
-                                                      key: "activator",
-                                                      fn: function (ref) {
-                                                        var on = ref.on
-                                                        var attrs = ref.attrs
-                                                        return [
-                                                          _c(
-                                                            "v-text-field",
-                                                            _vm._g(
-                                                              _vm._b(
-                                                                {
-                                                                  attrs: {
-                                                                    rules:
-                                                                      _vm.tanggalRules,
-                                                                    label:
-                                                                      "Tanggal File",
-                                                                    placeholder:
-                                                                      "dd/mm/yyyy",
-                                                                    "prepend-icon":
-                                                                      "mdi-calendar",
-                                                                    outlined:
-                                                                      "",
-                                                                    required:
-                                                                      "",
-                                                                    dense: "",
-                                                                  },
-                                                                  on: {
-                                                                    blur: function (
-                                                                      $event
-                                                                    ) {
-                                                                      _vm.tanggal =
-                                                                        _vm.parseDate(
-                                                                          _vm.dateFormatted
-                                                                        )
-                                                                    },
-                                                                  },
-                                                                  model: {
-                                                                    value:
-                                                                      _vm.dateFormatted,
-                                                                    callback:
-                                                                      function (
-                                                                        $$v
-                                                                      ) {
-                                                                        _vm.dateFormatted =
-                                                                          $$v
-                                                                      },
-                                                                    expression:
-                                                                      "dateFormatted",
-                                                                  },
-                                                                },
-                                                                "v-text-field",
-                                                                attrs,
-                                                                false
-                                                              ),
-                                                              on
-                                                            )
-                                                          ),
-                                                        ]
-                                                      },
-                                                    },
-                                                  ]),
-                                                  model: {
-                                                    value: _vm.menu1,
-                                                    callback: function ($$v) {
-                                                      _vm.menu1 = $$v
-                                                    },
-                                                    expression: "menu1",
-                                                  },
-                                                },
-                                                [
-                                                  _vm._v(" "),
-                                                  _c("v-date-picker", {
-                                                    attrs: {
-                                                      elevation: "15",
-                                                      "year-icon":
-                                                        "calendar-blank",
-                                                      locale: "id-ID",
-                                                    },
-                                                    on: {
-                                                      input: function ($event) {
-                                                        _vm.menu1 = false
-                                                      },
-                                                    },
-                                                    model: {
-                                                      value: _vm.tanggal,
-                                                      callback: function ($$v) {
-                                                        _vm.tanggal = $$v
-                                                      },
-                                                      expression: "tanggal",
-                                                    },
-                                                  }),
-                                                ],
-                                                1
-                                              ),
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-col",
-                                            {
-                                              attrs: {
-                                                cols: "12",
-                                                sm: "12",
-                                                md: "12",
-                                              },
+                                          },
+                                        ]),
+                                        model: {
+                                          value: _vm.menu1,
+                                          callback: function ($$v) {
+                                            _vm.menu1 = $$v
+                                          },
+                                          expression: "menu1",
+                                        },
+                                      },
+                                      [
+                                        _vm._v(" "),
+                                        _c("v-date-picker", {
+                                          attrs: {
+                                            elevation: "15",
+                                            "year-icon": "calendar-blank",
+                                            locale: "id-ID",
+                                          },
+                                          on: {
+                                            input: function ($event) {
+                                              _vm.menu1 = false
                                             },
-                                            [
-                                              _c("v-combobox", {
-                                                attrs: {
-                                                  label: "Nama Otorisator",
-                                                  "prepend-icon":
-                                                    "nav-icon fas fa-user-secret",
-                                                  items: _vm.namaOtorisator,
-                                                  "item-value": "id",
-                                                  "item-text": "namaotorisator",
-                                                  placeholder:
-                                                    "Daftar Otorisator",
-                                                  outlined: "",
-                                                  required: "",
-                                                  dense: "",
-                                                  "return-object": false,
-                                                  "persistent-hint": "",
-                                                  "error-messages":
-                                                    _vm.pesaneror,
-                                                },
-                                                on: {
-                                                  click: function ($event) {
-                                                    return _vm.getOtorisator()
-                                                  },
-                                                },
-                                                model: {
-                                                  value: _vm.otorisator_id,
-                                                  callback: function ($$v) {
-                                                    _vm.otorisator_id = $$v
-                                                  },
-                                                  expression: "otorisator_id",
-                                                },
-                                              }),
-                                            ],
-                                            1
-                                          ),
-                                        ],
-                                        1
-                                      ),
-                                    ],
+                                          },
+                                          model: {
+                                            value: _vm.tanggal,
+                                            callback: function ($$v) {
+                                              _vm.tanggal = $$v
+                                            },
+                                            expression: "tanggal",
+                                          },
+                                        }),
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c("v-combobox", {
+                                      attrs: {
+                                        label: "Nama Otorisator",
+                                        "prepend-icon":
+                                          "nav-icon fas fa-user-secret",
+                                        items: _vm.namaOtorisator,
+                                        "item-value": "id",
+                                        "item-text": "namaotorisator",
+                                        placeholder: "Daftar Otorisator",
+                                        outlined: "",
+                                        required: "",
+                                        dense: "",
+                                        "return-object": false,
+                                        "persistent-hint": "",
+                                        "error-messages": _vm.pesaneror,
+                                      },
+                                      on: {
+                                        click: function ($event) {
+                                          return _vm.getOtorisator()
+                                        },
+                                      },
+                                      model: {
+                                        value: _vm.otorisator_id,
+                                        callback: function ($$v) {
+                                          _vm.otorisator_id = $$v
+                                        },
+                                        expression: "otorisator_id",
+                                      },
+                                    }),
                                     _vm._v(" "),
                                     _c("has-error", {
                                       attrs: {
