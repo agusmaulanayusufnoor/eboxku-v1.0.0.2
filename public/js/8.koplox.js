@@ -1241,7 +1241,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\r\n                    Stok Barang Cetakan\r\n                "
+                                  "\n                    Stok Barang Cetakan\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -1259,7 +1259,7 @@ var render = function () {
                                 },
                                 [
                                   _c("v-icon", [_vm._v("mdi-cart-plus")]),
-                                  _vm._v(" Tambah Stok\r\n                  "),
+                                  _vm._v(" Tambah Stok\n                  "),
                                 ],
                                 1
                               ),
@@ -1310,7 +1310,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                      Refresh\r\n                      "
+                                                "\n                      Refresh\n                      "
                                               ),
                                               _c(
                                                 "v-icon",
@@ -1322,7 +1322,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\r\n                        mdi-reload\r\n                      "
+                                                    "\n                        mdi-reload\n                      "
                                                   ),
                                                 ]
                                               ),
@@ -1339,9 +1339,9 @@ var render = function () {
                                         var index = ref.index
                                         return [
                                           _vm._v(
-                                            "\r\n                    " +
+                                            "\n                    " +
                                               _vm._s(index + 1) +
-                                              "\r\n                "
+                                              "\n                "
                                           ),
                                         ]
                                       },
@@ -1374,7 +1374,7 @@ var render = function () {
                                                       "fa-solid fa-file-excel",
                                                   }),
                                                   _vm._v(
-                                                    "\r\n                        Excel\r\n                    "
+                                                    "\n                        Excel\n                    "
                                                   ),
                                                 ]
                                               ),
@@ -1679,7 +1679,7 @@ var render = function () {
                                                         [
                                                           _c("v-icon", [
                                                             _vm._v(
-                                                              "\r\n                        mdi-filter\r\n                      "
+                                                              "\n                        mdi-filter\n                      "
                                                             ),
                                                           ]),
                                                         ],
@@ -1741,7 +1741,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\r\n                        mdi-pencil\r\n                    "
+                                                    "\n                        mdi-pencil\n                    "
                                                   ),
                                                 ]
                                               ),
@@ -1771,7 +1771,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                    mdi-delete\r\n                "
+                                                "\n                    mdi-delete\n                "
                                               ),
                                             ]
                                           ),
@@ -1781,7 +1781,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  1416576956
+                                  1420096508
                                 ),
                               }),
                             ],
@@ -2692,7 +2692,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-cancel")]),
                                   _vm._v(
-                                    "\r\n                            Batal\r\n                        "
+                                    "\n                            Batal\n                        "
                                   ),
                                 ],
                                 1
@@ -2718,7 +2718,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-pencil")]),
                                   _vm._v(
-                                    "\r\n                            Ubah\r\n                        "
+                                    "\n                            Ubah\n                        "
                                   ),
                                 ],
                                 1
@@ -2744,7 +2744,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-archive-plus")]),
                                   _vm._v(
-                                    "\r\n                            Tambah\r\n                        "
+                                    "\n                            Tambah\n                        "
                                   ),
                                 ],
                                 1

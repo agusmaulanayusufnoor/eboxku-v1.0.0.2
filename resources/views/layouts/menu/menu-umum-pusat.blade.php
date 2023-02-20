@@ -9,6 +9,12 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
+            <router-link to="/memoumum" class="nav-link">
+                <i class="fa fa-clipboard nav-icon"></i>
+                <p>File Memo Umum</p>
+              </a>
+          </li>
+        <li class="nav-item">
           <router-link to="/skdir" class="nav-link">
               <i class="fa fa-file-contract nav-icon"></i>
               <p>File SK Direktur</p>

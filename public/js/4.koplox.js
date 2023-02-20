@@ -855,7 +855,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\r\n                    File Kas Kecil\r\n                "
+                                  "\n                    File Kas Kecil\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -873,7 +873,7 @@ var render = function () {
                                 },
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
-                                  _vm._v(" Upload File\r\n                  "),
+                                  _vm._v(" Upload File\n                  "),
                                 ],
                                 1
                               ),
@@ -917,7 +917,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                      Refresh\r\n                      "
+                                                "\n                      Refresh\n                      "
                                               ),
                                               _c(
                                                 "v-icon",
@@ -929,7 +929,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\r\n                        mdi-reload\r\n                      "
+                                                    "\n                        mdi-reload\n                      "
                                                   ),
                                                 ]
                                               ),
@@ -946,9 +946,9 @@ var render = function () {
                                         var index = ref.index
                                         return [
                                           _vm._v(
-                                            "\r\n                    " +
+                                            "\n                    " +
                                               _vm._s(index + 1) +
-                                              "\r\n                "
+                                              "\n                "
                                           ),
                                         ]
                                       },
@@ -1152,7 +1152,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\r\n                            mdi-download\r\n                        "
+                                                    "\n                            mdi-download\n                        "
                                                   ),
                                                 ]
                                               ),
@@ -1184,7 +1184,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                    mdi-delete\r\n                "
+                                                "\n                    mdi-delete\n                "
                                               ),
                                             ]
                                           ),
@@ -1194,7 +1194,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  2926394489
+                                  3968794873
                                 ),
                               }),
                             ],
@@ -1565,9 +1565,9 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\r\n                                    " +
+                                                          "\n                                    " +
                                                             _vm._s(text) +
-                                                            "\r\n                                "
+                                                            "\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1580,12 +1580,12 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\r\n                                    +" +
+                                                          "\n                                    +" +
                                                             _vm._s(
                                                               _vm.files.length -
                                                                 2
                                                             ) +
-                                                            " File(s)\r\n                                "
+                                                            " File(s)\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1632,7 +1632,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-cancel")]),
                                   _vm._v(
-                                    "\r\n                            Batal\r\n                        "
+                                    "\n                            Batal\n                        "
                                   ),
                                 ],
                                 1
@@ -1658,7 +1658,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-pencil")]),
                                   _vm._v(
-                                    "\r\n                            Ubah\r\n                        "
+                                    "\n                            Ubah\n                        "
                                   ),
                                 ],
                                 1
@@ -1684,7 +1684,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
                                   _vm._v(
-                                    "\r\n                            Upload\r\n                        "
+                                    "\n                            Upload\n                        "
                                   ),
                                 ],
                                 1

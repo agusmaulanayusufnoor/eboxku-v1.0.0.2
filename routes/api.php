@@ -66,6 +66,8 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('rekkoranaba/getkantor', 'Kode_kantorController@index');
     Route::get('rekkoranaba/filterkantor', 'RekkoranabaController@filterkantor');
     Route::get('rekkoranaba/filterjenis', 'RekkoranabaController@filterjenis');
+    Route::get('memoumum/download/{memoumum}', 'MemoumumController@downloadfile');
+    Route::get('memoumum/filterjenis', 'MemoumumController@filterjenis');
     Route::get('skdir/download/{skdir}', 'SkdirController@downloadfile');
     Route::post('skdir/ceknorek', 'SkdirController@ceknorek');
     Route::get('sedir/download/{sedir}', 'SedirController@downloadfile');
@@ -157,6 +159,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'stockpromosi'  => 'StokbarangpromosiController',
 
         // umum pusat
+        'memoumum'    => 'MemoumumController',
         'skdir'       => 'SkdirController',
         'sedir'       => 'SedirController',
         'akta'        => 'AktaController',

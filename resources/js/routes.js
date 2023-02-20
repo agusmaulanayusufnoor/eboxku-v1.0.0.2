@@ -82,7 +82,7 @@ export default [
     { path: '/jtakuntingpusat', component: () => import(/* webpackPrefetch: true */'./components/akunting/Jtakuntingpusat.vue') },
     { path: '/jtpelayananpusat', component: () => import(/* webpackPrefetch: true */'./components/akunting/Jtpelayananpusat.vue') },
 
-
+    { path: '/memoumum', component: () => import(/* webpackPrefetch: true */'./components/umum/Memoumum.vue') },
     { path: '/skdir', component: () => import(/* webpackPrefetch: true */'./components/umum/Skdir.vue') },
     { path: '/sedir', component: () => import(/* webpackPrefetch: true */'./components/umum/Sedir.vue') },
     { path: '/akta', component: () => import(/* webpackPrefetch: true */'./components/umum/Akta.vue') },
