@@ -24,5 +24,13 @@
           </a>
         </li>
         @endif
+
+        <li class="nav-item">
+            <router-link to="/asuransikredit" class="nav-link">
+                <i class="fas fa-hand-holding-usd nav-icon"></i>
+                <p>File Asuransi</p>
+              </a>
+        </li>
     </ul>
+
 </li>

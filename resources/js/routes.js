@@ -72,6 +72,7 @@ export default [
 
     { path: '/kredit', component: () => import(/* webpackPrefetch: true */'./components/kredit/Kredit.vue') },
     { path: '/pelunasan', component: () => import(/* webpackPrefetch: true */'./components/kredit/Pelunasan.vue') },
+    { path: '/asuransikredit', component: () => import(/* webpackPrefetch: true */'./components/kredit/Asuransikredit.vue') },
 
     { path: '/kaskecil', component: () => import(/* webpackPrefetch: true */'./components/akunting/Kaskecil.vue') },
     { path: '/overbooking', component: () => import(/* webpackPrefetch: true */'./components/akunting/Overbooking.vue') },

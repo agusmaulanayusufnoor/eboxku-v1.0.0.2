@@ -1,20 +1,644 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[38],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Memoumum.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Memoumum.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Legal.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Legal.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: D:\\laragon\\www\\eboxku\\resources\\js\\components\\umum\\Memoumum.vue: Unterminated string constant. (613:81)\n\n\u001b[0m \u001b[90m 611 |\u001b[39m          \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39m$Progress\u001b[33m.\u001b[39mstart()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 612 |\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 613 |\u001b[39m             \u001b[36mif\u001b[39m(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39m$gate\u001b[33m.\u001b[39misAdmin() \u001b[33m||\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39m$gate\u001b[33m.\u001b[39misUM() \u001b[33m||\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39m$gate\u001b[33m.\u001b[39misSekdir()\u001b[32m\" ){\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     |\u001b[39m                                                                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 614 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 615 |\u001b[39m                \u001b[90m//axios.get(\"api/user\").then((response) => {(this.users = response.data.data)});\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 616 |\u001b[39m              axios\u001b[33m.\u001b[39m\u001b[36mget\u001b[39m(\u001b[32m\"api/memoumum\"\u001b[39m)\u001b[0m\n    at Parser._raise (D:\\laragon\\www\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:476:17)\n    at Parser.raiseWithData (D:\\laragon\\www\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:469:17)\n    at Parser.raise (D:\\laragon\\www\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:430:17)\n    at Parser.readString (D:\\laragon\\www\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:3124:20)\n    at Parser.getTokenFromCode (D:\\laragon\\www\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:2698:14)\n    at Parser.nextToken (D:\\laragon\\www\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:2100:10)\n    at Parser.next (D:\\laragon\\www\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:2001:10)\n    at Parser.eat (D:\\laragon\\www\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:2006:12)\n    at Parser.parseCallExpressionArguments (D:\\laragon\\www\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:12352:18)\n    at Parser.parseCoverCallAndAsyncArrowHead (D:\\laragon\\www\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:12272:29)\n    at Parser.parseSubscript (D:\\laragon\\www\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:12197:19)\n    at Parser.parseSubscripts (D:\\laragon\\www\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:12166:19)\n    at Parser.parseExprSubscripts (D:\\laragon\\www\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:12155:17)\n    at Parser.parseUpdate (D:\\laragon\\www\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:12129:21)\n    at Parser.parseMaybeUnary (D:\\laragon\\www\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:12104:23)\n    at Parser.parseMaybeUnaryOrPrivate (D:\\laragon\\www\\eboxku\\node_modules\\@babel\\parser\\lib\\index.js:11901:61)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data(vm) {
+    return {
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      editmode: false,
+      dialog: false,
+      dialogDelete: false,
+      search: '',
+      legal: [],
+      valid: true,
+      file: null,
+      id: '',
+      kantor_id: '',
+      no_legal: '',
+      norekRules: [function (v) {
+        return !!v || 'No Legalitas Belum Diisi';
+      }],
+      cekNorekData: [],
+      pesaneror: [],
+      namafile: '',
+      nameRules: [function (v) {
+        return !!v || 'Nama File Belum Diisi';
+      }],
+      menu1: false,
+      menu2: false,
+      dateFormatted: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
+      tanggal: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
+      tanggalRules: [function (v) {
+        return !!v || 'Tanggal file belum diisi';
+      }],
+      fileRules: [function (v) {
+        return !!v || 'File belum dimasukan';
+      }],
+      //file: '',
+      form: new Form({
+        id: '',
+        kantor_id: '',
+        namafile: '',
+        tanggal: '',
+        file: ''
+      })
+    };
+  },
+  computed: {
+    headers: function headers() {
+      var headers = [{
+        text: 'No',
+        value: 'index',
+        align: 'center',
+        sortable: false
+      }, {
+        text: 'No Legalitas',
+        value: 'no_legal'
+      }, {
+        text: 'Tanggal File',
+        value: 'tanggal'
+      }, {
+        text: 'Kantor',
+        value: 'nama_kantor',
+        align: 'start'
+      }, {
+        text: 'Nama File',
+        value: 'namafile'
+      }];
+      headers.push({
+        text: 'Download File',
+        value: 'file',
+        sortable: false,
+        align: 'center'
+      });
+
+      if (this.$gate.isAdmin()) {
+        headers.push({
+          text: 'Hapus',
+          value: 'actions',
+          sortable: false
+        });
+      }
+
+      return headers;
+    },
+    computedDateFormatted: function computedDateFormatted() {
+      return this.formatDate(this.tanggal);
+    },
+    formTitle: function formTitle() {
+      return this.editedIndex === -1 ? 'New Item' : 'Edit Item';
+    }
+  },
+  watch: {
+    tanggal: function tanggal(val) {
+      this.dateFormatted = this.formatDate(this.tanggal);
+    },
+    dialog: function dialog(val) {
+      val || this.close();
+    },
+    dialogDelete: function dialogDelete(val) {
+      val || this.closeDelete();
+    }
+  },
+  //     beforeCreate: function() {
+  //     console.log(this.$kantor_id)
+  //   },
+  created: function created() {
+    this.$Progress.start(); //console.log(this.kantor_id)
+
+    this.initialize();
+    this.$Progress.finish();
+  },
+  methods: {
+    cekNorek: function cekNorek() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var formData, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(_this.$gate.isAdmin() || _this.$gate.isUM() || _this.$gate.isSekdir())) {
+                  _context.next = 7;
+                  break;
+                }
+
+                formData = new FormData();
+                formData.set('no_legal', _this.no_legal); //const response = await axios.get('api/legal/ceknama')
+
+                _context.next = 5;
+                return axios.post('api/legal/ceknorek', formData);
+
+              case 5:
+                response = _context.sent;
+
+                //this.cekNorekData = response.data.data[0].no_legal;
+                if (response.data.message == 'adarek') {
+                  _this.cekNorekData = response.data.data[0].no_legal;
+                  _this.pesaneror = 'No Legalitas ' + _this.cekNorekData + ' Sudah Ada'; // console.log(this.cekNorekData);
+
+                  Toast.fire({
+                    icon: 'error',
+                    //title: response.data.message
+                    title: 'No Legalitas ' + response.data.data[0].no_legal + ' Sudah Ada Dalam Data'
+                  });
+
+                  _this.initialize();
+                } //endif response
+
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    norekKeyboard: function norekKeyboard(evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul
+
+      if (charCode > 31 && (charCode < 48 || charCode > 57) && (charCode < 95 || charCode > 105) && charCode !== 46 && charCode !== 75) {
+        //tidak boleh tombol '/' dan '\'
+        //if (charCode === 191 || charCode===220) {
+        evt.preventDefault();
+      } else {
+        this.no_legal = this.no_legal.toUpperCase();
+        return true;
+      }
+    },
+    pencetKeyboard: function pencetKeyboard(evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul
+      //if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+      //tidak boleh tombol '/' dan '\'
+
+      if (charCode === 191 || charCode === 220) {
+        evt.preventDefault();
+      } else {
+        return true;
+      }
+    },
+    formatDate: function formatDate(tanggal) {
+      if (!tanggal) return null;
+
+      var _tanggal$split = tanggal.split('-'),
+          _tanggal$split2 = _slicedToArray(_tanggal$split, 3),
+          year = _tanggal$split2[0],
+          month = _tanggal$split2[1],
+          day = _tanggal$split2[2];
+
+      return "".concat(day, "/").concat(month, "/").concat(year);
+    },
+    parseDate: function parseDate(tanggal) {
+      if (!tanggal) return null;
+
+      var _tanggal$split3 = tanggal.split('/'),
+          _tanggal$split4 = _slicedToArray(_tanggal$split3, 3),
+          day = _tanggal$split4[0],
+          month = _tanggal$split4[1],
+          year = _tanggal$split4[2];
+
+      return "".concat(year, "-").concat(month.padStart(2, '0'), "-").concat(day.padStart(2, '0'));
+    },
+    initialize: function initialize() {
+      var _this2 = this;
+
+      this.$Progress.start();
+
+      if (this.$gate.isAdmin() || this.$gate.isUM() || $gate.isSekdir()) {
+        axios.get("api/legal").then(function (response) {
+          _this2.legal = response.data.data;
+          _this2.kantor_id = _this2.$kantor_id; // this.form.fill
+          // console.log(this.legal);
+          // console.log(this.kantor_id)
+        });
+      }
+
+      this.$Progress.finish();
+    },
+    editModal: function editModal(item) {
+      this.editmode = true;
+      this.$refs.form.reset();
+      $('#addNew').modal('show');
+      this.form.fill(item);
+    },
+    newModal: function newModal() {
+      this.editmode = false;
+      $('#addNew').modal('show');
+      this.$refs.form.reset();
+      this.namafile = '';
+      this.no_legal = '';
+      this.pesaneror = '';
+    },
+    createUser: function createUser() {
+      var _this3 = this;
+
+      this.$refs.form.validate();
+      this.$Progress.start(); // e.preventDefault();
+
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      }; // //this.append('file', this.file);
+
+      var formData = new FormData();
+      formData.set('kantor_id', this.kantor_id);
+      formData.set('no_legal', this.no_legal);
+      formData.set('namafile', this.namafile);
+      formData.set('tanggal', this.tanggal);
+      formData.set('file', this.file); // formData.append('file', this.file);
+      // console.log(this.file);
+
+      axios.post('api/legal', formData, config).then(function (response) {
+        $('#addNew').modal('hide');
+        Toast.fire({
+          icon: 'success',
+          title: response.data.message
+        });
+
+        _this3.$Progress.finish();
+
+        _this3.initialize();
+      })["catch"](function (error) {
+        //Swal.fire("Gagal Upload", "Cek data inputan!", "warning");
+        var errors = error.response.data.errors; // Loop this object and pring Key or value or both
+
+        for (var _i2 = 0, _Object$entries = Object.entries(errors); _i2 < _Object$entries.length; _i2++) {
+          var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
+              key = _Object$entries$_i[0],
+              value = _Object$entries$_i[1];
+
+          // console.log(`${key}: ${value}`);
+          Toast.fire({
+            icon: 'error',
+            title: value //title : "Gagal upload, ulangi..."
+
+          });
+        }
+      });
+    },
+    downloadFile: function downloadFile(id, file) {
+      axios({
+        url: 'api/legal/download/' + id,
+        method: 'GET',
+        responseType: 'blob'
+      }).then(function (response) {
+        var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
+        var fileLink = document.createElement('a');
+        fileLink.href = fileUrl;
+        fileLink.setAttribute('download', 'tabfile.zip');
+        fileLink.download = file;
+        document.body.appendChild(fileLink);
+        fileLink.click();
+      })["catch"](function () {
+        Swal.fire("Gagal Download!", "File tidak ada...", "warning");
+      });
+    },
+    updateUser: function updateUser() {
+      var _this4 = this;
+
+      this.$Progress.start(); // console.log('Editing data');
+
+      this.form.put('api/legal/' + this.form.id).then(function (response) {
+        // success
+        $('#addNew').modal('hide');
+        Toast.fire({
+          icon: 'success',
+          title: response.data.message
+        });
+
+        _this4.$Progress.finish(); //  Fire.$emit('AfterCreate');
+
+
+        _this4.initialize();
+      })["catch"](function () {
+        _this4.$Progress.fail();
+      });
+    },
+    deleteUser: function deleteUser(id) {
+      var _this5 = this;
+
+      Swal.fire({
+        title: 'Yakin dihapus?',
+        text: "Jika dihapus data hilang!",
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Ya, Hapus!'
+      }).then(function (result) {
+        // Send request to the server
+        if (result.value) {
+          _this5.form["delete"]('api/legal/' + id).then(function () {
+            Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
+
+            _this5.initialize();
+          })["catch"](function (data) {
+            Swal.fire("Failed!", data.message, "warning");
+          });
+        }
+      });
+    }
+  }
+});
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Memoumum.vue?vue&type=template&id=1ec2b2ce&":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Memoumum.vue?vue&type=template&id=1ec2b2ce& ***!
-  \****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Legal.vue?vue&type=template&id=46f7be85&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Legal.vue?vue&type=template&id=46f7be85& ***!
+  \*************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -55,8 +679,8 @@ var render = function () {
                             "v-toolbar",
                             {
                               attrs: {
-                                src: "images/banner-biru-akunting.jpg",
-                                color: "rgb(39,154,187)",
+                                src: "images/banner-yellow.jpg",
+                                color: "yellow",
                                 dark: "",
                                 shaped: "",
                               },
@@ -64,7 +688,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    File Memo Umum\n                "
+                                  "\r\n                    File Legalitas\r\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -82,7 +706,7 @@ var render = function () {
                                 },
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
-                                  _vm._v(" Upload File\n                  "),
+                                  _vm._v(" Upload File\r\n                  "),
                                 ],
                                 1
                               ),
@@ -98,7 +722,7 @@ var render = function () {
                                 staticClass: "elevation-3",
                                 attrs: {
                                   headers: _vm.headers,
-                                  items: _vm.memoumum,
+                                  items: _vm.legal,
                                   search: _vm.search,
                                   justify: "center",
                                   dense: "",
@@ -106,58 +730,14 @@ var render = function () {
                                 scopedSlots: _vm._u(
                                   [
                                     {
-                                      key: "footer.prepend",
-                                      fn: function () {
-                                        return [
-                                          _c(
-                                            "v-btn",
-                                            {
-                                              staticClass: "ma-2",
-                                              attrs: {
-                                                color: "success",
-                                                dark: "",
-                                                small: "",
-                                              },
-                                              on: {
-                                                click: function ($event) {
-                                                  return _vm.initialize()
-                                                },
-                                              },
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\n                      Refresh\n                      "
-                                              ),
-                                              _c(
-                                                "v-icon",
-                                                {
-                                                  attrs: {
-                                                    right: "",
-                                                    dark: "",
-                                                  },
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                        mdi-reload\n                      "
-                                                  ),
-                                                ]
-                                              ),
-                                            ],
-                                            1
-                                          ),
-                                        ]
-                                      },
-                                      proxy: true,
-                                    },
-                                    {
                                       key: "item.index",
                                       fn: function (ref) {
                                         var index = ref.index
                                         return [
                                           _vm._v(
-                                            "\n                    " +
+                                            "\r\n                    " +
                                               _vm._s(index + 1) +
-                                              "\n                "
+                                              "\r\n                "
                                           ),
                                         ]
                                       },
@@ -170,131 +750,9 @@ var render = function () {
                                             "v-toolbar",
                                             { attrs: { flat: "" } },
                                             [
-                                              _vm.$gate.isAdmin()
-                                                ? _c(
-                                                    "v-row",
-                                                    [
-                                                      _c(
-                                                        "v-col",
-                                                        {
-                                                          attrs: {
-                                                            cols: "8",
-                                                            sm: "8",
-                                                            md: "8",
-                                                          },
-                                                        },
-                                                        [
-                                                          _c("v-combobox", {
-                                                            ref: "cbkantor",
-                                                            attrs: {
-                                                              label: "Kantor",
-                                                              items:
-                                                                _vm.namaKantor,
-                                                              "item-value":
-                                                                "nama_kantor",
-                                                              "item-text":
-                                                                "nama_kantor",
-                                                              placeholder:
-                                                                "Pilih Kantor",
-                                                              "single-line": "",
-                                                              "hide-details":
-                                                                "",
-                                                              clearable: "",
-                                                              "return-object": false,
-                                                              "persistent-hint":
-                                                                "",
-                                                              "error-messages":
-                                                                _vm.pesaneror,
-                                                            },
-                                                            on: {
-                                                              click: function (
-                                                                $event
-                                                              ) {
-                                                                return _vm.getKantor()
-                                                              },
-                                                              change: function (
-                                                                $event
-                                                              ) {
-                                                                return _vm.filterKantor()
-                                                              },
-                                                            },
-                                                            model: {
-                                                              value:
-                                                                _vm.nama_kantor,
-                                                              callback:
-                                                                function ($$v) {
-                                                                  _vm.nama_kantor =
-                                                                    $$v
-                                                                },
-                                                              expression:
-                                                                "nama_kantor",
-                                                            },
-                                                          }),
-                                                        ],
-                                                        1
-                                                      ),
-                                                    ],
-                                                    1
-                                                  )
-                                                : _vm._e(),
-                                              _vm._v(" "),
                                               _c("v-spacer"),
                                               _vm._v(" "),
                                               _c("v-spacer"),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-row",
-                                                [
-                                                  _c(
-                                                    "v-col",
-                                                    {
-                                                      attrs: {
-                                                        cols: "8",
-                                                        sm: "8",
-                                                        md: "8",
-                                                      },
-                                                    },
-                                                    [
-                                                      _c("v-combobox", {
-                                                        ref: "cbjenis",
-                                                        attrs: {
-                                                          label: "Jenis Memo",
-                                                          items: _vm.items,
-                                                          "item-value": "jenis",
-                                                          "item-text": "jenis",
-                                                          placeholder:
-                                                            "Jenis Memo",
-                                                          "single-line": "",
-                                                          "hide-details": "",
-                                                          clearable: "",
-                                                          "return-object": false,
-                                                          "persistent-hint": "",
-                                                          "error-messages":
-                                                            _vm.pesaneror,
-                                                        },
-                                                        on: {
-                                                          change: function (
-                                                            $event
-                                                          ) {
-                                                            return _vm.filterJenis()
-                                                          },
-                                                        },
-                                                        model: {
-                                                          value: _vm.jenis,
-                                                          callback: function (
-                                                            $$v
-                                                          ) {
-                                                            _vm.jenis = $$v
-                                                          },
-                                                          expression: "jenis",
-                                                        },
-                                                      }),
-                                                    ],
-                                                    1
-                                                  ),
-                                                ],
-                                                1
-                                              ),
                                               _vm._v(" "),
                                               _c("v-spacer"),
                                               _vm._v(" "),
@@ -351,7 +809,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                            mdi-download\n                        "
+                                                    "\r\n                            mdi-download\r\n                        "
                                                   ),
                                                 ]
                                               ),
@@ -383,7 +841,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                    mdi-delete\n                "
+                                                "\r\n                    mdi-delete\r\n                "
                                               ),
                                             ]
                                           ),
@@ -393,7 +851,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  1057431054
+                                  836955976
                                 ),
                               }),
                             ],
@@ -410,7 +868,7 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          (!_vm.$gate.isAdmin() && !_vm.$gate.isUM()) || !_vm.$gate.isSekdir()
+          !_vm.$gate.isAdmin() && !_vm.$gate.isUM() && !_vm.$gate.isSekdir()
             ? _c("div", [_c("not-found")], 1)
             : _vm._e(),
           _vm._v(" "),
@@ -553,74 +1011,6 @@ var render = function () {
                               "div",
                               { staticClass: "form-group input-group" },
                               [
-                                [
-                                  _c(
-                                    "v-container",
-                                    { attrs: { fluid: "" } },
-                                    [
-                                      _c(
-                                        "v-radio-group",
-                                        {
-                                          attrs: {
-                                            mandatory: false,
-                                            row: "",
-                                            "prepend-icon":
-                                              "mdi-format-list-bulleted-type",
-                                          },
-                                          scopedSlots: _vm._u([
-                                            {
-                                              key: "label",
-                                              fn: function () {
-                                                return [
-                                                  _c("div", [
-                                                    _c(
-                                                      "strong",
-                                                      {
-                                                        staticClass:
-                                                          "text-h6 text-bold",
-                                                      },
-                                                      [_vm._v("Jenis Memo :")]
-                                                    ),
-                                                  ]),
-                                                ]
-                                              },
-                                              proxy: true,
-                                            },
-                                          ]),
-                                          model: {
-                                            value: _vm.jenis,
-                                            callback: function ($$v) {
-                                              _vm.jenis = $$v
-                                            },
-                                            expression: "jenis",
-                                          },
-                                        },
-                                        [
-                                          _vm._v(" "),
-                                          _c("v-radio", {
-                                            attrs: {
-                                              label: "Umum",
-                                              value: "umum",
-                                            },
-                                          }),
-                                          _vm._v(" "),
-                                          _c("v-radio", {
-                                            attrs: {
-                                              label: "CSR",
-                                              value: "csr",
-                                            },
-                                          }),
-                                          _vm._v(
-                                            "\n                                    >"
-                                          ),
-                                        ],
-                                        1
-                                      ),
-                                    ],
-                                    1
-                                  ),
-                                ],
-                                _vm._v(" "),
                                 _c(
                                   "v-col",
                                   { attrs: { cols: "12", sm: "12", md: "12" } },
@@ -628,22 +1018,30 @@ var render = function () {
                                     _c("v-text-field", {
                                       attrs: {
                                         rules: _vm.norekRules,
-                                        name: "no_memo",
-                                        label: "Nomor Memo",
-                                        placeholder: "No. Memo",
+                                        name: "no_legal",
+                                        label: "Nomor Legalitas",
+                                        placeholder: "input no. legalitas",
                                         counter: "",
-                                        maxlength: "25",
+                                        maxlength: "100",
                                         outlined: "",
                                         required: "",
                                         dense: "",
                                         "prepend-icon": "mdi-file",
+                                        hint: "",
+                                        "persistent-hint": "",
+                                        "error-messages": _vm.pesaneror,
+                                      },
+                                      on: {
+                                        change: function ($event) {
+                                          return _vm.cekNorek()
+                                        },
                                       },
                                       model: {
-                                        value: _vm.no_memo,
+                                        value: _vm.no_legal,
                                         callback: function ($$v) {
-                                          _vm.no_memo = $$v
+                                          _vm.no_legal = $$v
                                         },
-                                        expression: "no_memo",
+                                        expression: "no_legal",
                                       },
                                     }),
                                     _vm._v(" "),
@@ -659,8 +1057,7 @@ var render = function () {
                                         rules: _vm.nameRules,
                                         name: "namafile",
                                         label: "Nama File",
-                                        placeholder:
-                                          "Nama File: 'nama_nasabah'",
+                                        placeholder: "input nama legalitas",
                                         outlined: "",
                                         required: "",
                                         dense: "",
@@ -726,14 +1123,12 @@ var render = function () {
                                                               _vm._b(
                                                                 {
                                                                   attrs: {
-                                                                    value:
-                                                                      _vm.periodeMomentJS,
                                                                     rules:
                                                                       _vm.tanggalRules,
                                                                     label:
-                                                                      "Tanggal Memo",
+                                                                      "Tanggal File",
                                                                     placeholder:
-                                                                      "Pilih Tanggal",
+                                                                      "Tanggal Legalitas",
                                                                     "prepend-icon":
                                                                       "mdi-calendar",
                                                                     outlined:
@@ -741,25 +1136,16 @@ var render = function () {
                                                                     required:
                                                                       "",
                                                                     dense: "",
-                                                                    clearable:
-                                                                      "",
-                                                                    readonly:
-                                                                      "",
                                                                   },
                                                                   on: {
                                                                     blur: function (
                                                                       $event
                                                                     ) {
                                                                       _vm.tanggal =
-                                                                        _vm.periodeMomentJS
+                                                                        _vm.parseDate(
+                                                                          _vm.dateFormatted
+                                                                        )
                                                                     },
-                                                                    "click:clear":
-                                                                      function (
-                                                                        $event
-                                                                      ) {
-                                                                        _vm.tanggal =
-                                                                          null
-                                                                      },
                                                                   },
                                                                   model: {
                                                                     value:
@@ -800,11 +1186,7 @@ var render = function () {
                                                     attrs: {
                                                       elevation: "15",
                                                       "year-icon":
-                                                        "mdi-calendar-blank",
-                                                      "prev-icon":
-                                                        "mdi-skip-previous",
-                                                      "next-icon":
-                                                        "mdi-skip-next",
+                                                        "calendar-blank",
                                                       locale: "id-ID",
                                                     },
                                                     on: {
@@ -874,9 +1256,9 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\n                                    " +
+                                                          "\r\n                                    " +
                                                             _vm._s(text) +
-                                                            "\n                                "
+                                                            "\r\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -889,12 +1271,12 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\n                                    +" +
+                                                          "\r\n                                    +" +
                                                             _vm._s(
                                                               _vm.files.length -
                                                                 2
                                                             ) +
-                                                            " File(s)\n                                "
+                                                            " File(s)\r\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -920,7 +1302,7 @@ var render = function () {
                                   2
                                 ),
                               ],
-                              2
+                              1
                             ),
                           ]),
                           _vm._v(" "),
@@ -941,7 +1323,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-cancel")]),
                                   _vm._v(
-                                    "\n                            Batal\n                        "
+                                    "\r\n                            Batal\r\n                        "
                                   ),
                                 ],
                                 1
@@ -967,7 +1349,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-pencil")]),
                                   _vm._v(
-                                    "\n                            Ubah\n                        "
+                                    "\r\n                            Ubah\r\n                        "
                                   ),
                                 ],
                                 1
@@ -993,7 +1375,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
                                   _vm._v(
-                                    "\n                            Upload\n                        "
+                                    "\r\n                            Upload\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1024,19 +1406,18 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/umum/Memoumum.vue":
-/*!***************************************************!*\
-  !*** ./resources/js/components/umum/Memoumum.vue ***!
-  \***************************************************/
-/*! no static exports found */
+/***/ "./resources/js/components/umum/Legal.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/umum/Legal.vue ***!
+  \************************************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Memoumum_vue_vue_type_template_id_1ec2b2ce___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Memoumum.vue?vue&type=template&id=1ec2b2ce& */ "./resources/js/components/umum/Memoumum.vue?vue&type=template&id=1ec2b2ce&");
-/* harmony import */ var _Memoumum_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Memoumum.vue?vue&type=script&lang=js& */ "./resources/js/components/umum/Memoumum.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Memoumum_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Memoumum_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _Legal_vue_vue_type_template_id_46f7be85___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Legal.vue?vue&type=template&id=46f7be85& */ "./resources/js/components/umum/Legal.vue?vue&type=template&id=46f7be85&");
+/* harmony import */ var _Legal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Legal.vue?vue&type=script&lang=js& */ "./resources/js/components/umum/Legal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -1045,9 +1426,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Memoumum_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Memoumum_vue_vue_type_template_id_1ec2b2ce___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Memoumum_vue_vue_type_template_id_1ec2b2ce___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Legal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Legal_vue_vue_type_template_id_46f7be85___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Legal_vue_vue_type_template_id_46f7be85___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1057,40 +1438,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/umum/Memoumum.vue"
+component.options.__file = "resources/js/components/umum/Legal.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/umum/Memoumum.vue?vue&type=script&lang=js&":
-/*!****************************************************************************!*\
-  !*** ./resources/js/components/umum/Memoumum.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************/
-/*! no static exports found */
+/***/ "./resources/js/components/umum/Legal.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/umum/Legal.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoumum_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Memoumum.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Memoumum.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoumum_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoumum_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoumum_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoumum_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoumum_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Legal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Legal.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Legal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Legal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/umum/Memoumum.vue?vue&type=template&id=1ec2b2ce&":
-/*!**********************************************************************************!*\
-  !*** ./resources/js/components/umum/Memoumum.vue?vue&type=template&id=1ec2b2ce& ***!
-  \**********************************************************************************/
+/***/ "./resources/js/components/umum/Legal.vue?vue&type=template&id=46f7be85&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/umum/Legal.vue?vue&type=template&id=46f7be85& ***!
+  \*******************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoumum_vue_vue_type_template_id_1ec2b2ce___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Memoumum.vue?vue&type=template&id=1ec2b2ce& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Memoumum.vue?vue&type=template&id=1ec2b2ce&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoumum_vue_vue_type_template_id_1ec2b2ce___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Legal_vue_vue_type_template_id_46f7be85___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Legal.vue?vue&type=template&id=46f7be85& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Legal.vue?vue&type=template&id=46f7be85&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Legal_vue_vue_type_template_id_46f7be85___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoumum_vue_vue_type_template_id_1ec2b2ce___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Legal_vue_vue_type_template_id_46f7be85___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

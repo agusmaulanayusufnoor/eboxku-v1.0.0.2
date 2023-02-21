@@ -405,7 +405,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       file: null,
       id: '',
       nama_kantor: '',
-      namaKantor: '',
+      namaKantor: [],
       kantor_id: '',
       jenis: '',
       items: ['tabungan', 'deposito', 'giro'],

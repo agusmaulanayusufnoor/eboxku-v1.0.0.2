@@ -1,36 +1,14 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[24],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Kantor.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Kantor.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Jabatan.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Jabatan.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -232,7 +210,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      // props: ["nama_kantor"],
+      // props: ["jabatan_pegawai"],
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       editmode: false,
       dialog: false,
@@ -245,26 +223,21 @@ __webpack_require__.r(__webpack_exports__);
       max100chars: function max100chars(v) {
         return v.length <= 100 || 'Input too long!';
       },
-      kantor: [],
+      jabatan: [],
       editedIndex: -1,
       editedItem: {
         id: '',
-        nama_kantor: '',
-        nama_kantorEdit: '',
-        kantorRules: [function (v) {
-          return !!v || 'Nama kantor belum diisi';
-        }],
-        kodeRules: [function (v) {
-          return !!v || 'kode kantor belum diisi';
+        jabatan_pegawai: '',
+        jabatan_pegawaiEdit: '',
+        jabatanRules: [function (v) {
+          return !!v || 'Nama jabatan belum diisi';
         }]
       },
       valid: true,
       kantor_id: '',
       form: new Form({
         id: '',
-        kode_kantor: '',
-        kode_kantor_slik: '',
-        nama_kantor: ''
+        jabatan_pegawai: ''
       })
     };
   },
@@ -276,11 +249,8 @@ __webpack_require__.r(__webpack_exports__);
         align: 'center',
         sortable: false
       }, {
-        text: 'kode kantor',
-        value: 'kode_kantor'
-      }, {
-        text: 'kantor',
-        value: 'nama_kantor'
+        text: 'jabatan',
+        value: 'jabatan_pegawai'
       }];
 
       if (this.$gate.isAdmin()) {
@@ -319,7 +289,7 @@ __webpack_require__.r(__webpack_exports__);
       this.snackColor = 'info';
       this.snackText = 'Enter = Simpan';
       this.editedItem.id = item.id;
-      this.editedItem.nama_kantor = item.nama_kantor; //console.log(this.item.nama_kantor);
+      this.editedItem.jabatan_pegawai = item.jabatan_pegawai; //console.log(this.item.jabatan_pegawai);
       //alert(this.item.id)
     },
     close: function close() {
@@ -345,27 +315,27 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.$gate.isAdmin()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/kantor").then(function (response) {
-          _this.kantor = response.data.data; // this.kantor_id = this.$kantor_id;
+        axios.get("api/jabatan").then(function (response) {
+          _this.jabatan = response.data.data; // this.kantor_id = this.$kantor_id;
           // this.form.fill
-          //console.log(this.kantor);
+          //console.log(this.jabatan);
           //console.log(this.kantor_id)
         });
       }
 
       this.$Progress.finish();
     },
-    editkantor: function editkantor(item) {
-      this.editedIndex = this.kantor.indexOf(item);
+    editjabatan: function editjabatan(item) {
+      this.editedIndex = this.jabatan.indexOf(item);
       this.item.id = item.id;
-      this.item.nama_kantor = item.nama_kantor;
+      this.item.jabatan_pegawai = item.jabatan_pegawai;
       console.log(this.item.id); //alert(this.item.id)
     },
     newModal: function newModal() {
       this.editmode = false;
       $('#addNew').modal('show');
       this.$refs.form.reset();
-      this.editedItem.nama_kantor = '';
+      this.editedItem.jabatan_pegawai = '';
     },
     createUser: function createUser() {
       var _this2 = this;
@@ -380,11 +350,9 @@ __webpack_require__.r(__webpack_exports__);
       }; // //this.append('file', this.file);
 
       var formData = new FormData();
-      formData.set('kode_kantor', this.editedItem.kode_kantor);
-      formData.set('kode_kantor_slik', this.editedItem.kode_kantor_slik);
-      formData.set('nama_kantor', this.editedItem.nama_kantor);
-      axios.post('api/kantor', formData, config).then(function (response) {
-        $('#addNew').modal('hide'); //  console.log(this.nama_kantor);
+      formData.set('jabatan_pegawai', this.editedItem.jabatan_pegawai);
+      axios.post('api/jabatan', formData, config).then(function (response) {
+        $('#addNew').modal('hide'); //  console.log(this.jabatan_pegawai);
 
         Toast.fire({
           icon: 'success',
@@ -398,7 +366,7 @@ __webpack_require__.r(__webpack_exports__);
         //Swal.fire("Failed!", data.message, "warning");
         Toast.fire({
           icon: 'error',
-          title: 'Gagal tambah kantor, ulangi!' //title: response.message
+          title: 'Gagal tambah jabatan, ulangi!' //title: response.message
 
         });
       });
@@ -414,12 +382,12 @@ __webpack_require__.r(__webpack_exports__);
         } // headers: {'X-Custom-Header': 'value'}
 
       };
-      this.$Progress.start(); //alert(this.editedItem.nama_kantor);
+      this.$Progress.start(); //alert(this.editedItem.jabatan_pegawai);
 
       var formData = new FormData();
-      formData.set('nama_kantor', this.editedItem.nama_kantor);
+      formData.set('jabatan_pegawai', this.editedItem.jabatan_pegawai);
       formData.append("_method", "PUT");
-      axios.post('api/kantor/' + this.editedItem.id, formData).then(function (response) {
+      axios.post('api/jabatan/' + this.editedItem.id, formData).then(function (response) {
         // success
         $('#addNew').modal('hide');
         Toast.fire({
@@ -448,7 +416,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this4.form["delete"]('api/kantor/' + id).then(function () {
+          _this4.form["delete"]('api/jabatan/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
             _this4.initialize();
@@ -463,10 +431,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Kantor.vue?vue&type=template&id=74081949&":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Kantor.vue?vue&type=template&id=74081949& ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Jabatan.vue?vue&type=template&id=83e6745e&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Jabatan.vue?vue&type=template&id=83e6745e& ***!
+  \******************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -513,7 +481,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\r\n                    Master Kantor\r\n                "
+                                  "\r\n                    Master Jabatan\r\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -547,7 +515,7 @@ var render = function () {
                                 staticClass: "elevation-3",
                                 attrs: {
                                   headers: _vm.headers,
-                                  items: _vm.kantor,
+                                  items: _vm.jabatan,
                                   search: _vm.search,
                                   justify: "center",
                                   dense: "",
@@ -586,7 +554,7 @@ var render = function () {
                                               _c("v-text-field", {
                                                 attrs: {
                                                   "append-icon": "mdi-magnify",
-                                                  label: "Cari kantor",
+                                                  label: "Cari Jabatan",
                                                   "single-line": "",
                                                   "hide-details": "",
                                                   loading: "grey",
@@ -636,7 +604,7 @@ var render = function () {
                                       },
                                     },
                                     {
-                                      key: "item.nama_kantor",
+                                      key: "item.jabatan_pegawai",
                                       fn: function (ref) {
                                         var item = ref.item
                                         return [
@@ -665,7 +633,7 @@ var render = function () {
                                                           },
                                                           [
                                                             _vm._v(
-                                                              "\r\n                            Edit kantor\r\n                            "
+                                                              "\r\n                            Edit Jabatan\r\n                            "
                                                             ),
                                                           ]
                                                         ),
@@ -682,18 +650,18 @@ var render = function () {
                                                           model: {
                                                             value:
                                                               _vm.editedItem
-                                                                .nama_kantor,
+                                                                .jabatan_pegawai,
                                                             callback: function (
                                                               $$v
                                                             ) {
                                                               _vm.$set(
                                                                 _vm.editedItem,
-                                                                "nama_kantor",
+                                                                "jabatan_pegawai",
                                                                 $$v
                                                               )
                                                             },
                                                             expression:
-                                                              "editedItem.nama_kantor",
+                                                              "editedItem.jabatan_pegawai",
                                                           },
                                                         }),
                                                       ]
@@ -708,7 +676,7 @@ var render = function () {
                                             [
                                               _vm._v(
                                                 "\r\n                        " +
-                                                  _vm._s(item.nama_kantor) +
+                                                  _vm._s(item.jabatan_pegawai) +
                                                   "\r\n                        "
                                               ),
                                             ]
@@ -719,7 +687,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  3225387762
+                                  1662429123
                                 ),
                               }),
                             ],
@@ -840,7 +808,7 @@ var render = function () {
                             ],
                             staticClass: "modal-title",
                           },
-                          [_vm._v("Tambah kantor")]
+                          [_vm._v("Tambah Jabatan")]
                         ),
                         _vm._v(" "),
                         _c(
@@ -929,75 +897,26 @@ var render = function () {
                                   [
                                     _c("v-text-field", {
                                       attrs: {
-                                        rules: _vm.editedItem.kodeRules,
-                                        label: "Kode Kantor Slik",
-                                        name: "kode_kantor",
+                                        rules: _vm.editedItem.jabatanRules,
+                                        label: "Jabatan Pegawai",
+                                        name: "jabatan_pegawai",
                                         placeholder: "input",
                                         outlined: "",
                                         required: "",
                                         dense: "",
-                                        "prepend-icon": "mdi-barcode",
+                                        "prepend-icon": "mdi-account-plus",
                                       },
                                       model: {
-                                        value: _vm.editedItem.kode_kantor,
+                                        value: _vm.editedItem.jabatan_pegawai,
                                         callback: function ($$v) {
                                           _vm.$set(
                                             _vm.editedItem,
-                                            "kode_kantor",
-                                            $$v
-                                          )
-                                        },
-                                        expression: "editedItem.kode_kantor",
-                                      },
-                                    }),
-                                    _vm._v(" "),
-                                    _c("v-text-field", {
-                                      attrs: {
-                                        rules: _vm.editedItem.kodeRules,
-                                        label: "Kode Kantor Slik",
-                                        name: "kode_kantor_slik",
-                                        placeholder: "input",
-                                        outlined: "",
-                                        required: "",
-                                        dense: "",
-                                        "prepend-icon": "mdi-barcode",
-                                      },
-                                      model: {
-                                        value: _vm.editedItem.kode_kantor_slik,
-                                        callback: function ($$v) {
-                                          _vm.$set(
-                                            _vm.editedItem,
-                                            "kode_kantor_slik",
+                                            "jabatan_pegawai",
                                             $$v
                                           )
                                         },
                                         expression:
-                                          "editedItem.kode_kantor_slik",
-                                      },
-                                    }),
-                                    _vm._v(" "),
-                                    _c("v-text-field", {
-                                      attrs: {
-                                        rules: _vm.editedItem.kantorRules,
-                                        label: "Nama kantor",
-                                        name: "nama_kantor",
-                                        placeholder: "input",
-                                        outlined: "",
-                                        required: "",
-                                        dense: "",
-                                        "prepend-icon":
-                                          "mdi-office-building-cog",
-                                      },
-                                      model: {
-                                        value: _vm.editedItem.nama_kantor,
-                                        callback: function ($$v) {
-                                          _vm.$set(
-                                            _vm.editedItem,
-                                            "nama_kantor",
-                                            $$v
-                                          )
-                                        },
-                                        expression: "editedItem.nama_kantor",
+                                          "editedItem.jabatan_pegawai",
                                       },
                                     }),
                                   ],
@@ -1108,17 +1027,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/setting/Kantor.vue":
-/*!****************************************************!*\
-  !*** ./resources/js/components/setting/Kantor.vue ***!
-  \****************************************************/
+/***/ "./resources/js/components/setting/Jabatan.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/setting/Jabatan.vue ***!
+  \*****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Kantor_vue_vue_type_template_id_74081949___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Kantor.vue?vue&type=template&id=74081949& */ "./resources/js/components/setting/Kantor.vue?vue&type=template&id=74081949&");
-/* harmony import */ var _Kantor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Kantor.vue?vue&type=script&lang=js& */ "./resources/js/components/setting/Kantor.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Jabatan_vue_vue_type_template_id_83e6745e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Jabatan.vue?vue&type=template&id=83e6745e& */ "./resources/js/components/setting/Jabatan.vue?vue&type=template&id=83e6745e&");
+/* harmony import */ var _Jabatan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Jabatan.vue?vue&type=script&lang=js& */ "./resources/js/components/setting/Jabatan.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1128,9 +1047,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Kantor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Kantor_vue_vue_type_template_id_74081949___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Kantor_vue_vue_type_template_id_74081949___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Jabatan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Jabatan_vue_vue_type_template_id_83e6745e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Jabatan_vue_vue_type_template_id_83e6745e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1140,38 +1059,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/setting/Kantor.vue"
+component.options.__file = "resources/js/components/setting/Jabatan.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/setting/Kantor.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************!*\
-  !*** ./resources/js/components/setting/Kantor.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************/
+/***/ "./resources/js/components/setting/Jabatan.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/setting/Jabatan.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Kantor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Kantor.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Kantor.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Kantor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Jabatan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Jabatan.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Jabatan.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Jabatan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/setting/Kantor.vue?vue&type=template&id=74081949&":
-/*!***********************************************************************************!*\
-  !*** ./resources/js/components/setting/Kantor.vue?vue&type=template&id=74081949& ***!
-  \***********************************************************************************/
+/***/ "./resources/js/components/setting/Jabatan.vue?vue&type=template&id=83e6745e&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/setting/Jabatan.vue?vue&type=template&id=83e6745e& ***!
+  \************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Kantor_vue_vue_type_template_id_74081949___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Kantor.vue?vue&type=template&id=74081949& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Kantor.vue?vue&type=template&id=74081949&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Kantor_vue_vue_type_template_id_74081949___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Jabatan_vue_vue_type_template_id_83e6745e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Jabatan.vue?vue&type=template&id=83e6745e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Jabatan.vue?vue&type=template&id=83e6745e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Jabatan_vue_vue_type_template_id_83e6745e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Kantor_vue_vue_type_template_id_74081949___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Jabatan_vue_vue_type_template_id_83e6745e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -368,7 +368,7 @@ import moment from 'moment';
         file: null,
         id : '',
         nama_kantor : '',
-        namaKantor :'',
+        namaKantor :[],
         kantor_id: '',
         jenis:'',
         items : ['tabungan','deposito','giro',],

@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[21],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Suratmasuk.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/sekdir/Suratmasuk.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Suratkeluar.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/sekdir/Suratkeluar.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -297,7 +297,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       dialog: false,
       dialogDelete: false,
       search: '',
-      suratmasuk: [],
+      suratkeluar: [],
       valid: true,
       file: null,
       id: '',
@@ -413,10 +413,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 formData = new FormData();
-                formData.set('no_surat', _this.no_surat); //const response = await axios.get('api/suratmasuk/ceknama')
+                formData.set('no_surat', _this.no_surat); //const response = await axios.get('api/suratkeluar/ceknama')
 
                 _context.next = 5;
-                return axios.post('api/suratmasuk/ceknorek', formData);
+                return axios.post('api/suratkeluar/ceknorek', formData);
 
               case 5:
                 response = _context.sent;
@@ -424,7 +424,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 //this.cekNorekData = response.data.data[0].no_surat;
                 if (response.data.message == 'adarek') {
                   _this.cekNorekData = response.data.data[0].no_surat;
-                  _this.pesaneror = 'No suratmasuk ' + _this.cekNorekData + ' Sudah Ada'; // console.log(this.cekNorekData);
+                  _this.pesaneror = 'No suratkeluar ' + _this.cekNorekData + ' Sudah Ada'; // console.log(this.cekNorekData);
 
                   Toast.fire({
                     icon: 'error',
@@ -497,10 +497,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.$Progress.start();
 
       if (this.$gate.isAdmin() || this.$gate.isSekdir()) {
-        axios.get("api/suratmasuk").then(function (response) {
-          _this2.suratmasuk = response.data.data;
+        axios.get("api/suratkeluar").then(function (response) {
+          _this2.suratkeluar = response.data.data;
           _this2.kantor_id = _this2.$kantor_id; // this.form.fill
-          // console.log(this.suratmasuk);
+          // console.log(this.suratkeluar);
           // console.log(this.kantor_id)
         });
       }
@@ -541,7 +541,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       formData.set('file', this.file); // formData.append('file', this.file);
       // console.log(this.file);
 
-      axios.post('api/suratmasuk', formData, config).then(function (response) {
+      axios.post('api/suratkeluar', formData, config).then(function (response) {
         $('#addNew').modal('hide');
         Toast.fire({
           icon: 'success',
@@ -571,7 +571,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     downloadFile: function downloadFile(id, file) {
       axios({
-        url: 'api/suratmasuk/download/' + id,
+        url: 'api/suratkeluar/download/' + id,
         method: 'GET',
         responseType: 'blob'
       }).then(function (response) {
@@ -591,7 +591,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.$Progress.start(); // console.log('Editing data');
 
-      this.form.put('api/suratmasuk/' + this.form.id).then(function (response) {
+      this.form.put('api/suratkeluar/' + this.form.id).then(function (response) {
         // success
         $('#addNew').modal('hide');
         Toast.fire({
@@ -620,7 +620,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this5.form["delete"]('api/suratmasuk/' + id).then(function () {
+          _this5.form["delete"]('api/suratkeluar/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
             _this5.initialize();
@@ -635,10 +635,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Suratmasuk.vue?vue&type=template&id=1db995d2&":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/sekdir/Suratmasuk.vue?vue&type=template&id=1db995d2& ***!
-  \********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Suratkeluar.vue?vue&type=template&id=1d5cd787&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/sekdir/Suratkeluar.vue?vue&type=template&id=1d5cd787& ***!
+  \*********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -687,7 +687,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    File Surat Masuk\n                "
+                                  "\n                    File Surat Keluar\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -721,7 +721,7 @@ var render = function () {
                                 staticClass: "elevation-3",
                                 attrs: {
                                   headers: _vm.headers,
-                                  items: _vm.suratmasuk,
+                                  items: _vm.suratkeluar,
                                   search: _vm.search,
                                   justify: "center",
                                   dense: "",
@@ -1056,7 +1056,7 @@ var render = function () {
                                         rules: _vm.nameRules,
                                         name: "namafile",
                                         label: "Nama Surat",
-                                        placeholder: "input surat masuk",
+                                        placeholder: "input surat keluar",
                                         outlined: "",
                                         required: "",
                                         dense: "",
@@ -1127,7 +1127,7 @@ var render = function () {
                                                                     label:
                                                                       "Tanggal File",
                                                                     placeholder:
-                                                                      "Tanggal Surat Masuk",
+                                                                      "Tanggal Surat Keluar",
                                                                     "prepend-icon":
                                                                       "mdi-calendar",
                                                                     outlined:
@@ -1405,17 +1405,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/sekdir/Suratmasuk.vue":
-/*!*******************************************************!*\
-  !*** ./resources/js/components/sekdir/Suratmasuk.vue ***!
-  \*******************************************************/
+/***/ "./resources/js/components/sekdir/Suratkeluar.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/sekdir/Suratkeluar.vue ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Suratmasuk_vue_vue_type_template_id_1db995d2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Suratmasuk.vue?vue&type=template&id=1db995d2& */ "./resources/js/components/sekdir/Suratmasuk.vue?vue&type=template&id=1db995d2&");
-/* harmony import */ var _Suratmasuk_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Suratmasuk.vue?vue&type=script&lang=js& */ "./resources/js/components/sekdir/Suratmasuk.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Suratkeluar_vue_vue_type_template_id_1d5cd787___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Suratkeluar.vue?vue&type=template&id=1d5cd787& */ "./resources/js/components/sekdir/Suratkeluar.vue?vue&type=template&id=1d5cd787&");
+/* harmony import */ var _Suratkeluar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Suratkeluar.vue?vue&type=script&lang=js& */ "./resources/js/components/sekdir/Suratkeluar.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1425,9 +1425,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Suratmasuk_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Suratmasuk_vue_vue_type_template_id_1db995d2___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Suratmasuk_vue_vue_type_template_id_1db995d2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Suratkeluar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Suratkeluar_vue_vue_type_template_id_1d5cd787___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Suratkeluar_vue_vue_type_template_id_1d5cd787___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1437,38 +1437,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/sekdir/Suratmasuk.vue"
+component.options.__file = "resources/js/components/sekdir/Suratkeluar.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/sekdir/Suratmasuk.vue?vue&type=script&lang=js&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/sekdir/Suratmasuk.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************/
+/***/ "./resources/js/components/sekdir/Suratkeluar.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/sekdir/Suratkeluar.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Suratmasuk_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Suratmasuk.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Suratmasuk.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Suratmasuk_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Suratkeluar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Suratkeluar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Suratkeluar.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Suratkeluar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/sekdir/Suratmasuk.vue?vue&type=template&id=1db995d2&":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/components/sekdir/Suratmasuk.vue?vue&type=template&id=1db995d2& ***!
-  \**************************************************************************************/
+/***/ "./resources/js/components/sekdir/Suratkeluar.vue?vue&type=template&id=1d5cd787&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/sekdir/Suratkeluar.vue?vue&type=template&id=1d5cd787& ***!
+  \***************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Suratmasuk_vue_vue_type_template_id_1db995d2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Suratmasuk.vue?vue&type=template&id=1db995d2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Suratmasuk.vue?vue&type=template&id=1db995d2&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Suratmasuk_vue_vue_type_template_id_1db995d2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Suratkeluar_vue_vue_type_template_id_1d5cd787___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Suratkeluar.vue?vue&type=template&id=1d5cd787& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Suratkeluar.vue?vue&type=template&id=1d5cd787&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Suratkeluar_vue_vue_type_template_id_1d5cd787___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Suratmasuk_vue_vue_type_template_id_1db995d2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Suratkeluar_vue_vue_type_template_id_1d5cd787___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
