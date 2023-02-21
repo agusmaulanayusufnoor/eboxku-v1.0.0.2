@@ -1267,9 +1267,9 @@ var render = function () {
                                                                     rules:
                                                                       _vm.tanggalRules,
                                                                     label:
-                                                                      "Tanggal Pelunasan Kredit",
+                                                                      "Tanggal File",
                                                                     placeholder:
-                                                                      "Tanggal Pelunasan",
+                                                                      "Tanggal File",
                                                                     "prepend-icon":
                                                                       "mdi-calendar",
                                                                     outlined:
