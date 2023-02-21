@@ -480,6 +480,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }
 
       this.$Progress.finish();
+      this.$refs.cbkantor.reset();
     },
     editModal: function editModal(item) {
       this.editmode = true;

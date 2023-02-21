@@ -431,6 +431,7 @@ import moment from 'moment';
             }
 
            this.$Progress.finish();
+           this.$refs.cbkantor.reset();
       },
      editModal(item){
                 this.editmode = true;

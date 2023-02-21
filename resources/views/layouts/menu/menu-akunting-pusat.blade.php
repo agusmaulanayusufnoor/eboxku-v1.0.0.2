@@ -21,6 +21,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <router-link to="/memoob" class="nav-link">
+                <i class="fas fa-clipboard-list nav-icon"></i>
+                <p>Memo OB</p>
+              </a>
+        </li>
+        <li class="nav-item">
             <router-link to="/lapkap" class="nav-link">
                 <i class="fa fa-chart-column nav-icon"></i>
                 <p>Lap. KAP</p>

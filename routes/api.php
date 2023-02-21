@@ -71,6 +71,9 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('rekkoranaba/filterjenis', 'RekkoranabaController@filterjenis');
     Route::get('memoumum/download/{memoumum}', 'MemoumumController@downloadfile');
     Route::get('memoumum/filterjenis', 'MemoumumController@filterjenis');
+    Route::get('memoob/download/{memoob}', 'MemoobController@downloadfile');
+    Route::get('memoob/filterkantor', 'MemoobController@filterkantor');
+    Route::get('memoob/getkantor', 'Kode_kantorController@index');
     Route::get('skdir/download/{skdir}', 'SkdirController@downloadfile');
     Route::post('skdir/ceknorek', 'SkdirController@ceknorek');
     Route::get('sedir/download/{sedir}', 'SedirController@downloadfile');
@@ -184,6 +187,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         //akuntingpusat
         'jtakuntingpusat'   => 'JtakuntingpusatController',
         'jtpelayananpusat'  => 'JtpelayananpusatController',
+        'memoob'            => 'MemoobController',
         'lapkap'            => 'LapkapController',
         'lapkeu'            => 'LapkeuController',
 

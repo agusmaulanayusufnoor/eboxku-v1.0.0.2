@@ -3,7 +3,7 @@
     <v-container fluid>
         <v-row no-gutters class="justify-content-md-center">
           <v-col cols="11">
-            <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isPelayanan()">
+            <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isAK()">
               <v-toolbar src="images/banner-biru-pelayanan.jpg"
               color="rgb(39,154,187)" dark shaped>
                 <v-toolbar-title>
@@ -98,7 +98,7 @@
           </v-col>
         </v-row>
 
-        <div v-if="!$gate.isAdmin() && !$gate.isPelayanan()">
+        <div v-if="!$gate.isAdmin() && !$gate.isAK()">
             <not-found></not-found>
         </div>
 
@@ -371,7 +371,7 @@
 
     methods: {
         async cekTgl (){
-            if(this.$gate.isAdmin() || this.$gate.isPelayanan() ){
+            if(this.$gate.isAdmin() || this.$gate.isAK() ){
                 const formData = new FormData
                 formData.set('kantor_id', this.kantor_id)
                 formData.set('tanggal', this.tanggal)
@@ -421,7 +421,7 @@
       initialize() {
          this.$Progress.start();
 
-            if(this.$gate.isAdmin() || this.$gate.isPelayanan() ){
+            if(this.$gate.isAdmin() || this.$gate.isAK() ){
 
                //axios.get("api/user").then((response) => {(this.users = response.data.data)});
              axios.get("api/jtpelayananpusat")

@@ -414,7 +414,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!(_this.$gate.isAdmin() || _this.$gate.isPelayanan())) {
+                if (!(_this.$gate.isAdmin() || _this.$gate.isAK())) {
                   _context.next = 8;
                   break;
                 }
@@ -492,7 +492,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.$Progress.start();
 
-      if (this.$gate.isAdmin() || this.$gate.isPelayanan()) {
+      if (this.$gate.isAdmin() || this.$gate.isAK()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
         axios.get("api/jtakuntingpusat").then(function (response) {
           _this2.jtakuntingpusat = response.data.data;
@@ -667,7 +667,7 @@ var render = function () {
                 "v-col",
                 { attrs: { cols: "11" } },
                 [
-                  _vm.$gate.isAdmin() || _vm.$gate.isPelayanan()
+                  _vm.$gate.isAdmin() || _vm.$gate.isAK()
                     ? _c(
                         "v-card",
                         { staticClass: "pa-2 mx-auto" },
@@ -909,7 +909,7 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          !_vm.$gate.isAdmin() && !_vm.$gate.isPelayanan()
+          !_vm.$gate.isAdmin() && !_vm.$gate.isAK()
             ? _c("div", [_c("not-found")], 1)
             : _vm._e(),
           _vm._v(" "),

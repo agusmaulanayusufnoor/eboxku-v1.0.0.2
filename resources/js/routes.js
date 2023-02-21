@@ -82,6 +82,7 @@ export default [
     { path: '/stockpromosi', component: () => import(/* webpackPrefetch: true */'./components/akunting/Stockpromosi.vue') },
     { path: '/jtakuntingpusat', component: () => import(/* webpackPrefetch: true */'./components/akunting/Jtakuntingpusat.vue') },
     { path: '/jtpelayananpusat', component: () => import(/* webpackPrefetch: true */'./components/akunting/Jtpelayananpusat.vue') },
+    { path: '/memoob', component: () => import(/* webpackPrefetch: true */'./components/akunting/Memoob.vue') },
 
     { path: '/memoumum', component: () => import(/* webpackPrefetch: true */'./components/umum/Memoumum.vue') },
     { path: '/skdir', component: () => import(/* webpackPrefetch: true */'./components/umum/Skdir.vue') },
