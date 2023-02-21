@@ -28,7 +28,7 @@
         <li class="nav-item">
             <router-link to="/asuransikredit" class="nav-link">
                 <i class="fas fa-hand-holding-usd nav-icon"></i>
-                <p>File Asuransi</p>
+                <p>File Asuransi Kredit</p>
               </a>
         </li>
     </ul>

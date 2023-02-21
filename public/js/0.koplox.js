@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[0],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Memoob.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/akunting/Memoob.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Lps.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Lps.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -264,73 +264,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data(vm) {
     return {
@@ -339,27 +272,35 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       dialog: false,
       dialogDelete: false,
       search: '',
-      memoob: [],
+      //   headers: [
+      //     {
+      //     text: 'No',
+      //     value: 'index',
+      //     },
+      //     { text: 'Kantor', value: 'nama_kantor',align: 'start', },
+      //     {
+      //       text: 'Nama File',
+      //       value: 'namafile',
+      //     },
+      //     { text: 'Tanggal File', value: 'tanggal' },
+      //     { text: 'Download File', value: 'file', sortable: false,align: 'center'  },
+      //     { text: 'Hapus', value: 'actions', sortable: false },
+      //   ],
+      lps: [],
       valid: true,
       file: null,
       id: '',
       kantor_id: '',
-      namaKantor: [],
-      norekRules: [function (v) {
-        return !!v || 'No Rekening Belum Diisi';
-      }],
-      cekNorekData: [],
-      pesaneror: [],
       namafile: '',
       nameRules: [function (v) {
-        return !!v || 'Nama File Belum Diisi';
+        return !!v || 'Nama file belum diisi';
       }],
       menu1: false,
       menu2: false,
       dateFormatted: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
       tanggal: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       tanggalRules: [function (v) {
-        return !!v || 'Tanggal memoob belum diisi';
+        return !!v || 'Tanggal file belum diisi';
       }],
       fileRules: [function (v) {
         return !!v || 'File belum dimasukan';
@@ -382,15 +323,15 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         align: 'center',
         sortable: false
       }, {
-        text: 'Tanggal File',
-        value: 'tanggal'
-      }, {
         text: 'Kantor',
         value: 'nama_kantor',
         align: 'start'
       }, {
         text: 'Nama File',
         value: 'namafile'
+      }, {
+        text: 'Tanggal File',
+        value: 'tanggal'
       }];
       headers.push({
         text: 'Download File',
@@ -431,25 +372,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   //     console.log(this.$kantor_id)
   //   },
   created: function created() {
-    this.$Progress.start(); //console.log(this.kantor_id)
-
+    this.$Progress.start();
+    console.log(this.kantor_id);
     this.initialize();
     this.$Progress.finish();
   },
   methods: {
-    getKantor: function getKantor() {
-      var _this = this;
-
-      if (this.$gate.isAdmin() || this.$gate.isAK()) {
-        //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/memoob/getkantor").then(function (response) {
-          _this.namaKantor = response.data.data; //console.log(this.editedItem.namaKantor);
-          //console.log(this.kantor_id)
-        })["catch"](function (error) {
-          console.log(error.response.data);
-        });
-      }
-    },
     pencetKeyboard: function pencetKeyboard(evt) {
       evt = evt ? evt : window.event;
       var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul
@@ -458,6 +386,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       if (charCode === 191 || charCode === 220) {
         evt.preventDefault();
+        ;
       } else {
         return true;
       }
@@ -485,16 +414,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       return "".concat(year, "-").concat(month.padStart(2, '0'), "-").concat(day.padStart(2, '0'));
     },
     initialize: function initialize() {
-      var _this2 = this;
+      var _this = this;
 
       this.$Progress.start();
 
-      if (this.$gate.isAdmin() || this.$gate.isAK()) {
-        axios.get("api/memoob").then(function (response) {
-          _this2.memoob = response.data.data;
-          _this2.kantor_id = _this2.$kantor_id; // this.form.fill
-          // console.log(this.memoob);
-          // console.log(this.kantor_id)
+      if (this.$gate.isAdmin() || this.$gate.isUM() || this.$gate.isSekdir()) {
+        //axios.get("api/user").then((response) => {(this.users = response.data.data)});
+        axios.get("api/lps").then(function (response) {
+          _this.lps = response.data.data;
+          _this.kantor_id = _this.$kantor_id; // this.form.fill
+          //console.log(this.lps);
+          //console.log(this.kantor_id)
         });
       }
 
@@ -511,10 +441,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       $('#addNew').modal('show');
       this.$refs.form.reset();
       this.namafile = '';
-      this.pesaneror = '';
     },
+    // uploadFile(e){
+    //         // `files` is always an array because the file input may be in multiple mode
+    //         console.log(e);
+    //         this.file = e.target.files[0];
+    // },
     createUser: function createUser() {
-      var _this3 = this;
+      var _this2 = this;
 
       this.$refs.form.validate();
       this.$Progress.start(); // e.preventDefault();
@@ -532,18 +466,18 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       formData.set('file', this.file); // formData.append('file', this.file);
       // console.log(this.file);
 
-      axios.post('api/memoob', formData, config).then(function (response) {
+      axios.post('api/lps', formData, config).then(function (response) {
         $('#addNew').modal('hide');
         Toast.fire({
           icon: 'success',
           title: response.data.message
         });
 
-        _this3.$Progress.finish();
+        _this2.$Progress.finish();
 
-        _this3.initialize();
+        _this2.initialize();
       })["catch"](function (error) {
-        //Swal.fire("Failed!", data.message, "warning");
+        //Swal.fire("Gagal Upload", "Cek data inputan!", "warning");
         var errors = error.response.data.errors; // Loop this object and pring Key or value or both
 
         for (var _i2 = 0, _Object$entries = Object.entries(errors); _i2 < _Object$entries.length; _i2++) {
@@ -562,14 +496,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     },
     downloadFile: function downloadFile(id, file) {
       axios({
-        url: 'api/memoob/download/' + id,
+        url: 'api/lps/download/' + id,
         method: 'GET',
         responseType: 'blob'
       }).then(function (response) {
         var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement('a');
         fileLink.href = fileUrl;
-        fileLink.setAttribute('download', 'tabfile.zip');
+        fileLink.setAttribute('download', 'lps.pdf');
         fileLink.download = file;
         document.body.appendChild(fileLink);
         fileLink.click();
@@ -578,11 +512,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       });
     },
     updateUser: function updateUser() {
-      var _this4 = this;
+      var _this3 = this;
 
       this.$Progress.start(); // console.log('Editing data');
 
-      this.form.put('api/memoob/' + this.form.id).then(function (response) {
+      this.form.put('api/lps/' + this.form.id).then(function (response) {
         // success
         $('#addNew').modal('hide');
         Toast.fire({
@@ -590,16 +524,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           title: response.data.message
         });
 
-        _this4.$Progress.finish(); //  Fire.$emit('AfterCreate');
+        _this3.$Progress.finish(); //  Fire.$emit('AfterCreate');
 
 
-        _this4.initialize();
+        _this3.initialize();
       })["catch"](function () {
-        _this4.$Progress.fail();
+        _this3.$Progress.fail();
       });
     },
     deleteUser: function deleteUser(id) {
-      var _this5 = this;
+      var _this4 = this;
 
       Swal.fire({
         title: 'Yakin dihapus?',
@@ -611,10 +545,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this5.form["delete"]('api/memoob/' + id).then(function () {
+          _this4.form["delete"]('api/lps/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
-            _this5.initialize();
+            _this4.initialize();
           })["catch"](function (data) {
             Swal.fire("Failed!", data.message, "warning");
           });
@@ -626,10 +560,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Memoob.vue?vue&type=template&id=728125d0&":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/akunting/Memoob.vue?vue&type=template&id=728125d0& ***!
-  \******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Lps.vue?vue&type=template&id=4cf4913b&":
+/*!***********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Lps.vue?vue&type=template&id=4cf4913b& ***!
+  \***********************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -659,7 +593,9 @@ var render = function () {
                 "v-col",
                 { attrs: { cols: "11" } },
                 [
-                  _vm.$gate.isAdmin() || _vm.$gate.isAK()
+                  _vm.$gate.isAdmin() ||
+                  _vm.$gate.isUM() ||
+                  _vm.$gate.isSekdir()
                     ? _c(
                         "v-card",
                         { staticClass: "pa-2 mx-auto" },
@@ -668,7 +604,8 @@ var render = function () {
                             "v-toolbar",
                             {
                               attrs: {
-                                src: "images/banner-red.jpg",
+                                src: "images/banner-yellow.jpg",
+                                color: "yellow",
                                 dark: "",
                                 shaped: "",
                               },
@@ -676,7 +613,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    File Memo Overbooking\n                "
+                                  "\n                    File LPS\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -710,57 +647,13 @@ var render = function () {
                                 staticClass: "elevation-3",
                                 attrs: {
                                   headers: _vm.headers,
-                                  items: _vm.memoob,
+                                  items: _vm.lps,
                                   search: _vm.search,
                                   justify: "center",
                                   dense: "",
                                 },
                                 scopedSlots: _vm._u(
                                   [
-                                    {
-                                      key: "footer.prepend",
-                                      fn: function () {
-                                        return [
-                                          _c(
-                                            "v-btn",
-                                            {
-                                              staticClass: "ma-2",
-                                              attrs: {
-                                                color: "success",
-                                                dark: "",
-                                                small: "",
-                                              },
-                                              on: {
-                                                click: function ($event) {
-                                                  return _vm.initialize()
-                                                },
-                                              },
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\n                      Refresh\n                      "
-                                              ),
-                                              _c(
-                                                "v-icon",
-                                                {
-                                                  attrs: {
-                                                    right: "",
-                                                    dark: "",
-                                                  },
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                        mdi-reload\n                      "
-                                                  ),
-                                                ]
-                                              ),
-                                            ],
-                                            1
-                                          ),
-                                        ]
-                                      },
-                                      proxy: true,
-                                    },
                                     {
                                       key: "item.index",
                                       fn: function (ref) {
@@ -782,74 +675,6 @@ var render = function () {
                                             "v-toolbar",
                                             { attrs: { flat: "" } },
                                             [
-                                              _vm.$gate.isAdmin()
-                                                ? _c(
-                                                    "v-row",
-                                                    [
-                                                      _c(
-                                                        "v-col",
-                                                        {
-                                                          attrs: {
-                                                            cols: "8",
-                                                            sm: "8",
-                                                            md: "8",
-                                                          },
-                                                        },
-                                                        [
-                                                          _c("v-combobox", {
-                                                            ref: "cbkantor",
-                                                            attrs: {
-                                                              label: "Kantor",
-                                                              items:
-                                                                _vm.namaKantor,
-                                                              "item-value":
-                                                                "nama_kantor",
-                                                              "item-text":
-                                                                "nama_kantor",
-                                                              placeholder:
-                                                                "Pilih Kantor",
-                                                              "single-line": "",
-                                                              "hide-details":
-                                                                "",
-                                                              clearable: "",
-                                                              "return-object": false,
-                                                              "persistent-hint":
-                                                                "",
-                                                              "error-messages":
-                                                                _vm.pesaneror,
-                                                            },
-                                                            on: {
-                                                              click: function (
-                                                                $event
-                                                              ) {
-                                                                return _vm.getKantor()
-                                                              },
-                                                              change: function (
-                                                                $event
-                                                              ) {
-                                                                return _vm.filterKantor()
-                                                              },
-                                                            },
-                                                            model: {
-                                                              value:
-                                                                _vm.nama_kantor,
-                                                              callback:
-                                                                function ($$v) {
-                                                                  _vm.nama_kantor =
-                                                                    $$v
-                                                                },
-                                                              expression:
-                                                                "nama_kantor",
-                                                            },
-                                                          }),
-                                                        ],
-                                                        1
-                                                      ),
-                                                    ],
-                                                    1
-                                                  )
-                                                : _vm._e(),
-                                              _vm._v(" "),
                                               _c("v-spacer"),
                                               _vm._v(" "),
                                               _c("v-spacer"),
@@ -951,7 +776,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  1335290865
+                                  3538273480
                                 ),
                               }),
                             ],
@@ -968,7 +793,7 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          !_vm.$gate.isAdmin() && !_vm.$gate.isAK()
+          !_vm.$gate.isAdmin() && !_vm.$gate.isUM() && !_vm.$gate.isSekdir()
             ? _c("div", [_c("not-found")], 1)
             : _vm._e(),
           _vm._v(" "),
@@ -1070,6 +895,27 @@ var render = function () {
                                 {
                                   name: "model",
                                   rawName: "v-model",
+                                  value: _vm.kantor_id,
+                                  expression: "kantor_id",
+                                },
+                              ],
+                              attrs: { type: "hidden", name: "kantor_id" },
+                              domProps: { value: _vm.kantor_id },
+                              on: {
+                                input: function ($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.kantor_id = $event.target.value
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
                                   value: _vm.csrf,
                                   expression: "csrf",
                                 },
@@ -1094,49 +940,12 @@ var render = function () {
                                   "v-col",
                                   { attrs: { cols: "12", sm: "12", md: "12" } },
                                   [
-                                    _c("v-combobox", {
-                                      ref: "CBKantor",
-                                      attrs: {
-                                        label: "Kantor",
-                                        items: _vm.namaKantor,
-                                        "item-value": "id",
-                                        "item-text": "nama_kantor",
-                                        placeholder: "Pilih Kantor",
-                                        outlined: "",
-                                        required: "",
-                                        dense: "",
-                                        "hide-details": "",
-                                        "prepend-icon": "fa fa-building",
-                                        "return-object": false,
-                                      },
-                                      on: {
-                                        click: function ($event) {
-                                          return _vm.getKantor()
-                                        },
-                                      },
-                                      model: {
-                                        value: _vm.kantor_id,
-                                        callback: function ($$v) {
-                                          _vm.kantor_id = $$v
-                                        },
-                                        expression: "kantor_id",
-                                      },
-                                    }),
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "v-col",
-                                  { attrs: { cols: "12", sm: "12", md: "12" } },
-                                  [
                                     _c("v-text-field", {
                                       attrs: {
                                         rules: _vm.nameRules,
                                         name: "namafile",
-                                        label: "Nama Nasabah",
-                                        placeholder:
-                                          "Nama File: 'nama_nasabah'",
+                                        label: "Nama File",
+                                        placeholder: "Nama File",
                                         outlined: "",
                                         required: "",
                                         dense: "",
@@ -1205,16 +1014,14 @@ var render = function () {
                                                                     rules:
                                                                       _vm.tanggalRules,
                                                                     label:
-                                                                      "Tanggal Pelunasan Kredit",
+                                                                      "Tanggal File",
                                                                     placeholder:
-                                                                      "Tanggal Pelunasan",
+                                                                      "dd/mm/yyyy",
                                                                     "prepend-icon":
                                                                       "mdi-calendar",
                                                                     outlined:
                                                                       "",
                                                                     required:
-                                                                      "",
-                                                                    readonly:
                                                                       "",
                                                                     dense: "",
                                                                   },
@@ -1487,17 +1294,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/akunting/Memoob.vue":
-/*!*****************************************************!*\
-  !*** ./resources/js/components/akunting/Memoob.vue ***!
-  \*****************************************************/
+/***/ "./resources/js/components/umum/Lps.vue":
+/*!**********************************************!*\
+  !*** ./resources/js/components/umum/Lps.vue ***!
+  \**********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Memoob_vue_vue_type_template_id_728125d0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Memoob.vue?vue&type=template&id=728125d0& */ "./resources/js/components/akunting/Memoob.vue?vue&type=template&id=728125d0&");
-/* harmony import */ var _Memoob_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Memoob.vue?vue&type=script&lang=js& */ "./resources/js/components/akunting/Memoob.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Lps_vue_vue_type_template_id_4cf4913b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Lps.vue?vue&type=template&id=4cf4913b& */ "./resources/js/components/umum/Lps.vue?vue&type=template&id=4cf4913b&");
+/* harmony import */ var _Lps_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Lps.vue?vue&type=script&lang=js& */ "./resources/js/components/umum/Lps.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1507,9 +1314,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Memoob_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Memoob_vue_vue_type_template_id_728125d0___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Memoob_vue_vue_type_template_id_728125d0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Lps_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Lps_vue_vue_type_template_id_4cf4913b___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Lps_vue_vue_type_template_id_4cf4913b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1519,38 +1326,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/akunting/Memoob.vue"
+component.options.__file = "resources/js/components/umum/Lps.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/akunting/Memoob.vue?vue&type=script&lang=js&":
-/*!******************************************************************************!*\
-  !*** ./resources/js/components/akunting/Memoob.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************/
+/***/ "./resources/js/components/umum/Lps.vue?vue&type=script&lang=js&":
+/*!***********************************************************************!*\
+  !*** ./resources/js/components/umum/Lps.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoob_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Memoob.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Memoob.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoob_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Lps_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Lps.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Lps.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Lps_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/akunting/Memoob.vue?vue&type=template&id=728125d0&":
-/*!************************************************************************************!*\
-  !*** ./resources/js/components/akunting/Memoob.vue?vue&type=template&id=728125d0& ***!
-  \************************************************************************************/
+/***/ "./resources/js/components/umum/Lps.vue?vue&type=template&id=4cf4913b&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/umum/Lps.vue?vue&type=template&id=4cf4913b& ***!
+  \*****************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoob_vue_vue_type_template_id_728125d0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Memoob.vue?vue&type=template&id=728125d0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/akunting/Memoob.vue?vue&type=template&id=728125d0&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoob_vue_vue_type_template_id_728125d0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Lps_vue_vue_type_template_id_4cf4913b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Lps.vue?vue&type=template&id=4cf4913b& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Lps.vue?vue&type=template&id=4cf4913b&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Lps_vue_vue_type_template_id_4cf4913b___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoob_vue_vue_type_template_id_728125d0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Lps_vue_vue_type_template_id_4cf4913b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

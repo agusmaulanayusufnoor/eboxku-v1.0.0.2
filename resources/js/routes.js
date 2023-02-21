@@ -101,6 +101,7 @@ export default [
     { path: '/asuransi', component: () => import(/* webpackPrefetch: true */'./components/umum/Asuransi.vue') },
     { path: '/sop', component: () => import(/* webpackPrefetch: true */'./components/umum/Sop.vue') },
     { path: '/peraturan', component: () => import(/* webpackPrefetch: true */'./components/umum/Peraturan.vue') },
+    { path: '/lps', component: () => import(/* webpackPrefetch: true */'./components/umum/Lps.vue') },
     { path: '/lapkap', component: () => import(/* webpackPrefetch: true */'./components/umum/Lapkap.vue') },
     { path: '/lapkeu', component: () => import(/* webpackPrefetch: true */'./components/umum/Lapkeu.vue') },
 

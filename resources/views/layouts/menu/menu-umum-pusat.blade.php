@@ -127,5 +127,12 @@
                 <p>Peraturan Perusahaan</p>
               </a>
         </li>
+
+        <li class="nav-item">
+            <router-link to="/lps" class="nav-link">
+                <i class="fa fa-shield-alt nav-icon"></i>
+                <p>File LPS</p>
+              </a>
+        </li>
     </ul>
   </li>
