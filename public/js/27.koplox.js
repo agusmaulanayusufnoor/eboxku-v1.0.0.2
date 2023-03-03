@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[27],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Otorisator.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Otorisator.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Mastersimpanan.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Mastersimpanan.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -210,7 +210,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      // props: ["namaotorisator"],
+      // props: ["namamastersimpanan"],
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       editmode: false,
       dialog: false,
@@ -223,21 +223,21 @@ __webpack_require__.r(__webpack_exports__);
       max100chars: function max100chars(v) {
         return v.length <= 100 || 'Input too long!';
       },
-      otorisator: [],
+      mastersimpanan: [],
       editedIndex: -1,
       editedItem: {
         id: '',
-        namaotorisator: '',
-        namaotorisatorEdit: '',
-        otorisatorRules: [function (v) {
-          return !!v || 'Nama otorisator belum diisi';
+        namamastersimpanan: '',
+        namamastersimpananEdit: '',
+        mastersimpananRules: [function (v) {
+          return !!v || 'Nama mastersimpanan belum diisi';
         }]
       },
       valid: true,
       kantor_id: '',
       form: new Form({
         id: '',
-        namaotorisator: ''
+        namamastersimpanan: ''
       })
     };
   },
@@ -249,8 +249,8 @@ __webpack_require__.r(__webpack_exports__);
         align: 'center',
         sortable: false
       }, {
-        text: 'Otorisator',
-        value: 'namaotorisator'
+        text: 'Simpanan',
+        value: 'jenissimpanan'
       }];
 
       if (this.$gate.isAdmin()) {
@@ -289,7 +289,7 @@ __webpack_require__.r(__webpack_exports__);
       this.snackColor = 'info';
       this.snackText = 'Enter = Simpan';
       this.editedItem.id = item.id;
-      this.editedItem.namaotorisator = item.namaotorisator; //console.log(this.item.namaotorisator);
+      this.editedItem.namamastersimpanan = item.namamastersimpanan; //console.log(this.item.namamastersimpanan);
       //alert(this.item.id)
     },
     close: function close() {
@@ -315,27 +315,27 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.$gate.isAdmin()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/otorisator").then(function (response) {
-          _this.otorisator = response.data.data; // this.kantor_id = this.$kantor_id;
+        axios.get("api/mastersimpanan").then(function (response) {
+          _this.mastersimpanan = response.data.data; // this.kantor_id = this.$kantor_id;
           // this.form.fill
-          //console.log(this.otorisator);
+          //console.log(this.mastersimpanan);
           //console.log(this.kantor_id)
         });
       }
 
       this.$Progress.finish();
     },
-    editOtorisator: function editOtorisator(item) {
-      this.editedIndex = this.otorisator.indexOf(item);
+    editSimpanan: function editSimpanan(item) {
+      this.editedIndex = this.mastersimpanan.indexOf(item);
       this.item.id = item.id;
-      this.item.namaotorisator = item.namaotorisator;
+      this.item.namamastersimpanan = item.namamastersimpanan;
       console.log(this.item.id); //alert(this.item.id)
     },
     newModal: function newModal() {
       this.editmode = false;
       $('#addNew').modal('show');
       this.$refs.form.reset();
-      this.editedItem.namaotorisator = '';
+      this.editedItem.namamastersimpanan = '';
     },
     createUser: function createUser() {
       var _this2 = this;
@@ -350,9 +350,9 @@ __webpack_require__.r(__webpack_exports__);
       }; // //this.append('file', this.file);
 
       var formData = new FormData();
-      formData.set('namaotorisator', this.editedItem.namaotorisator);
-      axios.post('api/otorisator', formData, config).then(function (response) {
-        $('#addNew').modal('hide'); //  console.log(this.namaotorisator);
+      formData.set('namamastersimpanan', this.editedItem.namamastersimpanan);
+      axios.post('api/mastersimpanan', formData, config).then(function (response) {
+        $('#addNew').modal('hide'); //  console.log(this.namamastersimpanan);
 
         Toast.fire({
           icon: 'success',
@@ -366,7 +366,7 @@ __webpack_require__.r(__webpack_exports__);
         //Swal.fire("Failed!", data.message, "warning");
         Toast.fire({
           icon: 'error',
-          title: 'Gagal tambah otorisator, ulangi!' //title: response.message
+          title: 'Gagal tambah mastersimpanan, ulangi!' //title: response.message
 
         });
       });
@@ -382,12 +382,12 @@ __webpack_require__.r(__webpack_exports__);
         } // headers: {'X-Custom-Header': 'value'}
 
       };
-      this.$Progress.start(); //alert(this.editedItem.namaotorisator);
+      this.$Progress.start(); //alert(this.editedItem.namamastersimpanan);
 
       var formData = new FormData();
-      formData.set('namaotorisator', this.editedItem.namaotorisator);
+      formData.set('namamastersimpanan', this.editedItem.namamastersimpanan);
       formData.append("_method", "PUT");
-      axios.post('api/otorisator/' + this.editedItem.id, formData).then(function (response) {
+      axios.post('api/mastersimpanan/' + this.editedItem.id, formData).then(function (response) {
         // success
         $('#addNew').modal('hide');
         Toast.fire({
@@ -416,7 +416,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this4.form["delete"]('api/otorisator/' + id).then(function () {
+          _this4.form["delete"]('api/mastersimpanan/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
             _this4.initialize();
@@ -431,10 +431,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Otorisator.vue?vue&type=template&id=72c57d5c&":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Otorisator.vue?vue&type=template&id=72c57d5c& ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Mastersimpanan.vue?vue&type=template&id=038a0b3f&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/setting/Mastersimpanan.vue?vue&type=template&id=038a0b3f& ***!
+  \*************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -481,7 +481,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    Master Otorisator\n                "
+                                  "\n                    Master Simpanan\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -515,7 +515,7 @@ var render = function () {
                                 staticClass: "elevation-3",
                                 attrs: {
                                   headers: _vm.headers,
-                                  items: _vm.otorisator,
+                                  items: _vm.mastersimpanan,
                                   search: _vm.search,
                                   justify: "center",
                                   dense: "",
@@ -554,7 +554,7 @@ var render = function () {
                                               _c("v-text-field", {
                                                 attrs: {
                                                   "append-icon": "mdi-magnify",
-                                                  label: "Cari Otorisator",
+                                                  label: "Cari Simpanan",
                                                   "single-line": "",
                                                   "hide-details": "",
                                                   loading: "grey",
@@ -604,7 +604,7 @@ var render = function () {
                                       },
                                     },
                                     {
-                                      key: "item.namaotorisator",
+                                      key: "item.namamastersimpanan",
                                       fn: function (ref) {
                                         var item = ref.item
                                         return [
@@ -633,7 +633,7 @@ var render = function () {
                                                           },
                                                           [
                                                             _vm._v(
-                                                              "\n                            Edit Otorisator\n                            "
+                                                              "\n                            Edit Simpanan\n                            "
                                                             ),
                                                           ]
                                                         ),
@@ -650,18 +650,18 @@ var render = function () {
                                                           model: {
                                                             value:
                                                               _vm.editedItem
-                                                                .namaotorisator,
+                                                                .namamastersimpanan,
                                                             callback: function (
                                                               $$v
                                                             ) {
                                                               _vm.$set(
                                                                 _vm.editedItem,
-                                                                "namaotorisator",
+                                                                "namamastersimpanan",
                                                                 $$v
                                                               )
                                                             },
                                                             expression:
-                                                              "editedItem.namaotorisator",
+                                                              "editedItem.namamastersimpanan",
                                                           },
                                                         }),
                                                       ]
@@ -676,7 +676,9 @@ var render = function () {
                                             [
                                               _vm._v(
                                                 "\n                        " +
-                                                  _vm._s(item.namaotorisator) +
+                                                  _vm._s(
+                                                    item.namamastersimpanan
+                                                  ) +
                                                   "\n                        "
                                               ),
                                             ]
@@ -687,7 +689,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  3927642452
+                                  2770253435
                                 ),
                               }),
                             ],
@@ -808,7 +810,7 @@ var render = function () {
                             ],
                             staticClass: "modal-title",
                           },
-                          [_vm._v("Tambah Otorisator")]
+                          [_vm._v("Tambah Simpanan")]
                         ),
                         _vm._v(" "),
                         _c(
@@ -897,25 +899,28 @@ var render = function () {
                                   [
                                     _c("v-text-field", {
                                       attrs: {
-                                        rules: _vm.editedItem.otorisatorRules,
-                                        label: "Nama Otorisator",
-                                        name: "namaotorisator",
+                                        rules:
+                                          _vm.editedItem.mastersimpananRules,
+                                        label: "Jenis Simpanan",
+                                        name: "namamastersimpanan",
                                         placeholder: "input",
                                         outlined: "",
                                         required: "",
                                         dense: "",
-                                        "prepend-icon": "mdi-account-plus",
+                                        "prepend-icon": "mdi-wallet-plus",
                                       },
                                       model: {
-                                        value: _vm.editedItem.namaotorisator,
+                                        value:
+                                          _vm.editedItem.namamastersimpanan,
                                         callback: function ($$v) {
                                           _vm.$set(
                                             _vm.editedItem,
-                                            "namaotorisator",
+                                            "namamastersimpanan",
                                             $$v
                                           )
                                         },
-                                        expression: "editedItem.namaotorisator",
+                                        expression:
+                                          "editedItem.namamastersimpanan",
                                       },
                                     }),
                                   ],
@@ -1026,17 +1031,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/setting/Otorisator.vue":
-/*!********************************************************!*\
-  !*** ./resources/js/components/setting/Otorisator.vue ***!
-  \********************************************************/
+/***/ "./resources/js/components/setting/Mastersimpanan.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/setting/Mastersimpanan.vue ***!
+  \************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Otorisator_vue_vue_type_template_id_72c57d5c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Otorisator.vue?vue&type=template&id=72c57d5c& */ "./resources/js/components/setting/Otorisator.vue?vue&type=template&id=72c57d5c&");
-/* harmony import */ var _Otorisator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Otorisator.vue?vue&type=script&lang=js& */ "./resources/js/components/setting/Otorisator.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Mastersimpanan_vue_vue_type_template_id_038a0b3f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Mastersimpanan.vue?vue&type=template&id=038a0b3f& */ "./resources/js/components/setting/Mastersimpanan.vue?vue&type=template&id=038a0b3f&");
+/* harmony import */ var _Mastersimpanan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Mastersimpanan.vue?vue&type=script&lang=js& */ "./resources/js/components/setting/Mastersimpanan.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1046,9 +1051,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Otorisator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Otorisator_vue_vue_type_template_id_72c57d5c___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Otorisator_vue_vue_type_template_id_72c57d5c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Mastersimpanan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Mastersimpanan_vue_vue_type_template_id_038a0b3f___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Mastersimpanan_vue_vue_type_template_id_038a0b3f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1058,38 +1063,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/setting/Otorisator.vue"
+component.options.__file = "resources/js/components/setting/Mastersimpanan.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/setting/Otorisator.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************!*\
-  !*** ./resources/js/components/setting/Otorisator.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************/
+/***/ "./resources/js/components/setting/Mastersimpanan.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/setting/Mastersimpanan.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Otorisator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Otorisator.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Otorisator.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Otorisator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Mastersimpanan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Mastersimpanan.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Mastersimpanan.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Mastersimpanan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/setting/Otorisator.vue?vue&type=template&id=72c57d5c&":
-/*!***************************************************************************************!*\
-  !*** ./resources/js/components/setting/Otorisator.vue?vue&type=template&id=72c57d5c& ***!
-  \***************************************************************************************/
+/***/ "./resources/js/components/setting/Mastersimpanan.vue?vue&type=template&id=038a0b3f&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/setting/Mastersimpanan.vue?vue&type=template&id=038a0b3f& ***!
+  \*******************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Otorisator_vue_vue_type_template_id_72c57d5c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Otorisator.vue?vue&type=template&id=72c57d5c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Otorisator.vue?vue&type=template&id=72c57d5c&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Otorisator_vue_vue_type_template_id_72c57d5c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Mastersimpanan_vue_vue_type_template_id_038a0b3f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Mastersimpanan.vue?vue&type=template&id=038a0b3f& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/setting/Mastersimpanan.vue?vue&type=template&id=038a0b3f&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Mastersimpanan_vue_vue_type_template_id_038a0b3f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Otorisator_vue_vue_type_template_id_72c57d5c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Mastersimpanan_vue_vue_type_template_id_038a0b3f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[20],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Polis.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/sekdir/Polis.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Notulen.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/sekdir/Notulen.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -272,21 +272,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       dialog: false,
       dialogDelete: false,
       search: '',
-      //   headers: [
-      //     {
-      //     text: 'No',
-      //     value: 'index',
-      //     },
-      //     { text: 'Kantor', value: 'nama_kantor',align: 'start', },
-      //     {
-      //       text: 'Nama File',
-      //       value: 'namafile',
-      //     },
-      //     { text: 'Tanggal File', value: 'tanggal' },
-      //     { text: 'Download File', value: 'file', sortable: false,align: 'center'  },
-      //     { text: 'Hapus', value: 'actions', sortable: false },
-      //   ],
-      polis: [],
+      notulen: [],
       valid: true,
       file: null,
       id: '',
@@ -420,10 +406,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       if (this.$gate.isAdmin() || this.$gate.isSekdir()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/polis").then(function (response) {
-          _this.polis = response.data.data;
+        axios.get("api/notulen").then(function (response) {
+          _this.notulen = response.data.data;
           _this.kantor_id = _this.$kantor_id; // this.form.fill
-          //console.log(this.polis);
+          //console.log(this.notulen);
           //console.log(this.kantor_id)
         });
       }
@@ -466,7 +452,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       formData.set('file', this.file); // formData.append('file', this.file);
       // console.log(this.file);
 
-      axios.post('api/polis', formData, config).then(function (response) {
+      axios.post('api/notulen', formData, config).then(function (response) {
         $('#addNew').modal('hide');
         Toast.fire({
           icon: 'success',
@@ -496,14 +482,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     },
     downloadFile: function downloadFile(id, file) {
       axios({
-        url: 'api/polis/download/' + id,
+        url: 'api/notulen/download/' + id,
         method: 'GET',
         responseType: 'blob'
       }).then(function (response) {
         var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement('a');
         fileLink.href = fileUrl;
-        fileLink.setAttribute('download', 'polis.pdf');
+        fileLink.setAttribute('download', 'notulen.pdf');
         fileLink.download = file;
         document.body.appendChild(fileLink);
         fileLink.click();
@@ -516,7 +502,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       this.$Progress.start(); // console.log('Editing data');
 
-      this.form.put('api/polis/' + this.form.id).then(function (response) {
+      this.form.put('api/notulen/' + this.form.id).then(function (response) {
         // success
         $('#addNew').modal('hide');
         Toast.fire({
@@ -545,7 +531,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this4.form["delete"]('api/polis/' + id).then(function () {
+          _this4.form["delete"]('api/notulen/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
             _this4.initialize();
@@ -560,10 +546,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Polis.vue?vue&type=template&id=9bff54b2&":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/sekdir/Polis.vue?vue&type=template&id=9bff54b2& ***!
-  \***************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Notulen.vue?vue&type=template&id=7527ec43&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/sekdir/Notulen.vue?vue&type=template&id=7527ec43& ***!
+  \*****************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -612,7 +598,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    File Polis Asuransi Jabatan\n                "
+                                  "\n                    File Notulen\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -646,7 +632,7 @@ var render = function () {
                                 staticClass: "elevation-3",
                                 attrs: {
                                   headers: _vm.headers,
-                                  items: _vm.polis,
+                                  items: _vm.notulen,
                                   search: _vm.search,
                                   justify: "center",
                                   dense: "",
@@ -1293,17 +1279,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/sekdir/Polis.vue":
-/*!**************************************************!*\
-  !*** ./resources/js/components/sekdir/Polis.vue ***!
-  \**************************************************/
+/***/ "./resources/js/components/sekdir/Notulen.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/sekdir/Notulen.vue ***!
+  \****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Polis_vue_vue_type_template_id_9bff54b2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Polis.vue?vue&type=template&id=9bff54b2& */ "./resources/js/components/sekdir/Polis.vue?vue&type=template&id=9bff54b2&");
-/* harmony import */ var _Polis_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Polis.vue?vue&type=script&lang=js& */ "./resources/js/components/sekdir/Polis.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Notulen_vue_vue_type_template_id_7527ec43___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Notulen.vue?vue&type=template&id=7527ec43& */ "./resources/js/components/sekdir/Notulen.vue?vue&type=template&id=7527ec43&");
+/* harmony import */ var _Notulen_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Notulen.vue?vue&type=script&lang=js& */ "./resources/js/components/sekdir/Notulen.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1313,9 +1299,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Polis_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Polis_vue_vue_type_template_id_9bff54b2___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Polis_vue_vue_type_template_id_9bff54b2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Notulen_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Notulen_vue_vue_type_template_id_7527ec43___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Notulen_vue_vue_type_template_id_7527ec43___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1325,38 +1311,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/sekdir/Polis.vue"
+component.options.__file = "resources/js/components/sekdir/Notulen.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/sekdir/Polis.vue?vue&type=script&lang=js&":
-/*!***************************************************************************!*\
-  !*** ./resources/js/components/sekdir/Polis.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************/
+/***/ "./resources/js/components/sekdir/Notulen.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/sekdir/Notulen.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Polis_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Polis.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Polis.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Polis_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Notulen_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Notulen.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Notulen.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Notulen_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/sekdir/Polis.vue?vue&type=template&id=9bff54b2&":
-/*!*********************************************************************************!*\
-  !*** ./resources/js/components/sekdir/Polis.vue?vue&type=template&id=9bff54b2& ***!
-  \*********************************************************************************/
+/***/ "./resources/js/components/sekdir/Notulen.vue?vue&type=template&id=7527ec43&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/sekdir/Notulen.vue?vue&type=template&id=7527ec43& ***!
+  \***********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Polis_vue_vue_type_template_id_9bff54b2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Polis.vue?vue&type=template&id=9bff54b2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Polis.vue?vue&type=template&id=9bff54b2&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Polis_vue_vue_type_template_id_9bff54b2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Notulen_vue_vue_type_template_id_7527ec43___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Notulen.vue?vue&type=template&id=7527ec43& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sekdir/Notulen.vue?vue&type=template&id=7527ec43&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Notulen_vue_vue_type_template_id_7527ec43___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Polis_vue_vue_type_template_id_9bff54b2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Notulen_vue_vue_type_template_id_7527ec43___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

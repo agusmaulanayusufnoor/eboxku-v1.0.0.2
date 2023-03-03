@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[53],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/kredit/Asuransikredit.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/kredit/Asuransikredit.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Sertifikat.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Sertifikat.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11,14 +11,6 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -31,297 +23,272 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data(vm) {
     return {
@@ -330,21 +297,23 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       dialog: false,
       dialogDelete: false,
       search: '',
-      asuransikredit: [],
+      sertifikat: [],
       valid: true,
-      pesaneror: [],
       file: null,
       id: '',
-      nama_kantor: '',
-      namaKantor: [],
       kantor_id: '',
+      no_sertifikat: '',
+      norekRules: [function (v) {
+        return !!v || 'No Sertifikat Belum Diisi';
+      }],
+      cekNorekData: [],
+      pesaneror: [],
       namafile: '',
       nameRules: [function (v) {
-        return !!v || 'Nama file belum diisi';
+        return !!v || 'Nama File Belum Diisi';
       }],
       menu1: false,
       menu2: false,
-      picker: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       dateFormatted: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
       tanggal: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       tanggalRules: [function (v) {
@@ -371,15 +340,18 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         align: 'center',
         sortable: false
       }, {
+        text: 'No Sertifikat',
+        value: 'no_sertifikat'
+      }, {
+        text: 'Tanggal File',
+        value: 'tanggal'
+      }, {
         text: 'Kantor',
         value: 'nama_kantor',
         align: 'start'
       }, {
         text: 'Nama File',
         value: 'namafile'
-      }, {
-        text: 'Periode',
-        value: 'tanggal'
       }];
       headers.push({
         text: 'Download File',
@@ -401,16 +373,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     computedDateFormatted: function computedDateFormatted() {
       return this.formatDate(this.tanggal);
     },
-    periodeMomentJS: function periodeMomentJS() {
-      return this.tanggal ? moment__WEBPACK_IMPORTED_MODULE_1___default()(this.tanggal).format('MMMM YYYY') : '';
-    },
     formTitle: function formTitle() {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item';
     }
   },
   watch: {
     tanggal: function tanggal(val) {
-      this.dateFormatted = moment__WEBPACK_IMPORTED_MODULE_1___default()(this.tanggal).format('MMMM YYYY');
+      this.dateFormatted = this.formatDate(this.tanggal);
     },
     dialog: function dialog(val) {
       val || this.close();
@@ -423,12 +392,71 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   //     console.log(this.$kantor_id)
   //   },
   created: function created() {
-    this.$Progress.start();
-    console.log(this.kantor_id);
+    this.$Progress.start(); //console.log(this.kantor_id)
+
     this.initialize();
     this.$Progress.finish();
   },
   methods: {
+    cekNorek: function cekNorek() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var formData, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(_this.$gate.isAdmin() || _this.$gate.isUM() || _this.$gate.isSekdir())) {
+                  _context.next = 7;
+                  break;
+                }
+
+                formData = new FormData();
+                formData.set('no_sertifikat', _this.no_sertifikat); //const response = await axios.get('api/sertifikat/ceknama')
+
+                _context.next = 5;
+                return axios.post('api/sertifikat/ceknorek', formData);
+
+              case 5:
+                response = _context.sent;
+
+                //this.cekNorekData = response.data.data[0].no_sertifikat;
+                if (response.data.message == 'adarek') {
+                  _this.cekNorekData = response.data.data[0].no_sertifikat;
+                  _this.pesaneror = 'No Sertifikat ' + _this.cekNorekData + ' Sudah Ada'; // console.log(this.cekNorekData);
+
+                  Toast.fire({
+                    icon: 'error',
+                    //title: response.data.message
+                    title: 'No Sertifikat ' + response.data.data[0].no_sertifikat + ' Sudah Ada Dalam Data'
+                  });
+
+                  _this.initialize();
+                } //endif response
+
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    norekKeyboard: function norekKeyboard(evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul
+
+      if (charCode > 31 && (charCode < 48 || charCode > 57) && (charCode < 95 || charCode > 105) && charCode !== 46 && charCode !== 75) {
+        //tidak boleh tombol '/' dan '\'
+        //if (charCode === 191 || charCode===220) {
+        evt.preventDefault();
+      } else {
+        this.no_sertifikat = this.no_sertifikat.toUpperCase();
+        return true;
+      }
+    },
     pencetKeyboard: function pencetKeyboard(evt) {
       evt = evt ? evt : window.event;
       var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul
@@ -437,7 +465,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       if (charCode === 191 || charCode === 220) {
         evt.preventDefault();
-        ;
       } else {
         return true;
       }
@@ -465,22 +492,20 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       return "".concat(year, "-").concat(month.padStart(2, '0'), "-").concat(day.padStart(2, '0'));
     },
     initialize: function initialize() {
-      var _this = this;
+      var _this2 = this;
 
       this.$Progress.start();
 
-      if (this.$gate.isAdmin() || this.$gate.isKredit()) {
-        //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/asuransikredit").then(function (response) {
-          _this.asuransikredit = response.data.data;
-          _this.kantor_id = _this.$kantor_id; // this.form.fill
-          //console.log(this.asuransikredit);
-          //console.log(this.kantor_id)
+      if (this.$gate.isAdmin() || this.$gate.isUM() || this.$gate.isSekdir()) {
+        axios.get("api/sertifikat").then(function (response) {
+          _this2.sertifikat = response.data.data;
+          _this2.kantor_id = _this2.$kantor_id; // this.form.fill
+          // console.log(this.sertifikat);
+          // console.log(this.kantor_id)
         });
       }
 
       this.$Progress.finish();
-      this.$refs.cbkantor.reset();
     },
     editModal: function editModal(item) {
       this.editmode = true;
@@ -493,88 +518,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       $('#addNew').modal('show');
       this.$refs.form.reset();
       this.namafile = '';
-    },
-    getKantor: function getKantor() {
-      var _this2 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if (_this2.$gate.isAdmin()) {
-                  //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-                  axios.get("api/asuransikredit/getkantor").then(function (response) {
-                    _this2.namaKantor = response.data.data; // console.log(this.namaKantor);
-                    //console.log(this.kantor_id)
-                  })["catch"](function (error) {
-                    console.log(error.response.data);
-                  });
-                }
-
-              case 1:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    filterKantor: function filterKantor() {
-      var _this3 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var formData;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _this3.$Progress.start();
-
-                formData = new FormData();
-                formData.set('kantor_id', _this3.nama_kantor); //formData.set('nama_kantor', this.nama_kantor);
-
-                if (_this3.nama_kantor != '') {
-                  if (_this3.$gate.isAdmin()) {
-                    axios.get("api/asuransikredit/filterkantor", {
-                      params: {
-                        kantor_id: _this3.nama_kantor
-                      }
-                    }).then(function (response) {
-                      _this3.asuransikredit = response.data.data;
-                      _this3.kantor_id = _this3.$kantor_id; // this.form.fill
-                      //console.log(this.nama_kantor);
-                      //console.log(this.nama_kantor)
-                    })["catch"](function (error) {
-                      console.log(error.response.data);
-                    });
-                  }
-                } else {
-                  //Swal.fire("Gagal Filter", "Filter Tanggal Belum Dipilih...!", "warning");
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Error Filter',
-                    text: 'Filter Kantor Belum Dipilih...! ',
-                    width: 600,
-                    padding: '3em',
-                    color: '#ff0000',
-                    background: '#ff0000 url(/images/kayu.jpg)',
-                    backdrop: "\n            rgba(255,0,64,0.4)\n            url(\"/images/nyan-cat.gif\")\n            left top\n            no-repeat\n        "
-                  });
-                }
-
-                _this3.$Progress.finish();
-
-              case 5:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
+      this.no_sertifikat = '';
+      this.pesaneror = '';
     },
     createUser: function createUser() {
-      var _this4 = this;
+      var _this3 = this;
 
       this.$refs.form.validate();
       this.$Progress.start(); // e.preventDefault();
@@ -587,21 +535,22 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       var formData = new FormData();
       formData.set('kantor_id', this.kantor_id);
+      formData.set('no_sertifikat', this.no_sertifikat);
       formData.set('namafile', this.namafile);
-      formData.set('tanggal', this.dateFormatted);
+      formData.set('tanggal', this.tanggal);
       formData.set('file', this.file); // formData.append('file', this.file);
       // console.log(this.file);
 
-      axios.post('api/asuransikredit', formData, config).then(function (response) {
+      axios.post('api/sertifikat', formData, config).then(function (response) {
         $('#addNew').modal('hide');
         Toast.fire({
           icon: 'success',
           title: response.data.message
         });
 
-        _this4.$Progress.finish();
+        _this3.$Progress.finish();
 
-        _this4.initialize();
+        _this3.initialize();
       })["catch"](function (error) {
         //Swal.fire("Gagal Upload", "Cek data inputan!", "warning");
         var errors = error.response.data.errors; // Loop this object and pring Key or value or both
@@ -622,14 +571,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     },
     downloadFile: function downloadFile(id, file) {
       axios({
-        url: 'api/asuransikredit/download/' + id,
+        url: 'api/sertifikat/download/' + id,
         method: 'GET',
         responseType: 'blob'
       }).then(function (response) {
         var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement('a');
         fileLink.href = fileUrl;
-        fileLink.setAttribute('download', 'asuransikredit.xlsx');
+        fileLink.setAttribute('download', 'tabfile.zip');
         fileLink.download = file;
         document.body.appendChild(fileLink);
         fileLink.click();
@@ -638,11 +587,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       });
     },
     updateUser: function updateUser() {
-      var _this5 = this;
+      var _this4 = this;
 
       this.$Progress.start(); // console.log('Editing data');
 
-      this.form.put('api/asuransikredit/' + this.form.id).then(function (response) {
+      this.form.put('api/sertifikat/' + this.form.id).then(function (response) {
         // success
         $('#addNew').modal('hide');
         Toast.fire({
@@ -650,16 +599,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           title: response.data.message
         });
 
-        _this5.$Progress.finish(); //  Fire.$emit('AfterCreate');
+        _this4.$Progress.finish(); //  Fire.$emit('AfterCreate');
 
 
-        _this5.initialize();
+        _this4.initialize();
       })["catch"](function () {
-        _this5.$Progress.fail();
+        _this4.$Progress.fail();
       });
     },
     deleteUser: function deleteUser(id) {
-      var _this6 = this;
+      var _this5 = this;
 
       Swal.fire({
         title: 'Yakin dihapus?',
@@ -671,10 +620,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this6.form["delete"]('api/asuransikredit/' + id).then(function () {
+          _this5.form["delete"]('api/sertifikat/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
-            _this6.initialize();
+            _this5.initialize();
           })["catch"](function (data) {
             Swal.fire("Failed!", data.message, "warning");
           });
@@ -686,10 +635,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/kredit/Asuransikredit.vue?vue&type=template&id=a9ddee74&":
-/*!************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/kredit/Asuransikredit.vue?vue&type=template&id=a9ddee74& ***!
-  \************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Sertifikat.vue?vue&type=template&id=6023c2ea&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Sertifikat.vue?vue&type=template&id=6023c2ea& ***!
+  \******************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -719,7 +668,9 @@ var render = function () {
                 "v-col",
                 { attrs: { cols: "11" } },
                 [
-                  _vm.$gate.isAdmin() || _vm.$gate.isKredit()
+                  _vm.$gate.isAdmin() ||
+                  _vm.$gate.isUM() ||
+                  _vm.$gate.isSekdir()
                     ? _c(
                         "v-card",
                         { staticClass: "pa-2 mx-auto" },
@@ -737,7 +688,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    File Asuransi Kredit\n                "
+                                  "\r\n                    File Sertifikat\r\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -755,7 +706,7 @@ var render = function () {
                                 },
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
-                                  _vm._v(" Upload File\n                  "),
+                                  _vm._v(" Upload File\r\n                  "),
                                 ],
                                 1
                               ),
@@ -771,7 +722,7 @@ var render = function () {
                                 staticClass: "elevation-3",
                                 attrs: {
                                   headers: _vm.headers,
-                                  items: _vm.asuransikredit,
+                                  items: _vm.sertifikat,
                                   search: _vm.search,
                                   justify: "center",
                                   dense: "",
@@ -779,58 +730,14 @@ var render = function () {
                                 scopedSlots: _vm._u(
                                   [
                                     {
-                                      key: "footer.prepend",
-                                      fn: function () {
-                                        return [
-                                          _c(
-                                            "v-btn",
-                                            {
-                                              staticClass: "ma-2",
-                                              attrs: {
-                                                color: "success",
-                                                dark: "",
-                                                small: "",
-                                              },
-                                              on: {
-                                                click: function ($event) {
-                                                  return _vm.initialize()
-                                                },
-                                              },
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\n                      Refresh\n                      "
-                                              ),
-                                              _c(
-                                                "v-icon",
-                                                {
-                                                  attrs: {
-                                                    right: "",
-                                                    dark: "",
-                                                  },
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                        mdi-reload\n                      "
-                                                  ),
-                                                ]
-                                              ),
-                                            ],
-                                            1
-                                          ),
-                                        ]
-                                      },
-                                      proxy: true,
-                                    },
-                                    {
                                       key: "item.index",
                                       fn: function (ref) {
                                         var index = ref.index
                                         return [
                                           _vm._v(
-                                            "\n                    " +
+                                            "\r\n                    " +
                                               _vm._s(index + 1) +
-                                              "\n                "
+                                              "\r\n                "
                                           ),
                                         ]
                                       },
@@ -843,74 +750,6 @@ var render = function () {
                                             "v-toolbar",
                                             { attrs: { flat: "" } },
                                             [
-                                              _vm.$gate.isAdmin()
-                                                ? _c(
-                                                    "v-row",
-                                                    [
-                                                      _c(
-                                                        "v-col",
-                                                        {
-                                                          attrs: {
-                                                            cols: "8",
-                                                            sm: "8",
-                                                            md: "8",
-                                                          },
-                                                        },
-                                                        [
-                                                          _c("v-combobox", {
-                                                            ref: "cbkantor",
-                                                            attrs: {
-                                                              label: "Kantor",
-                                                              items:
-                                                                _vm.namaKantor,
-                                                              "item-value":
-                                                                "nama_kantor",
-                                                              "item-text":
-                                                                "nama_kantor",
-                                                              placeholder:
-                                                                "Pilih Kantor",
-                                                              "single-line": "",
-                                                              "hide-details":
-                                                                "",
-                                                              clearable: "",
-                                                              "return-object": false,
-                                                              "persistent-hint":
-                                                                "",
-                                                              "error-messages":
-                                                                _vm.pesaneror,
-                                                            },
-                                                            on: {
-                                                              click: function (
-                                                                $event
-                                                              ) {
-                                                                return _vm.getKantor()
-                                                              },
-                                                              change: function (
-                                                                $event
-                                                              ) {
-                                                                return _vm.filterKantor()
-                                                              },
-                                                            },
-                                                            model: {
-                                                              value:
-                                                                _vm.nama_kantor,
-                                                              callback:
-                                                                function ($$v) {
-                                                                  _vm.nama_kantor =
-                                                                    $$v
-                                                                },
-                                                              expression:
-                                                                "nama_kantor",
-                                                            },
-                                                          }),
-                                                        ],
-                                                        1
-                                                      ),
-                                                    ],
-                                                    1
-                                                  )
-                                                : _vm._e(),
-                                              _vm._v(" "),
                                               _c("v-spacer"),
                                               _vm._v(" "),
                                               _c("v-spacer"),
@@ -970,7 +809,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                            mdi-download\n                        "
+                                                    "\r\n                            mdi-download\r\n                        "
                                                   ),
                                                 ]
                                               ),
@@ -1002,7 +841,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                    mdi-delete\n                "
+                                                "\r\n                    mdi-delete\r\n                "
                                               ),
                                             ]
                                           ),
@@ -1012,7 +851,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  1335290865
+                                  836955976
                                 ),
                               }),
                             ],
@@ -1029,7 +868,7 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          !_vm.$gate.isAdmin() && !_vm.$gate.isKredit()
+          !_vm.$gate.isAdmin() && !_vm.$gate.isUM() && !_vm.$gate.isSekdir()
             ? _c("div", [_c("not-found")], 1)
             : _vm._e(),
           _vm._v(" "),
@@ -1178,10 +1017,47 @@ var render = function () {
                                   [
                                     _c("v-text-field", {
                                       attrs: {
+                                        rules: _vm.norekRules,
+                                        name: "no_sertifikat",
+                                        label: "Nomor Sertifikat",
+                                        placeholder: "input no. sertifikat",
+                                        counter: "",
+                                        maxlength: "100",
+                                        outlined: "",
+                                        required: "",
+                                        dense: "",
+                                        "prepend-icon": "mdi-file",
+                                        hint: "",
+                                        "persistent-hint": "",
+                                        "error-messages": _vm.pesaneror,
+                                      },
+                                      on: {
+                                        change: function ($event) {
+                                          return _vm.cekNorek()
+                                        },
+                                      },
+                                      model: {
+                                        value: _vm.no_sertifikat,
+                                        callback: function ($$v) {
+                                          _vm.no_sertifikat = $$v
+                                        },
+                                        expression: "no_sertifikat",
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("has-error", {
+                                      attrs: {
+                                        form: _vm.form,
+                                        field: "namafile",
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("v-text-field", {
+                                      attrs: {
                                         rules: _vm.nameRules,
                                         name: "namafile",
                                         label: "Nama File",
-                                        placeholder: "Nama File",
+                                        placeholder: "input nama sertifikat",
                                         outlined: "",
                                         required: "",
                                         dense: "",
@@ -1247,14 +1123,12 @@ var render = function () {
                                                               _vm._b(
                                                                 {
                                                                   attrs: {
-                                                                    value:
-                                                                      _vm.periodeMomentJS,
                                                                     rules:
                                                                       _vm.tanggalRules,
                                                                     label:
-                                                                      "Periode",
+                                                                      "Tanggal File",
                                                                     placeholder:
-                                                                      "Pilih Bulan",
+                                                                      "Tanggal Sertifikat",
                                                                     "prepend-icon":
                                                                       "mdi-calendar",
                                                                     outlined:
@@ -1262,25 +1136,16 @@ var render = function () {
                                                                     required:
                                                                       "",
                                                                     dense: "",
-                                                                    clearable:
-                                                                      "",
-                                                                    readonly:
-                                                                      "",
                                                                   },
                                                                   on: {
                                                                     blur: function (
                                                                       $event
                                                                     ) {
-                                                                      _vm.dateFormatted =
-                                                                        _vm.periodeMomentJS
+                                                                      _vm.tanggal =
+                                                                        _vm.parseDate(
+                                                                          _vm.dateFormatted
+                                                                        )
                                                                     },
-                                                                    "click:clear":
-                                                                      function (
-                                                                        $event
-                                                                      ) {
-                                                                        _vm.tanggal =
-                                                                          null
-                                                                      },
                                                                   },
                                                                   model: {
                                                                     value:
@@ -1319,14 +1184,9 @@ var render = function () {
                                                   _vm._v(" "),
                                                   _c("v-date-picker", {
                                                     attrs: {
-                                                      type: "month",
                                                       elevation: "15",
                                                       "year-icon":
-                                                        "mdi-calendar-blank",
-                                                      "prev-icon":
-                                                        "mdi-skip-previous",
-                                                      "next-icon":
-                                                        "mdi-skip-next",
+                                                        "calendar-blank",
                                                       locale: "id-ID",
                                                     },
                                                     on: {
@@ -1373,7 +1233,7 @@ var render = function () {
                                           outlined: "",
                                           dense: "",
                                           "show-size": "",
-                                          accept: ".xlsx,.xls",
+                                          accept: ".pdf",
                                         },
                                         scopedSlots: _vm._u([
                                           {
@@ -1396,9 +1256,9 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\n                                    " +
+                                                          "\r\n                                    " +
                                                             _vm._s(text) +
-                                                            "\n                                "
+                                                            "\r\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1411,12 +1271,12 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\n                                    +" +
+                                                          "\r\n                                    +" +
                                                             _vm._s(
                                                               _vm.files.length -
                                                                 2
                                                             ) +
-                                                            " File(s)\n                                "
+                                                            " File(s)\r\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1463,7 +1323,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-cancel")]),
                                   _vm._v(
-                                    "\n                            Batal\n                        "
+                                    "\r\n                            Batal\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1489,7 +1349,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-pencil")]),
                                   _vm._v(
-                                    "\n                            Ubah\n                        "
+                                    "\r\n                            Ubah\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1515,7 +1375,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
                                   _vm._v(
-                                    "\n                            Upload\n                        "
+                                    "\r\n                            Upload\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1546,17 +1406,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/kredit/Asuransikredit.vue":
-/*!***********************************************************!*\
-  !*** ./resources/js/components/kredit/Asuransikredit.vue ***!
-  \***********************************************************/
+/***/ "./resources/js/components/umum/Sertifikat.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/umum/Sertifikat.vue ***!
+  \*****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Asuransikredit_vue_vue_type_template_id_a9ddee74___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Asuransikredit.vue?vue&type=template&id=a9ddee74& */ "./resources/js/components/kredit/Asuransikredit.vue?vue&type=template&id=a9ddee74&");
-/* harmony import */ var _Asuransikredit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Asuransikredit.vue?vue&type=script&lang=js& */ "./resources/js/components/kredit/Asuransikredit.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Sertifikat_vue_vue_type_template_id_6023c2ea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Sertifikat.vue?vue&type=template&id=6023c2ea& */ "./resources/js/components/umum/Sertifikat.vue?vue&type=template&id=6023c2ea&");
+/* harmony import */ var _Sertifikat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Sertifikat.vue?vue&type=script&lang=js& */ "./resources/js/components/umum/Sertifikat.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1566,9 +1426,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Asuransikredit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Asuransikredit_vue_vue_type_template_id_a9ddee74___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Asuransikredit_vue_vue_type_template_id_a9ddee74___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Sertifikat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Sertifikat_vue_vue_type_template_id_6023c2ea___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Sertifikat_vue_vue_type_template_id_6023c2ea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1578,38 +1438,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/kredit/Asuransikredit.vue"
+component.options.__file = "resources/js/components/umum/Sertifikat.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/kredit/Asuransikredit.vue?vue&type=script&lang=js&":
-/*!************************************************************************************!*\
-  !*** ./resources/js/components/kredit/Asuransikredit.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************/
+/***/ "./resources/js/components/umum/Sertifikat.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/umum/Sertifikat.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Asuransikredit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Asuransikredit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/kredit/Asuransikredit.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Asuransikredit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Sertifikat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Sertifikat.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Sertifikat.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Sertifikat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/kredit/Asuransikredit.vue?vue&type=template&id=a9ddee74&":
-/*!******************************************************************************************!*\
-  !*** ./resources/js/components/kredit/Asuransikredit.vue?vue&type=template&id=a9ddee74& ***!
-  \******************************************************************************************/
+/***/ "./resources/js/components/umum/Sertifikat.vue?vue&type=template&id=6023c2ea&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/umum/Sertifikat.vue?vue&type=template&id=6023c2ea& ***!
+  \************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Asuransikredit_vue_vue_type_template_id_a9ddee74___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Asuransikredit.vue?vue&type=template&id=a9ddee74& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/kredit/Asuransikredit.vue?vue&type=template&id=a9ddee74&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Asuransikredit_vue_vue_type_template_id_a9ddee74___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Sertifikat_vue_vue_type_template_id_6023c2ea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Sertifikat.vue?vue&type=template&id=6023c2ea& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Sertifikat.vue?vue&type=template&id=6023c2ea&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Sertifikat_vue_vue_type_template_id_6023c2ea___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Asuransikredit_vue_vue_type_template_id_a9ddee74___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Sertifikat_vue_vue_type_template_id_6023c2ea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

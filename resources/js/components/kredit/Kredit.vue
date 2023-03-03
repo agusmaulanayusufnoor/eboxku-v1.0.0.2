@@ -150,7 +150,7 @@
                                 persistent-hint :error-messages="pesaneror"
                                 @change="cekNorek()"
                             ></v-text-field>
-                            <has-error :form="form" field="namafile"></has-error>
+                            <has-error :form="form" field="no_rekening"></has-error>
                              <v-text-field
                                 v-model="namafile"
                                 :rules="nameRules"

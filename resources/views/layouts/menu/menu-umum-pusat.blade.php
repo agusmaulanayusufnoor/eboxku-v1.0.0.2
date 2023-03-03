@@ -118,6 +118,12 @@
                     <p>File Pajak Bunga</p>
                   </a>
             </li>
+            <li class="small">
+                <router-link to="/pjkkendaraan" class="nav-link">
+                    <i class="fa fa-motorcycle nav-icon"></i>
+                    <p>Pajak Kendaraan</p>
+                  </a>
+            </li>
             </ul>
         </li>
 

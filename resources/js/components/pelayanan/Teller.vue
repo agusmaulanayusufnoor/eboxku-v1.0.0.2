@@ -29,7 +29,7 @@
                     dark
                     class="ma-2"
                     small
-                    @click="initialize()"
+                    @click="refresh()"
                     >
                       Refresh
                       <v-icon
@@ -88,7 +88,7 @@
                                 single-line
                                 hide-details
                                 clearable
-                                ref="cboto"
+                                ref="cbotofilter"
                                 :return-object="false"
                                 persistent-hint :error-messages="pesaneror"
                                 @click="getOtorisator()"
@@ -428,8 +428,6 @@
         //console.log(this.kantor_id)
       this.initialize()
       this.$Progress.finish();
-      this.$refs.cboto.reset();
-      this.$refs.cbkantor.reset();
     },
 
     methods: {
@@ -575,7 +573,7 @@
 
         this.$Progress.finish();
         },
-      initialize() {
+        refresh() {
          this.$Progress.start();
 
             if(this.$gate.isAdmin() || this.$gate.isPelayanan() ){
@@ -592,8 +590,26 @@
             }
 
             this.$Progress.finish();
-           this.$refs.cboto.reset();
+           this.$refs.cbotofilter.reset();
            this.$refs.cbkantor.reset();
+      },
+      initialize() {
+         this.$Progress.start();
+
+            if(this.$gate.isAdmin() || this.$gate.isPelayanan() ){
+
+               //axios.get("api/user").then((response) => {(this.users = response.data.data)});
+             axios.get("api/teller")
+                .then((response) => {
+                this.teller = response.data.data;
+                this.kantor_id = this.$kantor_id;
+                // this.form.fill
+                //console.log(this.teller);
+                //console.log(this.kantor_id)
+                });
+            }
+            this.$refs.cbotofilter.reset();
+            this.$Progress.finish();
       },
      editModal(item){
                 this.editmode = true;

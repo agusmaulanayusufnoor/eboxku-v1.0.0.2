@@ -98,6 +98,7 @@ export default [
     { path: '/pjkbadan', component: () => import(/* webpackPrefetch: true */'./components/umum/Pjkbadan.vue') },
     { path: '/pjksewa', component:  () => import(/* webpackPrefetch: true */'./components/umum/Pjksewa.vue') },
     { path: '/pjkbunga', component: () => import(/* webpackPrefetch: true */'./components/umum/Pjkbunga.vue') },
+    { path: '/pjkkendaraan', component: () => import(/* webpackPrefetch: true */'./components/umum/Pjkkendaraan.vue') },
     { path: '/asuransi', component: () => import(/* webpackPrefetch: true */'./components/umum/Asuransi.vue') },
     { path: '/sop', component: () => import(/* webpackPrefetch: true */'./components/umum/Sop.vue') },
     { path: '/peraturan', component: () => import(/* webpackPrefetch: true */'./components/umum/Peraturan.vue') },

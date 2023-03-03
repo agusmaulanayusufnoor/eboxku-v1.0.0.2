@@ -96,6 +96,10 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('pjkpph25/download/{pjkpph25}', 'Pjkpph25Controller@downloadfile');
     Route::get('pjkpph4ayat2/download/{pjkpph4ayat2}', 'Pjkpph4ayat2Controller@downloadfile');
     Route::get('pjkbunga/download/{pjkbunga}', 'PjkbungaController@downloadfile');
+    Route::post('pjkkendaraan/ceknorek', 'PjkkendaraanController@ceknorek');
+    Route::get('pjkkendaraan/getkantor', 'Kode_kantorController@index');
+    Route::get('pjkkendaraan/filterkantor', 'PjkkendaraanController@filterkantor');
+    Route::get('pjkkendaraan/filterstatus', 'PjkkendaraanController@filterstatus');
     Route::get('asuransi/download/{asuransi}', 'AsuransiController@downloadfile');
     Route::get('sop/download/{sop}', 'SopController@downloadfile');
     Route::get('peraturan/download/{peraturan}', 'PeraturanController@downloadfile');
@@ -181,6 +185,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'pjkpph23'    => 'Pjkpph23Controller',
         'pjkpph25'    => 'Pjkpph25Controller',
         'pjkbunga'    => 'PjkbungaController',
+        'pjkkendaraan'=> 'PjkkendaraanController',
         'asuransi'    => 'AsuransiController',
         'sop'         => 'SopController',
         'peraturan'   => 'PeraturanController',

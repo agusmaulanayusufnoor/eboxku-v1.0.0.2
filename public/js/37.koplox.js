@@ -1,16 +1,14 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[37],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Lapkeu.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Lapkap.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Lapkeu.vue?vue&type=script&lang=js& ***!
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Lapkap.vue?vue&type=script&lang=js& ***!
   \**********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -266,14 +264,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data(vm) {
     return {
@@ -296,7 +286,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       //     { text: 'Download File', value: 'file', sortable: false,align: 'center'  },
       //     { text: 'Hapus', value: 'actions', sortable: false },
       //   ],
-      lapkeu: [],
+      lapkap: [],
       valid: true,
       file: null,
       id: '',
@@ -307,7 +297,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }],
       menu1: false,
       menu2: false,
-      picker: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       dateFormatted: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
       tanggal: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       tanggalRules: [function (v) {
@@ -341,7 +330,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         text: 'Nama File',
         value: 'namafile'
       }, {
-        text: 'Periode',
+        text: 'Tanggal File',
         value: 'tanggal'
       }];
       headers.push({
@@ -364,16 +353,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     computedDateFormatted: function computedDateFormatted() {
       return this.formatDate(this.tanggal);
     },
-    periodeMomentJS: function periodeMomentJS() {
-      return this.tanggal ? moment__WEBPACK_IMPORTED_MODULE_0___default()(this.tanggal).format('MMMM YYYY') : '';
-    },
     formTitle: function formTitle() {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item';
     }
   },
   watch: {
     tanggal: function tanggal(val) {
-      this.dateFormatted = moment__WEBPACK_IMPORTED_MODULE_0___default()(this.tanggal).format('MMMM YYYY');
+      this.dateFormatted = this.formatDate(this.tanggal);
     },
     dialog: function dialog(val) {
       val || this.close();
@@ -434,10 +420,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       if (this.$gate.isAdmin() || this.$gate.isUM()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/lapkeu").then(function (response) {
-          _this.lapkeu = response.data.data;
+        axios.get("api/lapkap").then(function (response) {
+          _this.lapkap = response.data.data;
           _this.kantor_id = _this.$kantor_id; // this.form.fill
-          //console.log(this.lapkeu);
+          //console.log(this.lapkap);
           //console.log(this.kantor_id)
         });
       }
@@ -476,11 +462,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       var formData = new FormData();
       formData.set('kantor_id', this.kantor_id);
       formData.set('namafile', this.namafile);
-      formData.set('tanggal', this.dateFormatted);
+      formData.set('tanggal', this.tanggal);
       formData.set('file', this.file); // formData.append('file', this.file);
       // console.log(this.file);
 
-      axios.post('api/lapkeu', formData, config).then(function (response) {
+      axios.post('api/lapkap', formData, config).then(function (response) {
         $('#addNew').modal('hide');
         Toast.fire({
           icon: 'success',
@@ -510,14 +496,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     },
     downloadFile: function downloadFile(id, file) {
       axios({
-        url: 'api/lapkeu/download/' + id,
+        url: 'api/lapkap/download/' + id,
         method: 'GET',
         responseType: 'blob'
       }).then(function (response) {
         var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement('a');
         fileLink.href = fileUrl;
-        fileLink.setAttribute('download', 'lapkeu.pdf');
+        fileLink.setAttribute('download', 'lapkap.pdf');
         fileLink.download = file;
         document.body.appendChild(fileLink);
         fileLink.click();
@@ -530,7 +516,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       this.$Progress.start(); // console.log('Editing data');
 
-      this.form.put('api/lapkeu/' + this.form.id).then(function (response) {
+      this.form.put('api/lapkap/' + this.form.id).then(function (response) {
         // success
         $('#addNew').modal('hide');
         Toast.fire({
@@ -559,7 +545,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this4.form["delete"]('api/lapkeu/' + id).then(function () {
+          _this4.form["delete"]('api/lapkap/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
             _this4.initialize();
@@ -574,9 +560,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Lapkeu.vue?vue&type=template&id=12a5c378&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Lapkap.vue?vue&type=template&id=20d9737a&":
 /*!**************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Lapkeu.vue?vue&type=template&id=12a5c378& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Lapkap.vue?vue&type=template&id=20d9737a& ***!
   \**************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -625,7 +611,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    File Laporan Keuangan Bulanan\n                "
+                                  "\r\n                    File Laporan KAP\r\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -643,7 +629,7 @@ var render = function () {
                                 },
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
-                                  _vm._v(" Upload File\n                  "),
+                                  _vm._v(" Upload File\r\n                  "),
                                 ],
                                 1
                               ),
@@ -659,7 +645,7 @@ var render = function () {
                                 staticClass: "elevation-3",
                                 attrs: {
                                   headers: _vm.headers,
-                                  items: _vm.lapkeu,
+                                  items: _vm.lapkap,
                                   search: _vm.search,
                                   justify: "center",
                                   dense: "",
@@ -672,9 +658,9 @@ var render = function () {
                                         var index = ref.index
                                         return [
                                           _vm._v(
-                                            "\n                    " +
+                                            "\r\n                    " +
                                               _vm._s(index + 1) +
-                                              "\n                "
+                                              "\r\n                "
                                           ),
                                         ]
                                       },
@@ -746,7 +732,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                            mdi-download\n                        "
+                                                    "\r\n                            mdi-download\r\n                        "
                                                   ),
                                                 ]
                                               ),
@@ -778,7 +764,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                    mdi-delete\n                "
+                                                "\r\n                    mdi-delete\r\n                "
                                               ),
                                             ]
                                           ),
@@ -788,7 +774,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  3538273480
+                                  836955976
                                 ),
                               }),
                             ],
@@ -1023,14 +1009,12 @@ var render = function () {
                                                               _vm._b(
                                                                 {
                                                                   attrs: {
-                                                                    value:
-                                                                      _vm.periodeMomentJS,
                                                                     rules:
                                                                       _vm.tanggalRules,
                                                                     label:
-                                                                      "Periode",
+                                                                      "Tanggal File",
                                                                     placeholder:
-                                                                      "Pilih Bulan",
+                                                                      "dd/mm/yyyy",
                                                                     "prepend-icon":
                                                                       "mdi-calendar",
                                                                     outlined:
@@ -1038,25 +1022,16 @@ var render = function () {
                                                                     required:
                                                                       "",
                                                                     dense: "",
-                                                                    clearable:
-                                                                      "",
-                                                                    readonly:
-                                                                      "",
                                                                   },
                                                                   on: {
                                                                     blur: function (
                                                                       $event
                                                                     ) {
-                                                                      _vm.dateFormatted =
-                                                                        _vm.periodeMomentJS
+                                                                      _vm.tanggal =
+                                                                        _vm.parseDate(
+                                                                          _vm.dateFormatted
+                                                                        )
                                                                     },
-                                                                    "click:clear":
-                                                                      function (
-                                                                        $event
-                                                                      ) {
-                                                                        _vm.tanggal =
-                                                                          null
-                                                                      },
                                                                   },
                                                                   model: {
                                                                     value:
@@ -1095,14 +1070,9 @@ var render = function () {
                                                   _vm._v(" "),
                                                   _c("v-date-picker", {
                                                     attrs: {
-                                                      type: "month",
                                                       elevation: "15",
                                                       "year-icon":
-                                                        "mdi-calendar-blank",
-                                                      "prev-icon":
-                                                        "mdi-skip-previous",
-                                                      "next-icon":
-                                                        "mdi-skip-next",
+                                                        "calendar-blank",
                                                       locale: "id-ID",
                                                     },
                                                     on: {
@@ -1172,9 +1142,9 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\n                                    " +
+                                                          "\r\n                                    " +
                                                             _vm._s(text) +
-                                                            "\n                                "
+                                                            "\r\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1187,12 +1157,12 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\n                                    +" +
+                                                          "\r\n                                    +" +
                                                             _vm._s(
                                                               _vm.files.length -
                                                                 2
                                                             ) +
-                                                            " File(s)\n                                "
+                                                            " File(s)\r\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -1239,7 +1209,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-cancel")]),
                                   _vm._v(
-                                    "\n                            Batal\n                        "
+                                    "\r\n                            Batal\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1265,7 +1235,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-pencil")]),
                                   _vm._v(
-                                    "\n                            Ubah\n                        "
+                                    "\r\n                            Ubah\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1291,7 +1261,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
                                   _vm._v(
-                                    "\n                            Upload\n                        "
+                                    "\r\n                            Upload\r\n                        "
                                   ),
                                 ],
                                 1
@@ -1322,17 +1292,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/umum/Lapkeu.vue":
+/***/ "./resources/js/components/umum/Lapkap.vue":
 /*!*************************************************!*\
-  !*** ./resources/js/components/umum/Lapkeu.vue ***!
+  !*** ./resources/js/components/umum/Lapkap.vue ***!
   \*************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Lapkeu_vue_vue_type_template_id_12a5c378___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Lapkeu.vue?vue&type=template&id=12a5c378& */ "./resources/js/components/umum/Lapkeu.vue?vue&type=template&id=12a5c378&");
-/* harmony import */ var _Lapkeu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Lapkeu.vue?vue&type=script&lang=js& */ "./resources/js/components/umum/Lapkeu.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Lapkap_vue_vue_type_template_id_20d9737a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Lapkap.vue?vue&type=template&id=20d9737a& */ "./resources/js/components/umum/Lapkap.vue?vue&type=template&id=20d9737a&");
+/* harmony import */ var _Lapkap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Lapkap.vue?vue&type=script&lang=js& */ "./resources/js/components/umum/Lapkap.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1342,9 +1312,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Lapkeu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Lapkeu_vue_vue_type_template_id_12a5c378___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Lapkeu_vue_vue_type_template_id_12a5c378___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Lapkap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Lapkap_vue_vue_type_template_id_20d9737a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Lapkap_vue_vue_type_template_id_20d9737a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1354,38 +1324,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/umum/Lapkeu.vue"
+component.options.__file = "resources/js/components/umum/Lapkap.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/umum/Lapkeu.vue?vue&type=script&lang=js&":
+/***/ "./resources/js/components/umum/Lapkap.vue?vue&type=script&lang=js&":
 /*!**************************************************************************!*\
-  !*** ./resources/js/components/umum/Lapkeu.vue?vue&type=script&lang=js& ***!
+  !*** ./resources/js/components/umum/Lapkap.vue?vue&type=script&lang=js& ***!
   \**************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Lapkeu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Lapkeu.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Lapkeu.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Lapkeu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Lapkap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Lapkap.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Lapkap.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Lapkap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/umum/Lapkeu.vue?vue&type=template&id=12a5c378&":
+/***/ "./resources/js/components/umum/Lapkap.vue?vue&type=template&id=20d9737a&":
 /*!********************************************************************************!*\
-  !*** ./resources/js/components/umum/Lapkeu.vue?vue&type=template&id=12a5c378& ***!
+  !*** ./resources/js/components/umum/Lapkap.vue?vue&type=template&id=20d9737a& ***!
   \********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Lapkeu_vue_vue_type_template_id_12a5c378___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Lapkeu.vue?vue&type=template&id=12a5c378& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Lapkeu.vue?vue&type=template&id=12a5c378&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Lapkeu_vue_vue_type_template_id_12a5c378___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Lapkap_vue_vue_type_template_id_20d9737a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Lapkap.vue?vue&type=template&id=20d9737a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Lapkap.vue?vue&type=template&id=20d9737a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Lapkap_vue_vue_type_template_id_20d9737a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Lapkeu_vue_vue_type_template_id_12a5c378___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Lapkap_vue_vue_type_template_id_20d9737a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

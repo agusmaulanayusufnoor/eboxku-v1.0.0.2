@@ -1,14 +1,16 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[45],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Pjkpph25.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Pjkpph25.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Pjkkendaraan.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Pjkkendaraan.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -21,6 +23,167 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -272,46 +435,53 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       dialog: false,
       dialogDelete: false,
       search: '',
-      //   headers: [
-      //     {
-      //     text: 'No',
-      //     value: 'index',
-      //     },
-      //     { text: 'Kantor', value: 'nama_kantor',align: 'start', },
-      //     {
-      //       text: 'Nama File',
-      //       value: 'namafile',
-      //     },
-      //     { text: 'Tanggal File', value: 'tanggal' },
-      //     { text: 'Download File', value: 'file', sortable: false,align: 'center'  },
-      //     { text: 'Hapus', value: 'actions', sortable: false },
-      //   ],
-      pjkpph25: [],
+      items: ['belum', 'sudah'],
+      pjkkendaraan: [],
       valid: true,
       file: null,
       id: '',
       kantor_id: '',
-      namafile: '',
-      nameRules: [function (v) {
-        return !!v || 'Nama file belum diisi';
+      nama_kantor: '',
+      namaKantor: [],
+      nopol: '',
+      nopolRules: [function (v) {
+        return !!v || 'No Polisi Belum Diisi';
       }],
+      cekNorekData: [],
+      pesaneror: [],
       menu1: false,
       menu2: false,
-      dateFormatted: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
-      tanggal: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
-      tanggalRules: [function (v) {
-        return !!v || 'Tanggal file belum diisi';
+      dateFormatted1: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
+      dateFormatted2: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
+      tgl_habis_stnk: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
+      tgl_habis_stnkRules: [function (v) {
+        return !!v || 'Tanggal Habis STNK belum diisi';
       }],
-      fileRules: [function (v) {
-        return !!v || 'File belum dimasukan';
+      tgl_pajak_tahunan: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
+      tgl_pajak_tahunanRules: [function (v) {
+        return !!v || 'Tanggal Pajak Tahunan belum diisi';
       }],
-      //file: '',
+      nilai_pajak: '',
+      nilai_pajakRules: [function (v) {
+        return !!v || 'Pajak yang harus dibayar belum diisi';
+      }],
+      pemegang_kendaraan: '',
+      status_bayar: '',
+      status_bayarRules: [function (v) {
+        return !!v || 'Status Bayar belum dipilih';
+      }],
+      statusFilter: '',
+      keterangan: '',
       form: new Form({
         id: '',
         kantor_id: '',
-        namafile: '',
-        tanggal: '',
-        file: ''
+        nopol: '',
+        tgl_habis_stnk: '',
+        tgl_pajak_tahunan: '',
+        nilai_pajak: '',
+        pemegang_kendaraan: '',
+        status_bayar: '',
+        keterangan: ''
       })
     };
   },
@@ -327,18 +497,27 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         value: 'nama_kantor',
         align: 'start'
       }, {
-        text: 'Nama File',
-        value: 'namafile'
+        text: 'No Pol.',
+        value: 'nopol'
       }, {
-        text: 'Tanggal File',
-        value: 'tanggal'
+        text: 'Tanggal Habis STNK',
+        value: 'tgl_habis_stnk'
+      }, {
+        text: 'Tanggal Pajak Tahunan',
+        value: 'tgl_pajak_tahunan'
+      }, {
+        text: 'Pajak Yang Dibayar',
+        value: 'nilai_pajak'
+      }, {
+        text: 'Pemegang Kendaraan',
+        value: 'pemegang_kendaraan'
+      }, {
+        text: 'Status Bayar',
+        value: 'status_bayar'
+      }, {
+        text: 'Keterangan',
+        value: 'keterangan'
       }];
-      headers.push({
-        text: 'Download File',
-        value: 'file',
-        sortable: false,
-        align: 'center'
-      });
 
       if (this.$gate.isAdmin()) {
         headers.push({
@@ -358,8 +537,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     }
   },
   watch: {
-    tanggal: function tanggal(val) {
-      this.dateFormatted = this.formatDate(this.tanggal);
+    tgl_habis_stnk: function tgl_habis_stnk(val) {
+      this.dateFormatted1 = this.formatDate(this.tgl_habis_stnk);
+    },
+    tgl_pajak_tahunan: function tgl_pajak_tahunan(val) {
+      this.dateFormatted2 = this.formatDate(this.tgl_pajak_tahunan);
     },
     dialog: function dialog(val) {
       val || this.close();
@@ -372,21 +554,187 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   //     console.log(this.$kantor_id)
   //   },
   created: function created() {
-    this.$Progress.start();
-    console.log(this.kantor_id);
+    this.$Progress.start(); //console.log(this.kantor_id)
+
     this.initialize();
     this.$Progress.finish();
   },
   methods: {
+    uppercase: function uppercase() {
+      this.nopol = this.nopol.toUpperCase();
+    },
+    cekNorek: function cekNorek() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var formData, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(_this.$gate.isAdmin() || _this.$gate.isUM())) {
+                  _context.next = 7;
+                  break;
+                }
+
+                formData = new FormData();
+                formData.set('nopol', _this.nopol); //const response = await axios.get('api/kredit/ceknama')
+
+                _context.next = 5;
+                return axios.post('api/pjkkendaraan/ceknorek', formData);
+
+              case 5:
+                response = _context.sent;
+
+                //this.cekNorekData = response.data.data[0].nopol;
+                if (response.data.message == 'adarek') {
+                  _this.cekNorekData = response.data.data[0].nopol;
+                  _this.pesaneror = 'No Polisi ' + _this.cekNorekData + ' Sudah Ada'; // console.log(this.cekNorekData);
+
+                  Toast.fire({
+                    icon: 'error',
+                    //title: response.data.message
+                    title: 'No Polisi' + response.data.data[0].nopol + ' Sudah Ada Dalam Data'
+                  });
+
+                  _this.initialize();
+                } //endif response
+
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getKantor: function getKantor() {
+      var _this2 = this;
+
+      if (this.$gate.isAdmin() || this.$gate.isUM()) {
+        //axios.get("api/user").then((response) => {(this.users = response.data.data)});
+        axios.get("api/pjkkendaraan/getkantor").then(function (response) {
+          _this2.namaKantor = response.data.data; //console.log(this.editedItem.namaKantor);
+          //console.log(this.kantor_id)
+        })["catch"](function (error) {
+          console.log(error.response.data);
+        });
+      }
+    },
+    filterKantor: function filterKantor() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var formData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this3.$Progress.start();
+
+                formData = new FormData();
+                formData.set('kantor_id', _this3.nama_kantor); //formData.set('nama_kantor', this.nama_kantor);
+
+                if (_this3.nama_kantor != '') {
+                  if (_this3.$gate.isAdmin()) {
+                    axios.get("api/pjkkendaraan/filterkantor", {
+                      params: {
+                        kantor_id: _this3.nama_kantor
+                      }
+                    }).then(function (response) {
+                      _this3.pjkkendaraan = response.data.data;
+                      _this3.kantor_id = _this3.$kantor_id; // this.form.fill
+                      //console.log(this.nama_kantor);
+                      //console.log(this.nama_kantor)
+                    })["catch"](function (error) {
+                      console.log(error.response.data);
+                    });
+                  }
+                } else {
+                  //Swal.fire("Gagal Filter", "Filter Tanggal Belum Dipilih...!", "warning");
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Error Filter',
+                    text: 'Filter Kantor Belum Dipilih...! ',
+                    width: 600,
+                    padding: '3em',
+                    color: '#ff0000',
+                    background: '#ff0000 url(/images/kayu.jpg)',
+                    backdrop: "\n            rgba(255,0,64,0.4)\n            url(\"/images/nyan-cat.gif\")\n            left top\n            no-repeat\n        "
+                  });
+                }
+
+                _this3.$Progress.finish();
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    filterStatus: function filterStatus() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var formData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this4.$Progress.start();
+
+                formData = new FormData();
+                formData.set('status_bayar', _this4.statusFilter);
+
+                if (_this4.statusFilter != '') {
+                  if (_this4.$gate.isAdmin() || _this4.$gate.isUM() || _this4.$gate.isSekdir()) {
+                    axios.get("api/pjkkendaraan/filterstatus", {
+                      params: {
+                        status_bayar: _this4.statusFilter
+                      }
+                    }).then(function (response) {
+                      _this4.pjkkendaraan = response.data.data; //this.kantor_id = this.$kantor_id;
+                      // this.form.fill
+                      //console.log(this.status_bayar)
+                    })["catch"](function (error) {
+                      console.log(error.response.data);
+                    });
+                  }
+                } else {
+                  //Swal.fire("Gagal Filter", "Filter Tanggal Belum Dipilih...!", "warning");
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Error Filter',
+                    text: 'Filter Kantor Belum Dipilih...! ',
+                    width: 600,
+                    padding: '3em',
+                    color: '#ff0000',
+                    background: '#ff0000 url(/images/kayu.jpg)',
+                    backdrop: "\n            rgba(255,0,64,0.4)\n            url(\"/images/nyan-cat.gif\")\n            left top\n            no-repeat\n        "
+                  });
+                }
+
+                _this4.$Progress.finish();
+
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
     pencetKeyboard: function pencetKeyboard(evt) {
       evt = evt ? evt : window.event;
       var charCode = evt.which ? evt.which : evt.keyCode; //nomer wungkul
-      //if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
-      //tidak boleh tombol '/' dan '\'
 
-      if (charCode === 191 || charCode === 220) {
+      if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode !== 46) {
+        //tidak boleh tombol '/' dan '\'
+        //if (charCode === 191 || charCode===220) {
         evt.preventDefault();
-        ;
       } else {
         return true;
       }
@@ -413,18 +761,35 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       return "".concat(year, "-").concat(month.padStart(2, '0'), "-").concat(day.padStart(2, '0'));
     },
-    initialize: function initialize() {
-      var _this = this;
+    refresh: function refresh() {
+      var _this5 = this;
 
       this.$Progress.start();
 
       if (this.$gate.isAdmin() || this.$gate.isUM()) {
-        //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/pjkpph25").then(function (response) {
-          _this.pjkpph25 = response.data.data;
-          _this.kantor_id = _this.$kantor_id; // this.form.fill
-          //console.log(this.pjkpph25);
-          //console.log(this.kantor_id)
+        axios.get("api/pjkkendaraan").then(function (response) {
+          _this5.pjkkendaraan = response.data.data;
+          _this5.kantor_id = _this5.$kantor_id; // this.form.fill
+          // console.log(this.pjkkendaraan);
+          // console.log(this.kantor_id)
+        });
+      }
+
+      this.$Progress.finish();
+      this.$refs.cbkantor.reset();
+      this.$refs.cbstatus.reset();
+    },
+    initialize: function initialize() {
+      var _this6 = this;
+
+      this.$Progress.start();
+
+      if (this.$gate.isAdmin() || this.$gate.isUM()) {
+        axios.get("api/pjkkendaraan").then(function (response) {
+          _this6.pjkkendaraan = response.data.data;
+          _this6.kantor_id = _this6.$kantor_id; // this.form.fill
+          // console.log(this.pjkkendaraan);
+          // console.log(this.kantor_id)
         });
       }
 
@@ -441,14 +806,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       $('#addNew').modal('show');
       this.$refs.form.reset();
       this.namafile = '';
+      this.pesaneror = '';
     },
-    // uploadFile(e){
-    //         // `files` is always an array because the file input may be in multiple mode
-    //         console.log(e);
-    //         this.file = e.target.files[0];
-    // },
     createUser: function createUser() {
-      var _this2 = this;
+      var _this7 = this;
 
       this.$refs.form.validate();
       this.$Progress.start(); // e.preventDefault();
@@ -461,23 +822,27 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       var formData = new FormData();
       formData.set('kantor_id', this.kantor_id);
-      formData.set('namafile', this.namafile);
-      formData.set('tanggal', this.tanggal);
-      formData.set('file', this.file); // formData.append('file', this.file);
+      formData.set('nopol', this.nopol);
+      formData.set('tgl_habis_stnk', this.tgl_habis_stnk);
+      formData.set('tgl_pajak_tahunan', this.tgl_pajak_tahunan);
+      formData.set('nilai_pajak', this.nilai_pajak);
+      formData.set('pemegang_kendaraan', this.pemegang_kendaraan);
+      formData.set('status_bayar', this.status_bayar);
+      formData.set('keterangan', this.keterangan); // formData.append('file', this.file);
       // console.log(this.file);
 
-      axios.post('api/pjkpph25', formData, config).then(function (response) {
+      axios.post('api/pjkkendaraan', formData, config).then(function (response) {
         $('#addNew').modal('hide');
         Toast.fire({
           icon: 'success',
           title: response.data.message
         });
 
-        _this2.$Progress.finish();
+        _this7.$Progress.finish();
 
-        _this2.initialize();
+        _this7.initialize();
       })["catch"](function (error) {
-        //Swal.fire("Gagal Upload", "Cek data inputan!", "warning");
+        //Swal.fire("Failed!", data.message, "warning");
         var errors = error.response.data.errors; // Loop this object and pring Key or value or both
 
         for (var _i2 = 0, _Object$entries = Object.entries(errors); _i2 < _Object$entries.length; _i2++) {
@@ -494,29 +859,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         }
       });
     },
-    downloadFile: function downloadFile(id, file) {
-      axios({
-        url: 'api/pjkpph25/download/' + id,
-        method: 'GET',
-        responseType: 'blob'
-      }).then(function (response) {
-        var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
-        var fileLink = document.createElement('a');
-        fileLink.href = fileUrl;
-        fileLink.setAttribute('download', 'pjkpph25.zip');
-        fileLink.download = file;
-        document.body.appendChild(fileLink);
-        fileLink.click();
-      })["catch"](function () {
-        Swal.fire("Gagal Download!", "File tidak ada...", "warning");
-      });
-    },
     updateUser: function updateUser() {
-      var _this3 = this;
+      var _this8 = this;
 
       this.$Progress.start(); // console.log('Editing data');
 
-      this.form.put('api/pjkpph25/' + this.form.id).then(function (response) {
+      this.form.put('api/pjkkendaraan/' + this.form.id).then(function (response) {
         // success
         $('#addNew').modal('hide');
         Toast.fire({
@@ -524,16 +872,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           title: response.data.message
         });
 
-        _this3.$Progress.finish(); //  Fire.$emit('AfterCreate');
+        _this8.$Progress.finish(); //  Fire.$emit('AfterCreate');
 
 
-        _this3.initialize();
+        _this8.initialize();
       })["catch"](function () {
-        _this3.$Progress.fail();
+        _this8.$Progress.fail();
       });
     },
     deleteUser: function deleteUser(id) {
-      var _this4 = this;
+      var _this9 = this;
 
       Swal.fire({
         title: 'Yakin dihapus?',
@@ -545,10 +893,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this4.form["delete"]('api/pjkpph25/' + id).then(function () {
+          _this9.form["delete"]('api/pjkkendaraan/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
-            _this4.initialize();
+            _this9.initialize();
           })["catch"](function (data) {
             Swal.fire("Failed!", data.message, "warning");
           });
@@ -560,10 +908,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Pjkpph25.vue?vue&type=template&id=44b1cefe&":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Pjkpph25.vue?vue&type=template&id=44b1cefe& ***!
-  \****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Pjkkendaraan.vue?vue&type=template&id=8a842c80&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/umum/Pjkkendaraan.vue?vue&type=template&id=8a842c80& ***!
+  \********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -602,8 +950,7 @@ var render = function () {
                             "v-toolbar",
                             {
                               attrs: {
-                                src: "images/banner-yellow.jpg",
-                                color: "yellow",
+                                src: "images/banner-red.jpg",
                                 dark: "",
                                 shaped: "",
                               },
@@ -611,7 +958,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\n                    File Pajak PPH 25\n                "
+                                  "\n                    Data Pajak Kendaraan\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -628,8 +975,8 @@ var render = function () {
                                   on: { click: _vm.newModal },
                                 },
                                 [
-                                  _c("v-icon", [_vm._v("mdi-file-upload")]),
-                                  _vm._v(" Upload File\n                  "),
+                                  _c("v-icon", [_vm._v("mdi-database-plus")]),
+                                  _vm._v(" Tambah Data\n                  "),
                                 ],
                                 1
                               ),
@@ -645,13 +992,57 @@ var render = function () {
                                 staticClass: "elevation-3",
                                 attrs: {
                                   headers: _vm.headers,
-                                  items: _vm.pjkpph25,
+                                  items: _vm.pjkkendaraan,
                                   search: _vm.search,
                                   justify: "center",
                                   dense: "",
                                 },
                                 scopedSlots: _vm._u(
                                   [
+                                    {
+                                      key: "footer.prepend",
+                                      fn: function () {
+                                        return [
+                                          _c(
+                                            "v-btn",
+                                            {
+                                              staticClass: "ma-2",
+                                              attrs: {
+                                                color: "success",
+                                                dark: "",
+                                                small: "",
+                                              },
+                                              on: {
+                                                click: function ($event) {
+                                                  return _vm.refresh()
+                                                },
+                                              },
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                      Refresh\n                      "
+                                              ),
+                                              _c(
+                                                "v-icon",
+                                                {
+                                                  attrs: {
+                                                    right: "",
+                                                    dark: "",
+                                                  },
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                        mdi-reload\n                      "
+                                                  ),
+                                                ]
+                                              ),
+                                            ],
+                                            1
+                                          ),
+                                        ]
+                                      },
+                                      proxy: true,
+                                    },
                                     {
                                       key: "item.index",
                                       fn: function (ref) {
@@ -673,9 +1064,136 @@ var render = function () {
                                             "v-toolbar",
                                             { attrs: { flat: "" } },
                                             [
+                                              _vm.$gate.isAdmin()
+                                                ? _c(
+                                                    "v-row",
+                                                    [
+                                                      _c(
+                                                        "v-col",
+                                                        {
+                                                          attrs: {
+                                                            cols: "8",
+                                                            sm: "8",
+                                                            md: "8",
+                                                          },
+                                                        },
+                                                        [
+                                                          _c("v-combobox", {
+                                                            ref: "cbkantor",
+                                                            attrs: {
+                                                              label: "Kantor",
+                                                              items:
+                                                                _vm.namaKantor,
+                                                              "item-value":
+                                                                "nama_kantor",
+                                                              "item-text":
+                                                                "nama_kantor",
+                                                              placeholder:
+                                                                "Pilih Kantor",
+                                                              "single-line": "",
+                                                              "hide-details":
+                                                                "",
+                                                              clearable: "",
+                                                              "return-object": false,
+                                                              "persistent-hint":
+                                                                "",
+                                                              "error-messages":
+                                                                _vm.pesaneror,
+                                                            },
+                                                            on: {
+                                                              click: function (
+                                                                $event
+                                                              ) {
+                                                                return _vm.getKantor()
+                                                              },
+                                                              change: function (
+                                                                $event
+                                                              ) {
+                                                                return _vm.filterKantor()
+                                                              },
+                                                            },
+                                                            model: {
+                                                              value:
+                                                                _vm.nama_kantor,
+                                                              callback:
+                                                                function ($$v) {
+                                                                  _vm.nama_kantor =
+                                                                    $$v
+                                                                },
+                                                              expression:
+                                                                "nama_kantor",
+                                                            },
+                                                          }),
+                                                        ],
+                                                        1
+                                                      ),
+                                                    ],
+                                                    1
+                                                  )
+                                                : _vm._e(),
+                                              _vm._v(" "),
                                               _c("v-spacer"),
                                               _vm._v(" "),
                                               _c("v-spacer"),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-row",
+                                                [
+                                                  _c(
+                                                    "v-col",
+                                                    {
+                                                      attrs: {
+                                                        cols: "8",
+                                                        sm: "8",
+                                                        md: "8",
+                                                      },
+                                                    },
+                                                    [
+                                                      _c("v-combobox", {
+                                                        ref: "cbstatus",
+                                                        attrs: {
+                                                          label: "Status Bayar",
+                                                          items: _vm.items,
+                                                          "item-value":
+                                                            "status_bayar",
+                                                          "item-text":
+                                                            "status_bayar",
+                                                          placeholder:
+                                                            "Status Bayar",
+                                                          "single-line": "",
+                                                          "hide-details": "",
+                                                          clearable: "",
+                                                          "return-object": false,
+                                                          "persistent-hint": "",
+                                                          "error-messages":
+                                                            _vm.pesaneror,
+                                                        },
+                                                        on: {
+                                                          change: function (
+                                                            $event
+                                                          ) {
+                                                            return _vm.filterStatus()
+                                                          },
+                                                        },
+                                                        model: {
+                                                          value:
+                                                            _vm.statusFilter,
+                                                          callback: function (
+                                                            $$v
+                                                          ) {
+                                                            _vm.statusFilter =
+                                                              $$v
+                                                          },
+                                                          expression:
+                                                            "statusFilter",
+                                                        },
+                                                      }),
+                                                    ],
+                                                    1
+                                                  ),
+                                                ],
+                                                1
+                                              ),
                                               _vm._v(" "),
                                               _c("v-spacer"),
                                               _vm._v(" "),
@@ -703,44 +1221,6 @@ var render = function () {
                                         ]
                                       },
                                       proxy: true,
-                                    },
-                                    {
-                                      key: "item.file",
-                                      fn: function (ref) {
-                                        var item = ref.item
-                                        return [
-                                          _c(
-                                            "v-card-actions",
-                                            { staticClass: "justify-center" },
-                                            [
-                                              _c(
-                                                "v-icon",
-                                                {
-                                                  staticClass: "mr-4",
-                                                  attrs: {
-                                                    small: "",
-                                                    color: "blue",
-                                                  },
-                                                  on: {
-                                                    click: function ($event) {
-                                                      return _vm.downloadFile(
-                                                        item.id,
-                                                        item.file
-                                                      )
-                                                    },
-                                                  },
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                            mdi-download\n                        "
-                                                  ),
-                                                ]
-                                              ),
-                                            ],
-                                            1
-                                          ),
-                                        ]
-                                      },
                                     },
                                     {
                                       key: "item.actions",
@@ -774,7 +1254,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  3538273480
+                                  2847394625
                                 ),
                               }),
                             ],
@@ -810,13 +1290,16 @@ var render = function () {
             [
               _c(
                 "div",
-                { staticClass: "modal-dialog", attrs: { role: "document" } },
+                {
+                  staticClass: "modal-dialog modal-xl modal-dialog-scrollable",
+                  attrs: { role: "document" },
+                },
                 [
                   _c(
                     "div",
                     { staticClass: "modal-content" },
                     [
-                      _c("div", { staticClass: "modal-header" }, [
+                      _c("div", { staticClass: "modal-header primary" }, [
                         _c(
                           "h5",
                           {
@@ -829,8 +1312,14 @@ var render = function () {
                               },
                             ],
                             staticClass: "modal-title",
+                            staticStyle: { color: "white" },
                           },
-                          [_vm._v("Upload File")]
+                          [
+                            _c("i", {
+                              staticClass: "nav-icon fas fa-plus-square",
+                            }),
+                            _vm._v(" Tambah Data"),
+                          ]
                         ),
                         _vm._v(" "),
                         _c(
@@ -887,210 +1376,518 @@ var render = function () {
                           },
                         },
                         [
-                          _c("div", { staticClass: "modal-body" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.kantor_id,
-                                  expression: "kantor_id",
+                          _c(
+                            "div",
+                            { staticClass: "modal-body" },
+                            [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.csrf,
+                                    expression: "csrf",
+                                  },
+                                ],
+                                attrs: { type: "hidden", name: "_token" },
+                                domProps: { value: _vm.csrf },
+                                on: {
+                                  input: function ($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.csrf = $event.target.value
+                                  },
                                 },
-                              ],
-                              attrs: { type: "hidden", name: "kantor_id" },
-                              domProps: { value: _vm.kantor_id },
-                              on: {
-                                input: function ($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.kantor_id = $event.target.value
-                                },
-                              },
-                            }),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.csrf,
-                                  expression: "csrf",
-                                },
-                              ],
-                              attrs: { type: "hidden", name: "_token" },
-                              domProps: { value: _vm.csrf },
-                              on: {
-                                input: function ($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.csrf = $event.target.value
-                                },
-                              },
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticClass: "form-group input-group" },
-                              [
-                                _c(
-                                  "v-col",
-                                  { attrs: { cols: "12", sm: "12", md: "12" } },
-                                  [
-                                    _c("v-text-field", {
-                                      attrs: {
-                                        rules: _vm.nameRules,
-                                        name: "namafile",
-                                        label: "Nama File",
-                                        placeholder: "Nama File",
-                                        outlined: "",
-                                        required: "",
-                                        dense: "",
-                                        "prepend-icon": "mdi-file",
-                                      },
-                                      on: {
-                                        keydown: function ($event) {
-                                          return _vm.pencetKeyboard($event)
-                                        },
-                                      },
-                                      model: {
-                                        value: _vm.namafile,
-                                        callback: function ($$v) {
-                                          _vm.namafile = $$v
-                                        },
-                                        expression: "namafile",
-                                      },
-                                    }),
-                                    _vm._v(" "),
-                                    _c("has-error", {
-                                      attrs: {
-                                        form: _vm.form,
-                                        field: "namafile",
-                                      },
-                                    }),
-                                    _vm._v(" "),
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "v-container",
+                                [
+                                  _c(
+                                    "v-row",
                                     [
                                       _c(
-                                        "v-row",
+                                        "v-col",
+                                        {
+                                          attrs: {
+                                            cols: "12",
+                                            sm: "3",
+                                            md: "3",
+                                          },
+                                        },
+                                        [
+                                          _c("v-combobox", {
+                                            ref: "CBKantor",
+                                            attrs: {
+                                              label: "Kantor",
+                                              items: _vm.namaKantor,
+                                              "item-value": "id",
+                                              "item-text": "nama_kantor",
+                                              placeholder: "Pilih Kantor",
+                                              outlined: "",
+                                              required: "",
+                                              dense: "",
+                                              "hide-details": "",
+                                              "prepend-icon": "fa fa-building",
+                                              "return-object": false,
+                                            },
+                                            on: {
+                                              click: function ($event) {
+                                                return _vm.getKantor()
+                                              },
+                                            },
+                                            model: {
+                                              value: _vm.kantor_id,
+                                              callback: function ($$v) {
+                                                _vm.kantor_id = $$v
+                                              },
+                                              expression: "kantor_id",
+                                            },
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          attrs: {
+                                            cols: "12",
+                                            sm: "3",
+                                            md: "3",
+                                          },
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              rules: _vm.nopolRules,
+                                              name: "nopol",
+                                              label: "Nomor Polisi",
+                                              placeholder: "No. Pol",
+                                              counter: "",
+                                              maxlength: "12",
+                                              outlined: "",
+                                              required: "",
+                                              dense: "",
+                                              "prepend-icon":
+                                                "mdi-police-badge",
+                                              hint: "",
+                                              "persistent-hint": "",
+                                              "error-messages": _vm.pesaneror,
+                                            },
+                                            on: {
+                                              keyup: _vm.uppercase,
+                                              change: function ($event) {
+                                                return _vm.cekNorek()
+                                              },
+                                            },
+                                            model: {
+                                              value: _vm.nopol,
+                                              callback: function ($$v) {
+                                                _vm.nopol = $$v
+                                              },
+                                              expression: "nopol",
+                                            },
+                                          }),
+                                          _vm._v(" "),
+                                          _c("has-error", {
+                                            attrs: {
+                                              form: _vm.form,
+                                              field: "nopol",
+                                            },
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          attrs: {
+                                            cols: "12",
+                                            sm: "3",
+                                            md: "3",
+                                          },
+                                        },
                                         [
                                           _c(
-                                            "v-col",
+                                            "v-menu",
                                             {
+                                              ref: "menu1",
                                               attrs: {
-                                                cols: "12",
-                                                sm: "12",
-                                                md: "12",
+                                                "close-on-content-click": false,
+                                                "nudge-right": 40,
+                                                transition: "scale-transition",
+                                                "offset-y": "",
+                                                "min-width": "auto",
+                                              },
+                                              scopedSlots: _vm._u([
+                                                {
+                                                  key: "activator",
+                                                  fn: function (ref) {
+                                                    var on = ref.on
+                                                    var attrs = ref.attrs
+                                                    return [
+                                                      _c(
+                                                        "v-text-field",
+                                                        _vm._g(
+                                                          _vm._b(
+                                                            {
+                                                              attrs: {
+                                                                rules:
+                                                                  _vm.tgl_habis_stnkRules,
+                                                                label:
+                                                                  "Tanggal Habis STNK",
+                                                                placeholder:
+                                                                  "Tanggal Habis STNK",
+                                                                "prepend-icon":
+                                                                  "mdi-calendar",
+                                                                outlined: "",
+                                                                required: "",
+                                                                readonly: "",
+                                                                dense: "",
+                                                              },
+                                                              on: {
+                                                                blur: function (
+                                                                  $event
+                                                                ) {
+                                                                  _vm.tgl_habis_stnk =
+                                                                    _vm.parseDate(
+                                                                      _vm.dateFormatted1
+                                                                    )
+                                                                },
+                                                              },
+                                                              model: {
+                                                                value:
+                                                                  _vm.dateFormatted1,
+                                                                callback:
+                                                                  function (
+                                                                    $$v
+                                                                  ) {
+                                                                    _vm.dateFormatted1 =
+                                                                      $$v
+                                                                  },
+                                                                expression:
+                                                                  "dateFormatted1",
+                                                              },
+                                                            },
+                                                            "v-text-field",
+                                                            attrs,
+                                                            false
+                                                          ),
+                                                          on
+                                                        )
+                                                      ),
+                                                    ]
+                                                  },
+                                                },
+                                              ]),
+                                              model: {
+                                                value: _vm.menu1,
+                                                callback: function ($$v) {
+                                                  _vm.menu1 = $$v
+                                                },
+                                                expression: "menu1",
                                               },
                                             },
                                             [
-                                              _c(
-                                                "v-menu",
-                                                {
-                                                  ref: "menu1",
-                                                  attrs: {
-                                                    "close-on-content-click": false,
-                                                    "nudge-right": 40,
-                                                    transition:
-                                                      "scale-transition",
-                                                    "offset-y": "",
-                                                    "min-width": "auto",
-                                                  },
-                                                  scopedSlots: _vm._u([
-                                                    {
-                                                      key: "activator",
-                                                      fn: function (ref) {
-                                                        var on = ref.on
-                                                        var attrs = ref.attrs
-                                                        return [
-                                                          _c(
-                                                            "v-text-field",
-                                                            _vm._g(
-                                                              _vm._b(
-                                                                {
-                                                                  attrs: {
-                                                                    rules:
-                                                                      _vm.tanggalRules,
-                                                                    label:
-                                                                      "Tanggal File",
-                                                                    placeholder:
-                                                                      "dd/mm/yyyy",
-                                                                    "prepend-icon":
-                                                                      "mdi-calendar",
-                                                                    outlined:
-                                                                      "",
-                                                                    required:
-                                                                      "",
-                                                                    dense: "",
-                                                                  },
-                                                                  on: {
-                                                                    blur: function (
-                                                                      $event
-                                                                    ) {
-                                                                      _vm.tanggal =
-                                                                        _vm.parseDate(
-                                                                          _vm.dateFormatted
-                                                                        )
-                                                                    },
-                                                                  },
-                                                                  model: {
-                                                                    value:
-                                                                      _vm.dateFormatted,
-                                                                    callback:
-                                                                      function (
-                                                                        $$v
-                                                                      ) {
-                                                                        _vm.dateFormatted =
-                                                                          $$v
-                                                                      },
-                                                                    expression:
-                                                                      "dateFormatted",
-                                                                  },
-                                                                },
-                                                                "v-text-field",
-                                                                attrs,
-                                                                false
-                                                              ),
-                                                              on
-                                                            )
-                                                          ),
-                                                        ]
-                                                      },
-                                                    },
-                                                  ]),
-                                                  model: {
-                                                    value: _vm.menu1,
-                                                    callback: function ($$v) {
-                                                      _vm.menu1 = $$v
-                                                    },
-                                                    expression: "menu1",
+                                              _vm._v(" "),
+                                              _c("v-date-picker", {
+                                                attrs: {
+                                                  elevation: "15",
+                                                  "year-icon": "calendar-blank",
+                                                  locale: "id-ID",
+                                                },
+                                                on: {
+                                                  input: function ($event) {
+                                                    _vm.menu1 = false
                                                   },
                                                 },
-                                                [
-                                                  _vm._v(" "),
-                                                  _c("v-date-picker", {
-                                                    attrs: {
-                                                      elevation: "15",
-                                                      "year-icon":
-                                                        "calendar-blank",
-                                                      locale: "id-ID",
-                                                    },
-                                                    on: {
-                                                      input: function ($event) {
-                                                        _vm.menu1 = false
-                                                      },
-                                                    },
-                                                    model: {
-                                                      value: _vm.tanggal,
-                                                      callback: function ($$v) {
-                                                        _vm.tanggal = $$v
-                                                      },
-                                                      expression: "tanggal",
-                                                    },
-                                                  }),
-                                                ],
-                                                1
-                                              ),
+                                                model: {
+                                                  value: _vm.tgl_habis_stnk,
+                                                  callback: function ($$v) {
+                                                    _vm.tgl_habis_stnk = $$v
+                                                  },
+                                                  expression: "tgl_habis_stnk",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("has-error", {
+                                        attrs: {
+                                          form: _vm.form,
+                                          field: "tgl_habis_stnk",
+                                        },
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          attrs: {
+                                            cols: "12",
+                                            sm: "3",
+                                            md: "3",
+                                          },
+                                        },
+                                        [
+                                          _c(
+                                            "v-menu",
+                                            {
+                                              ref: "menu2",
+                                              attrs: {
+                                                "close-on-content-click": false,
+                                                "nudge-right": 40,
+                                                transition: "scale-transition",
+                                                "offset-y": "",
+                                                "min-width": "auto",
+                                              },
+                                              scopedSlots: _vm._u([
+                                                {
+                                                  key: "activator",
+                                                  fn: function (ref) {
+                                                    var on = ref.on
+                                                    var attrs = ref.attrs
+                                                    return [
+                                                      _c(
+                                                        "v-text-field",
+                                                        _vm._g(
+                                                          _vm._b(
+                                                            {
+                                                              attrs: {
+                                                                rules:
+                                                                  _vm.tgl_pajak_tahunanRules,
+                                                                label:
+                                                                  "Tanggal Pajak Tahunan",
+                                                                placeholder:
+                                                                  "Tanggal Pajak Tahunan",
+                                                                "prepend-icon":
+                                                                  "mdi-calendar",
+                                                                outlined: "",
+                                                                required: "",
+                                                                readonly: "",
+                                                                dense: "",
+                                                              },
+                                                              on: {
+                                                                blur: function (
+                                                                  $event
+                                                                ) {
+                                                                  _vm.tgl_pajak_tahunan =
+                                                                    _vm.parseDate(
+                                                                      _vm.dateFormatted2
+                                                                    )
+                                                                },
+                                                              },
+                                                              model: {
+                                                                value:
+                                                                  _vm.dateFormatted2,
+                                                                callback:
+                                                                  function (
+                                                                    $$v
+                                                                  ) {
+                                                                    _vm.dateFormatted2 =
+                                                                      $$v
+                                                                  },
+                                                                expression:
+                                                                  "dateFormatted2",
+                                                              },
+                                                            },
+                                                            "v-text-field",
+                                                            attrs,
+                                                            false
+                                                          ),
+                                                          on
+                                                        )
+                                                      ),
+                                                    ]
+                                                  },
+                                                },
+                                              ]),
+                                              model: {
+                                                value: _vm.menu2,
+                                                callback: function ($$v) {
+                                                  _vm.menu2 = $$v
+                                                },
+                                                expression: "menu2",
+                                              },
+                                            },
+                                            [
+                                              _vm._v(" "),
+                                              _c("v-date-picker", {
+                                                attrs: {
+                                                  elevation: "15",
+                                                  "year-icon": "calendar-blank",
+                                                  locale: "id-ID",
+                                                },
+                                                on: {
+                                                  input: function ($event) {
+                                                    _vm.menu2 = false
+                                                  },
+                                                },
+                                                model: {
+                                                  value: _vm.tgl_pajak_tahunan,
+                                                  callback: function ($$v) {
+                                                    _vm.tgl_pajak_tahunan = $$v
+                                                  },
+                                                  expression:
+                                                    "tgl_pajak_tahunan",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("has-error", {
+                                        attrs: {
+                                          form: _vm.form,
+                                          field: "tgl_pajak_tahunan",
+                                        },
+                                      }),
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-row",
+                                    [
+                                      _c(
+                                        "v-col",
+                                        {
+                                          attrs: {
+                                            cols: "12",
+                                            sm: "3",
+                                            md: "3",
+                                          },
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              rules: _vm.nilai_pajakRules,
+                                              name: "nilai_pajak",
+                                              label: "Nilai Pajak",
+                                              placeholder:
+                                                "Pajak yang harus dibayar",
+                                              outlined: "",
+                                              required: "",
+                                              dense: "",
+                                              "prepend-icon":
+                                                "fas fa-money-bill-alt",
+                                            },
+                                            on: {
+                                              keydown: function ($event) {
+                                                return _vm.pencetKeyboard(
+                                                  $event
+                                                )
+                                              },
+                                            },
+                                            model: {
+                                              value: _vm.nilai_pajak,
+                                              callback: function ($$v) {
+                                                _vm.nilai_pajak = $$v
+                                              },
+                                              expression: "nilai_pajak",
+                                            },
+                                          }),
+                                          _vm._v(" "),
+                                          _c("has-error", {
+                                            attrs: {
+                                              form: _vm.form,
+                                              field: "nilai_pajak",
+                                            },
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          attrs: {
+                                            cols: "12",
+                                            sm: "4",
+                                            md: "4",
+                                          },
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              name: "pemegang_kendaraan",
+                                              label: "Pemegang Kendaraan",
+                                              placeholder: "Pemegang Kendaraan",
+                                              outlined: "",
+                                              dense: "",
+                                              "prepend-icon":
+                                                "fas fa-user-ninja",
+                                            },
+                                            model: {
+                                              value: _vm.pemegang_kendaraan,
+                                              callback: function ($$v) {
+                                                _vm.pemegang_kendaraan = $$v
+                                              },
+                                              expression: "pemegang_kendaraan",
+                                            },
+                                          }),
+                                          _vm._v(" "),
+                                          _c("has-error", {
+                                            attrs: {
+                                              form: _vm.form,
+                                              field: "pemegang_kendaraan",
+                                            },
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          attrs: {
+                                            cols: "5",
+                                            sm: "5",
+                                            md: "5",
+                                          },
+                                        },
+                                        [
+                                          _c(
+                                            "v-radio-group",
+                                            {
+                                              attrs: {
+                                                mandatory: "",
+                                                row: "",
+                                                rules: _vm.status_bayarRules,
+                                                "prepend-icon":
+                                                  "fas fa-ellipsis-v",
+                                              },
+                                              model: {
+                                                value: _vm.status_bayar,
+                                                callback: function ($$v) {
+                                                  _vm.status_bayar = $$v
+                                                },
+                                                expression: "status_bayar",
+                                              },
+                                            },
+                                            [
+                                              _c("v-radio", {
+                                                attrs: {
+                                                  label: "Belum Bayar",
+                                                  value: "belum",
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              _c("v-radio", {
+                                                attrs: {
+                                                  label: "Sudah Bayar",
+                                                  value: "sudah",
+                                                },
+                                              }),
                                             ],
                                             1
                                           ),
@@ -1098,99 +1895,40 @@ var render = function () {
                                         1
                                       ),
                                     ],
-                                    _vm._v(" "),
-                                    _c("has-error", {
-                                      attrs: {
-                                        form: _vm.form,
-                                        field: "tanggal",
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      name: "keterangan",
+                                      label: "Keterangan",
+                                      placeholder: "Keterangan",
+                                      outlined: "",
+                                      dense: "",
+                                      "prepend-icon": "fas fa-comment-dots",
+                                      value: " ",
+                                    },
+                                    model: {
+                                      value: _vm.keterangan,
+                                      callback: function ($$v) {
+                                        _vm.keterangan = $$v
                                       },
-                                    }),
-                                    _vm._v(" "),
-                                    [
-                                      _c("v-file-input", {
-                                        attrs: {
-                                          rules: _vm.fileRules,
-                                          color: "deep-purple accent-4",
-                                          counter: "",
-                                          label: "File input",
-                                          required: "",
-                                          placeholder: "Ambil File",
-                                          "prepend-icon": "mdi-paperclip",
-                                          outlined: "",
-                                          dense: "",
-                                          "show-size": "",
-                                          accept: ".pdf",
-                                        },
-                                        scopedSlots: _vm._u([
-                                          {
-                                            key: "selection",
-                                            fn: function (ref) {
-                                              var index = ref.index
-                                              var text = ref.text
-                                              return [
-                                                index < 2
-                                                  ? _c(
-                                                      "v-chip",
-                                                      {
-                                                        attrs: {
-                                                          color:
-                                                            "deep-purple accent-4",
-                                                          dark: "",
-                                                          label: "",
-                                                          small: "",
-                                                        },
-                                                      },
-                                                      [
-                                                        _vm._v(
-                                                          "\n                                    " +
-                                                            _vm._s(text) +
-                                                            "\n                                "
-                                                        ),
-                                                      ]
-                                                    )
-                                                  : index === 2
-                                                  ? _c(
-                                                      "span",
-                                                      {
-                                                        staticClass:
-                                                          "text-overline grey--text text--darken-3 mx-2",
-                                                      },
-                                                      [
-                                                        _vm._v(
-                                                          "\n                                    +" +
-                                                            _vm._s(
-                                                              _vm.files.length -
-                                                                2
-                                                            ) +
-                                                            " File(s)\n                                "
-                                                        ),
-                                                      ]
-                                                    )
-                                                  : _vm._e(),
-                                              ]
-                                            },
-                                          },
-                                        ]),
-                                        model: {
-                                          value: _vm.file,
-                                          callback: function ($$v) {
-                                            _vm.file = $$v
-                                          },
-                                          expression: "file",
-                                        },
-                                      }),
-                                    ],
-                                    _vm._v(" "),
-                                    _c("has-error", {
-                                      attrs: { form: _vm.form, field: "file" },
-                                    }),
-                                  ],
-                                  2
-                                ),
-                              ],
-                              1
-                            ),
-                          ]),
+                                      expression: "keterangan",
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c("has-error", {
+                                    attrs: {
+                                      form: _vm.form,
+                                      field: "keterangan",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                            ],
+                            1
+                          ),
                           _vm._v(" "),
                           _c(
                             "div",
@@ -1259,9 +1997,9 @@ var render = function () {
                                   },
                                 },
                                 [
-                                  _c("v-icon", [_vm._v("mdi-file-upload")]),
+                                  _c("v-icon", [_vm._v("mdi-database-plus")]),
                                   _vm._v(
-                                    "\n                            Upload\n                        "
+                                    "\n                            Tambah\n                        "
                                   ),
                                 ],
                                 1
@@ -1292,17 +2030,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/umum/Pjkpph25.vue":
-/*!***************************************************!*\
-  !*** ./resources/js/components/umum/Pjkpph25.vue ***!
-  \***************************************************/
+/***/ "./resources/js/components/umum/Pjkkendaraan.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/umum/Pjkkendaraan.vue ***!
+  \*******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Pjkpph25_vue_vue_type_template_id_44b1cefe___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pjkpph25.vue?vue&type=template&id=44b1cefe& */ "./resources/js/components/umum/Pjkpph25.vue?vue&type=template&id=44b1cefe&");
-/* harmony import */ var _Pjkpph25_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pjkpph25.vue?vue&type=script&lang=js& */ "./resources/js/components/umum/Pjkpph25.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Pjkkendaraan_vue_vue_type_template_id_8a842c80___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pjkkendaraan.vue?vue&type=template&id=8a842c80& */ "./resources/js/components/umum/Pjkkendaraan.vue?vue&type=template&id=8a842c80&");
+/* harmony import */ var _Pjkkendaraan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pjkkendaraan.vue?vue&type=script&lang=js& */ "./resources/js/components/umum/Pjkkendaraan.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1312,9 +2050,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Pjkpph25_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Pjkpph25_vue_vue_type_template_id_44b1cefe___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Pjkpph25_vue_vue_type_template_id_44b1cefe___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Pjkkendaraan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Pjkkendaraan_vue_vue_type_template_id_8a842c80___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Pjkkendaraan_vue_vue_type_template_id_8a842c80___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1324,38 +2062,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/umum/Pjkpph25.vue"
+component.options.__file = "resources/js/components/umum/Pjkkendaraan.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/umum/Pjkpph25.vue?vue&type=script&lang=js&":
-/*!****************************************************************************!*\
-  !*** ./resources/js/components/umum/Pjkpph25.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************/
+/***/ "./resources/js/components/umum/Pjkkendaraan.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/umum/Pjkkendaraan.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkpph25_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Pjkpph25.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Pjkpph25.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkpph25_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkkendaraan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Pjkkendaraan.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Pjkkendaraan.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkkendaraan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/umum/Pjkpph25.vue?vue&type=template&id=44b1cefe&":
-/*!**********************************************************************************!*\
-  !*** ./resources/js/components/umum/Pjkpph25.vue?vue&type=template&id=44b1cefe& ***!
-  \**********************************************************************************/
+/***/ "./resources/js/components/umum/Pjkkendaraan.vue?vue&type=template&id=8a842c80&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/umum/Pjkkendaraan.vue?vue&type=template&id=8a842c80& ***!
+  \**************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkpph25_vue_vue_type_template_id_44b1cefe___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Pjkpph25.vue?vue&type=template&id=44b1cefe& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Pjkpph25.vue?vue&type=template&id=44b1cefe&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkpph25_vue_vue_type_template_id_44b1cefe___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkkendaraan_vue_vue_type_template_id_8a842c80___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Pjkkendaraan.vue?vue&type=template&id=8a842c80& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/umum/Pjkkendaraan.vue?vue&type=template&id=8a842c80&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkkendaraan_vue_vue_type_template_id_8a842c80___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkpph25_vue_vue_type_template_id_44b1cefe___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pjkkendaraan_vue_vue_type_template_id_8a842c80___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
