@@ -1110,7 +1110,7 @@ var render = function () {
                             [
                               _c("v-toolbar-title", [
                                 _vm._v(
-                                  "\r\n                    File Perjanjian Kerjasama\r\n                "
+                                  "\n                    File Perjanjian Kerjasama\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -1128,7 +1128,7 @@ var render = function () {
                                 },
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
-                                  _vm._v(" Upload File\r\n                  "),
+                                  _vm._v(" Upload File\n                  "),
                                 ],
                                 1
                               ),
@@ -1157,11 +1157,11 @@ var render = function () {
                                         var item = ref.item
                                         return [
                                           _vm._v(
-                                            "\r\n                " +
+                                            "\n                " +
                                               _vm._s(
                                                 _vm.formatDate(item.tglmulai)
                                               ) +
-                                              "\r\n                "
+                                              "\n                "
                                           ),
                                         ]
                                       },
@@ -1172,11 +1172,11 @@ var render = function () {
                                         var item = ref.item
                                         return [
                                           _vm._v(
-                                            "\r\n                " +
+                                            "\n                " +
                                               _vm._s(
                                                 _vm.formatDate2(item.tglakhir)
                                               ) +
-                                              "\r\n                "
+                                              "\n                "
                                           ),
                                         ]
                                       },
@@ -1202,7 +1202,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                      Refresh\r\n                      "
+                                                "\n                      Refresh\n                      "
                                               ),
                                               _c(
                                                 "v-icon",
@@ -1214,7 +1214,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\r\n                        mdi-reload\r\n                      "
+                                                    "\n                        mdi-reload\n                      "
                                                   ),
                                                 ]
                                               ),
@@ -1231,9 +1231,9 @@ var render = function () {
                                         var index = ref.index
                                         return [
                                           _vm._v(
-                                            "\r\n                    " +
+                                            "\n                    " +
                                               _vm._s(index + 1) +
-                                              "\r\n                "
+                                              "\n                "
                                           ),
                                         ]
                                       },
@@ -1385,7 +1385,7 @@ var render = function () {
                                                         },
                                                         [
                                                           _vm._v(
-                                                            "\r\n                                        Batal\r\n                                    "
+                                                            "\n                                        Batal\n                                    "
                                                           ),
                                                         ]
                                                       ),
@@ -1410,7 +1410,7 @@ var render = function () {
                                                         },
                                                         [
                                                           _vm._v(
-                                                            "\r\n                                        OK\r\n                                    "
+                                                            "\n                                        OK\n                                    "
                                                           ),
                                                         ]
                                                       ),
@@ -1571,7 +1571,7 @@ var render = function () {
                                                         },
                                                         [
                                                           _vm._v(
-                                                            "\r\n                                        Batal\r\n                                    "
+                                                            "\n                                        Batal\n                                    "
                                                           ),
                                                         ]
                                                       ),
@@ -1596,7 +1596,7 @@ var render = function () {
                                                         },
                                                         [
                                                           _vm._v(
-                                                            "\r\n                                        OK\r\n                                    "
+                                                            "\n                                        OK\n                                    "
                                                           ),
                                                         ]
                                                       ),
@@ -1669,7 +1669,7 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\r\n                            mdi-download\r\n                        "
+                                                    "\n                            mdi-download\n                        "
                                                   ),
                                                 ]
                                               ),
@@ -1701,7 +1701,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                    mdi-delete\r\n                "
+                                                "\n                    mdi-delete\n                "
                                               ),
                                             ]
                                           ),
@@ -1738,7 +1738,7 @@ var render = function () {
                                                           },
                                                           [
                                                             _vm._v(
-                                                              "\r\n                            Edit Jenis PKS\r\n                            "
+                                                              "\n                            Edit Jenis PKS\n                            "
                                                             ),
                                                           ]
                                                         ),
@@ -1780,9 +1780,9 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                        " +
+                                                "\n                        " +
                                                   _vm._s(item.no_pk) +
-                                                  "\r\n                        "
+                                                  "\n                        "
                                               ),
                                             ]
                                           ),
@@ -1819,7 +1819,7 @@ var render = function () {
                                                           },
                                                           [
                                                             _vm._v(
-                                                              "\r\n                            Edit Jenis PKS\r\n                            "
+                                                              "\n                            Edit Jenis PKS\n                            "
                                                             ),
                                                           ]
                                                         ),
@@ -1861,9 +1861,9 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                        " +
+                                                "\n                        " +
                                                   _vm._s(item.namafile) +
-                                                  "\r\n                        "
+                                                  "\n                        "
                                               ),
                                             ]
                                           ),
@@ -1900,7 +1900,7 @@ var render = function () {
                                                           },
                                                           [
                                                             _vm._v(
-                                                              "\r\n                            Edit Nama Mitra\r\n                            "
+                                                              "\n                            Edit Nama Mitra\n                            "
                                                             ),
                                                           ]
                                                         ),
@@ -1942,9 +1942,9 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\r\n                        " +
+                                                "\n                        " +
                                                   _vm._s(item.namamitra) +
-                                                  "\r\n                        "
+                                                  "\n                        "
                                               ),
                                             ]
                                           ),
@@ -1954,7 +1954,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  1225602059
+                                  792772491
                                 ),
                               }),
                             ],
@@ -2465,9 +2465,9 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\r\n                                    " +
+                                                          "\n                                    " +
                                                             _vm._s(text) +
-                                                            "\r\n                                "
+                                                            "\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -2480,12 +2480,12 @@ var render = function () {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\r\n                                    +" +
+                                                          "\n                                    +" +
                                                             _vm._s(
                                                               _vm.files.length -
                                                                 2
                                                             ) +
-                                                            " File(s)\r\n                                "
+                                                            " File(s)\n                                "
                                                         ),
                                                       ]
                                                     )
@@ -2536,7 +2536,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-cancel")]),
                                   _vm._v(
-                                    "\r\n                            Batal\r\n                        "
+                                    "\n                            Batal\n                        "
                                   ),
                                 ],
                                 1
@@ -2562,7 +2562,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-pencil")]),
                                   _vm._v(
-                                    "\r\n                            Ubah\r\n                        "
+                                    "\n                            Ubah\n                        "
                                   ),
                                 ],
                                 1
@@ -2588,7 +2588,7 @@ var render = function () {
                                 [
                                   _c("v-icon", [_vm._v("mdi-file-upload")]),
                                   _vm._v(
-                                    "\r\n                            Upload\r\n                        "
+                                    "\n                            Upload\n                        "
                                   ),
                                 ],
                                 1

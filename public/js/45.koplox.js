@@ -427,6 +427,132 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data(vm) {
     return {
@@ -436,6 +562,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       dialogDelete: false,
       search: '',
       items: ['belum', 'sudah'],
+      //editmode
+      snack: false,
+      multiLine: true,
+      snackColor: '',
+      snackText: '',
+      max200chars: function max200chars(v) {
+        return v.length <= 200 || 'Input terlalu panjang [max. 200 karakter]';
+      },
+      //endeditmode
       pjkkendaraan: [],
       valid: true,
       file: null,
@@ -457,21 +592,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       tgl_habis_stnkRules: [function (v) {
         return !!v || 'Tanggal Habis STNK belum diisi';
       }],
-      tgl_pajak_tahunan: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
+      tgl_pajak: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       tgl_pajak_tahunanRules: [function (v) {
         return !!v || 'Tanggal Pajak Tahunan belum diisi';
       }],
-      nilai_pajak: '',
       nilai_pajakRules: [function (v) {
         return !!v || 'Pajak yang harus dibayar belum diisi';
       }],
-      pemegang_kendaraan: '',
       status_bayar: '',
       status_bayarRules: [function (v) {
         return !!v || 'Status Bayar belum dipilih';
       }],
       statusFilter: '',
-      keterangan: '',
+      editedItem: {
+        id: '',
+        nilai_pajak: '',
+        tgl_pajak_tahunan: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
+        pemegang_kendaraan: '',
+        keterangan: '',
+        status: ''
+      },
       form: new Form({
         id: '',
         kantor_id: '',
@@ -540,8 +680,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     tgl_habis_stnk: function tgl_habis_stnk(val) {
       this.dateFormatted1 = this.formatDate(this.tgl_habis_stnk);
     },
-    tgl_pajak_tahunan: function tgl_pajak_tahunan(val) {
-      this.dateFormatted2 = this.formatDate(this.tgl_pajak_tahunan);
+    tgl_pajak: function tgl_pajak(val) {
+      this.dateFormatted2 = this.formatDate(this.tgl_pajak);
     },
     dialog: function dialog(val) {
       val || this.close();
@@ -560,6 +700,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.$Progress.finish();
   },
   methods: {
+    save: function save() {
+      this.snack = true;
+      this.snackColor = 'success';
+      this.snackText = 'Data disimpan';
+      this.updateUser();
+    },
+    cancel: function cancel() {
+      this.snack = true;
+      this.snackColor = 'error';
+      this.snackText = 'Dibatalkan';
+    },
+    open: function open(item) {
+      this.snack = true;
+      this.snackColor = 'info';
+      this.snackText = 'Enter = Simpan';
+      this.editedItem.id = item.id;
+      this.editedItem.tgl_pajak_tahunan = item.tgl_pajak_tahunan;
+      this.editedItem.nilai_pajak = item.nilai_pajak;
+      this.editedItem.pemegang_kendaraan = item.pemegang_kendaraan;
+      this.editedItem.keterangan = item.keterangan;
+      this.editedItem.status = item.status_bayar; //console.log(this.item.namabarang);
+      //alert(this.item.id)
+    },
+    close: function close() {
+      console.log('Dialog closed');
+    },
     uppercase: function uppercase() {
       this.nopol = this.nopol.toUpperCase();
     },
@@ -824,11 +990,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       formData.set('kantor_id', this.kantor_id);
       formData.set('nopol', this.nopol);
       formData.set('tgl_habis_stnk', this.tgl_habis_stnk);
-      formData.set('tgl_pajak_tahunan', this.tgl_pajak_tahunan);
-      formData.set('nilai_pajak', this.nilai_pajak);
-      formData.set('pemegang_kendaraan', this.pemegang_kendaraan);
+      formData.set('tgl_pajak_tahunan', this.tgl_pajak);
+      formData.set('nilai_pajak', this.editedItem.nilai_pajak);
+      formData.set('pemegang_kendaraan', this.editedItem.pemegang_kendaraan);
       formData.set('status_bayar', this.status_bayar);
-      formData.set('keterangan', this.keterangan); // formData.append('file', this.file);
+      formData.set('keterangan', this.editedItem.keterangan); // formData.append('file', this.file);
       // console.log(this.file);
 
       axios.post('api/pjkkendaraan', formData, config).then(function (response) {
@@ -862,9 +1028,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     updateUser: function updateUser() {
       var _this8 = this;
 
+      var config = {
+        headers: {
+          'accept': 'application/json',
+          'Accept-Language': 'en-US,en;q=0.8',
+          'content-type': 'multipart/form-data'
+        } // headers: {'X-Custom-Header': 'value'}
+
+      };
       this.$Progress.start(); // console.log('Editing data');
 
-      this.form.put('api/pjkkendaraan/' + this.form.id).then(function (response) {
+      var formData = new FormData();
+      formData.set('tgl_pajak_tahunan', this.editedItem.tgl_pajak_tahunan);
+      formData.set('nilai_pajak', this.editedItem.nilai_pajak);
+      formData.set('pemegang_kendaraan', this.editedItem.pemegang_kendaraan);
+      formData.set('keterangan', this.editedItem.keterangan);
+      formData.set('status_bayar', this.editedItem.status);
+      formData.append("_method", "PUT");
+      axios.post('api/pjkkendaraan/' + this.editedItem.id, formData).then(function (response) {
         // success
         $('#addNew').modal('hide');
         Toast.fire({
@@ -880,8 +1061,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this8.$Progress.fail();
       });
     },
-    deleteUser: function deleteUser(id) {
+    updateStatus: function updateStatus() {
       var _this9 = this;
+
+      var config = {
+        headers: {
+          'accept': 'application/json',
+          'Accept-Language': 'en-US,en;q=0.8',
+          'content-type': 'multipart/form-data'
+        } // headers: {'X-Custom-Header': 'value'}
+
+      };
+      this.$Progress.start(); // console.log('Editing data');
+
+      var formData = new FormData();
+      formData.set('tgl_pajak_tahunan', this.editedItem.tgl_pajak_tahunan);
+      formData.append("_method", "PUT");
+      axios.post('api/pjkkendaraan/updatestatus/' + this.editedItem.id, formData).then(function (response) {
+        // success
+        $('#addNew').modal('hide');
+        Toast.fire({
+          icon: 'success',
+          title: response.data.message
+        });
+
+        _this9.$Progress.finish(); //  Fire.$emit('AfterCreate');
+
+
+        _this9.initialize();
+      })["catch"](function () {
+        _this9.$Progress.fail();
+      });
+    },
+    deleteUser: function deleteUser(id) {
+      var _this10 = this;
 
       Swal.fire({
         title: 'Yakin dihapus?',
@@ -893,10 +1106,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this9.form["delete"]('api/pjkkendaraan/' + id).then(function () {
+          _this10.form["delete"]('api/pjkkendaraan/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
-            _this9.initialize();
+            _this10.initialize();
           })["catch"](function (data) {
             Swal.fire("Failed!", data.message, "warning");
           });
@@ -1251,10 +1464,419 @@ var render = function () {
                                         ]
                                       },
                                     },
+                                    {
+                                      key: "item.tgl_pajak_tahunan",
+                                      fn: function (ref) {
+                                        var item = ref.item
+                                        return [
+                                          _c(
+                                            "v-edit-dialog",
+                                            {
+                                              on: {
+                                                save: _vm.save,
+                                                cancel: _vm.cancel,
+                                                open: function ($event) {
+                                                  return _vm.open(item)
+                                                },
+                                                close: _vm.close,
+                                              },
+                                              scopedSlots: _vm._u(
+                                                [
+                                                  {
+                                                    key: "input",
+                                                    fn: function () {
+                                                      return [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "mt-4 text-h6",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\n                        Edit Tanggal Pajak\n                        "
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            rules: [
+                                                              _vm.max200chars,
+                                                            ],
+                                                            label: "Edit",
+                                                            "single-line": "",
+                                                            counter: "",
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedItem
+                                                                .tgl_pajak_tahunan,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedItem,
+                                                                "tgl_pajak_tahunan",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedItem.tgl_pajak_tahunan",
+                                                          },
+                                                        }),
+                                                      ]
+                                                    },
+                                                    proxy: true,
+                                                  },
+                                                ],
+                                                null,
+                                                true
+                                              ),
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                    " +
+                                                  _vm._s(
+                                                    item.tgl_pajak_tahunan
+                                                  ) +
+                                                  "\n                    "
+                                              ),
+                                            ]
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                    {
+                                      key: "item.nilai_pajak",
+                                      fn: function (ref) {
+                                        var item = ref.item
+                                        return [
+                                          _c(
+                                            "v-edit-dialog",
+                                            {
+                                              on: {
+                                                save: _vm.save,
+                                                cancel: _vm.cancel,
+                                                open: function ($event) {
+                                                  return _vm.open(item)
+                                                },
+                                                close: _vm.close,
+                                              },
+                                              scopedSlots: _vm._u(
+                                                [
+                                                  {
+                                                    key: "input",
+                                                    fn: function () {
+                                                      return [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "mt-4 text-h6",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\n                        Edit Nilai Pajak\n                        "
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            rules: [
+                                                              _vm.max200chars,
+                                                            ],
+                                                            label: "Edit",
+                                                            "single-line": "",
+                                                            counter: "",
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedItem
+                                                                .nilai_pajak,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedItem,
+                                                                "nilai_pajak",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedItem.nilai_pajak",
+                                                          },
+                                                        }),
+                                                      ]
+                                                    },
+                                                    proxy: true,
+                                                  },
+                                                ],
+                                                null,
+                                                true
+                                              ),
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                    " +
+                                                  _vm._s(item.nilai_pajak) +
+                                                  "\n                    "
+                                              ),
+                                            ]
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                    {
+                                      key: "item.pemegang_kendaraan",
+                                      fn: function (ref) {
+                                        var item = ref.item
+                                        return [
+                                          _c(
+                                            "v-edit-dialog",
+                                            {
+                                              on: {
+                                                save: _vm.save,
+                                                cancel: _vm.cancel,
+                                                open: function ($event) {
+                                                  return _vm.open(item)
+                                                },
+                                                close: _vm.close,
+                                              },
+                                              scopedSlots: _vm._u(
+                                                [
+                                                  {
+                                                    key: "input",
+                                                    fn: function () {
+                                                      return [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "mt-4 text-h6",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\n                        Edit Pemegang Kendaraan\n                        "
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            rules: [
+                                                              _vm.max200chars,
+                                                            ],
+                                                            label: "Edit",
+                                                            "single-line": "",
+                                                            counter: "",
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedItem
+                                                                .pemegang_kendaraan,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedItem,
+                                                                "pemegang_kendaraan",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedItem.pemegang_kendaraan",
+                                                          },
+                                                        }),
+                                                      ]
+                                                    },
+                                                    proxy: true,
+                                                  },
+                                                ],
+                                                null,
+                                                true
+                                              ),
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                    " +
+                                                  _vm._s(
+                                                    item.pemegang_kendaraan
+                                                  ) +
+                                                  "\n                    "
+                                              ),
+                                            ]
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                    {
+                                      key: "item.keterangan",
+                                      fn: function (ref) {
+                                        var item = ref.item
+                                        return [
+                                          _c(
+                                            "v-edit-dialog",
+                                            {
+                                              on: {
+                                                save: _vm.save,
+                                                cancel: _vm.cancel,
+                                                open: function ($event) {
+                                                  return _vm.open(item)
+                                                },
+                                                close: _vm.close,
+                                              },
+                                              scopedSlots: _vm._u(
+                                                [
+                                                  {
+                                                    key: "input",
+                                                    fn: function () {
+                                                      return [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "mt-4 text-h6",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\n                        Edit Keterangan\n                        "
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            rules: [
+                                                              _vm.max200chars,
+                                                            ],
+                                                            label: "Edit",
+                                                            "single-line": "",
+                                                            counter: "",
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedItem
+                                                                .keterangan,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedItem,
+                                                                "keterangan",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedItem.keterangan",
+                                                          },
+                                                        }),
+                                                      ]
+                                                    },
+                                                    proxy: true,
+                                                  },
+                                                ],
+                                                null,
+                                                true
+                                              ),
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                    " +
+                                                  _vm._s(item.keterangan) +
+                                                  "\n                    "
+                                              ),
+                                            ]
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                    {
+                                      key: "item.status_bayar",
+                                      fn: function (ref) {
+                                        var item = ref.item
+                                        return [
+                                          _c(
+                                            "v-edit-dialog",
+                                            {
+                                              on: {
+                                                save: _vm.save,
+                                                cancel: _vm.cancel,
+                                                open: function ($event) {
+                                                  return _vm.open(item)
+                                                },
+                                                close: _vm.close,
+                                              },
+                                              scopedSlots: _vm._u(
+                                                [
+                                                  {
+                                                    key: "input",
+                                                    fn: function () {
+                                                      return [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "mt-4 text-h6",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\n                        Edit Status Bayar\n                        "
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            rules: [
+                                                              _vm.max200chars,
+                                                            ],
+                                                            label: "Edit",
+                                                            "single-line": "",
+                                                            counter: "",
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedItem
+                                                                .status,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedItem,
+                                                                "status",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedItem.status",
+                                                          },
+                                                        }),
+                                                      ]
+                                                    },
+                                                    proxy: true,
+                                                  },
+                                                ],
+                                                null,
+                                                true
+                                              ),
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                    " +
+                                                  _vm._s(item.status_bayar) +
+                                                  "\n                    "
+                                              ),
+                                            ]
+                                          ),
+                                        ]
+                                      },
+                                    },
                                   ],
                                   null,
                                   false,
-                                  2847394625
+                                  2855721331
                                 ),
                               }),
                             ],
@@ -1677,7 +2299,7 @@ var render = function () {
                                                                 blur: function (
                                                                   $event
                                                                 ) {
-                                                                  _vm.tgl_pajak_tahunan =
+                                                                  _vm.tgl_pajak =
                                                                     _vm.parseDate(
                                                                       _vm.dateFormatted2
                                                                     )
@@ -1730,12 +2352,11 @@ var render = function () {
                                                   },
                                                 },
                                                 model: {
-                                                  value: _vm.tgl_pajak_tahunan,
+                                                  value: _vm.tgl_pajak,
                                                   callback: function ($$v) {
-                                                    _vm.tgl_pajak_tahunan = $$v
+                                                    _vm.tgl_pajak = $$v
                                                   },
-                                                  expression:
-                                                    "tgl_pajak_tahunan",
+                                                  expression: "tgl_pajak",
                                                 },
                                               }),
                                             ],
@@ -1789,11 +2410,16 @@ var render = function () {
                                               },
                                             },
                                             model: {
-                                              value: _vm.nilai_pajak,
+                                              value: _vm.editedItem.nilai_pajak,
                                               callback: function ($$v) {
-                                                _vm.nilai_pajak = $$v
+                                                _vm.$set(
+                                                  _vm.editedItem,
+                                                  "nilai_pajak",
+                                                  $$v
+                                                )
                                               },
-                                              expression: "nilai_pajak",
+                                              expression:
+                                                "editedItem.nilai_pajak",
                                             },
                                           }),
                                           _vm._v(" "),
@@ -1828,11 +2454,18 @@ var render = function () {
                                                 "fas fa-user-ninja",
                                             },
                                             model: {
-                                              value: _vm.pemegang_kendaraan,
+                                              value:
+                                                _vm.editedItem
+                                                  .pemegang_kendaraan,
                                               callback: function ($$v) {
-                                                _vm.pemegang_kendaraan = $$v
+                                                _vm.$set(
+                                                  _vm.editedItem,
+                                                  "pemegang_kendaraan",
+                                                  $$v
+                                                )
                                               },
-                                              expression: "pemegang_kendaraan",
+                                              expression:
+                                                "editedItem.pemegang_kendaraan",
                                             },
                                           }),
                                           _vm._v(" "),
@@ -1909,11 +2542,15 @@ var render = function () {
                                       value: " ",
                                     },
                                     model: {
-                                      value: _vm.keterangan,
+                                      value: _vm.editedItem.keterangan,
                                       callback: function ($$v) {
-                                        _vm.keterangan = $$v
+                                        _vm.$set(
+                                          _vm.editedItem,
+                                          "keterangan",
+                                          $$v
+                                        )
                                       },
-                                      expression: "keterangan",
+                                      expression: "editedItem.keterangan",
                                     },
                                   }),
                                   _vm._v(" "),

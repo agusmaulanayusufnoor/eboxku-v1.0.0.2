@@ -69,7 +69,7 @@
                                         prepend-icon="mdi-calendar"
                                         v-bind="attrs"
                                         v-on="on"
-                                        single-line                                        
+                                        single-line
                                         hide-details
                                         readonly
                                         clearable
@@ -123,7 +123,7 @@
                                         prepend-icon="mdi-calendar"
                                         v-bind="attrs"
                                         v-on="on"
-                                        single-line                                        
+                                        single-line
                                         hide-details
                                         readonly
                                         clearable
@@ -222,7 +222,7 @@
                             ></v-text-field>
                         </template>
                         </v-edit-dialog>
-                        
+
                 </template>
                 <template v-slot:item.namafile="{ item }">
                      <v-edit-dialog
@@ -247,7 +247,7 @@
                             ></v-text-field>
                         </template>
                         </v-edit-dialog>
-                        
+
                 </template>
 
 
@@ -274,7 +274,7 @@
                             ></v-text-field>
                         </template>
                         </v-edit-dialog>
-                        
+
                     </template>
                 <!-- end edit table -->
                </v-data-table>
@@ -521,12 +521,12 @@ import moment from 'moment';
      kantor_id: '',
      editedItem : {
         id : '',
-        
+
         no_pk: '',
         nopkRules: [
             v => !!v || 'No Perjanjian Kerjasama Belum Diisi',
         ],
-       
+
         namamitra: '',
         namemitraRules: [
         v => !!v || 'Nama Mitra Belum Diisi',
@@ -539,7 +539,7 @@ import moment from 'moment';
         fileRules: [
         v => !!v || 'File belum dimasukan',
         ],
-        
+
      },
      tglmulai:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
          tglmulaiRules: [
@@ -552,7 +552,7 @@ import moment from 'moment';
      dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
         dateFormatted2: vm.formatDate2((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
         pesaneror:[],
-       
+
       menu1: false,
       menu2:false,
       menu3:false,
@@ -561,7 +561,7 @@ import moment from 'moment';
      // filterTglmulai:[vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10))],
       filterDatemulai:[],
       filterDateakhir:[],
-      
+
 
         //file: '',
     form: new Form({
@@ -640,7 +640,7 @@ import moment from 'moment';
     //   filterTglmulai (val) {
     //     this.filterTglmulai = this.filterDatemulai
     //   },
-   
+
       tglmulai (val) {
         this.dateFormatted = this.formatDate(this.tglmulai)
       },
