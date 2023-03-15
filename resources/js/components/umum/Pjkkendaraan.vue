@@ -144,6 +144,31 @@
                         </v-edit-dialog>
 
                 </template>
+                <template v-slot:item.tgl_habis_stnk="{ item }">
+                     <v-edit-dialog
+
+                        @save="save"
+                        @cancel="cancel"
+                        @open="open(item)"
+                        @close="close"
+
+                        >
+                        {{ item.tgl_habis_stnk }}
+                        <template v-slot:input>
+                            <div class="mt-4 text-h6">
+                            Edit Tanggal Pajak
+                            </div>
+                            <v-text-field
+                            v-model="editedItem.tgl_habis_stnk"
+                            :rules="[max200chars]"
+                            label="Edit"
+                            single-line
+                            counter
+                            ></v-text-field>
+                        </template>
+                        </v-edit-dialog>
+
+                </template>
                 <template v-slot:item.nilai_pajak="{ item }">
                      <v-edit-dialog
 
@@ -555,7 +580,6 @@
           menu2:false,
           dateFormatted1: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
           dateFormatted2: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
-          tgl_habis_stnk:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
              tgl_habis_stnkRules: [
             v => !!v || 'Tanggal Habis STNK belum diisi',
           ],
@@ -575,6 +599,7 @@
           editedItem : {
             id : '',
             nilai_pajak:'',
+            tgl_habis_stnk:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             tgl_pajak_tahunan:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             pemegang_kendaraan:'',
             keterangan:'',
@@ -666,6 +691,7 @@
         this.snackText = 'Enter = Simpan'
         this.editedItem.id = item.id
         this.editedItem.tgl_pajak_tahunan = item.tgl_pajak_tahunan
+        this.editedItem.tgl_habis_stnk = item.tgl_habis_stnk
         this.editedItem.nilai_pajak = item.nilai_pajak
         this.editedItem.pemegang_kendaraan = item.pemegang_kendaraan
         this.editedItem.keterangan = item.keterangan
@@ -914,6 +940,7 @@
                 this.$Progress.start();
                 // console.log('Editing data');
                 const formData = new FormData
+                formData.set('tgl_habis_stnk', this.editedItem.tgl_habis_stnk)
                 formData.set('tgl_pajak_tahunan', this.editedItem.tgl_pajak_tahunan)
                 formData.set('nilai_pajak', this.editedItem.nilai_pajak)
                 formData.set('pemegang_kendaraan', this.editedItem.pemegang_kendaraan)
@@ -938,38 +965,7 @@
                 });
 
             },
-            updateStatus(){
-            const config = {
-                headers: {
-                  'accept': 'application/json',
-                  'Accept-Language': 'en-US,en;q=0.8',
-                  'content-type': 'multipart/form-data'
-                  }
-               // headers: {'X-Custom-Header': 'value'}
-                }
-                this.$Progress.start();
-                // console.log('Editing data');
-                const formData = new FormData
-                formData.set('tgl_pajak_tahunan', this.editedItem.tgl_pajak_tahunan)
-                formData.append("_method", "PUT");
-                axios.post('api/pjkkendaraan/updatestatus/'+this.editedItem.id,formData)
-                .then((response) => {
-                    // success
-                    $('#addNew').modal('hide');
-                    Toast.fire({
-                      icon: 'success',
-                      title: response.data.message
-                    });
-                    this.$Progress.finish();
-                        //  Fire.$emit('AfterCreate');
 
-                    this.initialize();
-                })
-                .catch(() => {
-                    this.$Progress.fail();
-                });
-
-            },
               deleteUser(id){
                     Swal.fire({
                         title: 'Yakin dihapus?',

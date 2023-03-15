@@ -553,6 +553,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data(vm) {
     return {
@@ -588,7 +613,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       menu2: false,
       dateFormatted1: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
       dateFormatted2: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
-      tgl_habis_stnk: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       tgl_habis_stnkRules: [function (v) {
         return !!v || 'Tanggal Habis STNK belum diisi';
       }],
@@ -607,6 +631,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       editedItem: {
         id: '',
         nilai_pajak: '',
+        tgl_habis_stnk: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
         tgl_pajak_tahunan: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
         pemegang_kendaraan: '',
         keterangan: '',
@@ -717,6 +742,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.snackText = 'Enter = Simpan';
       this.editedItem.id = item.id;
       this.editedItem.tgl_pajak_tahunan = item.tgl_pajak_tahunan;
+      this.editedItem.tgl_habis_stnk = item.tgl_habis_stnk;
       this.editedItem.nilai_pajak = item.nilai_pajak;
       this.editedItem.pemegang_kendaraan = item.pemegang_kendaraan;
       this.editedItem.keterangan = item.keterangan;
@@ -1039,6 +1065,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.$Progress.start(); // console.log('Editing data');
 
       var formData = new FormData();
+      formData.set('tgl_habis_stnk', this.editedItem.tgl_habis_stnk);
       formData.set('tgl_pajak_tahunan', this.editedItem.tgl_pajak_tahunan);
       formData.set('nilai_pajak', this.editedItem.nilai_pajak);
       formData.set('pemegang_kendaraan', this.editedItem.pemegang_kendaraan);
@@ -1061,40 +1088,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this8.$Progress.fail();
       });
     },
-    updateStatus: function updateStatus() {
-      var _this9 = this;
-
-      var config = {
-        headers: {
-          'accept': 'application/json',
-          'Accept-Language': 'en-US,en;q=0.8',
-          'content-type': 'multipart/form-data'
-        } // headers: {'X-Custom-Header': 'value'}
-
-      };
-      this.$Progress.start(); // console.log('Editing data');
-
-      var formData = new FormData();
-      formData.set('tgl_pajak_tahunan', this.editedItem.tgl_pajak_tahunan);
-      formData.append("_method", "PUT");
-      axios.post('api/pjkkendaraan/updatestatus/' + this.editedItem.id, formData).then(function (response) {
-        // success
-        $('#addNew').modal('hide');
-        Toast.fire({
-          icon: 'success',
-          title: response.data.message
-        });
-
-        _this9.$Progress.finish(); //  Fire.$emit('AfterCreate');
-
-
-        _this9.initialize();
-      })["catch"](function () {
-        _this9.$Progress.fail();
-      });
-    },
     deleteUser: function deleteUser(id) {
-      var _this10 = this;
+      var _this9 = this;
 
       Swal.fire({
         title: 'Yakin dihapus?',
@@ -1106,10 +1101,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this10.form["delete"]('api/pjkkendaraan/' + id).then(function () {
+          _this9.form["delete"]('api/pjkkendaraan/' + id).then(function () {
             Swal.fire('Dihapus!', 'Data telah dihapus.', 'success'); // Fire.$emit('AfterCreate');
 
-            _this10.initialize();
+            _this9.initialize();
           })["catch"](function (data) {
             Swal.fire("Failed!", data.message, "warning");
           });
@@ -1548,6 +1543,87 @@ var render = function () {
                                       },
                                     },
                                     {
+                                      key: "item.tgl_habis_stnk",
+                                      fn: function (ref) {
+                                        var item = ref.item
+                                        return [
+                                          _c(
+                                            "v-edit-dialog",
+                                            {
+                                              on: {
+                                                save: _vm.save,
+                                                cancel: _vm.cancel,
+                                                open: function ($event) {
+                                                  return _vm.open(item)
+                                                },
+                                                close: _vm.close,
+                                              },
+                                              scopedSlots: _vm._u(
+                                                [
+                                                  {
+                                                    key: "input",
+                                                    fn: function () {
+                                                      return [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "mt-4 text-h6",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\n                        Edit Tanggal Pajak\n                        "
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            rules: [
+                                                              _vm.max200chars,
+                                                            ],
+                                                            label: "Edit",
+                                                            "single-line": "",
+                                                            counter: "",
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedItem
+                                                                .tgl_habis_stnk,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedItem,
+                                                                "tgl_habis_stnk",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedItem.tgl_habis_stnk",
+                                                          },
+                                                        }),
+                                                      ]
+                                                    },
+                                                    proxy: true,
+                                                  },
+                                                ],
+                                                null,
+                                                true
+                                              ),
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                    " +
+                                                  _vm._s(item.tgl_habis_stnk) +
+                                                  "\n                    "
+                                              ),
+                                            ]
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                    {
                                       key: "item.nilai_pajak",
                                       fn: function (ref) {
                                         var item = ref.item
@@ -1876,7 +1952,7 @@ var render = function () {
                                   ],
                                   null,
                                   false,
-                                  2855721331
+                                  898720835
                                 ),
                               }),
                             ],

@@ -132,20 +132,6 @@ class PjkkendaraanController extends BaseController
     public function update(Request $request, $id)
     {
         $pjkkendaraan = Pjkkendaraan::findOrFail($id);
-       // dd($request->all());
-
-    //    if ($request->get('tgl_pajak_tahunan')){
-    //     $pjkkendaraan->update([
-    //         'tgl_pajak_tahunan' => $request->get('tgl_pajak_tahunan'),
-    //         'status_bayar' => 'sudah',
-    //         ]);
-    //    }else {
-    //     $pjkkendaraan->update([
-    //         'nilai_pajak'           => $request->get('nilai_pajak'),
-    //         'pemegang_kendaraan'    => $request->get('pemegang_kendaraan'),
-    //         'keterangan'            => $request->get('keterangan'),
-    //         ]);
-    //    }
     $pjkkendaraan->update($request->all());
         return $this->sendResponse($pjkkendaraan, 'Data Pajak Diubah!');
     }
