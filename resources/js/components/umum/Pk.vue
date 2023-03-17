@@ -276,6 +276,31 @@
                         </v-edit-dialog>
 
                     </template>
+                    <template v-slot:item.status="{ item }">
+                     <v-edit-dialog
+
+                        @save="save"
+                        @cancel="cancel"
+                        @open="open(item)"
+                        @close="close"
+
+                        >
+                        {{ item.status }}
+                        <template v-slot:input>
+                            <div class="mt-4 text-h6">
+                            1=Aktif, 0=Tidak Aktif
+                            </div>
+                            <v-text-field
+                            v-model="editedItem.status"
+                            :rules="[max200chars]"
+                            label="Edit"
+                            single-line
+                            counter
+                            ></v-text-field>
+                        </template>
+                        </v-edit-dialog>
+
+                    </template>
                 <!-- end edit table -->
                </v-data-table>
              </div>
@@ -435,6 +460,28 @@
                                 </v-menu>
                             <has-error :form="form" field="tglakhir"></has-error>
                         <!-- <input type="file" @change="uploadFile"> -->
+                        <template>
+                                <v-container fluid>
+
+                                    <v-radio-group
+                                    v-model="editedItem.status" :mandatory="false"
+                                    row
+                                    prepend-icon="mdi-format-list-bulleted-type"
+                                    >
+                                    <template v-slot:label>
+                                        <div><strong class="text-h6 text-bold">Status Aktif :</strong></div>
+                                    </template>
+                                    <v-radio
+                                        label="1. Aktif"
+                                        value="1"
+                                    ></v-radio>
+                                    <v-radio
+                                        label="0. Tidak Aktif"
+                                        value="0"
+                                    ></v-radio>
+                                    </v-radio-group>
+                                </v-container>
+                            </template>
                          <template>
 
                             <v-file-input
@@ -539,7 +586,7 @@ import moment from 'moment';
         fileRules: [
         v => !!v || 'File belum dimasukan',
         ],
-
+        status: '',
      },
      tglmulai:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
          tglmulaiRules: [
@@ -597,6 +644,7 @@ import moment from 'moment';
                 },
                 { text: 'Tanggal Mulai', value: 'tglmulai'},
                 { text: 'Tanggal Berakhir', value: 'tglakhir', },
+                { text: 'Status Aktif', value: 'status', },
 
 
       ]
@@ -688,6 +736,7 @@ import moment from 'moment';
         this.editedItem.no_pk = item.no_pk
         this.editedItem.namafile = item.namafile
         this.editedItem.namamitra = item.namamitra
+        this.editedItem.status = item.status
         //console.log(this.item.namabarang);
         //alert(this.item.id)
       },
@@ -880,6 +929,7 @@ import moment from 'moment';
             formData.set('namafile', this.editedItem.namafile)
             formData.set('tglmulai', this.tglmulai)
             formData.set('tglakhir', this.tglakhir)
+            formData.set('status', this.editedItem.status)
             formData.set('file', this.editedItem.file)
             // formData.append('file', this.file);
            // console.log(this.file);
@@ -945,6 +995,7 @@ import moment from 'moment';
                 formData.set('no_pk', this.editedItem.no_pk)
                 formData.set('namafile', this.editedItem.namafile)
                 formData.set('namamitra', this.editedItem.namamitra)
+                formData.set('status', this.editedItem.status)
                 formData.append("_method", "PUT");
                 axios.post('api/pk/'+this.editedItem.id,formData)
                 .then((response) => {

@@ -174,7 +174,7 @@
                                     ></v-radio>
                                     </v-radio-group>
                                 </v-container>
-                                </template>
+                            </template>
                              <v-col
                                 cols="12"
                                 sm="12"

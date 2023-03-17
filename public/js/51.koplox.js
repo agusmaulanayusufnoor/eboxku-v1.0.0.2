@@ -532,6 +532,53 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data(vm) {
@@ -571,7 +618,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         file: null,
         fileRules: [function (v) {
           return !!v || 'File belum dimasukan';
-        }]
+        }],
+        status: ''
       },
       tglmulai: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       tglmulaiRules: [function (v) {
@@ -626,6 +674,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, {
         text: 'Tanggal Berakhir',
         value: 'tglakhir'
+      }, {
+        text: 'Status Aktif',
+        value: 'status'
       }];
       headers.push({
         text: 'Download File',
@@ -717,7 +768,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.editedItem.id = item.id;
       this.editedItem.no_pk = item.no_pk;
       this.editedItem.namafile = item.namafile;
-      this.editedItem.namamitra = item.namamitra; //console.log(this.item.namabarang);
+      this.editedItem.namamitra = item.namamitra;
+      this.editedItem.status = item.status; //console.log(this.item.namabarang);
       //alert(this.item.id)
     },
     close: function close() {
@@ -947,6 +999,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       formData.set('namafile', this.editedItem.namafile);
       formData.set('tglmulai', this.tglmulai);
       formData.set('tglakhir', this.tglakhir);
+      formData.set('status', this.editedItem.status);
       formData.set('file', this.editedItem.file); // formData.append('file', this.file);
       // console.log(this.file);
 
@@ -1012,6 +1065,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       formData.set('no_pk', this.editedItem.no_pk);
       formData.set('namafile', this.editedItem.namafile);
       formData.set('namamitra', this.editedItem.namamitra);
+      formData.set('status', this.editedItem.status);
       formData.append("_method", "PUT");
       axios.post('api/pk/' + this.editedItem.id, formData).then(function (response) {
         // success
@@ -1951,10 +2005,91 @@ var render = function () {
                                         ]
                                       },
                                     },
+                                    {
+                                      key: "item.status",
+                                      fn: function (ref) {
+                                        var item = ref.item
+                                        return [
+                                          _c(
+                                            "v-edit-dialog",
+                                            {
+                                              on: {
+                                                save: _vm.save,
+                                                cancel: _vm.cancel,
+                                                open: function ($event) {
+                                                  return _vm.open(item)
+                                                },
+                                                close: _vm.close,
+                                              },
+                                              scopedSlots: _vm._u(
+                                                [
+                                                  {
+                                                    key: "input",
+                                                    fn: function () {
+                                                      return [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "mt-4 text-h6",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\n                            1=Aktif, 0=Tidak Aktif\n                            "
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            rules: [
+                                                              _vm.max200chars,
+                                                            ],
+                                                            label: "Edit",
+                                                            "single-line": "",
+                                                            counter: "",
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedItem
+                                                                .status,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedItem,
+                                                                "status",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedItem.status",
+                                                          },
+                                                        }),
+                                                      ]
+                                                    },
+                                                    proxy: true,
+                                                  },
+                                                ],
+                                                null,
+                                                true
+                                              ),
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                        " +
+                                                  _vm._s(item.status) +
+                                                  "\n                        "
+                                              ),
+                                            ]
+                                          ),
+                                        ]
+                                      },
+                                    },
                                   ],
                                   null,
                                   false,
-                                  792772491
+                                  3256186278
                                 ),
                               }),
                             ],
@@ -2428,6 +2563,79 @@ var render = function () {
                                         field: "tglakhir",
                                       },
                                     }),
+                                    _vm._v(" "),
+                                    [
+                                      _c(
+                                        "v-container",
+                                        { attrs: { fluid: "" } },
+                                        [
+                                          _c(
+                                            "v-radio-group",
+                                            {
+                                              attrs: {
+                                                mandatory: false,
+                                                row: "",
+                                                "prepend-icon":
+                                                  "mdi-format-list-bulleted-type",
+                                              },
+                                              scopedSlots: _vm._u([
+                                                {
+                                                  key: "label",
+                                                  fn: function () {
+                                                    return [
+                                                      _c("div", [
+                                                        _c(
+                                                          "strong",
+                                                          {
+                                                            staticClass:
+                                                              "text-h6 text-bold",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "Status Aktif :"
+                                                            ),
+                                                          ]
+                                                        ),
+                                                      ]),
+                                                    ]
+                                                  },
+                                                  proxy: true,
+                                                },
+                                              ]),
+                                              model: {
+                                                value: _vm.editedItem.status,
+                                                callback: function ($$v) {
+                                                  _vm.$set(
+                                                    _vm.editedItem,
+                                                    "status",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "editedItem.status",
+                                              },
+                                            },
+                                            [
+                                              _vm._v(" "),
+                                              _c("v-radio", {
+                                                attrs: {
+                                                  label: "1. Aktif",
+                                                  value: "1",
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              _c("v-radio", {
+                                                attrs: {
+                                                  label: "0. Tidak Aktif",
+                                                  value: "0",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                    ],
                                     _vm._v(" "),
                                     [
                                       _c("v-file-input", {

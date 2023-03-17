@@ -34,7 +34,7 @@ class PkController extends BaseController
         if($levelLogin === 'admin'){
             $pk  = DB::table('pk')
             ->join('kode_kantors', 'pk.kantor_id', '=', 'kode_kantors.id')
-            ->select('pk.id','pk.no_pk','pk.namamitra','pk.namafile','pk.tglmulai','pk.tglakhir','pk.file',
+            ->select('pk.id','pk.no_pk','pk.namamitra','pk.namafile','pk.tglmulai','pk.tglakhir','pk.status','pk.file',
             'pk.kantor_id','kode_kantors.nama_kantor')
             ->orderBy('id','desc')
             ->get();
@@ -42,7 +42,7 @@ class PkController extends BaseController
             $pk  = DB::table('pk')
             ->join('kode_kantors', 'pk.kantor_id', '=', 'kode_kantors.id')
             ->where('kantor_id', $id_kantor)
-            ->select('pk.id','pk.no_pk','pk.namamitra','pk.namafile','pk.tglmulai','pk.tglakhir','pk.file',
+            ->select('pk.id','pk.no_pk','pk.namamitra','pk.namafile','pk.tglmulai','pk.tglakhir','pk.status','pk.file',
             'pk.kantor_id','kode_kantors.nama_kantor')
             ->orderBy('id','desc')
             ->get();
@@ -118,6 +118,7 @@ class PkController extends BaseController
             'namafile'      => $request->get('namafile'),
             'tglmulai'       => $datemulai,
             'tglakhir'       => $dateakhir,
+            'status'       => $request->get('status'),
             'file'          => $file,
         ]);
         $nm->move(public_path().'/file/pk', $file);
@@ -236,7 +237,7 @@ class PkController extends BaseController
             $pk  = DB::table('pk')
             ->join('kode_kantors', 'pk.kantor_id', '=', 'kode_kantors.id')
             ->whereBetween('pk.tglmulai',[$fromtgl,$totgl])
-            ->select('pk.id','pk.no_pk','pk.namamitra','pk.namafile','pk.tglmulai','pk.tglakhir','pk.file',
+            ->select('pk.id','pk.no_pk','pk.namamitra','pk.namafile','pk.tglmulai','pk.tglakhir','pk.status','pk.file',
             'pk.kantor_id','kode_kantors.nama_kantor')
             ->orderBy('id','desc')
             ->get();
@@ -250,7 +251,7 @@ class PkController extends BaseController
          $tglakhir = $request->tglakhir;
         //2023-02-01 s/d 2023-02-04
         //tgl mulai from
-      
+
         $fromtgl    = substr($tglakhir,0,10);
         //tgl mulai to
         $totgl    = substr($tglakhir,15,10);
@@ -259,7 +260,7 @@ class PkController extends BaseController
             $pk  = DB::table('pk')
             ->join('kode_kantors', 'pk.kantor_id', '=', 'kode_kantors.id')
             ->whereBetween('pk.tglakhir',[$fromtgl,$totgl])
-            ->select('pk.id','pk.no_pk','pk.namamitra','pk.namafile','pk.tglmulai','pk.tglakhir','pk.file',
+            ->select('pk.id','pk.no_pk','pk.namamitra','pk.namafile','pk.tglmulai','pk.tglakhir','pk.status','pk.file',
             'pk.kantor_id','kode_kantors.nama_kantor')
             ->orderBy('id','desc')
             ->get();
