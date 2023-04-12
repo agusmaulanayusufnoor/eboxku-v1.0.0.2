@@ -613,6 +613,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       menu2: false,
       dateFormatted1: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
       dateFormatted2: vm.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
+      tgl_habis: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       tgl_habis_stnkRules: [function (v) {
         return !!v || 'Tanggal Habis STNK belum diisi';
       }],
@@ -702,8 +703,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   watch: {
-    tgl_habis_stnk: function tgl_habis_stnk(val) {
-      this.dateFormatted1 = this.formatDate(this.tgl_habis_stnk);
+    tgl_habis: function tgl_habis(val) {
+      this.dateFormatted1 = this.formatDate(this.tgl_habis);
     },
     tgl_pajak: function tgl_pajak(val) {
       this.dateFormatted2 = this.formatDate(this.tgl_pajak);
@@ -2250,7 +2251,7 @@ var render = function () {
                                                                 blur: function (
                                                                   $event
                                                                 ) {
-                                                                  _vm.tgl_habis_stnk =
+                                                                  _vm.tgl_habis =
                                                                     _vm.parseDate(
                                                                       _vm.dateFormatted1
                                                                     )
@@ -2303,11 +2304,11 @@ var render = function () {
                                                   },
                                                 },
                                                 model: {
-                                                  value: _vm.tgl_habis_stnk,
+                                                  value: _vm.tgl_habis,
                                                   callback: function ($$v) {
-                                                    _vm.tgl_habis_stnk = $$v
+                                                    _vm.tgl_habis = $$v
                                                   },
-                                                  expression: "tgl_habis_stnk",
+                                                  expression: "tgl_habis",
                                                 },
                                               }),
                                             ],
@@ -2320,7 +2321,7 @@ var render = function () {
                                       _c("has-error", {
                                         attrs: {
                                           form: _vm.form,
-                                          field: "tgl_habis_stnk",
+                                          field: "tgl_habis",
                                         },
                                       }),
                                       _vm._v(" "),

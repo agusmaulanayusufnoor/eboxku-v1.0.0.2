@@ -381,7 +381,7 @@
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-text-field
                                             v-model="dateFormatted1"
-                                            @blur="tgl_habis_stnk = parseDate(dateFormatted1)"
+                                            @blur="tgl_habis = parseDate(dateFormatted1)"
                                             :rules="tgl_habis_stnkRules"
                                             label="Tanggal Habis STNK"
                                             placeholder="Tanggal Habis STNK"
@@ -395,7 +395,7 @@
                                         ></v-text-field>
                                     </template>
                                     <v-date-picker
-                                        v-model="tgl_habis_stnk"
+                                        v-model="tgl_habis"
                                         elevation="15"
                                         @input="menu1 = false"
                                         year-icon="calendar-blank"
@@ -404,7 +404,7 @@
 
                                     </v-menu>
                                 </v-col>
-                            <has-error :form="form" field="tgl_habis_stnk"></has-error>
+                            <has-error :form="form" field="tgl_habis"></has-error>
 
                                 <v-col
                                 cols="12"
@@ -580,7 +580,9 @@
           menu2:false,
           dateFormatted1: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
           dateFormatted2: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
-             tgl_habis_stnkRules: [
+          tgl_habis:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+
+          tgl_habis_stnkRules: [
             v => !!v || 'Tanggal Habis STNK belum diisi',
           ],
           tgl_pajak:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
@@ -651,8 +653,8 @@
           },
         },
         watch: {
-          tgl_habis_stnk (val) {
-            this.dateFormatted1 = this.formatDate(this.tgl_habis_stnk)
+          tgl_habis (val) {
+            this.dateFormatted1 = this.formatDate(this.tgl_habis)
           },
           tgl_pajak (val) {
             this.dateFormatted2 = this.formatDate(this.tgl_pajak)
