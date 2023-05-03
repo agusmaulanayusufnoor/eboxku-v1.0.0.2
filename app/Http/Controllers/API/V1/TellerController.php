@@ -88,8 +88,8 @@ class TellerController extends BaseController
         $datefile   = implode("",$arrnamefile);
 
         $date       = implode("",$arr);
-
-        $file   = "00".$request->kantor_id.".".$request->namafile.".".$datefile.".".$nm->getClientOriginalName();
+        $acak = $this->acak_string(6);
+        $file   = "00".$request->kantor_id.".".$request->namafile.".".$datefile.".".$acak.".".$nm->getClientOriginalName();
         $teller = $this->teller->create([
             'kantor_id'     => $request->get('kantor_id'),
             'namafile'      => $request->get('namafile'),
@@ -225,6 +225,16 @@ class TellerController extends BaseController
             ->get();
         }
         return $this->sendResponse($teller, 'teller list');
+    }
+
+    function acak_string($panjang) {
+        $karakter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        $string = '';
+        for ($i = 0; $i < $panjang; $i++) {
+            $pos = rand(0, strlen($karakter)-1);
+            $string .= $karakter[$pos];
+        }
+        return $string;
     }
 
 }
