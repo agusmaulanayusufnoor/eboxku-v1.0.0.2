@@ -88,8 +88,8 @@ class BakasController extends BaseController
         $datefile   = implode("",$arrnamefile);
 
         $date       = implode("",$arr);
-
-        $file   = "01020101.600324.OP001UN-A".".00".$request->kantor_id.".".$request->namafile.".".$datefile.".".$nm->getClientOriginalName();
+        $acak = $this->acak_string(5);
+        $file   = "01020101.600324.OP001UN-A".".00".$request->kantor_id.".".$request->namafile.".".$acak.".".$nm->getClientOriginalName();
         $bakas = $this->bakas->create([
             'kantor_id'     => $request->get('kantor_id'),
             'namafile'      => $request->get('namafile'),
@@ -184,5 +184,14 @@ class BakasController extends BaseController
         return $this->sendResponse($bakas, 'kosong');
       }
 
+    }
+    function acak_string($panjang) {
+        $karakter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        $string = '';
+        for ($i = 0; $i < $panjang; $i++) {
+            $pos = rand(0, strlen($karakter)-1);
+            $string .= $karakter[$pos];
+        }
+        return $string;
     }
 }
