@@ -425,7 +425,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!(_this.$gate.isAdmin() || _this.$gate.isKredit())) {
+                if (!(_this.$gate.isAdmin() || _this.$gate.isKredit() || _this.$gate.isBisnis())) {
                   _context.next = 7;
                   break;
                 }
@@ -514,7 +514,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.$Progress.start();
 
-      if (this.$gate.isAdmin() || this.$gate.isKredit()) {
+      if (this.$gate.isAdmin() || this.$gate.isKredit() || this.$gate.isBisnis()) {
         axios.get("api/kredit").then(function (response) {
           _this2.kredit = response.data.data;
           _this2.kantor_id = _this2.$kantor_id; // this.form.fill
@@ -686,7 +686,9 @@ var render = function () {
                 "v-col",
                 { attrs: { cols: "11" } },
                 [
-                  _vm.$gate.isAdmin() || _vm.$gate.isKredit()
+                  _vm.$gate.isAdmin() ||
+                  _vm.$gate.isKredit() ||
+                  _vm.$gate.isBisnis()
                     ? _c(
                         "v-card",
                         { staticClass: "pa-2 mx-auto" },
@@ -927,7 +929,7 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          !_vm.$gate.isAdmin() && !_vm.$gate.isKredit()
+          !_vm.$gate.isAdmin() && !_vm.$gate.isKredit() && !_vm.$gate.isBisnis()
             ? _c("div", [_c("not-found")], 1)
             : _vm._e(),
           _vm._v(" "),

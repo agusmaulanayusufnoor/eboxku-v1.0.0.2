@@ -69,7 +69,7 @@ export default [
     { path: '/teller', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Teller.vue') },
     { path: '/cs', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Cs.vue') },
 
-
+    { path: '/permohonankredit', component: () => import(/* webpackPrefetch: true */'./components/kredit/Permohonankredit.vue') },
     { path: '/kredit', component: () => import(/* webpackPrefetch: true */'./components/kredit/Kredit.vue') },
     { path: '/pelunasan', component: () => import(/* webpackPrefetch: true */'./components/kredit/Pelunasan.vue') },
     { path: '/asuransikredit', component: () => import(/* webpackPrefetch: true */'./components/kredit/Asuransikredit.vue') },
@@ -123,6 +123,7 @@ export default [
     { path: '/pendidikan', component: () => import(/* webpackPrefetch: true */'./components/setting/Pendidikan.vue') },
     { path: '/statuspegawai', component: () => import(/* webpackPrefetch: true */'./components/setting/Statuspegawai.vue') },
     { path: '/statuspajak', component: () => import(/* webpackPrefetch: true */'./components/setting/Statuspajak.vue') },
+    { path: '/statuspermohonan', component: () => import(/* webpackPrefetch: true */'./components/setting/Statuspermohonan.vue') },
     { path: '*', component: () => import(/* webpackPrefetch: true */'./components/NotFound.vue') }
 ];
 

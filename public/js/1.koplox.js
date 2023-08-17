@@ -174,6 +174,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -823,6 +824,10 @@ var render = function () {
                                     { attrs: { value: "umumpst" } },
                                     [_vm._v("Umum Pusat")]
                                   ),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "bisnis" } }, [
+                                    _vm._v("Bisnis Pusat"),
+                                  ]),
                                   _vm._v(" "),
                                   _c("option", { attrs: { value: "sekdir" } }, [
                                     _vm._v("Sekretaris Direktur"),

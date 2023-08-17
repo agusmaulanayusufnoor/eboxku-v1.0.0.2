@@ -3,7 +3,7 @@
     <v-container fluid>
         <v-row no-gutters class="justify-content-md-center">
           <v-col cols="11">
-            <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isKredit()">
+            <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isKredit() || $gate.isBisnis()">
               <v-toolbar src="images/banner-red.jpg" dark shaped>
                 <v-toolbar-title>
                     File Pelunasan Kredit
@@ -97,7 +97,7 @@
           </v-col>
         </v-row>
 
-        <div v-if="!$gate.isAdmin() && !$gate.isKredit()">
+        <div v-if="!$gate.isAdmin() && !$gate.isKredit() && !$gate.isBisnis()">
             <not-found></not-found>
         </div>
 
@@ -408,7 +408,7 @@
 
      getKantor() {
 
-        if(this.$gate.isAdmin() || this.$gate.isKredit()){
+        if(this.$gate.isAdmin() || this.$gate.isKredit() || $gate.isBisnis()){
 
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
         axios.get("api/pelunasan/getkantor")
@@ -424,7 +424,7 @@
         }
     },
     async cekNorek (){
-      if(this.$gate.isAdmin() || this.$gate.isKredit() ){
+      if(this.$gate.isAdmin() || this.$gate.isKredit() || this.$gate.isBisnis()){
         const formData = new FormData
         formData.set('no_rekening', this.no_rekening)
         //const response = await axios.get('api/pelunasan/ceknama')
@@ -486,7 +486,7 @@
       initialize() {
          this.$Progress.start();
 
-            if(this.$gate.isAdmin() || this.$gate.isKredit() ){
+            if(this.$gate.isAdmin() || this.$gate.isKredit() || this.$gate.isBisnis() ){
 
              axios.get("api/pelunasan")
                 .then((response) => {

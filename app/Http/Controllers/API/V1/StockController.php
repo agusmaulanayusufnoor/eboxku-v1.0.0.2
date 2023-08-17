@@ -133,7 +133,7 @@ class StockController extends BaseController
     public function updateData(Request $request, $id)
     {
         $stock = Stock::findOrFail($id);
-        dd($request->get('jml_stok_awal'));
+        //dd($request->get('jml_stok_awal'));
 
        // $stock->update($request->all());
 
@@ -146,7 +146,7 @@ class StockController extends BaseController
 
         $stock->update($request->all());
 
-        return $this->sendResponse($stock, 'Data User Diubah!');
+        return $this->sendResponse($stock, 'Data Stok Diubah!');
     }
 
     /**

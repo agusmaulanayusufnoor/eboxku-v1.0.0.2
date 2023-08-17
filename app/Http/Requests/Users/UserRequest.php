@@ -53,7 +53,7 @@ class UserRequest extends FormRequest
     public function updateRules(): array
     {
         return [
-            'type' => 'sometimes|in:admin,user,pelayanan,kredit,akunting,sdm,sekdir,skai,umumpst',
+            'type' => 'sometimes|in:admin,user,pelayanan,kredit,akunting,sdm,sekdir,skai,umumpst,bisnis',
             'name' => 'sometimes|string|max:191',
             'username' => 'sometimes|string|max:191'
         ];

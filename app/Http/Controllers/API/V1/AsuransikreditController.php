@@ -31,7 +31,7 @@ class AsuransikreditController extends BaseController
         $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
         //$asuransikredit= $this->asuransikredit->latest()->get();
-        if($levelLogin === 'admin'){
+        if($levelLogin === 'admin' || $levelLogin === 'bisnis'){
             $asuransikredit  = DB::table('asuransikredit')
             ->join('kode_kantors', 'asuransikredit.kantor_id', '=', 'kode_kantors.id')
             ->select('asuransikredit.id','asuransikredit.namafile','asuransikredit.tanggal','asuransikredit.file',

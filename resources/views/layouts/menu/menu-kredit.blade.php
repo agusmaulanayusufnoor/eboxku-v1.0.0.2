@@ -9,7 +9,12 @@
       <i class="fas fa-angle-left right"></i>
     </a>
     <ul class="nav nav-treeview">
-
+      <li class="nav-item">
+      <router-link to="/permohonankredit" class="nav-link">
+        <i class="nav-icon fa fa-list-check"></i>
+          <p>Permohonan Kredit</p>
+        </a>
+      </li>
       <li class="nav-item">
       <router-link to="/kredit" class="nav-link">
         <i class="nav-icon fas fa-file-lines"></i>

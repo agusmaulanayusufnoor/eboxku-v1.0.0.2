@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Permohonankredit extends Model
+{
+    protected $table = 'permohonankredit';
+    protected $primarykey = "id";
+    protected $fillable = [
+        'id',
+        'kantor_id',
+        'no_rekening',
+        'namafile',
+        'tgl_permohonan',
+        'tgl_setujutolak',
+        'tgl_pencairan',
+        'file',
+        'file_disetujui',
+        'file_spk',
+        'status_id',
+    ];
+    public function kantor(){
+        return $this->belongsTo(kode_kantor::class,'kantor_id');
+    }
+    public function status(){
+        return $this->belongsTo(statuspermohonan::class,'status_id');
+    }
+}

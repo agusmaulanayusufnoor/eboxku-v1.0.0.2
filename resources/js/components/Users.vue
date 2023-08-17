@@ -121,6 +121,7 @@
                                 <option value="kredit">Kredit</option>
                                 <option value="akunting">Umum dan Akunting Cabang</option>
                                 <option value="umumpst">Umum Pusat</option>
+                                <option value="bisnis">Bisnis Pusat</option>
                                 <option value="sekdir">Sekretaris Direktur</option>
                                 <option value="skai">SKAI</option>
                                 <option value="sdm">SDM</option>

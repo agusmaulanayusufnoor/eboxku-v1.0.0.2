@@ -44,6 +44,11 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::post('deposito/ceknorek', 'DepositoController@ceknorek');
     Route::get('kredit/download/{kredit}', 'KreditController@downloadfile');
     Route::post('kredit/ceknorek', 'KreditController@ceknorek');
+    Route::get('permohonankredit/download/{permohonankredit}', 'PermohonankreditController@downloadfile');
+    Route::get('permohonankredit/filesetuju/{permohonankredit}', 'PermohonankreditController@downloadfiledisetujui');
+    Route::get('permohonankredit/filespk/{permohonankredit}', 'PermohonankreditController@downloadfilespk');
+    Route::post('permohonankredit/ceknorek', 'PermohonankreditController@ceknorek');
+    Route::post('permohonankredit/{permohonankredit}', 'PermohonankreditController@updateData');
     Route::get('pelunasan/download/{pelunasan}', 'PelunasanController@downloadfile');
     Route::post('pelunasan/ceknorek', 'PelunasanController@ceknorek');
     Route::get('pelunasan/getkantor', 'Kode_kantorController@index');
@@ -147,6 +152,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'statuspegawai' => 'StatuspegawaiController',
         'statuspajak'   => 'StatuspajakController',
         'mastersimpanan'   => 'MastersimpananController',
+        'statuspermohonan'        => 'StatuspermohonanController',
 
         'user'        => 'UserController',
         //pelayanan
@@ -158,6 +164,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'cs'          => 'CsController',
 
         //kredit
+        'permohonankredit'  => 'PermohonankreditController',
         'kredit'            => 'KreditController',
         'pelunasan'         => 'PelunasanController',
         'asuransikredit'    => 'AsuransikreditController',

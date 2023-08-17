@@ -24,6 +24,9 @@ export default class Gate{
     isUM(){
         return this.user.type === 'umumpst';
     }
+    isBisnis(){
+        return this.user.type === 'bisnis';
+    }
     isSekdir(){
         return this.user.type === 'sekdir';
     }
@@ -35,7 +38,7 @@ export default class Gate{
     }
 
     isAdminOrUser(){
-        if(this.user.type === 'sdm' || this.user.type === 'skai' || this.user.type === 'sekdir' || this.user.type === 'umumpst' || this.user.type === 'akunting' || this.user.type === 'kredit' || this.user.type === 'pelayanan' || this.user.type === 'user' || this.user.type === 'admin'){
+        if(this.user.type === 'sdm' || this.user.type === 'skai' || this.user.type === 'sekdir' || this.user.type === 'umumpst' || this.user.type === 'bisnis' || this.user.type === 'akunting' || this.user.type === 'kredit' || this.user.type === 'pelayanan' || this.user.type === 'user' || this.user.type === 'admin'){
             return true;
         }
     }

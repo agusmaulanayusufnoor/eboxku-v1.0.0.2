@@ -3,7 +3,7 @@
     <v-container fluid>
         <v-row no-gutters class="justify-content-md-center">
           <v-col cols="11">
-            <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isKredit()">
+            <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isKredit() || $gate.isBisnis()">
               <v-toolbar src="images/banner-yellow.jpg" color="yellow" dark shaped>
                 <v-toolbar-title>
                     File Asuransi Kredit
@@ -121,7 +121,7 @@
           </v-col>
         </v-row>
 
-        <div v-if="!$gate.isAdmin() && !$gate.isKredit()">
+        <div v-if="!$gate.isAdmin() && !$gate.isKredit() && !$gate.isBisnis()">
             <not-found></not-found>
         </div>
 
@@ -417,7 +417,7 @@ import moment from 'moment';
       initialize() {
          this.$Progress.start();
 
-            if(this.$gate.isAdmin() || this.$gate.isKredit() ){
+            if(this.$gate.isAdmin() || this.$gate.isKredit() || this.$gate.isBisnis()){
 
                //axios.get("api/user").then((response) => {(this.users = response.data.data)});
              axios.get("api/asuransikredit")
@@ -447,7 +447,7 @@ import moment from 'moment';
     },
     async getKantor() {
 
-        if(this.$gate.isAdmin()){
+        if(this.$gate.isAdmin() || this.$gate.isBisnis()){
 
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
         axios.get("api/asuransikredit/getkantor")

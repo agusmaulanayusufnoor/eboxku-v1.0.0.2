@@ -22,7 +22,7 @@
             @include('layouts.menu.menu-pelayanan')
       @endif
 
-      @if((auth()->user()->type=='admin') or (auth()->user()->type=='kredit'))
+      @if((auth()->user()->type=='admin') or (auth()->user()->type=='kredit') or (auth()->user()->type=='bisnis'))
             <!--  menu kredit  -->
             @include('layouts.menu.menu-kredit')
       @endif
@@ -149,6 +149,14 @@
                     <i class="nav-icon fas fa-universal-access white"></i>
                     <p>
                         Status Pajak
+                    </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/statuspermohonan" class="nav-link">
+                    <i class="nav-icon fa fa-square-check white"></i>
+                    <p>
+                        Status Permohonan Kredit
                     </p>
                 </router-link>
               </li>

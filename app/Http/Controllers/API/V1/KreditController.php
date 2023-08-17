@@ -31,7 +31,7 @@ class KreditController extends BaseController
         $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
 
-        if($levelLogin === 'admin'){
+        if($levelLogin === 'admin' || $levelLogin === 'bisnis' ){
             $kredit  = DB::table('kredit')
             ->join('kode_kantors', 'kredit.kantor_id', '=', 'kode_kantors.id')
             ->select('kredit.id','kredit.no_rekening','kredit.namafile','kredit.tanggal','kredit.file',

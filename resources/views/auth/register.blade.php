@@ -62,6 +62,7 @@
                                     <option value="kredit">Kredit</option>
                                     <option value="akunting">Akunting</option>
                                     <option value="umum">Umum</option>
+                                    <option value="bisnis">Bisnis Pusat</option>
                                     <option value="skai">SKAI</option>
                                     <option value="sdm">SDM</option>
                                 </select>
