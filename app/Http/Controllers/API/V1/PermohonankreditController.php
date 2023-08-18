@@ -38,6 +38,7 @@ class PermohonankreditController extends BaseController
                 ->join('statuspermohonan', 'permohonankredit.status_id', '=', 'statuspermohonan.id')
                 ->select(
                     'permohonankredit.id',
+                    'permohonankredit.no_ktp',
                     'permohonankredit.no_rekening',
                     'permohonankredit.namafile',
                     'permohonankredit.tgl_permohonan',
@@ -59,6 +60,7 @@ class PermohonankreditController extends BaseController
                 ->where('kantor_id', $id_kantor)
                 ->select(
                     'permohonankredit.id',
+                    'permohonankredit.no_ktp',
                     'permohonankredit.no_rekening',
                     'permohonankredit.namafile',
                     'permohonankredit.tgl_permohonan',
@@ -87,7 +89,7 @@ class PermohonankreditController extends BaseController
     public function store(Request $request)
     {
         $request->validate([
-            'no_rekening'  => 'required|unique:permohonankredit',
+            'no_ktp'  => 'required|unique:permohonankredit',
             'namafile'     => 'required',
             'tgl_permohonan' => ['required', function ($attribute, $value, $fail) {
                 if ($value === 'null') {
@@ -96,8 +98,8 @@ class PermohonankreditController extends BaseController
             }],
             'file'         => 'required|mimes:pdf'
         ], [
-            'no_rekening.unique' => 'no rekening sudah ada dalam data',
-            'no_rekening.required' => 'no rekening harus diisi',
+            'no_ktp.unique' => 'no ktp sudah ada dalam data',
+            'no_ktp.required' => 'no ktp harus diisi',
             'namafile.required' => 'nama file harus diisi',
             'tgl_permohonan.required' => 'tanggal harus diisi',
             'file.required' => 'nama file harus nama nasabah',
@@ -116,9 +118,10 @@ class PermohonankreditController extends BaseController
 
         $date       = implode("", $arr);
         $acak = $this->acak_string(5);
-        $file   = "00" . $request->kantor_id . "." . $request->no_rekening . "." . $request->namafile . "." . $acak . "." . $nm->getClientOriginalName();
+        $file   = "00" . $request->kantor_id . "." . $request->no_ktp. "." . $request->namafile . "." . $acak . "." . $nm->getClientOriginalName();
         $permohonankredit = $this->permohonankredit->create([
             'kantor_id'         => $request->get('kantor_id'),
+            'no_ktp'            => $request->get('no_ktp'),
             'no_rekening'       => $request->get('no_rekening'),
             'namafile'          => $request->get('namafile'),
             'tgl_permohonan'    => $date,
@@ -190,15 +193,16 @@ class PermohonankreditController extends BaseController
         $levelLogin = Auth::user()->type;
 
         if ($levelLogin === 'admin' || $levelLogin === 'bisnis') {
-            $filedisetujui   = "[disetujui]." . $acak . "." . $request->no_rekening . "." . $request->namafile . ".pdf";
+            $filedisetujui   = "[disetujui]." . $acak . "." . $request->no_ktp . "." . $request->namafile . ".pdf";
             $permohonankredit = DB::table('permohonankredit')->where('id', $id)->update([
                 'tgl_setujutolak'   => $date,
                 'file_disetujui'    => $filedisetujui,
                 'status_id'         => $request->status_id,
             ]);
         } else {
-            $filespk   = "[selesai]." . $acak . "." . $request->no_rekening . "." . $request->namafile . ".pdf";
+            $filespk   = "[selesai]." . $acak . "." . $request->no_ktp . "." . $request->namafile . ".pdf";
             $permohonankredit = DB::table('permohonankredit')->where('id', $id)->update([
+                'no_rekening'       => $request->no_rekening,
                 'tgl_pencairan'     => $datespk,
                 'file_spk'          => $filespk,
                 'status_id'         => $request->status_id,
@@ -233,31 +237,45 @@ class PermohonankreditController extends BaseController
         $permohonankredit = $this->permohonankredit->findOrFail($id);
 
         $permohonankredit->delete();
-        $file = public_path("file/permohonankre/" . $permohonankredit->file);
-        $file_disetujui = public_path("file/permohonankre/" . $permohonankredit->file_disetujui);
-        $file_spk = public_path("file/permohonankre/" . $permohonankredit->file_spk);
-        if (!File::exists($file)) {
-            //session()->flash('hapus','file sudah dihapus');
-            return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
-        } else {
-            unlink("file/permohonankre/" . $permohonankredit->file);
+        $filepermohonan = "file/permohonankre/" . $permohonankredit->file;
+        $file_disetujui = "file/permohonankre/" . $permohonankredit->file_disetujui;
+        $file_spk = "file/permohonankre/" . $permohonankredit->file_spk;
 
-            return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
-        }
+        $files = [$filepermohonan,$file_disetujui,$file_spk];
+        foreach ($files as $file) {
+            while (file_exists(public_path($file))) {
 
-        if (!File::exists($file_disetujui)) {
-            return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
-        } else {
-            unlink("file/permohonankre/" . $permohonankredit->file_disetujui);
-            return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
-        }
+                        unlink(public_path($file));
 
-        if (!File::exists($file_spk)) {
-            return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
-        } else {
-            unlink("file/permohonankre/" . $permohonankredit->file_spk);
-            return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
+                return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
+            }
+
         }
+        // if (File::exists($file)) {
+        //     //session()->flash('hapus','file sudah dihapus');
+        //     unlink("file/permohonankre/" . $permohonankredit->file);
+        //     return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
+        // }
+
+        // if (File::exists($file_disetujui)){
+        //     unlink("file/permohonankre/" . $permohonankredit->file_disetujui);
+
+        //    // return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
+        // }
+        return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
+        // if (!File::exists($file_disetujui)) {
+        //     return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
+        // } else {
+        //     unlink("file/permohonankre/" . $permohonankredit->file_disetujui);
+        //     return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
+        // }
+
+        // if (!File::exists($file_spk)) {
+        //     return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
+        // } else {
+        //     unlink("file/permohonankre/" . $permohonankredit->file_spk);
+        //     return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
+        // }
     }
     public function downloadfile($id)
     {
@@ -300,10 +318,10 @@ class PermohonankreditController extends BaseController
     }
     public function ceknorek(Request $request)
     {
-        $norek = $request->no_rekening;
+        $norek = $request->no_ktp;
         $permohonankredit  = DB::table('permohonankredit')
-            ->where('no_rekening', $norek)
-            ->select('permohonankredit.no_rekening')
+            ->where('no_ktp', $norek)
+            ->select('permohonankredit.no_ktp')
             ->get();
 
         if (!$permohonankredit->isEmpty()) {

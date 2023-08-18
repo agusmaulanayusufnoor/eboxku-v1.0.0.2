@@ -12,6 +12,7 @@ class Permohonankredit extends Model
     protected $fillable = [
         'id',
         'kantor_id',
+        'no_ktp',
         'no_rekening',
         'namafile',
         'tgl_permohonan',

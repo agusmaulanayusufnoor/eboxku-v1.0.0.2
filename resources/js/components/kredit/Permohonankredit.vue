@@ -182,8 +182,26 @@
                 <div class="form-group input-group">
                   <v-col cols="12" sm="12" md="12">
                     <v-text-field
+                      v-model="editedItem.no_ktp"
+                      :rules="noktpRules"
+                      name="no_ktp"
+                      label="Nomor KTP"
+                      placeholder="No. KTP harus diisi"
+                      counter
+                      maxlength="16"
+                      outlined
+                      required
+                      dense
+                      prepend-icon="mdi-file"
+                      @keydown="noktpKeyboard($event)"
+                      hint=""
+                      persistent-hint
+                      :error-messages="pesaneror"
+                      @change="cekNorek()"
+                    ></v-text-field>
+                    <has-error :form="form" field="no_ktp"></has-error>
+                    <v-text-field
                       v-model="editedItem.no_rekening"
-                      :rules="norekRules"
                       name="no_rekening"
                       label="Nomor Rekening kredit"
                       placeholder="No. Rekening Tanpa Titik"
@@ -196,8 +214,6 @@
                       @keydown="norekKeyboard($event)"
                       hint=""
                       persistent-hint
-                      :error-messages="pesaneror"
-                      @change="cekNorek()"
                     ></v-text-field>
                     <has-error :form="form" field="no_rekening"></has-error>
                     <v-text-field
@@ -385,6 +401,7 @@ export default {
     editedItem: {
       id: "",
       kantor_id: "",
+      no_ktp: "",
       no_rekening: "",
 
       namafile: "",
@@ -394,7 +411,7 @@ export default {
     file_disetujui: null,
     file_spk: null,
 
-    norekRules: [(v) => !!v || "No Rekening Belum Diisi"],
+    noktpRules: [(v) => !!v || "No KTP Belum Diisi"],
     cekNorekData: [],
     pesaneror: [],
 
@@ -434,6 +451,7 @@ export default {
           sortable: false,
         },
         { text: "Kantor", value: "nama_kantor", align: "start" },
+        { text: "No KTP", value: "no_ktp" },
         { text: "No Rekening", value: "no_rekening" },
         {
           text: "Nama Nasabah",
@@ -514,7 +532,7 @@ export default {
     async cekNorek() {
       if (this.$gate.isAdmin() || this.$gate.isKredit() || this.$gate.isBisnis()) {
         const formData = new FormData();
-        formData.set("no_rekening", this.editedItem.no_rekening);
+        formData.set("no_ktp", this.editedItem.no_ktp);
         //const response = await axios.get('api/kredit/ceknama')
         const response = await axios.post(
           "api/permohonankredit/ceknorek",
@@ -522,8 +540,8 @@ export default {
         );
         //this.cekNorekData = response.data.data[0].no_rekening;
         if (response.data.message == "adarek") {
-          this.cekNorekData = response.data.data[0].no_rekening;
-          this.pesaneror = "No Rekening " + this.cekNorekData + " Sudah Ada";
+          this.cekNorekData = response.data.data[0].no_ktp;
+          this.pesaneror = "No KTP " + this.cekNorekData + " Sudah Ada";
 
           // console.log(this.cekNorekData);
 
@@ -531,8 +549,8 @@ export default {
             icon: "error",
             //title: response.data.message
             title:
-              "No Rekening " +
-              response.data.data[0].no_rekening +
+              "No KTP " +
+              response.data.data[0].no_ktp +
               " Sudah Ada Dalam Data",
           });
           this.initialize();
@@ -554,7 +572,25 @@ export default {
         //if (charCode === 191 || charCode===220) {
         evt.preventDefault();
       } else {
-        this.editedItem.no_rekening = this.no_rekening.toUpperCase();
+        this.editedItem.no_rekening = this.editedItem.no_rekening.toUpperCase();
+        return true;
+      }
+    },
+    noktpKeyboard: function (evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode;
+      //nomer wungkul
+      if (
+        charCode > 31 &&
+        (charCode < 48 || charCode > 57) &&
+        (charCode < 95 || charCode > 105) &&
+        charCode !== 46
+      ) {
+        //tidak boleh tombol '/' dan '\'
+        //if (charCode === 191 || charCode===220) {
+        evt.preventDefault();
+      } else {
+        //this.editedItem.no_ktp = this.no_ktp.toUpperCase();
         return true;
       }
     },
@@ -605,6 +641,7 @@ export default {
       this.editedItem.id = item.id;
       this.editedItem.kantor_id = this.$kantor_id;
       this.editedItem.status_id = item.status_id;
+      this.editedItem.no_ktp = item.no_ktp;
       this.editedItem.no_rekening = item.no_rekening;
       this.editedItem.namafile = item.namafile;
     },
@@ -613,6 +650,7 @@ export default {
       $("#addNew").modal("show");
       this.$refs.form.reset();
       this.editedItem.namafile = "";
+      this.editedItem.no_ktp = "";
       this.editedItem.no_rekening = "";
       this.pesaneror = "";
     },
@@ -626,6 +664,7 @@ export default {
       // //this.append('file', this.file);
       const formData = new FormData();
       formData.set("kantor_id", this.editedItem.kantor_id);
+      formData.set("no_ktp", this.editedItem.no_ktp);
       formData.set("no_rekening", this.editedItem.no_rekening);
       formData.set("namafile", this.editedItem.namafile);
       formData.set("tgl_permohonan", this.tgl_permohonan);
@@ -741,6 +780,7 @@ export default {
       //console.log(this.editedItem.id)
       const formData = new FormData();
       // formData.set('kantor_id', this.editedItem.kantor_id)
+      formData.set('no_ktp', this.editedItem.no_ktp)
       formData.set('no_rekening', this.editedItem.no_rekening)
       formData.set('namafile', this.editedItem.namafile)
 
@@ -756,12 +796,12 @@ export default {
       formData.set("status_id", this.editedItem.status_id);
       formData.append("_method", "PUT");
 
-       console.log(formData);
+       //console.log(formData);
       axios
         .post("api/permohonankredit/" + this.editedItem.id, formData, config)
         //axios.put('api/stock/27',formData)
         .then((response) => {
-          console.log(this.editedItem.id);
+          //console.log(this.editedItem.id);
           // success
           $("#addNew").modal("hide");
           Toast.fire({
