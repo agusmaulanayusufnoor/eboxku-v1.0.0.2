@@ -241,16 +241,22 @@ class PermohonankreditController extends BaseController
         $file_disetujui = "file/permohonankre/" . $permohonankredit->file_disetujui;
         $file_spk = "file/permohonankre/" . $permohonankredit->file_spk;
 
-        $files = [$filepermohonan,$file_disetujui,$file_spk];
-        foreach ($files as $file) {
-            while (file_exists(public_path($file))) {
+        // $files = [$filepermohonan,$file_disetujui,$file_spk];
+        // foreach ($files as $file) {
+        //     while ($data=file_exists(public_path($file))) {
+        //         unlink(public_path($file));
+        //         if ($data==true){
 
-                        unlink(public_path($file));
+        //             return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
+        //         }else{
+        //             return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
+        //         }
 
-                return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
-            }
 
-        }
+        //        // return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
+        //     }
+
+        // }
         // if (File::exists($file)) {
         //     //session()->flash('hapus','file sudah dihapus');
         //     unlink("file/permohonankre/" . $permohonankredit->file);
@@ -262,13 +268,30 @@ class PermohonankreditController extends BaseController
 
         //    // return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
         // }
-        return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
-        // if (!File::exists($file_disetujui)) {
-        //     return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
-        // } else {
-        //     unlink("file/permohonankre/" . $permohonankredit->file_disetujui);
-        //     return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
-        // }
+
+      //  return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
+         if ($permohonankredit->file<>'') {
+            unlink("file/permohonankre/" . $permohonankredit->file);
+            if ($permohonankredit->file_disetujui<>'') {
+                unlink("file/permohonankre/" . $permohonankredit->file_disetujui);
+                //return $this->sendResponse($permohonankredit, 'ada file!');
+                if ($permohonankredit->file_spk<>'') {
+                    unlink("file/permohonankre/" . $permohonankredit->file_spk);
+                    return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
+                } else {
+
+                    return $this->sendResponse($permohonankredit, 'tidak ada file spk!');
+                }
+            } else {
+                return $this->sendResponse($permohonankredit, 'tidak ada file disetujui');
+
+            }
+        } else {
+            return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
+
+        }
+
+
 
         // if (!File::exists($file_spk)) {
         //     return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
