@@ -31,10 +31,10 @@ mix.js('resources/js/app.js', 'public/js')
 */
 
 mix.config.webpackConfig.output = {
-    chunkFilename: 'js/[name].koplox.js',
+    chunkFilename: 'js/[name].ebox.js',
     publicPath: '/',
 };
 
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
-   .version();
+   .version().sourceMaps();
