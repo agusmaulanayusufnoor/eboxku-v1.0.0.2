@@ -38,7 +38,7 @@ class UserRequest extends FormRequest
     public function createRules(): array
     {
         return [
-            'type' => 'required|in:admin,user,pelayanan,kredit,akunting,umumpst,sekdir,skai,sdm',
+            'type' => 'required|in:admin,user,pelayanan,kredit,akunting,umumpst,sekdir,skai,bisnis,sdm',
             'name' => 'required|string|max:191',
             'username' => 'required|string|max:191|unique:users',
             'password' => 'required|string|min:6'

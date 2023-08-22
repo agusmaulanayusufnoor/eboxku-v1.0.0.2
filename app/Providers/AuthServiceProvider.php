@@ -51,36 +51,40 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('isPelayanan', function ($user) {
-         
+
             return $user->type === 'pelayanan';
         });
 
         Gate::define('isKredit', function ($user) {
-        
+
             return $user->type === 'kredit';
         });
         Gate::define('isAK', function ($user) {
-          
+
             return $user->type === 'akunting';
         });
         Gate::define('isUM', function ($user) {
-           
+
             return $user->type === 'umumpst';
         });
+        Gate::define('isBisnis', function ($user) {
+
+            return $user->type === 'bisnis';
+        });
         Gate::define('isSekdir', function ($user) {
-          
+
             return $user->type === 'sekdir';
         });
         Gate::define('isAK', function ($user) {
-            
+
             return $user->type === 'akunting';
         });
         Gate::define('isSkai', function ($user) {
-            
+
             return $user->type === 'skai';
         });
         Gate::define('isSdm', function ($user) {
-         
+
             return $user->type === 'sdm';
         });
     }
