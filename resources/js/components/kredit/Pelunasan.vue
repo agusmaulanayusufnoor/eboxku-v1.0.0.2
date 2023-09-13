@@ -408,7 +408,7 @@
 
      getKantor() {
 
-        if(this.$gate.isAdmin() || this.$gate.isKredit() || $gate.isBisnis()){
+        if(this.$gate.isAdmin() || this.$gate.isKredit() || this.$gate.isBisnis()){
 
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
         axios.get("api/pelunasan/getkantor")

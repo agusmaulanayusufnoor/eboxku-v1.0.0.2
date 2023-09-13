@@ -50,11 +50,35 @@
                 </p>
               </a>
           </li>
-    <li class="nav-item">
-        <router-link to="/cs" class="nav-link">
-          <i class="nav-icon fa-regular fa-file-archive"></i>
-          <p>File CS</p>
-        </a>
-      </li>
+        <li class="nav-item">
+            <router-link to="/cs" class="nav-link">
+            <i class="nav-icon fa-regular fa-file-archive"></i>
+            <p>File CS</p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-file-import"></i>
+              <p>File Permohonan
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="small">
+                    <router-link to="/pjkpph4ayat2" class="nav-link">
+                        <i class="fas fa-cogs nav-icon"></i>
+                        <p>Operasional</p>
+                      </a>
+                </li>
+                <li class="small">
+                    <router-link to="/pjkpph21" class="nav-link">
+                        <i class="fas fa-money-check-alt nav-icon"></i>
+                        <p>Bisnis</p>
+                      </a>
+                </li>
+            </ul>
+        </li>
+
     </ul>
   </li>
