@@ -405,7 +405,7 @@ export default {
           align: "center",
           sortable: false,
         },
-
+        { text: "Kantor", value: "nama_kantor", align: "start" },
         {
           text: "Nama File",
           value: "namafile",
@@ -659,7 +659,7 @@ export default {
         formData.set("tgl_acc", this.tgl_permohonan);
         formData.set("file_spk", this.file);
       }
-      if (this.$gate.isAdmin() || this.$gate.isBisnis()) {
+      if (this.$gate.isAdmin()) {
         formData.set("tgl_setujutolak", this.tgl_permohonan);
         formData.set("file_disetujui", this.file);
       }
@@ -675,10 +675,15 @@ export default {
           //console.log(this.editedItem.id);
           // success
           $("#addNew").modal("hide");
-          Toast.fire({
-            icon: "success",
-            title: response.data.message,
-          });
+          if (response.data.data === 5){
+            Swal.fire("Gagal Update!", "Status belum di setujui", "warning");
+          }else{
+            Toast.fire({
+                icon: "success",
+                title: response.data.message,
+            });
+          }
+
           this.$Progress.finish();
           //  Fire.$emit('AfterCreate');
 
@@ -687,6 +692,7 @@ export default {
         .catch((error) => {
           console.log(error);
           this.$Progress.fail();
+
         });
     },
     deleteUser(id) {

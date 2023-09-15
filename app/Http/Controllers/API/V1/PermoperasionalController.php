@@ -174,13 +174,22 @@ class PermoperasionalController extends BaseController
                 'status_id'         => $request->status_id,
             ]);
         }else{
-            $permoperasional = DB::table('permoperasional')->where('id', $id)->update([
-                'tgl_acc'   => $dateacc,
-                'status_id'         => $request->status_id,
-            ]);
+            $cekstatus = Permoperasional::findOrFail($id);
+            $status = $cekstatus->status_id;
+            if ($status === 2){
+                $permoperasional = DB::table('permoperasional')->where('id', $id)->update([
+                    'tgl_acc'   => $dateacc,
+                    'status_id'         => $request->status_id,
+                ]);
+                return $this->sendResponse($permoperasional, 'Data Permohonan Diubah!');
+
+            } else {
+                return $this->sendResponse($status,'Status Belum Disetujui');
+            }
+
         }
 
-        return $this->sendResponse($permoperasional, 'Data Permohonan Kredit Diubah!');
+
     }
 
     /**
