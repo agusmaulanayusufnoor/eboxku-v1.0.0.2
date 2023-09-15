@@ -804,14 +804,12 @@ export default {
           //console.log(this.editedItem.id);
           // success
           $("#addNew").modal("hide");
-          if (response.data.data === 1){
-            Swal.fire("Gagal Update!", "Status belum di setujui atau tanggal disetujui belum diisi", "warning");
-          }else{
+
             Toast.fire({
                 icon: "success",
                 title: response.data.message,
             });
-          }
+
           this.$Progress.finish();
           //  Fire.$emit('AfterCreate');
 

@@ -200,10 +200,7 @@ class PermohonankreditController extends BaseController
                 'status_id'         => $request->status_id,
             ]);
         } else {
-            $cekstatus = Permohonankredit::findOrFail($id);
-            $status = $cekstatus->status_id;
-            $tanggalsetuju = $cekstatus->tgl_setujutolak;
-            if ($status === 2 and $tanggalsetuju<>''){
+
                 $filespk   = "[selesai]." . $acak . "." . $request->no_ktp . "." . $request->namafile . ".pdf";
                 $permohonankredit = DB::table('permohonankredit')->where('id', $id)->update([
                 'no_rekening'       => $request->no_rekening,
@@ -211,10 +208,7 @@ class PermohonankreditController extends BaseController
                 'file_spk'          => $filespk,
                 'status_id'         => $request->status_id,
                 ]);
-                return $this->sendResponse($permohonankredit, 'Data Permohonan Kredit Diubah!');
-            }else{
-                return $this->sendResponse($status, 'Status belum disetujui atau tanggal disetujui belum diisi!');
-            }
+
 
         }
         // $permohonankredit = DB::table('permohonankredit')->where('id', $id)->update([
@@ -229,7 +223,7 @@ class PermohonankreditController extends BaseController
         if ($request->file('file_spk')) {
             $nmspk->move(public_path() . '/file/permohonankre', $filespk);
         }
-
+        return $this->sendResponse($permohonankredit, 'Data Permohonan Kredit Diubah!');
 
     }
 
