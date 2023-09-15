@@ -12,7 +12,7 @@
   <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
 
 
-  <title>{{ config('app.name', 'Laravel') }}</title>
+  <title>{{ config('app.name', 'E-Boxku') }}</title>
   {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css"> --}}
   {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.1/css/OverlayScrollbars.min.css"> --}}
   <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
@@ -32,7 +32,7 @@
     <router-link to="/dashboard" class="brand-link">
       <img src="{{ asset('/images/logo.png') }}" alt="The Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">{{ config('app.name', 'Laravel') }}</span>
+      <span class="brand-text font-weight-light">{{ config('app.name', 'E-Boxku') }}</span>
     </router-link>
 
     <!-- Sidebar -->
@@ -108,7 +108,7 @@
       <b>Version</b> 1.0.0.2
     </div>
     {{-- Default to the left --}}
-    <strong>Copyright &copy; 2022 <a href="https://bprku.com">BPRKU</a>.</strong>
+    <strong>Copyright &copy; 2023 <a href="https://bprku.com">BPRKU</a>.</strong>
     CODE BY SUGA
   </footer>
 </div>

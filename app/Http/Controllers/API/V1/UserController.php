@@ -39,7 +39,7 @@ class UserController extends BaseController
         $users = DB::table('users')
                 ->join('kode_kantors', 'users.kantor_id', '=', 'kode_kantors.id')
                 ->select('users.id','users.type','users.name','users.username',
-                'users.kantor_id','kode_kantors.nama_kantor')->get();
+                'users.kantor_id','kode_kantors.nama_kantor','users.otorisator')->get();
                 // ->paginate(10);
 
        // dd($users);
@@ -72,6 +72,7 @@ class UserController extends BaseController
             'password'  => Hash::make($request['password']),
             'type'      => $request['type'],
             'kantor_id' => $request['kantor_id'],
+            'otorisator' => $request['otorisator'],
         ]);
         return $this->sendResponse($user, 'User Ditambahkan');
     }

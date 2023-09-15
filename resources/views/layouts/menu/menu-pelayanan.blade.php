@@ -66,13 +66,13 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="small">
-                    <router-link to="/pjkpph4ayat2" class="nav-link">
+                    <router-link to="/permoperasional" class="nav-link">
                         <i class="fas fa-cogs nav-icon"></i>
                         <p>Operasional</p>
                       </a>
                 </li>
                 <li class="small">
-                    <router-link to="/pjkpph21" class="nav-link">
+                    <router-link to="/permbisnis" class="nav-link">
                         <i class="fas fa-money-check-alt nav-icon"></i>
                         <p>Bisnis</p>
                       </a>

@@ -1,6 +1,6 @@
  <!-- Preloader -->
  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="{{ asset('images/logo.png') }}" alt="BPRKULogo" height="60" width="60">
+    <img class="animation__shake" src="{{ asset('images/logo.png') }}" alt="E-Boxku" height="60" width="60">
   </div>
 <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -19,22 +19,22 @@
         </a>
         </div>
       </li>
-      
+
     </ul>
     <ul class="navbar-nav ml-auto">
     <li class="nav-item d-none d-sm-inline-block">
         <div style="color: red;">
-        
+
         @auth
             <auto-logout></auto-logout>
         @endauth
-        
+
         </div>
       </li>
     </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-    
+
       <!-- Navbar Search -->
       <li class="nav-item">
         <a class="nav-link" data-widget="navbar-search" href="#" role="button">
