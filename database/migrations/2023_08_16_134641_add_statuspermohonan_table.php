@@ -15,7 +15,7 @@ class AddStatuspermohonanTable extends Migration
     {
         Schema::create('statuspermohonan', function (Blueprint $table) {
             $table->id();
-            $table->string('statuspermohonan',20);
+            $table->string('statuspermohonan',50);
             $table->timestamps();
         });
     }

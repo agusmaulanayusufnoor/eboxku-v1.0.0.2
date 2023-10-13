@@ -39,6 +39,9 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::post('cs/cektgl', 'CsController@cektgl');
     Route::get('permoperasional/download/{permoperasional}', 'PermoperasionalController@downloadfile');
     Route::post('permoperasional/{permoperasional}', 'PermoperasionalController@updateData');
+    Route::get('permbisnis/filememo/{permbisnis}', 'PermbisnisController@downloadfilememo');
+    Route::get('permbisnis/download/{permbisnis}', 'PermbisnisController@downloadfile');
+    Route::post('permbisnis/{permbisnis}', 'PermbisnisController@updateData');
     Route::get('feedback/download/{feedback}', 'FeedbackController@downloadfile');
     Route::get('tabungan/download/{tabungan}', 'TabunganController@downloadfile');
     Route::post('tabungan/ceknorek', 'TabunganController@ceknorek');
@@ -165,6 +168,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'teller'      => 'TellerController',
         'cs'          => 'CsController',
         'permoperasional'  => 'PermoperasionalController',
+        'permbisnis'  => 'PermbisnisController',
 
         //kredit
         'permohonankredit'  => 'PermohonankreditController',

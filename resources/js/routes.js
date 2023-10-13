@@ -69,6 +69,7 @@ export default [
     { path: '/teller', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Teller.vue') },
     { path: '/cs', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Cs.vue') },
     { path: '/permoperasional', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Permoperasional.vue') },
+    { path: '/permbisnis', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Permbisnis.vue') },
 
     { path: '/permohonankredit', component: () => import(/* webpackPrefetch: true */'./components/kredit/Permohonankredit.vue') },
     { path: '/kredit', component: () => import(/* webpackPrefetch: true */'./components/kredit/Kredit.vue') },

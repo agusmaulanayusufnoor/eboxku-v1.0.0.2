@@ -9,6 +9,14 @@
       <i class="fas fa-angle-left right"></i>
     </a>
     <ul class="nav nav-treeview">
+    @if((auth()->user()->type=='admin') || (auth()->user()->type=='bisnis'))
+     <li class="nav-item">
+        <router-link to="/permbisnis" class="nav-link">
+         <i class="fas fa-money-check-alt nav-icon"></i>
+             <p>Memo ke Operasional</p>
+            </a>
+     </li>
+     @endif
       <li class="nav-item">
       <router-link to="/permohonankredit" class="nav-link">
         <i class="nav-icon fa fa-list-check"></i>

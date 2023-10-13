@@ -75,32 +75,8 @@
                     </v-icon>
                   </v-card-actions>
                 </template>
-                <template v-slot:item.file_disetujui="{ item }">
-                  <v-card-actions class="justify-center">
-                    <v-icon
-                      small
-                      color="blue"
-                      class="mr-4"
-                      @click="
-                        downloadFileDisetujui(item.id, item.file_disetujui)
-                      "
-                    >
-                      mdi-download
-                    </v-icon>
-                  </v-card-actions>
-                </template>
-                <template v-slot:item.file_spk="{ item }">
-                  <v-card-actions class="justify-center">
-                    <v-icon
-                      small
-                      color="blue"
-                      class="mr-4"
-                      @click="downloadFileSpk(item.id, item.file_spk)"
-                    >
-                      mdi-download
-                    </v-icon>
-                  </v-card-actions>
-                </template>
+
+
                 <!-- tombol edit -->
                 <template v-slot:item.edit="{ item }">
                   <v-card-actions class="justify-center">
