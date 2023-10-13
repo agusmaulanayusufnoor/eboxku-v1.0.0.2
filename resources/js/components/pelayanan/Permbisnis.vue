@@ -406,7 +406,7 @@ export default {
         },
         { text: "Tanggal Permohonan", value: "tgl_permohonan" },
         { text: "Tanggal Setuju Bisnis", value: "tgl_setujutolak" },
-        { text: "Tanggal Setuju Operasional", value: "tgl_acc" },
+        { text: "Tanggal Proses Operasional", value: "tgl_acc" },
         { text: "Tanggal Selesai", value: "tgl_selesai" },
         { text: "Status", value: "statuspermohonan"},
       ];
