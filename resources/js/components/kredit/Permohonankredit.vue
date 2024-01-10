@@ -197,7 +197,6 @@
                       hint=""
                       persistent-hint
                       :error-messages="pesaneror"
-                      @change="cekNorek()"
                     ></v-text-field>
                     <has-error :form="form" field="no_ktp"></has-error>
                     <v-text-field
