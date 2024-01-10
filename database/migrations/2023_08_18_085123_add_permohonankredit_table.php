@@ -16,7 +16,7 @@ class AddPermohonankreditTable extends Migration
         Schema::create('permohonankredit', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kantor_id');
-            $table->string('no_ktp',16)->unique();
+            $table->string('no_ktp',16);
             $table->string('no_rekening',13)->unique()->nullable();
             $table->string('namafile',200);
             $table->string('tgl_permohonan',20)->nullable();

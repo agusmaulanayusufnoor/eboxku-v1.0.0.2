@@ -89,7 +89,7 @@ class PermohonankreditController extends BaseController
     public function store(Request $request)
     {
         $request->validate([
-            'no_ktp'  => 'required|unique:permohonankredit',
+            'no_ktp'  => 'required',
             'namafile'     => 'required',
             'tgl_permohonan' => ['required', function ($attribute, $value, $fail) {
                 if ($value === 'null') {
@@ -98,7 +98,6 @@ class PermohonankreditController extends BaseController
             }],
             'file'         => 'required|mimes:pdf'
         ], [
-            'no_ktp.unique' => 'no ktp sudah ada dalam data',
             'no_ktp.required' => 'no ktp harus diisi',
             'namafile.required' => 'nama file harus diisi',
             'tgl_permohonan.required' => 'tanggal harus diisi',
