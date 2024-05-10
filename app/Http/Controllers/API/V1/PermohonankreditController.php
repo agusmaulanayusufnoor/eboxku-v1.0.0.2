@@ -44,6 +44,8 @@ class PermohonankreditController extends BaseController
                     'permohonankredit.tgl_permohonan',
                     'permohonankredit.tgl_setujutolak',
                     'permohonankredit.tgl_pencairan',
+                    'permohonankredit.jml_permohonan',
+                    'permohonankredit.jml_realisasi',
                     'permohonankredit.file',
                     'permohonankredit.file_disetujui',
                     'permohonankredit.file_spk',
@@ -66,6 +68,8 @@ class PermohonankreditController extends BaseController
                     'permohonankredit.tgl_permohonan',
                     'permohonankredit.tgl_setujutolak',
                     'permohonankredit.tgl_pencairan',
+                    'permohonankredit.jml_permohonan',
+                    'permohonankredit.jml_realisasi',
                     'permohonankredit.file',
                     'permohonankredit.file_disetujui',
                     'permohonankredit.file_spk',
@@ -124,6 +128,7 @@ class PermohonankreditController extends BaseController
             'no_rekening'       => $request->get('no_rekening'),
             'namafile'          => $request->get('namafile'),
             'tgl_permohonan'    => $date,
+            'jml_permohonan'    => $request->get('jml_permohonan'),
             'file'              => $file,
             'status_id'         => 1,
         ]);
@@ -205,6 +210,7 @@ class PermohonankreditController extends BaseController
                 'no_rekening'       => $request->no_rekening,
                 'tgl_pencairan'     => $datespk,
                 'file_spk'          => $filespk,
+                'jml_realisasi'     => $request->jml_realisasi,
                 'status_id'         => $request->status_id,
                 ]);
 

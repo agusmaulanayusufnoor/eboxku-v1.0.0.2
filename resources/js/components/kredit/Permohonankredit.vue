@@ -10,7 +10,13 @@
             <v-toolbar src="images/banner-red.jpg" dark shaped>
               <v-toolbar-title> Permohonan Kredit </v-toolbar-title>
               <v-spacer></v-spacer>
-              <v-btn small color="indigo" dark @click="newModal" v-if="$gate.isAdmin() || $gate.isKredit()">
+              <v-btn
+                small
+                color="indigo"
+                dark
+                @click="newModal"
+                v-if="$gate.isAdmin() || $gate.isKredit()"
+              >
                 <v-icon>mdi-file-upload</v-icon> Upload File
               </v-btn>
             </v-toolbar>
@@ -24,6 +30,14 @@
                 dense
                 class="elevation-3"
               >
+              <template v-slot:body.append>
+                    <tr class="fs-3">
+                        <th class="text-center text-xl-h1" colspan="8">Total</th>
+                        <td class="pink--text font-weight-bold">{{ formatCurrency(sumField('jml_permohonan')) }}</td>
+                        <td class="pink--text font-weight-bold">{{ formatCurrency(sumField('jml_realisasi')) }}</td>
+                    </tr>
+                </template>
+
                 <template v-slot:footer.prepend>
                   <v-btn
                     color="success"
@@ -58,9 +72,9 @@
                 </template>
                 <!-- warna status -->
                 <template v-slot:item.statuspermohonan="{ item }">
-                <v-chip :color="getColor(item.statuspermohonan)">
+                  <v-chip :color="getColor(item.statuspermohonan)">
                     {{ item.statuspermohonan }}
-                </v-chip>
+                  </v-chip>
                 </template>
                 <!-- tombol download -->
                 <template v-slot:item.file="{ item }">
@@ -121,6 +135,14 @@
                     mdi-delete
                   </v-icon>
                 </template>
+                <template
+              v-for="header in headers.filter((header) =>
+                header.hasOwnProperty('formatter')
+              )"
+              v-slot:[`item.${header.value}`]="{ header, value }"
+            >
+              {{ header.formatter(value) }}
+            </template>
               </v-data-table>
             </div>
             <!-- /.card-body -->
@@ -272,6 +294,44 @@
                       </v-row>
                     </template>
                     <has-error :form="form" field="tgl_permohonan"></has-error>
+                    <v-currency-field
+                      v-model="editedItem.jml_permohonan"
+                      name="jml_permohonan"
+                      label="Jumlah Permohonan"
+                      placeholder="Jumlah Permohonan Kredit"
+                      counter
+                      v-show="!editmode"
+                      maxlength="16"
+                      outlined
+                      required
+                      dense
+                      prepend-icon="mdi-currency-usd"
+                      prefix="Rp. "
+                      @keydown="noktpKeyboard($event)"
+                      hint=""
+                      persistent-hint
+                      :error-messages="pesaneror"
+                    ></v-currency-field>
+                    <has-error :form="form" field="jml_permohonan"></has-error>
+                    <v-currency-field
+                      v-model="editedItem.jml_realisasi"
+                      name="jml_realisasi"
+                      v-show="editmode"
+                      label="Jumlah Realisasi"
+                      placeholder="Jumlah Realisasi Kredit"
+                      counter
+                      maxlength="16"
+                      outlined
+                      required
+                      dense
+                      prepend-icon="mdi-currency-usd"
+                      prefix="Rp. "
+                      @keydown="noktpKeyboard($event)"
+                      hint=""
+                      persistent-hint
+                      :error-messages="pesaneror"
+                    ></v-currency-field>
+                    <has-error :form="form" field="jml_realisasi"></has-error>
                     <!-- <input type="file" @change="uploadFile"> -->
                     <template>
                       <v-file-input
@@ -304,46 +364,44 @@
                             +{{ files.length - 2 }} File(s)
                           </span>
                         </template>
-
                       </v-file-input>
                     </template>
                     <has-error :form="form" field="file"></has-error>
 
-
                     <template>
-                                    <v-radio-group
-                                    v-model="editedItem.status_id" :mandatory="false"
-                                    row
-                                    prepend-icon="mdi-format-list-bulleted-type"
-
-                                    >
-                                    <template v-slot:label>
-                                        <div><strong class="text-h6 text-bold">Status :</strong></div>
-                                    </template>
-                                    <v-radio
-                                        label="Analisa"
-                                        value="1"
-                                        v-if="$gate.isAdmin() || $gate.isKredit()"
-                                    ></v-radio>
-                                    <v-radio
-                                        label="Disetujui"
-                                        value="2"
-                                        v-if="$gate.isAdmin() || $gate.isBisnis()"
-                                    ></v-radio>
-                                    <v-radio
-                                        label="Ditolak"
-                                        value="3"
-                                        v-if="$gate.isAdmin() || $gate.isBisnis()"
-                                    ></v-radio>
-                                    <v-radio
-                                        label="Selesai"
-                                        value="4"
-                                        v-if="$gate.isAdmin() || $gate.isKredit()"
-                                    ></v-radio>
-                                    </v-radio-group>
-
-                            </template>
-
+                      <v-radio-group
+                        v-model="editedItem.status_id"
+                        :mandatory="false"
+                        row
+                        prepend-icon="mdi-format-list-bulleted-type"
+                      >
+                        <template v-slot:label>
+                          <div>
+                            <strong class="text-h6 text-bold">Status :</strong>
+                          </div>
+                        </template>
+                        <v-radio
+                          label="Analisa"
+                          value="1"
+                          v-if="$gate.isAdmin() || $gate.isKredit()"
+                        ></v-radio>
+                        <v-radio
+                          label="Disetujui"
+                          value="2"
+                          v-if="$gate.isAdmin() || $gate.isBisnis()"
+                        ></v-radio>
+                        <v-radio
+                          label="Ditolak"
+                          value="3"
+                          v-if="$gate.isAdmin() || $gate.isBisnis()"
+                        ></v-radio>
+                        <v-radio
+                          label="Selesai"
+                          value="4"
+                          v-if="$gate.isAdmin() || $gate.isKredit()"
+                        ></v-radio>
+                      </v-radio-group>
+                    </template>
                   </v-col>
                 </div>
               </div>
@@ -405,6 +463,8 @@ export default {
 
       namafile: "",
       status_id: "",
+      jml_permohonan: 0,
+      jml_realisasi: 0,
     },
     file: null,
     file_disetujui: null,
@@ -436,6 +496,8 @@ export default {
       kantor_id: "",
       namafile: "",
       tgl_permohonan: "",
+      jml_permohonan: 0,
+      jml_realisasi: 0,
       file: "",
     }),
   }),
@@ -450,16 +512,19 @@ export default {
           sortable: false,
         },
         { text: "Kantor", value: "nama_kantor", align: "start" },
-        { text: "No KTP", value: "no_ktp" },
-        { text: "No Rekening", value: "no_rekening" },
+        { text: "No KTP", value: "no_ktp", align: "center", },
+        { text: "No Rekening", value: "no_rekening", align: "center", },
         {
           text: "Nama Nasabah",
           value: "namafile",
+          align: "center",
         },
-        { text: "Tanggal Permohonan", value: "tgl_permohonan" },
-        { text: "Tanggal Disetujui/Ditolak", value: "tgl_setujutolak" },
-        { text: "Tanggal Pencairan", value: "tgl_pencairan" },
-        { text: "Status", value: "statuspermohonan"},
+        { text: "Tanggal Permohonan", value: "tgl_permohonan", align: "center" },
+        { text: "Tanggal Disetujui/Ditolak", value: "tgl_setujutolak",align: "center"},
+        { text: "Tanggal Pencairan", value: "tgl_pencairan",align: "center" },
+        { text: "Jumlah Permohonan", value: "jml_permohonan", formatter: this.formatCurrency, align: "center"},
+        { text: "Jumlah Realisasi", value: "jml_realisasi", formatter: this.formatCurrency, align: "center"},
+        { text: "Status", value: "statuspermohonan", align: "center" },
       ];
       headers.push({
         text: "File Permohonan",
@@ -523,13 +588,28 @@ export default {
   },
 
   methods: {
-    getColor (statuspermohonan) {
-        if (statuspermohonan === 'Selesai') return 'green'
-        else if (statuspermohonan === 'Ditolak') return 'red'
-        else return 'orange'
+    sumField(key) {
+        // sum data in give key (property)
+        
+        return this.permohonankredit.reduce((a, b) => a + (b[key] || 0), 0)
+    },
+    formatCurrency (value) {
+      return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR"
+    }).format(value);
+},
+    getColor(statuspermohonan) {
+      if (statuspermohonan === "Selesai") return "green";
+      else if (statuspermohonan === "Ditolak") return "red";
+      else return "orange";
     },
     async cekNorek() {
-      if (this.$gate.isAdmin() || this.$gate.isKredit() || this.$gate.isBisnis()) {
+      if (
+        this.$gate.isAdmin() ||
+        this.$gate.isKredit() ||
+        this.$gate.isBisnis()
+      ) {
         const formData = new FormData();
         formData.set("no_ktp", this.editedItem.no_ktp);
         //const response = await axios.get('api/kredit/ceknama')
@@ -620,7 +700,11 @@ export default {
     initialize() {
       this.$Progress.start();
 
-      if (this.$gate.isAdmin() || this.$gate.isKredit() || this.$gate.isBisnis()) {
+      if (
+        this.$gate.isAdmin() ||
+        this.$gate.isKredit() ||
+        this.$gate.isBisnis()
+      ) {
         axios.get("api/permohonankredit").then((response) => {
           this.permohonankredit = response.data.data;
           this.editedItem.kantor_id = this.$kantor_id;
@@ -642,6 +726,7 @@ export default {
       this.editedItem.status_id = item.status_id;
       this.editedItem.no_ktp = item.no_ktp;
       this.editedItem.no_rekening = item.no_rekening;
+      this.editedItem.jml_realisasi = item.jml_realisasi;
       this.editedItem.namafile = item.namafile;
     },
     newModal() {
@@ -651,6 +736,7 @@ export default {
       this.editedItem.namafile = "";
       this.editedItem.no_ktp = "";
       this.editedItem.no_rekening = "";
+      this.editedItem.jml_permohonan = "";
       this.pesaneror = "";
     },
     createUser() {
@@ -667,10 +753,12 @@ export default {
       formData.set("no_rekening", this.editedItem.no_rekening);
       formData.set("namafile", this.editedItem.namafile);
       formData.set("tgl_permohonan", this.tgl_permohonan);
+      formData.set("jml_permohonan", this.editedItem.jml_permohonan);
       formData.set("file", this.file);
       formData.set("status_id", 1);
       // formData.append('file', this.file);
-      // console.log(this.file);
+       console.log(this.editedItem.jml_permohonan);
+       console.log(this.editedItem.no_ktp);
       axios
         .post("api/permohonankredit", formData, config)
         .then((response) => {
@@ -733,7 +821,7 @@ export default {
           fileLink.setAttribute("download", "tabfile.zip");
           fileLink.download = file_disetujui;
           document.body.appendChild(fileLink);
-            // console.log(fileLink.download)
+          // console.log(fileLink.download)
           fileLink.click();
         })
         .catch(() => {
@@ -779,9 +867,10 @@ export default {
       //console.log(this.editedItem.id)
       const formData = new FormData();
       // formData.set('kantor_id', this.editedItem.kantor_id)
-      formData.set('no_ktp', this.editedItem.no_ktp)
-      formData.set('no_rekening', this.editedItem.no_rekening)
-      formData.set('namafile', this.editedItem.namafile)
+      formData.set("no_ktp", this.editedItem.no_ktp);
+      formData.set("no_rekening", this.editedItem.no_rekening);
+      formData.set("namafile", this.editedItem.namafile);
+      formData.set("jml_realisasi", this.editedItem.jml_realisasi);
 
       if (this.$gate.isAdmin() || this.$gate.isKredit()) {
         formData.set("tgl_pencairan", this.tgl_permohonan);
@@ -795,7 +884,7 @@ export default {
       formData.set("status_id", this.editedItem.status_id);
       formData.append("_method", "PUT");
 
-       //console.log(formData);
+      //console.log(formData);
       axios
         .post("api/permohonankredit/" + this.editedItem.id, formData, config)
         //axios.put('api/stock/27',formData)
@@ -804,10 +893,10 @@ export default {
           // success
           $("#addNew").modal("hide");
 
-            Toast.fire({
-                icon: "success",
-                title: response.data.message,
-            });
+          Toast.fire({
+            icon: "success",
+            title: response.data.message,
+          });
 
           this.$Progress.finish();
           //  Fire.$emit('AfterCreate');

@@ -9,7 +9,28 @@ window.$ = window.jQuery = $;
 import 'admin-lte/plugins/select2/js/select2.full.min.js';
 import "admin-lte/plugins/overlayScrollbars/js/OverlayScrollbars.js";
 import vuetify from '../plugins/vuetify'
+import Vue from 'vue'
+import VCurrencyField from 'v-currency-field'
 
+Vue.use(VCurrencyField, { 
+
+	locale: 'id-ID',
+
+	decimalLength: 0,
+
+	autoDecimalMode: true,
+
+	min: null,
+
+	max: null,
+
+	defaultValue: 0,
+
+    valueAsInteger: true,
+
+    allowNegative: false
+
+})
 
 
 window.Vue = require('vue');

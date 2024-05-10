@@ -18,6 +18,8 @@ class Permohonankredit extends Model
         'tgl_permohonan',
         'tgl_setujutolak',
         'tgl_pencairan',
+        'jml_permohonan',
+        'jml_realisasi',
         'file',
         'file_disetujui',
         'file_spk',
