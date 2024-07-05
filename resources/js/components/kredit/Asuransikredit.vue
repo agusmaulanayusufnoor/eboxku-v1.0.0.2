@@ -3,7 +3,7 @@
     <v-container fluid>
         <v-row no-gutters class="justify-content-md-center">
           <v-col cols="11">
-            <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isKredit() || $gate.isBisnis()">
+            <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isKredit() || $gate.isBisnis() || $gate.isPelayanan()">
               <v-toolbar src="images/banner-yellow.jpg" color="yellow" dark shaped>
                 <v-toolbar-title>
                     File Asuransi Kredit
@@ -121,7 +121,7 @@
           </v-col>
         </v-row>
 
-        <div v-if="!$gate.isAdmin() && !$gate.isKredit() && !$gate.isBisnis()">
+        <div v-if="!$gate.isAdmin() && !$gate.isKredit() && !$gate.isBisnis() && !$gate.isPelayanan()">
             <not-found></not-found>
         </div>
 
@@ -417,7 +417,7 @@ import moment from 'moment';
       initialize() {
          this.$Progress.start();
 
-            if(this.$gate.isAdmin() || this.$gate.isKredit() || this.$gate.isBisnis()){
+            if(this.$gate.isAdmin() || this.$gate.isKredit() || this.$gate.isBisnis() || this.$gate.isPelayanan()){
 
                //axios.get("api/user").then((response) => {(this.users = response.data.data)});
              axios.get("api/asuransikredit")

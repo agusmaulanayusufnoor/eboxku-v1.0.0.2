@@ -22,7 +22,7 @@
             @include('layouts.menu.menu-pelayanan')
       @endif
 
-      @if((auth()->user()->type=='admin') or (auth()->user()->type=='kredit') or (auth()->user()->type=='bisnis'))
+      @if((auth()->user()->type=='admin') or (auth()->user()->type=='kredit') or (auth()->user()->type=='bisnis') or (auth()->user()->type=='pelayanan')) 
             <!--  menu kredit  -->
             @include('layouts.menu.menu-kredit')
       @endif

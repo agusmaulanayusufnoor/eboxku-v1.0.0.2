@@ -5,7 +5,7 @@
         <v-col cols="11">
           <v-card
             class="pa-2 mx-auto"
-            v-if="$gate.isAdmin() || $gate.isKredit() || $gate.isBisnis()"
+            v-if="$gate.isAdmin() || $gate.isKredit() || $gate.isBisnis() || $gate.isPelayanan()"
           >
             <v-toolbar src="images/banner-red.jpg" dark shaped>
               <v-toolbar-title> Permohonan Kredit </v-toolbar-title>
@@ -15,7 +15,7 @@
                 color="indigo"
                 dark
                 @click="newModal"
-                v-if="$gate.isAdmin() || $gate.isKredit()"
+                v-if="$gate.isAdmin() || $gate.isKredit() || $gate.isPelayanan()"
               >
                 <v-icon>mdi-file-upload</v-icon> Upload File
               </v-btn>
@@ -153,7 +153,7 @@
         </v-col>
       </v-row>
 
-      <div v-if="!$gate.isAdmin() && !$gate.isKredit() && !$gate.isBisnis()">
+      <div v-if="!$gate.isAdmin() && !$gate.isKredit() && !$gate.isBisnis() && !$gate.isPelayanan()">
         <not-found></not-found>
       </div>
 
@@ -383,7 +383,7 @@
                         <v-radio
                           label="Analisa"
                           value="1"
-                          v-if="$gate.isAdmin() || $gate.isKredit()"
+                          v-if="$gate.isAdmin() || $gate.isKredit() || $gate.isPelayanan()"
                         ></v-radio>
                         <v-radio
                           label="Disetujui"
@@ -398,7 +398,7 @@
                         <v-radio
                           label="Selesai"
                           value="4"
-                          v-if="$gate.isAdmin() || $gate.isKredit()"
+                          v-if="$gate.isAdmin() || $gate.isKredit() || $gate.isPelayanan()"
                         ></v-radio>
                       </v-radio-group>
                     </template>
@@ -608,7 +608,8 @@ export default {
       if (
         this.$gate.isAdmin() ||
         this.$gate.isKredit() ||
-        this.$gate.isBisnis()
+        this.$gate.isBisnis() ||
+        this.$gate.isPelayanan()
       ) {
         const formData = new FormData();
         formData.set("no_ktp", this.editedItem.no_ktp);
@@ -703,7 +704,8 @@ export default {
       if (
         this.$gate.isAdmin() ||
         this.$gate.isKredit() ||
-        this.$gate.isBisnis()
+        this.$gate.isBisnis() ||
+        this.$gate.isPelayanan()
       ) {
         axios.get("api/permohonankredit").then((response) => {
           this.permohonankredit = response.data.data;
@@ -872,7 +874,7 @@ export default {
       formData.set("namafile", this.editedItem.namafile);
       formData.set("jml_realisasi", this.editedItem.jml_realisasi);
 
-      if (this.$gate.isAdmin() || this.$gate.isKredit()) {
+      if (this.$gate.isAdmin() || this.$gate.isKredit() || this.$gate.isPelayanan()){
         formData.set("tgl_pencairan", this.tgl_permohonan);
         formData.set("file_spk", this.file);
       }
