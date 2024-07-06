@@ -6,7 +6,7 @@
 
 A very simple Laravel 8 + Vue 2 + AdminLTE 3 based CRUD Starter template for SPA Application.
 <p align="center">
-<img src="https://imgur.com/Q8aGXV5">
+<img src="https://imgur.com/a/Q8aGXV5">
 <img src="https://i.imgur.com/3hhoQnq.png">
 <img src="https://i.imgur.com/aHtQkYl.png">
 <img src="https://i.imgur.com/V7OuwLn.png">
