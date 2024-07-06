@@ -8,7 +8,6 @@ A very simple Laravel 8 + Vue 2 + AdminLTE 3 based CRUD Starter template for SPA
 <p align="center">
 <img src="https://i.imgur.com/Q8aGXV5.png">
 <img src="https://i.imgur.com/aXlpJip.png">
-<img src="https://i.imgur.com/V7OuwLn.png">
 </p>
 
 ## Tech Specification
@@ -34,8 +33,8 @@ A very simple Laravel 8 + Vue 2 + AdminLTE 3 based CRUD Starter template for SPA
 
 ## Installation
 
-- `git clone https://github.com/AnowarCST/laravel-vue-crud-starter.git`
-- `cd laravel-vue-crud-starter/`
+- `git clone https://github.com/agusmaulanayusufnoor/eboxku-v1.0.0.2.git`
+- `cd eboxku-v1.0.0.2/`
 - `composer install`
 - `cp .env.example .env`
 - Update `.env` and set your database credentials
