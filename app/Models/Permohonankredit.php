@@ -25,10 +25,17 @@ class Permohonankredit extends Model
         'file_spk',
         'status_id',
     ];
+    protected $fromtgl = ['fromtgl'];
+    protected $totgl = ['totgl'];
     public function kantor(){
         return $this->belongsTo(kode_kantor::class,'kantor_id');
     }
     public function status(){
         return $this->belongsTo(statuspermohonan::class,'status_id');
     }
+
+    public function getTanggalAttribute(){
+        // return $this->attributes['tanggal'] = ($value);
+         return date('d/m/Y', strtotime($this->attributes['tanggal']));
+     }
 }

@@ -2,10 +2,15 @@
   <v-app>
     <v-container fluid>
       <v-row no-gutters class="justify-content-md-center">
-        <v-col cols="11">
+        <v-col cols="12">
           <v-card
             class="pa-2 mx-auto"
-            v-if="$gate.isAdmin() || $gate.isKredit() || $gate.isBisnis() || $gate.isPelayanan()"
+            v-if="
+              $gate.isAdmin() ||
+              $gate.isKredit() ||
+              $gate.isBisnis() ||
+              $gate.isPelayanan()
+            "
           >
             <v-toolbar src="images/banner-red.jpg" dark shaped>
               <v-toolbar-title> Permohonan Kredit </v-toolbar-title>
@@ -15,7 +20,9 @@
                 color="indigo"
                 dark
                 @click="newModal"
-                v-if="$gate.isAdmin() || $gate.isKredit() || $gate.isPelayanan()"
+                v-if="
+                  $gate.isAdmin() || $gate.isKredit() || $gate.isPelayanan()
+                "
               >
                 <v-icon>mdi-file-upload</v-icon> Upload File
               </v-btn>
@@ -30,12 +37,16 @@
                 dense
                 class="elevation-3"
               >
-              <template v-slot:body.append>
-                    <tr class="fs-3">
-                        <th class="text-center text-xl-h1" colspan="8">Total</th>
-                        <td class="pink--text font-weight-bold">{{ formatCurrency(sumField('jml_permohonan')) }}</td>
-                        <td class="pink--text font-weight-bold">{{ formatCurrency(sumField('jml_realisasi')) }}</td>
-                    </tr>
+                <template v-slot:body.append>
+                  <tr class="fs-3">
+                    <th class="text-center text-xl-h1" colspan="8">Total</th>
+                    <td class="pink--text font-weight-bold">
+                      {{ formatCurrency(sumField("jml_permohonan")) }}
+                    </td>
+                    <td class="pink--text font-weight-bold">
+                      {{ formatCurrency(sumField("jml_realisasi")) }}
+                    </td>
+                  </tr>
                 </template>
 
                 <template v-slot:footer.prepend>
@@ -56,13 +67,102 @@
 
                 <template v-slot:top>
                   <v-toolbar flat>
+                    <vue-excel-xlsx
+                      :data="permohonankredit"
+                      :columns="columnsExcel"
+                      :file-name="'PERMOHONAN_KREDIT'"
+                      :file-type="'xlsx'"
+                      :sheet-name="'permohonan_kredit'"
+                      class="btn btn-success btn-sm"
+                    >
+                      <i class="fa-solid fa-file-excel"></i>
+                      Export Data
+                    </vue-excel-xlsx>
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
-                    <v-spacer></v-spacer>
-                    <v-spacer></v-spacer>
+                    <v-row>
+                      <v-col cols="8" sm="5" md="4">
+                        <v-menu
+                          ref="menu2"
+                          v-model="menu2"
+                          :close-on-content-click="false"
+                          :nudge-right="40"
+                          transition="scale-transition"
+                          offset-y
+                          min-width="auto"
+                        >
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                              v-model="fromTglText"
+                              single-line
+                              label="Dari Tanggal"
+                              append-icon="mdi-calendar"
+                              hide-details
+                              v-bind="attrs"
+                              v-on="on"
+                            ></v-text-field>
+                          </template>
+                          <v-date-picker
+                            v-model="fromTgl"
+                            @input="menu2 = false"
+                            elevation="15"
+                            year-icon="calendar-blank"
+                            locale="id-ID"
+                          >
+                          </v-date-picker>
+                        </v-menu>
+                      </v-col>
+                      <v-col cols="8" sm="5" md="4">
+                        <v-menu
+                          ref="menu3"
+                          v-model="menu3"
+                          :close-on-content-click="false"
+                          :nudge-right="40"
+                          transition="scale-transition"
+                          offset-y
+                          min-width="auto"
+                        >
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                              v-model="toTglText"
+                              single-line
+                              label="Sampai Tanggal"
+                              append-icon="mdi-calendar"
+                              hide-details
+                              v-bind="attrs"
+                              v-on="on"
+                            ></v-text-field>
+                          </template>
+                          <v-date-picker
+                            v-model="toTgl"
+                            @input="menu3 = false"
+                            elevation="15"
+                            year-icon="calendar-blank"
+                            locale="id-ID"
+                          >
+                          </v-date-picker>
+                        </v-menu>
+                      </v-col>
+                      <v-col>
+                        <v-btn
+                          @click="filterTanggal()"
+                          class="mx-3"
+                          fab
+                          dark
+                          color="indigo"
+                          x-small
+                          fixed
+                          bottom
+                        >
+                          <v-icon> mdi-filter </v-icon>
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+
                     <v-text-field
                       v-model="search"
                       append-icon="mdi-magnify"
+                      class="shrink mx-4"
                       label="Cari File"
                       single-line
                       hide-details
@@ -136,13 +236,13 @@
                   </v-icon>
                 </template>
                 <template
-              v-for="header in headers.filter((header) =>
-                header.hasOwnProperty('formatter')
-              )"
-              v-slot:[`item.${header.value}`]="{ header, value }"
-            >
-              {{ header.formatter(value) }}
-            </template>
+                  v-for="header in headers.filter((header) =>
+                    header.hasOwnProperty('formatter')
+                  )"
+                  v-slot:[`item.${header.value}`]="{ header, value }"
+                >
+                  {{ header.formatter(value) }}
+                </template>
               </v-data-table>
             </div>
             <!-- /.card-body -->
@@ -153,7 +253,14 @@
         </v-col>
       </v-row>
 
-      <div v-if="!$gate.isAdmin() && !$gate.isKredit() && !$gate.isBisnis() && !$gate.isPelayanan()">
+      <div
+        v-if="
+          !$gate.isAdmin() &&
+          !$gate.isKredit() &&
+          !$gate.isBisnis() &&
+          !$gate.isPelayanan()
+        "
+      >
         <not-found></not-found>
       </div>
 
@@ -383,7 +490,11 @@
                         <v-radio
                           label="Analisa"
                           value="1"
-                          v-if="$gate.isAdmin() || $gate.isKredit() || $gate.isPelayanan()"
+                          v-if="
+                            $gate.isAdmin() ||
+                            $gate.isKredit() ||
+                            $gate.isPelayanan()
+                          "
                         ></v-radio>
                         <v-radio
                           label="Disetujui"
@@ -398,7 +509,11 @@
                         <v-radio
                           label="Selesai"
                           value="4"
-                          v-if="$gate.isAdmin() || $gate.isKredit() || $gate.isPelayanan()"
+                          v-if="
+                            $gate.isAdmin() ||
+                            $gate.isKredit() ||
+                            $gate.isPelayanan()
+                          "
                         ></v-radio>
                       </v-radio-group>
                     </template>
@@ -443,6 +558,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   data: (vm) => ({
     csrf: document
@@ -451,6 +567,9 @@ export default {
     editmode: false,
     dialog: false,
     dialogDelete: false,
+    fromTgl: "",
+    toTgl: "",
+    filterFormTgl: "",
     search: "",
     permohonankredit: [],
     valid: true,
@@ -477,6 +596,7 @@ export default {
     nameRules: [(v) => !!v || "Nama File Belum Diisi"],
     menu1: false,
     menu2: false,
+    menu3: false,
 
     dateFormatted: vm.formatDate(
       new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
@@ -495,11 +615,50 @@ export default {
       id: "",
       kantor_id: "",
       namafile: "",
+      no_ktp: "",
+      no_rekening: "",
+      namafile: "",
       tgl_permohonan: "",
+      tgl_setujutolak: "",
+      tgl_pencairan: "",
       jml_permohonan: 0,
       jml_realisasi: 0,
       file: "",
+      file_disetujui: "",
+      file_spk: "",
     }),
+    columnsExcel: [
+      { label: "Kantor", field: "nama_kantor", align: "start" },
+      { label: "No. KTP", field: "no_ktp" },
+      { label: "No. Rekening", field: "no_rekening" },
+      { label: "Nama Nasabah", field: "namafile" },
+          
+      {
+        label: "Tanggal Permohonan",
+        field: "tgl_permohonan",
+       
+      },
+      {
+        label: "Tanggal Disetuji/Ditolak",
+        field: "tgl_setujutolak",
+        
+      },
+      {
+        label: "Tanggal Pencairan",
+        field: "tgl_pencairan",
+        
+      },
+      { label: "Jumlah Permohonan", field: "jml_permohonan" },
+      { label: "Jumlah Realisasi", field: "jml_realisasi" },
+    ],
+    json_meta: [
+      [
+        {
+          " key ": " charset ",
+          " value ": " utf- 8 ",
+        },
+      ],
+    ],
   }),
 
   computed: {
@@ -512,18 +671,36 @@ export default {
           sortable: false,
         },
         { text: "Kantor", value: "nama_kantor", align: "start" },
-        { text: "No KTP", value: "no_ktp", align: "center", },
-        { text: "No Rekening", value: "no_rekening", align: "center", },
+        { text: "No KTP", value: "no_ktp", align: "center" },
+        { text: "No Rekening", value: "no_rekening", align: "center" },
         {
           text: "Nama Nasabah",
           value: "namafile",
           align: "center",
         },
-        { text: "Tanggal Permohonan", value: "tgl_permohonan", align: "center" },
-        { text: "Tanggal Disetujui/Ditolak", value: "tgl_setujutolak",align: "center"},
-        { text: "Tanggal Pencairan", value: "tgl_pencairan",align: "center" },
-        { text: "Jumlah Permohonan", value: "jml_permohonan", formatter: this.formatCurrency, align: "center"},
-        { text: "Jumlah Realisasi", value: "jml_realisasi", formatter: this.formatCurrency, align: "center"},
+        {
+          text: "Tanggal Permohonan",
+          value: "tgl_permohonan",
+          align: "center",
+        },
+        {
+          text: "Tanggal Disetujui/Ditolak",
+          value: "tgl_setujutolak",
+          align: "center",
+        },
+        { text: "Tanggal Pencairan", value: "tgl_pencairan", align: "center" },
+        {
+          text: "Jumlah Permohonan",
+          value: "jml_permohonan",
+          formatter: this.formatCurrency,
+          align: "center",
+        },
+        {
+          text: "Jumlah Realisasi",
+          value: "jml_realisasi",
+          formatter: this.formatCurrency,
+          align: "center",
+        },
         { text: "Status", value: "statuspermohonan", align: "center" },
       ];
       headers.push({
@@ -555,6 +732,12 @@ export default {
         headers.push({ text: "Hapus", value: "actions", sortable: false });
       }
       return headers;
+    },
+    fromTglText() {
+      return this.fromTgl ? moment(this.fromTgl).format("DD/MM/YYYY") : "";
+    },
+    toTglText() {
+      return this.toTgl ? moment(this.toTgl).format("DD/MM/YYYY") : "";
     },
     computedDateFormatted() {
       return this.formatDate(this.tgl_permohonan);
@@ -589,16 +772,16 @@ export default {
 
   methods: {
     sumField(key) {
-        // sum data in give key (property)
-        
-        return this.permohonankredit.reduce((a, b) => a + (b[key] || 0), 0)
+      // sum data in give key (property)
+
+      return this.permohonankredit.reduce((a, b) => a + (b[key] || 0), 0);
     },
-    formatCurrency (value) {
+    formatCurrency(value) {
       return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR"
-    }).format(value);
-},
+        style: "currency",
+        currency: "IDR",
+      }).format(value);
+    },
     getColor(statuspermohonan) {
       if (statuspermohonan === "Selesai") return "green";
       else if (statuspermohonan === "Ditolak") return "red";
@@ -698,6 +881,57 @@ export default {
       const [day, month, year] = tgl_permohonan.split("/");
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     },
+    filterTanggal() {
+      this.$Progress.start();
+      const formData = new FormData();
+      formData.set("fromtgl", this.fromTglText);
+      formData.set("totgl", this.toTglText);
+      if (this.fromTglText != "" && this.toTglText != "") {
+        if (
+          this.$gate.isAdmin() ||
+          this.$gate.isKredit() ||
+          this.$gate.isBisnis() ||
+          this.$gate.isPelayanan()
+        ) {
+          axios
+            .get("api/permohonankredit/filtertanggal", {
+              params: {
+                fromtgl: this.fromTglText,
+                totgl: this.toTglText,
+              },
+            })
+            .then((response) => {
+              this.permohonankredit = response.data.data;
+              this.editedItem.kantor_id = this.$kantor_id;
+              // this.form.fill
+              //console.log(this.stock);
+              //console.log(this.kantor_id)
+            })
+            .catch((error) => {
+              console.log(error.response.data);
+            });
+        }
+      } else {
+        //Swal.fire("Gagal Filter", "Filter Tanggal Belum Dipilih...!", "warning");
+        Swal.fire({
+          icon: "error",
+          title: "Error Filter",
+          text: "Filter Tanggal Belum Dipilih...! ",
+          width: 600,
+          padding: "3em",
+          color: "#ff0000",
+          background: "#ff0000 url(/images/kayu.jpg)",
+          backdrop: `
+            rgba(255,0,64,0.4)
+            url("/images/nyan-cat.gif")
+            left top
+            no-repeat
+          `,
+        });
+      }
+
+      this.$Progress.finish();
+    },
     initialize() {
       this.$Progress.start();
 
@@ -759,8 +993,8 @@ export default {
       formData.set("file", this.file);
       formData.set("status_id", 1);
       // formData.append('file', this.file);
-       console.log(this.editedItem.jml_permohonan);
-       console.log(this.editedItem.no_ktp);
+      console.log(this.editedItem.jml_permohonan);
+      console.log(this.editedItem.no_ktp);
       axios
         .post("api/permohonankredit", formData, config)
         .then((response) => {
@@ -874,7 +1108,11 @@ export default {
       formData.set("namafile", this.editedItem.namafile);
       formData.set("jml_realisasi", this.editedItem.jml_realisasi);
 
-      if (this.$gate.isAdmin() || this.$gate.isKredit() || this.$gate.isPelayanan()){
+      if (
+        this.$gate.isAdmin() ||
+        this.$gate.isKredit() ||
+        this.$gate.isPelayanan()
+      ) {
         formData.set("tgl_pencairan", this.tgl_permohonan);
         formData.set("file_spk", this.file);
       }

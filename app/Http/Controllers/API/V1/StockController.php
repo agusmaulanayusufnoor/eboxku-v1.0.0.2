@@ -170,10 +170,10 @@ class StockController extends BaseController
     public function filtertanggal(Request $request)
     {
         //dd($request->all());
-         $fromtgl = $request->fromtgl;
+         $fromtgl   = $request->fromtgl;
          $totgl     = $request->totgl;
 
-
+        
     $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
        // $stock=stock::all();

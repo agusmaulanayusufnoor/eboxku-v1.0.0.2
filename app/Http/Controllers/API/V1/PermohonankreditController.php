@@ -160,7 +160,7 @@ class PermohonankreditController extends BaseController
         $permohonankredit = Permohonankredit::findOrFail($id);
         //dd($request->get('jml_stok_awal'));
 
-        // $stock->update($request->all());
+        // $permohonankredit->update($request->all());
 
         return $this->sendResponse($permohonankredit, 'Data User Diubah!');
     }
@@ -370,5 +370,86 @@ class PermohonankreditController extends BaseController
             $string .= $karakter[$pos];
         }
         return $string;
+    }
+
+    public function filtertanggal(Request $request)
+    {
+        //dd($request->all());
+         $fromtgl = $request->fromtgl;
+         $totgl     = $request->totgl;
+         
+         $eFromtgl = explode('/', $fromtgl );
+         $hFromtgl = $eFromtgl[0];
+         $bFromtgl = $eFromtgl[1];
+         $tFromtgl = $eFromtgl[2];
+
+         $cFromtgl = sprintf("%04d-%02d-%02d", $tFromtgl, $bFromtgl, $hFromtgl);
+
+         $eTotgl = explode('/', $totgl );
+         $hTotgl = $eTotgl[0];
+         $bTotgl = $eTotgl[1];
+         $tTotgl = $eTotgl[2];
+
+         $cTotgl = sprintf("%04d-%02d-%02d", $tTotgl, $bTotgl, $hTotgl);
+
+    $id_kantor  = Auth::user()->kantor_id;
+        $levelLogin = Auth::user()->type;
+       // $permohonankredit=permohonankredit::all();
+       $permohonankredit= $this->permohonankredit->latest()->get();
+        if($levelLogin === 'admin'){
+            $permohonankredit  = DB::table('permohonankredit')
+            ->join('kode_kantors', 'permohonankredit.kantor_id', '=', 'kode_kantors.id')
+            ->join('statuspermohonan', 'permohonankredit.status_id', '=', 'statuspermohonan.id')
+            ->select(
+                'permohonankredit.id',
+                'permohonankredit.no_ktp',
+                'permohonankredit.no_rekening',
+                'permohonankredit.namafile',
+                'permohonankredit.tgl_permohonan',
+                'permohonankredit.tgl_setujutolak',
+                'permohonankredit.tgl_pencairan',
+                'permohonankredit.jml_permohonan',
+                'permohonankredit.jml_realisasi',
+                'permohonankredit.file',
+                'permohonankredit.file_disetujui',
+                'permohonankredit.file_spk',
+                'permohonankredit.kantor_id',
+                'kode_kantors.nama_kantor',
+                'statuspermohonan.statuspermohonan',
+                DB::raw("STR_TO_DATE(tgl_pencairan,'%d/%m/%Y') as date_format")
+            )
+            ->whereBetween(DB::raw("STR_TO_DATE(tgl_pencairan,'%d/%m/%Y')"),[$cFromtgl,$cTotgl])
+            ->orderBy('date_format')
+            ->get();
+        }else{
+            $permohonankredit  = DB::table('permohonankredit')
+            ->join('kode_kantors', 'permohonankredit.kantor_id', '=', 'kode_kantors.id')
+            ->where('kantor_id', $id_kantor)
+            ->join('statuspermohonan', 'permohonankredit.status_id', '=', 'statuspermohonan.id')
+            ->select(
+                'permohonankredit.id',
+                'permohonankredit.no_ktp',
+                'permohonankredit.no_rekening',
+                'permohonankredit.namafile',
+                'permohonankredit.tgl_permohonan',
+                'permohonankredit.tgl_setujutolak',
+                'permohonankredit.tgl_pencairan',
+                'permohonankredit.jml_permohonan',
+                'permohonankredit.jml_realisasi',
+                'permohonankredit.file',
+                'permohonankredit.file_disetujui',
+                'permohonankredit.file_spk',
+                'permohonankredit.kantor_id',
+                'kode_kantors.nama_kantor',
+                'statuspermohonan.statuspermohonan',
+                DB::raw("STR_TO_DATE(tgl_pencairan,'%d/%m/%Y') as date_format")
+            )
+            ->whereBetween(DB::raw("STR_TO_DATE(tgl_pencairan,'%d/%m/%Y')"),[$cFromtgl,$cTotgl])
+            ->orderBy('date_format')
+            ->get();
+        }
+        //dd($permohonankredit);
+
+        return $this->sendResponse($permohonankredit, 'permohonankredit list');
     }
 }

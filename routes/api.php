@@ -54,6 +54,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('permohonankredit/filespk/{permohonankredit}', 'PermohonankreditController@downloadfilespk');
     Route::post('permohonankredit/ceknorek', 'PermohonankreditController@ceknorek');
     Route::post('permohonankredit/{permohonankredit}', 'PermohonankreditController@updateData');
+    Route::get('permohonankredit/filtertanggal', 'PermohonankreditController@filtertanggal');
     Route::get('pelunasan/download/{pelunasan}', 'PelunasanController@downloadfile');
     Route::post('pelunasan/ceknorek', 'PelunasanController@ceknorek');
     Route::get('pelunasan/getkantor', 'Kode_kantorController@index');
