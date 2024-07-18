@@ -14,12 +14,13 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 Route::get('/',[LoginController::class,'showLoginForm'])->name('showLoginForm');
-
+Route::get('/register',[RegisterController::class,'showRegForm'])->name('showRegForm');
 Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

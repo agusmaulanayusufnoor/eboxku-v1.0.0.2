@@ -59,7 +59,7 @@ class SuratmasukController extends BaseController
     public function store(Request $request)
     {
         $request->validate([
-            'no_surat'  => 'required|unique:suratmasuk',
+            'no_surat'  => 'required:suratmasuk',
             'namafile'     => 'required',
             'tanggal' => ['required', function ($attribute, $value, $fail) {
                 if ($value === 'null') {
