@@ -50,6 +50,8 @@ class PermohonankreditController extends BaseController
                     'permohonankredit.file_disetujui',
                     'permohonankredit.file_spk',
                     'permohonankredit.kantor_id',
+                    'permohonankredit.nohp_nasabah',
+                    'permohonankredit.nohp_penanggung',
                     'kode_kantors.nama_kantor',
                     'statuspermohonan.statuspermohonan'
                 )
@@ -74,6 +76,8 @@ class PermohonankreditController extends BaseController
                     'permohonankredit.file_disetujui',
                     'permohonankredit.file_spk',
                     'permohonankredit.kantor_id',
+                    'permohonankredit.nohp_nasabah',
+                    'permohonankredit.nohp_penanggung',
                     'kode_kantors.nama_kantor',
                     'statuspermohonan.statuspermohonan'
                 )
@@ -121,7 +125,7 @@ class PermohonankreditController extends BaseController
 
         $date       = implode("", $arr);
         $acak = $this->acak_string(5);
-        $file   = "00" . $request->kantor_id . "." . $request->no_ktp. "." . $request->namafile . "." . $acak . "." . $nm->getClientOriginalName();
+        $file   = "00" . $request->kantor_id . "." . $request->no_ktp . "." . $request->namafile . "." . $acak . "." . $nm->getClientOriginalName();
         $permohonankredit = $this->permohonankredit->create([
             'kantor_id'         => $request->get('kantor_id'),
             'no_ktp'            => $request->get('no_ktp'),
@@ -130,6 +134,8 @@ class PermohonankreditController extends BaseController
             'tgl_permohonan'    => $date,
             'jml_permohonan'    => $request->get('jml_permohonan'),
             'file'              => $file,
+            'nohp_nasabah'      => $request->get('nohp_nasabah'),
+            'nohp_penanggung'   => $request->get('nohp_penanggung'),
             'status_id'         => 1,
         ]);
         $nm->move(public_path() . '/file/permohonankre', $file);
@@ -205,16 +211,16 @@ class PermohonankreditController extends BaseController
             ]);
         } else {
 
-                $filespk   = "[selesai]." . $acak . "." . $request->no_ktp . "." . $request->namafile . ".pdf";
-                $permohonankredit = DB::table('permohonankredit')->where('id', $id)->update([
+            $filespk   = "[selesai]." . $acak . "." . $request->no_ktp . "." . $request->namafile . ".pdf";
+            $permohonankredit = DB::table('permohonankredit')->where('id', $id)->update([
                 'no_rekening'       => $request->no_rekening,
                 'tgl_pencairan'     => $datespk,
                 'file_spk'          => $filespk,
                 'jml_realisasi'     => $request->jml_realisasi,
+                'nohp_nasabah'      => $request->nohp_nasabah,
+                'nohp_penanggung'   => $request->nohp_penanggung,
                 'status_id'         => $request->status_id,
-                ]);
-
-
+            ]);
         }
         // $permohonankredit = DB::table('permohonankredit')->where('id', $id)->update([
         //     'tgl_setujutolak'    => $date,
@@ -229,7 +235,6 @@ class PermohonankreditController extends BaseController
             $nmspk->move(public_path() . '/file/permohonankre', $filespk);
         }
         return $this->sendResponse($permohonankredit, 'Data Permohonan Kredit Diubah!');
-
     }
 
     /**
@@ -277,13 +282,13 @@ class PermohonankreditController extends BaseController
         //    // return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
         // }
 
-      //  return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
-         if ($permohonankredit->file<>'') {
+        //  return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
+        if ($permohonankredit->file <> '') {
             unlink("file/permohonankre/" . $permohonankredit->file);
-            if ($permohonankredit->file_disetujui<>'') {
+            if ($permohonankredit->file_disetujui <> '') {
                 unlink("file/permohonankre/" . $permohonankredit->file_disetujui);
                 //return $this->sendResponse($permohonankredit, 'ada file!');
-                if ($permohonankredit->file_spk<>'') {
+                if ($permohonankredit->file_spk <> '') {
                     unlink("file/permohonankre/" . $permohonankredit->file_spk);
                     return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
                 } else {
@@ -292,11 +297,9 @@ class PermohonankreditController extends BaseController
                 }
             } else {
                 return $this->sendResponse($permohonankredit, 'tidak ada file disetujui');
-
             }
         } else {
             return $this->sendResponse($permohonankredit, 'File sudah dihapus!');
-
         }
 
 
@@ -375,78 +378,82 @@ class PermohonankreditController extends BaseController
     public function filtertanggal(Request $request)
     {
         //dd($request->all());
-         $fromtgl = $request->fromtgl;
-         $totgl     = $request->totgl;
-         
-         $eFromtgl = explode('/', $fromtgl );
-         $hFromtgl = $eFromtgl[0];
-         $bFromtgl = $eFromtgl[1];
-         $tFromtgl = $eFromtgl[2];
+        $fromtgl = $request->fromtgl;
+        $totgl     = $request->totgl;
 
-         $cFromtgl = sprintf("%04d-%02d-%02d", $tFromtgl, $bFromtgl, $hFromtgl);
+        $eFromtgl = explode('/', $fromtgl);
+        $hFromtgl = $eFromtgl[0];
+        $bFromtgl = $eFromtgl[1];
+        $tFromtgl = $eFromtgl[2];
 
-         $eTotgl = explode('/', $totgl );
-         $hTotgl = $eTotgl[0];
-         $bTotgl = $eTotgl[1];
-         $tTotgl = $eTotgl[2];
+        $cFromtgl = sprintf("%04d-%02d-%02d", $tFromtgl, $bFromtgl, $hFromtgl);
 
-         $cTotgl = sprintf("%04d-%02d-%02d", $tTotgl, $bTotgl, $hTotgl);
+        $eTotgl = explode('/', $totgl);
+        $hTotgl = $eTotgl[0];
+        $bTotgl = $eTotgl[1];
+        $tTotgl = $eTotgl[2];
 
-    $id_kantor  = Auth::user()->kantor_id;
+        $cTotgl = sprintf("%04d-%02d-%02d", $tTotgl, $bTotgl, $hTotgl);
+
+        $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
-       // $permohonankredit=permohonankredit::all();
-       $permohonankredit= $this->permohonankredit->latest()->get();
-        if($levelLogin === 'admin'){
+        // $permohonankredit=permohonankredit::all();
+        $permohonankredit = $this->permohonankredit->latest()->get();
+        if ($levelLogin === 'admin') {
             $permohonankredit  = DB::table('permohonankredit')
-            ->join('kode_kantors', 'permohonankredit.kantor_id', '=', 'kode_kantors.id')
-            ->join('statuspermohonan', 'permohonankredit.status_id', '=', 'statuspermohonan.id')
-            ->select(
-                'permohonankredit.id',
-                'permohonankredit.no_ktp',
-                'permohonankredit.no_rekening',
-                'permohonankredit.namafile',
-                'permohonankredit.tgl_permohonan',
-                'permohonankredit.tgl_setujutolak',
-                'permohonankredit.tgl_pencairan',
-                'permohonankredit.jml_permohonan',
-                'permohonankredit.jml_realisasi',
-                'permohonankredit.file',
-                'permohonankredit.file_disetujui',
-                'permohonankredit.file_spk',
-                'permohonankredit.kantor_id',
-                'kode_kantors.nama_kantor',
-                'statuspermohonan.statuspermohonan',
-                DB::raw("STR_TO_DATE(tgl_pencairan,'%d/%m/%Y') as date_format")
-            )
-            ->whereBetween(DB::raw("STR_TO_DATE(tgl_pencairan,'%d/%m/%Y')"),[$cFromtgl,$cTotgl])
-            ->orderBy('date_format')
-            ->get();
-        }else{
+                ->join('kode_kantors', 'permohonankredit.kantor_id', '=', 'kode_kantors.id')
+                ->join('statuspermohonan', 'permohonankredit.status_id', '=', 'statuspermohonan.id')
+                ->select(
+                    'permohonankredit.id',
+                    'permohonankredit.no_ktp',
+                    'permohonankredit.no_rekening',
+                    'permohonankredit.namafile',
+                    'permohonankredit.tgl_permohonan',
+                    'permohonankredit.tgl_setujutolak',
+                    'permohonankredit.tgl_pencairan',
+                    'permohonankredit.jml_permohonan',
+                    'permohonankredit.jml_realisasi',
+                    'permohonankredit.file',
+                    'permohonankredit.file_disetujui',
+                    'permohonankredit.file_spk',
+                    'permohonankredit.kantor_id',
+                    'permohonankredit.nohp_nasabah',
+                    'permohonankredit.nohp_penanggung',
+                    'kode_kantors.nama_kantor',
+                    'statuspermohonan.statuspermohonan',
+                    DB::raw("STR_TO_DATE(tgl_pencairan,'%d/%m/%Y') as date_format")
+                )
+                ->whereBetween(DB::raw("STR_TO_DATE(tgl_pencairan,'%d/%m/%Y')"), [$cFromtgl, $cTotgl])
+                ->orderBy('date_format')
+                ->get();
+        } else {
             $permohonankredit  = DB::table('permohonankredit')
-            ->join('kode_kantors', 'permohonankredit.kantor_id', '=', 'kode_kantors.id')
-            ->where('kantor_id', $id_kantor)
-            ->join('statuspermohonan', 'permohonankredit.status_id', '=', 'statuspermohonan.id')
-            ->select(
-                'permohonankredit.id',
-                'permohonankredit.no_ktp',
-                'permohonankredit.no_rekening',
-                'permohonankredit.namafile',
-                'permohonankredit.tgl_permohonan',
-                'permohonankredit.tgl_setujutolak',
-                'permohonankredit.tgl_pencairan',
-                'permohonankredit.jml_permohonan',
-                'permohonankredit.jml_realisasi',
-                'permohonankredit.file',
-                'permohonankredit.file_disetujui',
-                'permohonankredit.file_spk',
-                'permohonankredit.kantor_id',
-                'kode_kantors.nama_kantor',
-                'statuspermohonan.statuspermohonan',
-                DB::raw("STR_TO_DATE(tgl_pencairan,'%d/%m/%Y') as date_format")
-            )
-            ->whereBetween(DB::raw("STR_TO_DATE(tgl_pencairan,'%d/%m/%Y')"),[$cFromtgl,$cTotgl])
-            ->orderBy('date_format')
-            ->get();
+                ->join('kode_kantors', 'permohonankredit.kantor_id', '=', 'kode_kantors.id')
+                ->where('kantor_id', $id_kantor)
+                ->join('statuspermohonan', 'permohonankredit.status_id', '=', 'statuspermohonan.id')
+                ->select(
+                    'permohonankredit.id',
+                    'permohonankredit.no_ktp',
+                    'permohonankredit.no_rekening',
+                    'permohonankredit.namafile',
+                    'permohonankredit.tgl_permohonan',
+                    'permohonankredit.tgl_setujutolak',
+                    'permohonankredit.tgl_pencairan',
+                    'permohonankredit.jml_permohonan',
+                    'permohonankredit.jml_realisasi',
+                    'permohonankredit.file',
+                    'permohonankredit.file_disetujui',
+                    'permohonankredit.file_spk',
+                    'permohonankredit.kantor_id',
+                    'permohonankredit.nohp_nasabah',
+                    'permohonankredit.nohp_penanggung',
+                    'kode_kantors.nama_kantor',
+                    'statuspermohonan.statuspermohonan',
+                    DB::raw("STR_TO_DATE(tgl_pencairan,'%d/%m/%Y') as date_format")
+                )
+                ->whereBetween(DB::raw("STR_TO_DATE(tgl_pencairan,'%d/%m/%Y')"), [$cFromtgl, $cTotgl])
+                ->orderBy('date_format')
+                ->get();
         }
         //dd($permohonankredit);
 
