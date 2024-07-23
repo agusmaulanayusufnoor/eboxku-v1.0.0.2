@@ -45,7 +45,7 @@
                                     <tr class="fs-3">
                                         <th
                                             class="text-center text-xl-h1"
-                                            colspan="8"
+                                            colspan="10"
                                         >
                                             Total
                                         </th>
