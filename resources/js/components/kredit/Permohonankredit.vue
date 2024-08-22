@@ -843,6 +843,10 @@ export default {
                 label: "Jumlah Realisasi",
                 field: "jml_realisasi",
             },
+            {
+                label: "status",
+                field: "statuspermohonan",
+            },
         ],
         json_meta: [
             [
