@@ -11,7 +11,7 @@ A very simple Laravel 8 + Vue 2 + AdminLTE 3 based CRUD Starter template for SPA
 </p>
 
 ## Tech Specification
-
+- Node JS V. 16 (Recommended)
 - Laravel 8
 - Vue 2 + VueRouter + vue-progressbar + sweetalert2 + laravel-vue-pagination
 - Laravel Passport
