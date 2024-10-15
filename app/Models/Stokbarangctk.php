@@ -11,6 +11,7 @@ class Stokbarangctk extends Model
         'id',
         'kantor_id',
         'periode',
+        'created_at',
         'barang_id',
         'satuan_id',
         'harga_satuan',

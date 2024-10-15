@@ -43,7 +43,7 @@ class StokbarangctkController extends BaseController
             ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
             ->join('barang','stock.barang_id', '=', 'barang.id')
             ->join('satuan','stock.satuan_id', '=', 'satuan.id')
-            ->select('stock.id','stock.periode','stock.barang_id','stock.satuan_id','stock.harga_satuan',
+            ->select('stock.id','stock.periode','stock.created_at','stock.barang_id','stock.satuan_id','stock.harga_satuan',
             'stock.stok_awal','stock.stok_masuk','stock.stok_keluar','stock.stok_akhir',
             'stock.nom_awal','stock.nom_masuk','stock.nom_keluar','stock.nom_akhir',
             'stock.keterangan','stock.kantor_id',
@@ -56,7 +56,7 @@ class StokbarangctkController extends BaseController
             ->join('barang','stock.barang_id', '=', 'barang.id')
             ->join('satuan','stock.satuan_id', '=', 'satuan.id')
             ->where('kantor_id', $id_kantor)
-            ->select('stock.id','stock.periode','stock.barang_id','stock.satuan_id','stock.harga_satuan',
+            ->select('stock.id','stock.periode','stock.created_at','stock.barang_id','stock.satuan_id','stock.harga_satuan',
             'stock.stok_awal','stock.stok_masuk','stock.stok_keluar','stock.stok_akhir',
             'stock.nom_awal','stock.nom_masuk','stock.nom_keluar','stock.nom_akhir',
             'stock.keterangan','stock.kantor_id',
@@ -192,7 +192,7 @@ class StokbarangctkController extends BaseController
             ->join('barang','stock.barang_id', '=', 'barang.id')
             ->join('satuan','stock.satuan_id', '=', 'satuan.id')
             ->where('periode',$periodetgl)
-            ->select('stock.id','stock.periode','stock.barang_id','stock.satuan_id','stock.harga_satuan',
+            ->select('stock.id','stock.periode','stock.created_at','stock.barang_id','stock.satuan_id','stock.harga_satuan',
             'stock.stok_awal','stock.stok_masuk','stock.stok_keluar','stock.stok_akhir',
             'stock.nom_awal','stock.nom_masuk','stock.nom_keluar','stock.nom_akhir',
             'stock.keterangan','stock.kantor_id',
@@ -206,7 +206,7 @@ class StokbarangctkController extends BaseController
             ->join('satuan','stock.satuan_id', '=', 'satuan.id')
             ->where('kantor_id', $id_kantor)
             ->where('periode',$periodetgl)
-            ->select('stock.id','stock.periode','stock.barang_id','stock.satuan_id','stock.harga_satuan',
+            ->select('stock.id','stock.periode','stock.created_at','stock.barang_id','stock.satuan_id','stock.harga_satuan',
             'stock.stok_awal','stock.stok_masuk','stock.stok_keluar','stock.stok_akhir',
             'stock.nom_awal','stock.nom_masuk','stock.nom_keluar','stock.nom_akhir',
             'stock.keterangan','stock.kantor_id',
@@ -236,7 +236,7 @@ class StokbarangctkController extends BaseController
             ->join('barang','stock.barang_id', '=', 'barang.id')
             ->join('satuan','stock.satuan_id', '=', 'satuan.id')
             ->where('kantor_id',$kantor_id)
-            ->select('stock.id','stock.periode','stock.barang_id','stock.satuan_id','stock.harga_satuan',
+            ->select('stock.id','stock.periode','stock.created_at','stock.barang_id','stock.satuan_id','stock.harga_satuan',
             'stock.stok_awal','stock.stok_masuk','stock.stok_keluar','stock.stok_akhir',
             'stock.nom_awal','stock.nom_masuk','stock.nom_keluar','stock.nom_akhir',
             'stock.keterangan','stock.kantor_id',
@@ -267,7 +267,7 @@ class StokbarangctkController extends BaseController
             ->join('barang','stock.barang_id', '=', 'barang.id')
             ->join('satuan','stock.satuan_id', '=', 'satuan.id')
             ->where('barang_id',$barang_id)
-            ->select('stock.id','stock.periode','stock.barang_id','stock.satuan_id','stock.harga_satuan',
+            ->select('stock.id','stock.periode','stock.created_at','stock.barang_id','stock.satuan_id','stock.harga_satuan',
             'stock.stok_awal','stock.stok_masuk','stock.stok_keluar','stock.stok_akhir',
             'stock.nom_awal','stock.nom_masuk','stock.nom_keluar','stock.nom_akhir',
             'stock.keterangan','stock.kantor_id',
