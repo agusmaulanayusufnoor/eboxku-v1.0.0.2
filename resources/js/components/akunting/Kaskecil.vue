@@ -619,8 +619,14 @@ export default {
       }
 
       this.$Progress.finish();
-      this.$refs.cboto.reset();
-      this.$refs.cbkantor.reset();
+      if (this.$refs.cbKantor) {
+        this.$refs.cbKantor.reset();
+        this.editedItem.kantor_id = null; // Reset model v-model juga
+      }
+      if (this.$refs.cboto) {
+        this.$refs.cboto.reset();
+        this.editedItem.otorisator_id = null; // Reset model v-model juga
+      }
     },
     editModal(item) {
       this.editmode = true;

@@ -165,6 +165,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         //Telegram\Bot\Laravel\TelegramServiceProvider::class,
+        App\Providers\DateTimeServiceProvider::class,
 
         /*
          * Package Service Providers...
