@@ -742,7 +742,7 @@ export default {
       this.editedIndex = this.stock.indexOf(item);
       // this.editedItem = Object.assign({}, item)
 
-      this.editedItem.kantor_id = this.$kantor_id;
+      //this.editedItem.kantor_id = this.$kantor_id;
       this.editedItem.tanggal = item.tanggal;
       //this.editedItem.dateFormatted      = this.formatDate(this.tanggal);
       this.editedItem.id = item.id;
@@ -848,7 +848,7 @@ export default {
       this.$Progress.start();
       //console.log(this.editedItem.id)
       const formData = new FormData();
-      formData.set("kantor_id", this.editedItem.kantor_id);
+     // formData.set("kantor_id", this.editedItem.kantor_id);
       formData.set("jenis", this.editedItem.jenis);
       formData.set("tanggal", this.editedItem.tanggal);
       formData.set("jml_stok_awal", this.editedItem.jml_stok_awal);
