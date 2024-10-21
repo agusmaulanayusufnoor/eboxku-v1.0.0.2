@@ -93,11 +93,6 @@
         <div class="modal fade" id="viewImg" tabindex="-1" role="dialog" aria-labelledby="viewImg" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
-                                <!-- <v-img
-                            lazy-src="file\fb\img_feedback1.gambar survei.30092022.photo_2022-09-21_15-04-46.jpg"
-<v-img v-bind:src="'file/fb/'+item.view"
-                            src="file\fb\img_feedback1.gambar survei.30092022.photo_2022-09-21_15-04-46.jpg"
-                            ></v-img>  -->
                             <v-img v-bind:src="url"
                             ></v-img>
                             </div>

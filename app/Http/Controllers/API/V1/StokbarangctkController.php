@@ -60,6 +60,8 @@ class StokbarangctkController extends BaseController
                     'stock.nom_keluar',
                     'stock.nom_akhir',
                     'stock.keterangan',
+                    'stock.file',
+                    'stock.view',
                     'stock.kantor_id',
                     'kode_kantors.kode_kantor',
                     'kode_kantors.nama_kantor',
@@ -90,6 +92,8 @@ class StokbarangctkController extends BaseController
                     'stock.nom_keluar',
                     'stock.nom_akhir',
                     'stock.keterangan',
+                    'stock.file',
+                    'stock.view',
                     'stock.kantor_id',
                     'kode_kantors.kode_kantor',
                     'kode_kantors.nama_kantor',
@@ -124,7 +128,8 @@ class StokbarangctkController extends BaseController
             'nom_awal' => 'required',
             'nom_masuk' => 'required',
             'nom_keluar' => 'required',
-            'nom_akhir' => 'required'
+            'nom_akhir' => 'required',
+            'file' => 'required|mimes:jpg'
         ], [
             'barang_id.required' => 'barang belum dipilih',
             'satuan_id.required' => 'satuan belum dipilih',
@@ -137,11 +142,14 @@ class StokbarangctkController extends BaseController
             'nom_awal.required' => 'nominal awal belum diisi',
             'nom_masuk.required' => 'nominal masuk belum diisi',
             'nom_keluar.required' => 'nominal keluar belum diisi',
-            'nom_akhir.required' => 'nominal akhir belum diisi'
+            'nom_akhir.required' => 'nominal akhir belum diisi',
+            'file.required' => 'file harus diisi',
+            'file.mimes' => 'extensi gambar harus jpg atau png'
         ]);
 
-
-
+        $nm         = $request->file('file');
+        $acak = $this->acak_string(5);
+        $file   = "img_barangcetak" . $request->kantor_id . "." . $acak . "." . $nm->getClientOriginalName();
         $stokbarangctk = $this->stokbarangctk->create([
             'kantor_id' => $request->get('kantor_id'),
             'periode' => $request->get('periode'),
@@ -157,7 +165,10 @@ class StokbarangctkController extends BaseController
             'nom_keluar' => $request->get('nom_keluar'),
             'nom_akhir' => $request->get('nom_akhir'),
             'keterangan' => $request->get('keterangan'),
+            'file' => $file,
+            'view' => $file,
         ]);
+        $nm->move(public_path() . '/file/barangcetak', $file);
 
         //dd($stokbarangctk);
         return $this->sendResponse($stokbarangctk, 'Data stok barang cetakan di input');
@@ -193,10 +204,74 @@ class StokbarangctkController extends BaseController
     public function update(Request $request, $id)
     {
         $stokbarangctk = Stokbarangctk::findOrFail($id);
-        //dd($request->all());
 
-        $stokbarangctk->update($request->all());
+        // Menyiapkan data untuk pembaruan
 
+        $dataToUpdate = [
+
+            'periode' => $request->get('periode'),
+
+            'harga_satuan' => $request->get('harga_satuan'),
+
+            'stok_awal' => $request->get('stok_awal'),
+
+            'stok_masuk' => $request->get('stok_masuk'),
+
+            'stok_keluar' => $request->get('stok_keluar'),
+
+            'stok_akhir' => $request->get('stok_akhir'),
+
+            'nom_awal' => $request->get('nom_awal'),
+
+            'nom_masuk' => $request->get('nom_masuk'),
+
+            'nom_keluar' => $request->get('nom_keluar'),
+
+            'nom_akhir' => $request->get('nom_akhir'),
+
+            'keterangan' => $request->get('keterangan'),
+
+            'file' => null, // Sementara di-set null, akan diisi jika ada file
+
+            'view' => null, // Sementara di-set null, akan diisi jika ada file
+
+        ];
+
+        // Cek dan update barang_id jika tidak null
+
+        if ($request->get('barang_id') !== null) {
+
+            $dataToUpdate['barang_id'] = $request->get('barang_id');
+        }
+
+        // Cek dan update satuan_id jika tidak null
+
+        if ($request->get('satuan_id') !== null) {
+
+            $dataToUpdate['satuan_id'] = $request->get('satuan_id');
+        }
+
+        // Proses upload file jika ada
+
+        if ($request->hasFile('file')) {
+
+            $nm = $request->file('file');
+
+            $acak = $this->acak_string(5);
+
+            $file = "img_barangcetak" . $request->kantor_id . "." . $acak . "." . $nm->getClientOriginalName();
+
+            $dataToUpdate['file'] = $file;
+
+            $dataToUpdate['view'] = $file;
+
+            $nm->move(public_path() . '/file/barangcetak', $file);
+        }
+
+
+        // Update data
+
+        $stokbarangctk->update($dataToUpdate);
         return $this->sendResponse($stokbarangctk, 'Data Stokctk Diubah!');
     }
 
@@ -211,12 +286,32 @@ class StokbarangctkController extends BaseController
         // $this->authorize('isAdmin');
 
         $stokbarangctk = $this->stokbarangctk->findOrFail($id);
+        // Path file yang akan dihapus
 
-        $stokbarangctk->delete();
+        $file = public_path("file/barangcetak/" . $stokbarangctk->file);
 
-        return $this->sendResponse($stokbarangctk, 'stok sudah dihapus!');
+        // Cek apakah file ada
 
+        if (!file_exists($file)) {
 
+            // Jika file tidak ada, hapus hanya dari database
+
+            $stokbarangctk->delete();
+
+            return $this->sendResponse($stokbarangctk, 'Stok sudah dihapus, tetapi file tidak ditemukan di storage.');
+        } else {
+            // Jika file ada, pastikan itu adalah file dan bukan direktori
+
+            if (is_file($file)) {
+
+                unlink($file); // Hapus file dari storage
+
+            }
+
+            $stokbarangctk->delete();
+
+            return $this->sendResponse($stokbarangctk, 'Stok sudah dihapus dan file juga dihapus dari storage.');
+        }
     }
 
     public function listbarang()
@@ -257,6 +352,8 @@ class StokbarangctkController extends BaseController
                     'stock.nom_keluar',
                     'stock.nom_akhir',
                     'stock.keterangan',
+                    'stock.file',
+                    'stock.view',
                     'stock.kantor_id',
                     'kode_kantors.kode_kantor',
                     'kode_kantors.nama_kantor',
@@ -288,6 +385,8 @@ class StokbarangctkController extends BaseController
                     'stock.nom_keluar',
                     'stock.nom_akhir',
                     'stock.keterangan',
+                    'stock.file',
+                    'stock.view',
                     'stock.kantor_id',
                     'kode_kantors.kode_kantor',
                     'kode_kantors.nama_kantor',
@@ -335,6 +434,8 @@ class StokbarangctkController extends BaseController
                     'stock.nom_keluar',
                     'stock.nom_akhir',
                     'stock.keterangan',
+                    'stock.file',
+                    'stock.view',
                     'stock.kantor_id',
                     'kode_kantors.kode_kantor',
                     'kode_kantors.nama_kantor',
@@ -343,7 +444,6 @@ class StokbarangctkController extends BaseController
                 )
                 ->orderBy('kantor_id')
                 ->get();
-
         }
         //dd($stock);
 
@@ -383,6 +483,8 @@ class StokbarangctkController extends BaseController
                     'stock.nom_keluar',
                     'stock.nom_akhir',
                     'stock.keterangan',
+                    'stock.file',
+                    'stock.view',
                     'stock.kantor_id',
                     'kode_kantors.kode_kantor',
                     'kode_kantors.nama_kantor',
@@ -391,10 +493,20 @@ class StokbarangctkController extends BaseController
                 )
                 ->orderBy('barang_id')
                 ->get();
-
         }
         //dd($stock);
 
         return $this->sendResponse($stock, 'stock list');
+    }
+
+    function acak_string($panjang)
+    {
+        $karakter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        $string = '';
+        for ($i = 0; $i < $panjang; $i++) {
+            $pos = rand(0, strlen($karakter) - 1);
+            $string .= $karakter[$pos];
+        }
+        return $string;
     }
 }

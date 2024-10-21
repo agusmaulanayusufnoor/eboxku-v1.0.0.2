@@ -24,6 +24,8 @@ class Stokbarangctk extends Model
         'nom_keluar',
         'nom_akhir',
         'keterangan',
+        'file',
+        'view',
     ];
     //protected $guarded = [];
     protected $fromtgl = ['fromtgl'];

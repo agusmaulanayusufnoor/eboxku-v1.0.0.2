@@ -171,6 +171,34 @@
                   </v-card-actions>
                 </template>
 
+                <!-- tombol lihat gambar -->
+                <template v-slot:item.view="{ item }">
+                  <v-card-actions class="justify-center">
+                    <v-icon
+                      small
+                      color="blue"
+                      class="mr-4"
+                      @click="viewGambar(item.view)"
+                    >
+                      mdi-eye
+                    </v-icon>
+                  </v-card-actions>
+                  <!-- Modal view image -->
+                  <div
+                    class="modal fade"
+                    id="viewImg"
+                    tabindex="-1"
+                    role="dialog"
+                    aria-labelledby="viewImg"
+                    aria-hidden="true"
+                  >
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <v-img v-bind:src="editedItem.url"></v-img>
+                      </div>
+                    </div>
+                  </div>
+                </template>
                 <!-- tombol hapus -->
                 <template v-slot:item.actions="{ item }">
                   <v-icon small color="red" @click="deleteUser(item.id)">
@@ -470,7 +498,47 @@
                         @change="inputNominalAkhir"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="12" md="12">
+                    <v-col cols="12" sm="6" md="6">
+                     <template>
+
+                            <v-file-input
+                                v-model="editedItem.file"
+                                :rules="editedItem.fileRules"
+                                color="deep-purple accent-4"
+                                counter
+                                label="Pilih Gambar"
+                                required
+                                placeholder="Ambil File"
+                                prepend-icon="mdi-paperclip"
+                                outlined
+                                dense
+                                show-size
+                                accept=".jpg"
+                            >
+                                <template v-slot:selection="{ index, text }">
+                                <v-chip
+                                    v-if="index < 2"
+                                    color="deep-purple accent-4"
+                                    dark
+                                    label
+                                    small
+                                >
+                                    {{ text }}
+                                </v-chip>
+
+                                <span
+                                    v-else-if="index === 2"
+                                    class="text-overline grey--text text--darken-3 mx-2"
+                                >
+                                    +{{ files.length - 2 }} File(s)
+                                </span>
+                                </template>
+                            </v-file-input>
+                      </template>
+                           <has-error :form="form" field="file"></has-error>
+
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.keterangan"
                         name="keterangan"
@@ -549,6 +617,10 @@ export default {
       keterangan: "keterangan",
       selectedBarang: null,
       selectedSatuan: null,
+
+      file: null,
+      view: null,
+      url: '',
       //periode: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
       periode: "",
       periodeRules: [(v) => !!v || "Bulan periode belum diisi"],
@@ -581,6 +653,9 @@ export default {
       nom_akhir: 0,
       id_kantor: "",
       namaKantor: [],
+      fileRules: [
+        v => !!v || 'File belum dimasukan',
+      ],
     },
     menu1: false,
     menu2: false,
@@ -605,6 +680,8 @@ export default {
       nom_keluar: "",
       nom_akhir: "",
       keterangan: "-",
+      file: "",
+      view: "",
     }),
     columnsExcel: [
       { label: "Kode Kantor", field: "kode_kantor", align: "start" },
@@ -667,7 +744,7 @@ export default {
         sortable: false,
         align: "center",
       });
-
+      headers.push({ text: 'Gambar', value: 'view', sortable: false,align: 'center' })
       headers.push({
         text: "Hapus",
         value: "actions",
@@ -1081,7 +1158,11 @@ export default {
       this.$refs.form.reset();
       //this.namafile = '';
     },
-
+    viewGambar(view){
+        //console.log(view);
+        this.editedItem.url = "file/barangcetak/"+view;
+        $('#viewImg').modal('show');
+    },
     createUser() {
       this.$refs.form.validate();
       this.$Progress.start();
@@ -1119,8 +1200,10 @@ export default {
           parseInt(this.editedItem.nom_keluar)
       );
       formData.set("keterangan", this.editedItem.keterangan);
+      formData.set("file", this.editedItem.file);
+      formData.set("view", this.editedItem.file);
       //formData.append('jml_stok_akhir', this.jml_stok_awal);
-      // console.log(this.file);
+      console.log(this.editedItem.file);
       axios
         .post("api/stockctk", formData, config)
         .then((response) => {
@@ -1193,6 +1276,8 @@ export default {
           parseInt(this.editedItem.nom_keluar)
       );
       formData.set("keterangan", this.editedItem.keterangan);
+      formData.set("file", this.editedItem.file);
+      formData.set("view", this.editedItem.file);
       formData.append("_method", "PUT");
 
       // console.log(formData);
