@@ -661,7 +661,12 @@ export default {
         { text: "Nominal Akhir", value: "nom_akhir", align: "center" },
         { text: "Ket.", value: "keterangan", align: "center" },
       ];
-      // headers.push({ text: 'Edit', value: 'edit', sortable: false,align: 'center' })
+      headers.push({
+        text: "Edit",
+        value: "edit",
+        sortable: false,
+        align: "center",
+      });
 
       headers.push({
         text: "Hapus",
@@ -688,11 +693,11 @@ export default {
           : "";
       },
       set(value) {
-        const date = moment(value, 'MMMM YYYY');
+        const date = moment(value, "MMMM YYYY");
         if (date.isValid()) {
-          this.periodeTgl = date.startOf('month').format('YYYY-MM-DD'); // Simpan sebagai string YYYY-MM-DD
+          this.periodeTgl = date.startOf("month").format("YYYY-MM-DD"); // Simpan sebagai string YYYY-MM-DD
         } else {
-          this.periodeTgl = ''; // Reset jika tidak valid
+          this.periodeTgl = ""; // Reset jika tidak valid
         }
       },
     },
@@ -1050,20 +1055,25 @@ export default {
       this.editedIndex = this.stock.indexOf(item);
       // this.editedItem = Object.assign({}, item)
 
-      this.editedItem.kantor_id = this.$kantor_id;
-      this.editedItem.tanggal = item.tanggal;
+      // this.editedItem.kantor_id = this.$kantor_id;
+      this.editedItem.periode = item.periode;
       //this.editedItem.dateFormatted      = this.formatDate(this.tanggal);
       this.editedItem.id = item.id;
-      this.editedItem.jenis = item.jenis;
-      this.editedItem.jml_stok_awal = item.jml_stok_awal;
-      this.editedItem.tambahan_stok = item.tambahan_stok;
-      this.editedItem.jml_digunakan = item.jml_digunakan;
-      this.editedItem.jml_rusak = item.jml_rusak;
-      this.editedItem.jml_hilang = item.jml_hilang;
-      this.editedItem.jml_stok_akhir = item.jml_stok_akhir;
+      this.editedItem.selectedBarang = item.namabarang;
+      this.editedItem.selectedSatuan = item.namasatuan;
+      this.editedItem.harga_satuan = item.harga_satuan;
+      this.editedItem.stok_awal = item.stok_awal;
+      this.editedItem.stok_masuk = item.stok_masuk;
+      this.editedItem.stok_keluar = item.stok_keluar;
+      this.editedItem.stok_akhir = item.stok_akhir;
+      this.editedItem.nom_awal = item.nom_awal;
+      this.editedItem.nom_masuk = item.nom_masuk;
+      this.editedItem.nom_keluar = item.nom_keluar;
+      this.editedItem.nom_akhir = item.nom_akhir;
+      this.editedItem.keterangan = item.keterangan;
 
       //  console.log(item.id);
-      console.log(this.$kantor_id);
+      // console.log(this.$kantor_id);
     },
     newModal() {
       this.editmode = false;
@@ -1147,27 +1157,47 @@ export default {
       this.$Progress.start();
       //console.log(this.editedItem.id)
       const formData = new FormData();
-      formData.set("kantor_id", this.editedItem.kantor_id);
-      formData.set("jenis", this.editedItem.jenis);
-      formData.set("tanggal", this.editedItem.tanggal);
-      formData.set("jml_stok_awal", this.editedItem.jml_stok_awal);
-      formData.set("tambahan_stok", this.editedItem.tambahan_stok);
-      formData.set("jml_digunakan", this.editedItem.jml_digunakan);
-      formData.set("jml_rusak", this.editedItem.jml_rusak);
-      formData.set("jml_hilang", this.editedItem.jml_hilang);
+      // formData.set("kantor_id", this.editedItem.kantor_id);
+      formData.set("periode", this.editedItem.periode);
+      // Pengecekan untuk combo box barang dan satuan
+      if (this.editedItem.selectedBarang.id) {
+        formData.set("barang_id", parseInt(this.editedItem.selectedBarang.id));
+      }
+
+      if (this.editedItem.selectedSatuan.id) {
+        formData.set("satuan_id", parseInt(this.editedItem.selectedSatuan.id));
+      }
+
+      //  formData.set("satuan_id", 1);
+      formData.set("harga_satuan", this.editedItem.harga_satuan);
+      formData.set("stok_awal", this.editedItem.stok_awal);
+      formData.set("stok_masuk", this.editedItem.stok_masuk);
+      formData.set("stok_keluar", this.editedItem.stok_keluar);
       formData.set(
-        "jml_stok_akhir",
-        parseInt(this.editedItem.jml_stok_awal) +
-          parseInt(this.editedItem.tambahan_stok) -
-          parseInt(this.editedItem.jml_digunakan) -
-          parseInt(this.editedItem.jml_rusak) -
-          parseInt(this.editedItem.jml_hilang)
+        "stok_akhir",
+        parseInt(this.editedItem.stok_awal) +
+          parseInt(this.editedItem.stok_masuk) -
+          parseInt(this.editedItem.stok_keluar)
       );
+      formData.set(
+        "nom_awal",
+        parseInt(this.editedItem.stok_awal) *
+          parseInt(this.editedItem.harga_satuan)
+      );
+      formData.set("nom_masuk", this.editedItem.nom_masuk);
+      formData.set("nom_keluar", this.editedItem.nom_keluar);
+      formData.set(
+        "nom_akhir",
+        parseInt(this.editedItem.nom_awal) +
+          parseInt(this.editedItem.nom_masuk) -
+          parseInt(this.editedItem.nom_keluar)
+      );
+      formData.set("keterangan", this.editedItem.keterangan);
       formData.append("_method", "PUT");
 
       // console.log(formData);
       axios
-        .post("api/stock/" + this.editedItem.id, formData, config)
+        .post("api/stockctk/" + this.editedItem.id, formData, config)
         //axios.put('api/stock/27',formData)
         .then((response) => {
           console.log(this.editedItem.id);

@@ -133,6 +133,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::post('barang/{stock}', 'BarangController@updateData');
     Route::post('otorisator/{stock}', 'OtorisatorController@updateData');
     Route::post('kantor/{stock}', 'Kode_kantorController@updateData');
+    Route::post('stockctk/{stock}', 'StockbarangctkController@updateData');
     Route::get('stockctk/getkantor', 'Kode_kantorController@index');
     Route::get('stockctk/getbarang', 'BarangController@index');
     Route::get('stockctk/getsatuan', 'SatuanController@index');
