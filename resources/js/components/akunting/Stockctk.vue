@@ -503,7 +503,6 @@
 
                             <v-file-input
                                 v-model="editedItem.file"
-                                :rules="editedItem.fileRules"
                                 color="deep-purple accent-4"
                                 counter
                                 label="Pilih Gambar"
@@ -653,9 +652,6 @@ export default {
       nom_akhir: 0,
       id_kantor: "",
       namaKantor: [],
-      fileRules: [
-        v => !!v || 'File belum dimasukan',
-      ],
     },
     menu1: false,
     menu2: false,

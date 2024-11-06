@@ -129,7 +129,7 @@ class StokbarangctkController extends BaseController
             'nom_masuk' => 'required',
             'nom_keluar' => 'required',
             'nom_akhir' => 'required',
-            'file' => 'required|mimes:jpg'
+            'file' => 'mimes:jpg'
         ], [
             'barang_id.required' => 'barang belum dipilih',
             'satuan_id.required' => 'satuan belum dipilih',
@@ -143,7 +143,6 @@ class StokbarangctkController extends BaseController
             'nom_masuk.required' => 'nominal masuk belum diisi',
             'nom_keluar.required' => 'nominal keluar belum diisi',
             'nom_akhir.required' => 'nominal akhir belum diisi',
-            'file.required' => 'file harus diisi',
             'file.mimes' => 'extensi gambar harus jpg atau png'
         ]);
 
