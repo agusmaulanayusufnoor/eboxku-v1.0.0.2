@@ -443,11 +443,11 @@ export default {
     //this.$refs.cbkantor.reset();
     if (this.$refs.cbKantor) {
       this.$refs.cbKantor.reset();
-      this.editedItem.kantor_id = null; // Reset model v-model juga
+      this.kantor_id = null; // Reset model v-model juga
     }
     if (this.$refs.cboto) {
       this.$refs.cboto.reset();
-      this.editedItem.otorisator_id = null; // Reset model v-model juga
+      this.otorisator_id = null; // Reset model v-model juga
     }
   },
 
@@ -597,11 +597,11 @@ export default {
       this.$Progress.finish();
       if (this.$refs.cbKantor) {
         this.$refs.cbKantor.reset();
-        this.editedItem.kantor_id = null; // Reset model v-model juga
+        this.kantor_id = null; // Reset model v-model juga
       }
       if (this.$refs.cboto) {
         this.$refs.cboto.reset();
-        this.editedItem.otorisator_id = null; // Reset model v-model juga
+        this.otorisator_id = null; // Reset model v-model juga
       }
     },
     initialize() {
@@ -621,11 +621,11 @@ export default {
       this.$Progress.finish();
       if (this.$refs.cbKantor) {
         this.$refs.cbKantor.reset();
-        this.editedItem.kantor_id = null; // Reset model v-model juga
+        this.kantor_id = null; // Reset model v-model juga
       }
       if (this.$refs.cboto) {
         this.$refs.cboto.reset();
-        this.editedItem.otorisator_id = null; // Reset model v-model juga
+        this.otorisator_id = null; // Reset model v-model juga
       }
     },
     editModal(item) {
