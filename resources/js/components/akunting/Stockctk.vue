@@ -12,6 +12,9 @@
             >
               <v-toolbar-title> Stok Barang Cetakan </v-toolbar-title>
               <v-spacer></v-spacer>
+              <v-btn small color="primary" class="mr-2" @click="importXls">
+                <v-icon>mdi-file-upload</v-icon> Import Data
+              </v-btn>
               <v-btn small color="indigo" dark @click="newModal">
                 <v-icon>mdi-cart-plus</v-icon> Tambah Stok
               </v-btn>
@@ -219,7 +222,76 @@
         <not-found></not-found>
       </div>
 
-      <!-- Modal -->
+      <!-- Modal Import -->
+      <div
+        class="modal fade"
+        id="importNew"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="importNew"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog modal-sm modal-dialog-scrollable"
+          role="document"
+        >
+          <div class="modal-content">
+            <div class="modal-header primary">
+              <h5 class="modal-title" style="color: white"><v-icon>mdi-file-upload</v-icon> Import Data</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <v-form
+              @submit.prevent="importExcel"
+              ref="form"
+              v-model="validImport"
+              lazy-validation
+            >
+              <div class="modal-body">
+                <div class="form-group input-group">
+                  <v-col cols="12">
+                    <v-file-input
+                      v-model="fileExcel"
+                      label="Upload File Excel..."
+                      accept=".xls, .xlsx"
+                      required
+                    ></v-file-input>
+                  </v-col>
+                </div>
+              </div>
+              <div class="modal-footer d-flex justify-content-center">
+                <v-btn
+                  color="error"
+                  elevation="2"
+                  type="button"
+                  data-dismiss="modal"
+                  class="mr-2"
+                >
+                  <v-icon>mdi-cancel</v-icon>
+                  Batal
+                </v-btn>
+                <v-btn
+                  color="primary"
+                  elevation="2"
+                  :disabled="!valid"
+                  type="submit"
+                >
+                  <v-icon>mdi-upload</v-icon>
+                  Upload
+                </v-btn>
+              </div>
+            </v-form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Form-->
       <div
         class="modal fade"
         id="addNew"
@@ -499,43 +571,41 @@
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                     <template>
-
-                            <v-file-input
-                                v-model="editedItem.file"
-                                color="deep-purple accent-4"
-                                counter
-                                label="Pilih Gambar"
-                                required
-                                placeholder="Ambil File"
-                                prepend-icon="mdi-paperclip"
-                                outlined
-                                dense
-                                show-size
-                                accept=".jpg"
+                      <template>
+                        <v-file-input
+                          v-model="editedItem.file"
+                          color="deep-purple accent-4"
+                          counter
+                          label="Pilih Gambar"
+                          required
+                          placeholder="Ambil File"
+                          prepend-icon="mdi-paperclip"
+                          outlined
+                          dense
+                          show-size
+                          accept=".jpg"
+                        >
+                          <template v-slot:selection="{ index, text }">
+                            <v-chip
+                              v-if="index < 2"
+                              color="deep-purple accent-4"
+                              dark
+                              label
+                              small
                             >
-                                <template v-slot:selection="{ index, text }">
-                                <v-chip
-                                    v-if="index < 2"
-                                    color="deep-purple accent-4"
-                                    dark
-                                    label
-                                    small
-                                >
-                                    {{ text }}
-                                </v-chip>
+                              {{ text }}
+                            </v-chip>
 
-                                <span
-                                    v-else-if="index === 2"
-                                    class="text-overline grey--text text--darken-3 mx-2"
-                                >
-                                    +{{ files.length - 2 }} File(s)
-                                </span>
-                                </template>
-                            </v-file-input>
+                            <span
+                              v-else-if="index === 2"
+                              class="text-overline grey--text text--darken-3 mx-2"
+                            >
+                              +{{ files.length - 2 }} File(s)
+                            </span>
+                          </template>
+                        </v-file-input>
                       </template>
-                           <has-error :form="form" field="file"></has-error>
-
+                      <has-error :form="form" field="file"></has-error>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
@@ -608,6 +678,8 @@ export default {
     search: "",
     stock: [],
     valid: true,
+    validImport: false,
+    fileExcel: null,
     editedIndex: -1,
 
     editedItem: {
@@ -619,7 +691,7 @@ export default {
 
       file: null,
       view: null,
-      url: '',
+      url: "",
       //periode: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
       periode: "",
       periodeRules: [(v) => !!v || "Bulan periode belum diisi"],
@@ -740,7 +812,12 @@ export default {
         sortable: false,
         align: "center",
       });
-      headers.push({ text: 'Gambar', value: 'view', sortable: false,align: 'center' })
+      headers.push({
+        text: "Gambar",
+        value: "view",
+        sortable: false,
+        align: "center",
+      });
       headers.push({
         text: "Hapus",
         value: "actions",
@@ -1148,16 +1225,61 @@ export default {
       //  console.log(item.id);
       // console.log(this.$kantor_id);
     },
+    importXls() {
+      this.editmode = false;
+      $("#importNew").modal("show");
+      this.$refs.form.reset();
+      //this.namafile = '';
+    },
     newModal() {
       this.editmode = false;
       $("#addNew").modal("show");
       this.$refs.form.reset();
       //this.namafile = '';
     },
-    viewGambar(view){
-        //console.log(view);
-        this.editedItem.url = "file/barangcetak/"+view;
-        $('#viewImg').modal('show');
+    viewGambar(view) {
+      //console.log(view);
+      this.editedItem.url = "file/barangcetak/" + view;
+      $("#viewImg").modal("show");
+    },
+
+    importExcel() {
+      this.$Progress.start();
+      this.$refs.form.validate();
+      const config = {
+        headers: { "content-type": "multipart/form-data" },
+      };
+      const formData = new FormData();
+      formData.set("file", this.fileExcel);
+      //console.log("File berhasil di uploaded:", this.fileExcel);
+      axios
+        .post("api/stockctk/import", formData, config)
+        .then((response) => {
+          console.log("File berhasil di uploaded:", this.fileExcel);
+          $("#importNew").modal("hide");
+
+          // Toast.fire({
+          //   icon: "success",
+          //   title: response.data.message,
+          // });
+          // console.log(response.data.message);
+          // this.$Progress.finish();
+          // this.initialize();
+        })
+        .catch((response) => {
+          
+          console.error("Error:", error);
+          // Swal.fire("Failed!", data.message, "warning");
+          // console.log(response.message);
+          // this.$Progress.fail();
+        });
+
+      // if (this.fileExcel) {
+      //   // Proses upload file di sini
+      //   console.log("File berhasil di uploaded:", this.fileExcel);
+      // } else {
+      //   console.error("No file selected");
+      // }
     },
     createUser() {
       this.$refs.form.validate();

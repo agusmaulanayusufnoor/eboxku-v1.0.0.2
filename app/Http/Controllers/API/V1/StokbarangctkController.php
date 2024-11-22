@@ -5,9 +5,9 @@ namespace App\Http\Controllers\API\V1;
 
 use Illuminate\Http\Request;
 use App\Models\Barang;
-use App\Models\Stock;
 use App\Models\Stokbarangctk;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\StokbarangctkImport; // Import class yang baru saja dibuat
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -155,7 +155,7 @@ class StokbarangctkController extends BaseController
             $file = "img_barangcetak" . $request->kantor_id . "." . $acak . "." . $nm->getClientOriginalName();
             $nm->move(public_path() . '/file/barangcetak', $file);
         }
-        
+
         $stokbarangctk = $this->stokbarangctk->create([
             'kantor_id' => $request->get('kantor_id'),
             'periode' => $request->get('periode'),
@@ -174,7 +174,7 @@ class StokbarangctkController extends BaseController
             'file' => $file,
             'view' => $file,
         ]);
-        
+
 
         //dd($stokbarangctk);
         return $this->sendResponse($stokbarangctk, 'Data stok barang cetakan di input');
@@ -280,7 +280,93 @@ class StokbarangctkController extends BaseController
         $stokbarangctk->update($dataToUpdate);
         return $this->sendResponse($stokbarangctk, 'Data Stokctk Diubah!');
     }
+    public function import(Request $request)
+    {
+        // Validasi file Excel
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv|max:2048',
+        ]);
 
+        // Proses import
+        try {
+            // Menggunakan Maatwebsite Excel untuk mengimpor data
+            Excel::import(new StokbarangctkImport, $request->file('file'));
+
+            // Response berhasil
+            return response()->json([
+                'message' => 'File berhasil di-upload dan data berhasil diimpor.',
+            ]);
+        } catch (\Exception $e) {
+            // Menangani error jika terjadi masalah selama import
+            return response()->json([
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+    public function importData(Request $request)
+    {
+        // Validasi file
+        $request->validate([
+            'file' => 'required|mimes:xls,xlsx'
+        ]);
+
+        // Ambil file dari request
+        $file = $request->file('file');
+        //dd($request->all());
+        // Baca file Excel
+        $spreadsheet = IOFactory::load($file->getPathname());
+        $sheet = $spreadsheet->getActiveSheet();
+        $rows = $sheet->toArray();
+
+        $stokbarangctk = $this->stokbarangctk->create([
+            'kantor_id' => $request->get('kantor_id'),
+            'periode' => $request->get('periode'),
+            'barang_id' => $request->get('barang_id'),
+            'satuan_id' => $request->get('satuan_id'),
+            'harga_satuan' => $request->get('harga_satuan'),
+            'stok_awal' => $request->get('stok_awal'),
+            'stok_masuk' => $request->get('stok_masuk'),
+            'stok_keluar' => $request->get('stok_keluar'),
+            'stok_akhir' => $request->get('stok_akhir'),
+            'nom_awal' => $request->get('nom_awal'),
+            'nom_masuk' => $request->get('nom_masuk'),
+            'nom_keluar' => $request->get('nom_keluar'),
+            'nom_akhir' => $request->get('nom_akhir'),
+            'keterangan' => $request->get('keterangan'),
+            'file' => null,
+            'view' => null,
+        ]);
+        // // Proses data
+        // foreach ($rows as $row) {
+
+        //     if ($index === 0) {
+        //         continue;
+        //     }
+        //     // Insert data ke tabel stokbarangctk
+        //     $stokbarangctk = $this->stokbarangctk->create([
+        //         'kantor_id' => $row[0],
+        //         'periode' => $row[1],
+        //         'barang_id' => $row[2],
+        //         'satuan_id' => $row[3],
+        //         'harga_satuan' => $row[4],
+        //         'stok_awal' => $row[5],
+        //         'stok_masuk' => $row[6],
+        //         'stok_keluar' => $row[7],
+        //         'stok_akhir' => $row[8],
+        //         'nom_awal' => $row[9],
+        //         'nom_masuk' => $row[10],
+        //         'nom_keluar' => $row[11],
+        //         'nom_akhir' => $row[12],
+        //         'keterangan' => $row[13],
+        //         'file' => null, // Sementara di-set null, akan diisi jika ada file
+        //         'view' => null, // Sementara di-set null, akan diisi jika ada file
+        //     ]);
+        // }
+
+        // dd($stokbarangctk);
+        return $this->sendResponse($stokbarangctk, 'Data stok barang cetakan di input');
+
+    }
     /**
      * Remove the specified resource from storage.
      *
