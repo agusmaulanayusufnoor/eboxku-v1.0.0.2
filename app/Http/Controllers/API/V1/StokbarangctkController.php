@@ -128,8 +128,7 @@ class StokbarangctkController extends BaseController
             'nom_awal' => 'required',
             'nom_masuk' => 'required',
             'nom_keluar' => 'required',
-            'nom_akhir' => 'required',
-            'file' => 'mimes:jpg'
+            'nom_akhir' => 'required'
         ], [
             'barang_id.required' => 'barang belum dipilih',
             'satuan_id.required' => 'satuan belum dipilih',
@@ -142,13 +141,21 @@ class StokbarangctkController extends BaseController
             'nom_awal.required' => 'nominal awal belum diisi',
             'nom_masuk.required' => 'nominal masuk belum diisi',
             'nom_keluar.required' => 'nominal keluar belum diisi',
-            'nom_akhir.required' => 'nominal akhir belum diisi',
-            'file.mimes' => 'extensi gambar harus jpg atau png'
+            'nom_akhir.required' => 'nominal akhir belum diisi'
         ]);
 
-        $nm         = $request->file('file');
-        $acak = $this->acak_string(5);
-        $file   = "img_barangcetak" . $request->kantor_id . "." . $acak . "." . $nm->getClientOriginalName();
+        //$nm         = $request->file('file');
+        //$acak = $this->acak_string(5);
+        //$file   = "img_barangcetak" . $request->kantor_id . "." . $acak . "." . $nm->getClientOriginalName();
+        $file = null;  // Inisialisasi default variabel $file
+
+        if ($request->hasFile('file') && $request->file('file')->isValid()) {
+            $nm = $request->file('file');  // Definisikan $nm hanya jika file ada dan valid
+            $acak = $this->acak_string(5);
+            $file = "img_barangcetak" . $request->kantor_id . "." . $acak . "." . $nm->getClientOriginalName();
+            $nm->move(public_path() . '/file/barangcetak', $file);
+        }
+        
         $stokbarangctk = $this->stokbarangctk->create([
             'kantor_id' => $request->get('kantor_id'),
             'periode' => $request->get('periode'),
@@ -167,7 +174,7 @@ class StokbarangctkController extends BaseController
             'file' => $file,
             'view' => $file,
         ]);
-        $nm->move(public_path() . '/file/barangcetak', $file);
+        
 
         //dd($stokbarangctk);
         return $this->sendResponse($stokbarangctk, 'Data stok barang cetakan di input');
