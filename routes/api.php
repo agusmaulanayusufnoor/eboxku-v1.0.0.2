@@ -64,6 +64,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'rekkoranaba'   => 'RekkoranabaController',
         'stock'         => 'StockController',
         'stockctk'      => 'StokbarangctkController',
+        'importstok'   => 'StokctkimportController',
         'stockpromosi'  => 'StokbarangpromosiController',
 
         // umum pusat
@@ -215,7 +216,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::post('otorisator/{stock}', 'OtorisatorController@updateData');
     Route::post('kantor/{stock}', 'Kode_kantorController@updateData');
     Route::post('stockctk/{stock}', 'StokbarangctkController@updateData');
-    Route::post('stockctk/import', 'StokbarangctkController@import')->name('stockctk.import');
+    //Route::post('stockctk/import', 'StokbarangctkController@import')->name('stockctk.import');
     Route::get('stockctk/getkantor', 'Kode_kantorController@index');
     Route::get('stockctk/getbarang', 'BarangController@index');
     Route::get('stockctk/getsatuan', 'SatuanController@index');

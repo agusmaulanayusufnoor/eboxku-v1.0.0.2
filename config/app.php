@@ -15,7 +15,7 @@ return [
 
     'name' => env('APP_NAME', 'Eboxku'),
 
-    'version' => env('APP_VERSION', '1.0.1'),
+    'version' => env('APP_VERSION', '1.0.2'),
 
     /*
     |--------------------------------------------------------------------------
@@ -166,6 +166,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         //Telegram\Bot\Laravel\TelegramServiceProvider::class,
         App\Providers\DateTimeServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -234,6 +235,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         //'Telegram' => Telegram\Bot\Laravel\Facades\Telegram::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

@@ -884,17 +884,15 @@ export default {
     this.$Progress.finish();
   },
 
-  methods: {
+  _methods: {
     pencetKeyboard: function (evt) {
       evt = evt ? evt : window.event;
       var charCode = evt.which ? evt.which : evt.keyCode;
       //nomer wungkul
-      if (
-        charCode > 31 &&
+      if (charCode > 31 &&
         (charCode < 48 || charCode > 57) &&
         (charCode < 95 || charCode > 105) &&
-        charCode !== 46
-      ) {
+        charCode !== 46) {
         //tidak boleh tombol '/' dan '\'
         //if (charCode === 191 || charCode===220) {
         evt.preventDefault();
@@ -920,9 +918,9 @@ export default {
         parseInt(this.editedItem.harga_satuan);
       this.editedItem.nom_akhir =
         parseInt(this.editedItem.stok_awal) *
-          parseInt(this.editedItem.harga_satuan) +
+        parseInt(this.editedItem.harga_satuan) +
         parseInt(this.editedItem.stok_masuk) *
-          parseInt(this.editedItem.harga_satuan);
+        parseInt(this.editedItem.harga_satuan);
     },
     inputStokAkhir() {
       this.editedItem.stok_akhir =
@@ -934,11 +932,11 @@ export default {
         parseInt(this.editedItem.harga_satuan);
       this.editedItem.nom_akhir =
         parseInt(this.editedItem.stok_awal) *
-          parseInt(this.editedItem.harga_satuan) +
+        parseInt(this.editedItem.harga_satuan) +
         parseInt(this.editedItem.stok_masuk) *
-          parseInt(this.editedItem.harga_satuan) -
+        parseInt(this.editedItem.harga_satuan) -
         parseInt(this.editedItem.stok_keluar) *
-          parseInt(this.editedItem.harga_satuan);
+        parseInt(this.editedItem.harga_satuan);
     },
     inputNominalAwal() {
       //this.editedItem.nom_awal = parseInt(this.editedItem.stok_awal)*parseInt(this.editedItem.harga_satuan);
@@ -1204,7 +1202,6 @@ export default {
       $("#addNew").modal("show");
       this.editedIndex = this.stock.indexOf(item);
       // this.editedItem = Object.assign({}, item)
-
       // this.editedItem.kantor_id = this.$kantor_id;
       this.editedItem.periode = item.periode;
       //this.editedItem.dateFormatted      = this.formatDate(this.tanggal);
@@ -1251,27 +1248,44 @@ export default {
       };
       const formData = new FormData();
       formData.set("file", this.fileExcel);
+      // formData.set("kantor_id", 1);
+      // formData.set("periode", 'Desember 2024');
+      // formData.set("barang_id", 1);
+      // formData.set("satuan_id", 1);
+      // formData.set("harga_satuan", 1000);
+      // formData.set("stok_awal", 0);
+      // formData.set("stok_masuk", 1);
+      // formData.set("stok_keluar", 1);
+      // formData.set(
+      //   "stok_akhir",1);
+      // formData.set("nom_awal",2);
+      // formData.set("nom_masuk", 3);
+      // formData.set("nom_keluar", 4);
+      // formData.set("nom_akhir",5);
+      // formData.set("keterangan", '-');
+      // formData.set("file", null);
+      // formData.set("view", null);
       //console.log("File berhasil di uploaded:", this.fileExcel);
       axios
-        .post("api/stockctk/import", formData, config)
+        .post("api/importstok", formData, config)
         .then((response) => {
           console.log("File berhasil di uploaded:", this.fileExcel);
           $("#importNew").modal("hide");
 
-          // Toast.fire({
-          //   icon: "success",
-          //   title: response.data.message,
-          // });
-          // console.log(response.data.message);
-          // this.$Progress.finish();
-          // this.initialize();
+          Toast.fire({
+            icon: "success",
+            title: response.data.message,
+          });
+          console.log(response.data.message);
+          this.$Progress.finish();
+          this.initialize();
         })
         .catch((response) => {
-          
+
           console.error("Error:", error);
-          // Swal.fire("Failed!", data.message, "warning");
-          // console.log(response.message);
-          // this.$Progress.fail();
+          Swal.fire("Failed!", data.message, "warning");
+          console.log(response.message);
+          this.$Progress.fail();
         });
 
       // if (this.fileExcel) {
@@ -1301,21 +1315,21 @@ export default {
       formData.set(
         "stok_akhir",
         parseInt(this.editedItem.stok_awal) +
-          parseInt(this.editedItem.stok_masuk) -
-          parseInt(this.editedItem.stok_keluar)
+        parseInt(this.editedItem.stok_masuk) -
+        parseInt(this.editedItem.stok_keluar)
       );
       formData.set(
         "nom_awal",
         parseInt(this.editedItem.stok_awal) *
-          parseInt(this.editedItem.harga_satuan)
+        parseInt(this.editedItem.harga_satuan)
       );
       formData.set("nom_masuk", this.editedItem.nom_masuk);
       formData.set("nom_keluar", this.editedItem.nom_keluar);
       formData.set(
         "nom_akhir",
         parseInt(this.editedItem.nom_awal) +
-          parseInt(this.editedItem.nom_masuk) -
-          parseInt(this.editedItem.nom_keluar)
+        parseInt(this.editedItem.nom_masuk) -
+        parseInt(this.editedItem.nom_keluar)
       );
       formData.set("keterangan", this.editedItem.keterangan);
       formData.set("file", this.editedItem.file);
@@ -1377,21 +1391,21 @@ export default {
       formData.set(
         "stok_akhir",
         parseInt(this.editedItem.stok_awal) +
-          parseInt(this.editedItem.stok_masuk) -
-          parseInt(this.editedItem.stok_keluar)
+        parseInt(this.editedItem.stok_masuk) -
+        parseInt(this.editedItem.stok_keluar)
       );
       formData.set(
         "nom_awal",
         parseInt(this.editedItem.stok_awal) *
-          parseInt(this.editedItem.harga_satuan)
+        parseInt(this.editedItem.harga_satuan)
       );
       formData.set("nom_masuk", this.editedItem.nom_masuk);
       formData.set("nom_keluar", this.editedItem.nom_keluar);
       formData.set(
         "nom_akhir",
         parseInt(this.editedItem.nom_awal) +
-          parseInt(this.editedItem.nom_masuk) -
-          parseInt(this.editedItem.nom_keluar)
+        parseInt(this.editedItem.nom_masuk) -
+        parseInt(this.editedItem.nom_keluar)
       );
       formData.set("keterangan", this.editedItem.keterangan);
       formData.set("file", this.editedItem.file);
@@ -1412,7 +1426,6 @@ export default {
           });
           this.$Progress.finish();
           //  Fire.$emit('AfterCreate');
-
           this.initialize();
         })
         .catch((error) => {
@@ -1444,6 +1457,12 @@ export default {
         }
       });
     },
+  },
+  get methods() {
+    return this._methods;
+  },
+  set methods(value) {
+    this._methods = value;
   },
 };
 </script>

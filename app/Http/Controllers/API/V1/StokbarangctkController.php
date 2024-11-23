@@ -280,29 +280,29 @@ class StokbarangctkController extends BaseController
         $stokbarangctk->update($dataToUpdate);
         return $this->sendResponse($stokbarangctk, 'Data Stokctk Diubah!');
     }
-    public function import(Request $request)
-    {
-        // Validasi file Excel
-        $request->validate([
-            'file' => 'required|mimes:xlsx,xls,csv|max:2048',
-        ]);
+    // public function import(Request $request)
+    // {
+    //     // Validasi file Excel
+    //     $request->validate([
+    //         'file' => 'required|mimes:xlsx,xls,csv|max:2048',
+    //     ]);
 
-        // Proses import
-        try {
-            // Menggunakan Maatwebsite Excel untuk mengimpor data
-            Excel::import(new StokbarangctkImport, $request->file('file'));
+    //     // Proses import
+    //     try {
+    //         // Menggunakan Maatwebsite Excel untuk mengimpor data
+    //         Excel::import(new StokbarangctkImport, $request->file('file'));
 
-            // Response berhasil
-            return response()->json([
-                'message' => 'File berhasil di-upload dan data berhasil diimpor.',
-            ]);
-        } catch (\Exception $e) {
-            // Menangani error jika terjadi masalah selama import
-            return response()->json([
-                'message' => 'Terjadi kesalahan: ' . $e->getMessage(),
-            ], 500);
-        }
-    }
+    //         // Response berhasil
+    //         return response()->json([
+    //             'message' => 'File berhasil di-upload dan data berhasil diimpor.',
+    //         ]);
+    //     } catch (\Exception $e) {
+    //         // Menangani error jika terjadi masalah selama import
+    //         return response()->json([
+    //             'message' => 'Terjadi kesalahan: ' . $e->getMessage(),
+    //         ], 500);
+    //     }
+    // }
     public function importData(Request $request)
     {
         // Validasi file
