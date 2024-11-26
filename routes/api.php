@@ -28,87 +28,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
 
-    Route::apiResources([
-        //setting
-        'satuan'        => 'SatuanController',
-        'barang'        => 'BarangController',
-        'otorisator'    => 'OtorisatorController',
-        'kantor'        => 'Kode_kantorController',
-        'jabatan'       => 'JabatanController',
-        'pendidikan'    => 'PendidikanController',
-        'statuspegawai' => 'StatuspegawaiController',
-        'statuspajak'   => 'StatuspajakController',
-        'mastersimpanan'   => 'MastersimpananController',
-        'statuspermohonan'        => 'StatuspermohonanController',
-
-        'user'        => 'UserController',
-        //pelayanan
-        'bakas'       => 'BakasController',
-        'feedback'    => 'FeedbackController',
-        'tabungan'    => 'TabunganController',
-        'deposito'    => 'DepositoController',
-        'teller'      => 'TellerController',
-        'cs'          => 'CsController',
-        'permoperasional'  => 'PermoperasionalController',
-        'permbisnis'  => 'PermbisnisController',
-
-        //kredit
-        'permohonankredit'  => 'PermohonankreditController',
-        'kredit'            => 'KreditController',
-        'pelunasan'         => 'PelunasanController',
-        'asuransikredit'    => 'AsuransikreditController',
-
-        //akunting
-        'kaskecil'      => 'KaskecilController',
-        'overbooking'   => 'OverbookingController',
-        'rekkoranaba'   => 'RekkoranabaController',
-        'stock'         => 'StockController',
-        'stockctk'      => 'StokbarangctkController',
-        'importstok'   => 'StokctkimportController',
-        'stockpromosi'  => 'StokbarangpromosiController',
-
-        // umum pusat
-        'memoumum'    => 'MemoumumController',
-        'skdir'       => 'SkdirController',
-        'sedir'       => 'SedirController',
-        'akta'        => 'AktaController',
-        'legal'       => 'LegalController',
-        'sertifikat'  => 'SertifController',
-        'pk'          => 'PkController',
-        'pjkbadan'    => 'PjkbadanController',
-        'pjksewa'     => 'PjksewaController',
-        'pjkpph21'    => 'Pjkpph21Controller',
-        'pjkpph4ayat2'=> 'Pjkpph4ayat2Controller',
-        'pjkpph23'    => 'Pjkpph23Controller',
-        'pjkpph25'    => 'Pjkpph25Controller',
-        'pjkbunga'    => 'PjkbungaController',
-        'pjkkendaraan'=> 'PjkkendaraanController',
-        'asuransi'    => 'AsuransiController',
-        'sop'         => 'SopController',
-        'peraturan'   => 'PeraturanController',
-        'lps'         => 'LpsController',
-
-        //akuntingpusat
-        'jtakuntingpusat'   => 'JtakuntingpusatController',
-        'jtpelayananpusat'  => 'JtpelayananpusatController',
-        'memoob'            => 'MemoobController',
-        'lapkap'            => 'LapkapController',
-        'lapkeu'            => 'LapkeuController',
-
-
-        //sekdir
-        'suratmasuk'  => 'SuratmasukController',
-        'suratkeluar' => 'SuratkeluarController',
-        'notulen'     => 'NotulenController',
-        'polis'       => 'PolisController',
-
-        // skai
-        'monitor'     => 'MonitorController',
-        'periksa'     => 'PeriksaController',
-
-
-    ]);
-    
+       
     Route::get('profile', 'ProfileController@profile');
     Route::put('profile', 'ProfileController@updateProfile');
     Route::post('change-password', 'ProfileController@changePassword');
@@ -231,5 +151,84 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('stockpromosi/filterbarang', 'StokbarangpromosiController@filterbarang');
 
 
+    Route::apiResources([
+        //setting
+        'satuan'        => 'SatuanController',
+        'barang'        => 'BarangController',
+        'otorisator'    => 'OtorisatorController',
+        'kantor'        => 'Kode_kantorController',
+        'jabatan'       => 'JabatanController',
+        'pendidikan'    => 'PendidikanController',
+        'statuspegawai' => 'StatuspegawaiController',
+        'statuspajak'   => 'StatuspajakController',
+        'mastersimpanan'   => 'MastersimpananController',
+        'statuspermohonan'        => 'StatuspermohonanController',
 
+        'user'        => 'UserController',
+        //pelayanan
+        'bakas'       => 'BakasController',
+        'feedback'    => 'FeedbackController',
+        'tabungan'    => 'TabunganController',
+        'deposito'    => 'DepositoController',
+        'teller'      => 'TellerController',
+        'cs'          => 'CsController',
+        'permoperasional'  => 'PermoperasionalController',
+        'permbisnis'  => 'PermbisnisController',
+
+        //kredit
+        'permohonankredit'  => 'PermohonankreditController',
+        'kredit'            => 'KreditController',
+        'pelunasan'         => 'PelunasanController',
+        'asuransikredit'    => 'AsuransikreditController',
+
+        //akunting
+        'kaskecil'      => 'KaskecilController',
+        'overbooking'   => 'OverbookingController',
+        'rekkoranaba'   => 'RekkoranabaController',
+        'stock'         => 'StockController',
+        'stockctk'      => 'StokbarangctkController',
+        'importstok'   => 'StokctkimportController',
+        'stockpromosi'  => 'StokbarangpromosiController',
+
+        // umum pusat
+        'memoumum'    => 'MemoumumController',
+        'skdir'       => 'SkdirController',
+        'sedir'       => 'SedirController',
+        'akta'        => 'AktaController',
+        'legal'       => 'LegalController',
+        'sertifikat'  => 'SertifController',
+        'pk'          => 'PkController',
+        'pjkbadan'    => 'PjkbadanController',
+        'pjksewa'     => 'PjksewaController',
+        'pjkpph21'    => 'Pjkpph21Controller',
+        'pjkpph4ayat2'=> 'Pjkpph4ayat2Controller',
+        'pjkpph23'    => 'Pjkpph23Controller',
+        'pjkpph25'    => 'Pjkpph25Controller',
+        'pjkbunga'    => 'PjkbungaController',
+        'pjkkendaraan'=> 'PjkkendaraanController',
+        'asuransi'    => 'AsuransiController',
+        'sop'         => 'SopController',
+        'peraturan'   => 'PeraturanController',
+        'lps'         => 'LpsController',
+
+        //akuntingpusat
+        'jtakuntingpusat'   => 'JtakuntingpusatController',
+        'jtpelayananpusat'  => 'JtpelayananpusatController',
+        'memoob'            => 'MemoobController',
+        'lapkap'            => 'LapkapController',
+        'lapkeu'            => 'LapkeuController',
+
+
+        //sekdir
+        'suratmasuk'  => 'SuratmasukController',
+        'suratkeluar' => 'SuratkeluarController',
+        'notulen'     => 'NotulenController',
+        'polis'       => 'PolisController',
+
+        // skai
+        'monitor'     => 'MonitorController',
+        'periksa'     => 'PeriksaController',
+
+
+    ]);
 });
