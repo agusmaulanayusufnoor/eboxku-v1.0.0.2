@@ -177,21 +177,51 @@
                     <option value="2">002 - Cab. Cisalak</option>
                     <option value="3">003 - Cab. KPO</option>
                     <option value="4">004 - Cab. Subang</option>
-                    <option value="5">005 - Cab. Purwadadi</option>
+                    <option value="5">004 - Cab. Purwadadi</option>
                     <option value="6">006 - Cab. Pamanukan</option>
+                    <option value="7">007 - Cab. Majalengka</option>
+                    <option value="8">008 - Cab. Panyingkiran</option>
+                    <option value="9">009 - Cab. Banjaran</option>
+                    <option value="10">010 - Cab. Cingambul</option>
+                    <option value="11">011 - Cab. Bekasi</option>
+                    <option value="12">012 - Cab. Pondokgede</option>
+                    <option value="13">013 - Cab. Cibitung</option>
+                    <option value="14">014 - Cab. Setu</option>
+                    <option value="15">015- Cab. Cibarusah</option>
+                    <option value="16">016 - Cab. Sukatani</option>
+                    <option value="17">017 - Cab. Cibarusah</option>
+                    <option value="18">018 - Cab. Ciamis</option>
                   </select>
                   <has-error :form="form" field="kantor_id"></has-error>
                 </div>
                 <div class="form-group">
-                    <label>Otorisator</label><br>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" v-model="form.otorisator" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
-                        <label class="form-check-label" for="inlineRadio1">Ya</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" v-model="form.otorisator" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="0">
-                        <label class="form-check-label" for="inlineRadio2">Tidak</label>
-                    </div>
+                  <label>Otorisator</label><br />
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      v-model="form.otorisator"
+                      type="radio"
+                      name="inlineRadioOptions"
+                      id="inlineRadio1"
+                      value="1"
+                    />
+                    <label class="form-check-label" for="inlineRadio1"
+                      >Ya</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      v-model="form.otorisator"
+                      type="radio"
+                      name="inlineRadioOptions"
+                      id="inlineRadio2"
+                      value="0"
+                    />
+                    <label class="form-check-label" for="inlineRadio2"
+                      >Tidak</label
+                    >
+                  </div>
                 </div>
               </div>
               <div class="modal-footer">

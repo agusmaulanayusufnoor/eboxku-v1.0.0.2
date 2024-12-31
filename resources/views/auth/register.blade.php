@@ -85,6 +85,18 @@
                                     <option value="4">004 - Cab. Subang</option>
                                     <option value="5">004 - Cab. Purwadadi</option>
                                     <option value="6">006 - Cab. Pamanukan</option>
+                                    <option value="7">007 - Cab. Majalengka</option>
+                                    <option value="8">008 - Cab. Panyingkiran</option>
+                                    <option value="9">009 - Cab. Banjaran</option>
+                                    <option value="10">010 - Cab. Cingambul</option>
+                                    <option value="11">011 - Cab. Bekasi</option>
+                                    <option value="12">012 - Cab. Pondokgede</option>
+                                    <option value="13">013 - Cab. Cibitung</option>
+                                    <option value="14">014 - Cab. Setu</option>
+                                    <option value="15">015- Cab. Cibarusah</option>
+                                    <option value="16">016 - Cab. Sukatani</option>
+                                    <option value="17">017 - Cab. Cibarusah</option>
+                                    <option value="18">018 - Cab. Ciamis</option>
                                 </select>
                                 @error('level_id')
                                     <span class="invalid-feedback" role="alert">
