@@ -95,7 +95,7 @@
                                     <option value="14">014 - Cab. Setu</option>
                                     <option value="15">015- Cab. Cibarusah</option>
                                     <option value="16">016 - Cab. Sukatani</option>
-                                    <option value="17">017 - Cab. Cibarusah</option>
+                                    <option value="17">017 - Cab. Cimerak</option>
                                     <option value="18">018 - Cab. Ciamis</option>
                                 </select>
                                 @error('level_id')
