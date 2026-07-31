@@ -14,6 +14,9 @@ class AddGambarToStokbarangctkTable extends Migration
     public function up()
     {
         Schema::table('stokbarangctk', function (Blueprint $table) {
+            if (!Schema::hasColumn('stokbarangctk', 'keterangan')) {
+                $table->string('keterangan', 150)->nullable()->after('nom_akhir');
+            }
             $table->string('file',250)->nullable()->after('keterangan');
             $table->string('view',250)->nullable()->after('file');
         });

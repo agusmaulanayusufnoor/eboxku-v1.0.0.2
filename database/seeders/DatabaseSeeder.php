@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
         $this->call(KantorSeeder::class);
         $this->call(OtorisatorSeeder::class);
         $this->call(StatuspermohonanSeeder::class);
+        $this->call(SatuanSeeder::class);
+        $this->call(BarangSeeder::class);
+        $this->call(RoleSeeder::class);
         //$this->call(CategoriesTableSeeder::class);
         //$this->call(TagsTableSeeder::class);
         //$this->call(ProductsTableSeeder::class);

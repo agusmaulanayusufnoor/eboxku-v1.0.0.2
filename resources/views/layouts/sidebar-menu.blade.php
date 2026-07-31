@@ -17,44 +17,43 @@
           </router-link>
         </li>
       @endcan
-      @if((auth()->user()->type=='admin') or (auth()->user()->type=='pelayanan'))
+      @if(auth()->user()->hasRole(['admin', 'pelayanan']))
             <!--  menu pelayanan  -->
             @include('layouts.menu.menu-pelayanan')
       @endif
 
-      @if((auth()->user()->type=='admin') or (auth()->user()->type=='kredit') or (auth()->user()->type=='bisnis') or (auth()->user()->type=='pelayanan')) 
+      @if(auth()->user()->hasRole(['admin', 'kredit', 'bisnis', 'pelayanan']))
             <!--  menu kredit  -->
             @include('layouts.menu.menu-kredit')
       @endif
 
-      @if((auth()->user()->type=='admin') or (auth()->user()->type=='akunting'))
+      @if(auth()->user()->hasRole(['admin', 'akunting']))
             <!--  menu umum dan akunting cabang  -->
             @include('layouts.menu.menu-umum-akunting')
       @endif
 
-
-      @if((auth()->user()->type=='admin') or (auth()->user()->type=='umumpst'))
+      @if(auth()->user()->hasRole(['admin', 'umumpst']))
             <!--  menu umum pusat  -->
             @include('layouts.menu.menu-umum-pusat')
       @endif
-       @if((auth()->user()->type=='admin') or (auth()->user()->type=='umumpst'))
+
+      @if(auth()->user()->hasRole(['admin', 'umumpst']))
             <!--  menu akunting pusat -->
             @include('layouts.menu.menu-akunting-pusat')
       @endif
 
-      @if((auth()->user()->type=='admin') or (auth()->user()->type=='sekdir'))
-            <!--  menu umum dan akunting cabang  -->
+      @if(auth()->user()->hasRole(['admin', 'sekdir']))
+            <!--  menu sekdir  -->
             @include('layouts.menu.menu-sekdir')
       @endif
 
-
-      @if((auth()->user()->type=='admin') or (auth()->user()->type=='skai'))
-            <!--  menu umum dan akunting cabang  -->
+      @if(auth()->user()->hasRole(['skai']))
+            <!--  menu skai  -->
             @include('layouts.menu.menu-skai')
       @endif
 
-      @if((auth()->user()->type=='admin') or (auth()->user()->type=='sdm'))
-            <!--  menu umum dan akunting cabang  -->
+      @if(auth()->user()->hasRole(['admin', 'sdm']))
+            <!--  menu sdm  -->
             @include('layouts.menu.menu-sdm')
       @endif
 
@@ -157,6 +156,14 @@
                     <i class="nav-icon fa fa-square-check white"></i>
                     <p>
                         Status Permohonan Kredit
+                    </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/role" class="nav-link">
+                    <i class="nav-icon fas fa-user-shield white"></i>
+                    <p>
+                        Role User
                     </p>
                 </router-link>
               </li>

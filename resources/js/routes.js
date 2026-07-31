@@ -126,6 +126,7 @@ export default [
     { path: '/statuspegawai', component: () => import(/* webpackPrefetch: true */'./components/setting/Statuspegawai.vue') },
     { path: '/statuspajak', component: () => import(/* webpackPrefetch: true */'./components/setting/Statuspajak.vue') },
     { path: '/statuspermohonan', component: () => import(/* webpackPrefetch: true */'./components/setting/Statuspermohonan.vue') },
+    { path: '/role', component: () => import(/* webpackPrefetch: true */'./components/setting/Role.vue') },
     { path: '*', component: () => import(/* webpackPrefetch: true */'./components/NotFound.vue') }
 ];
 

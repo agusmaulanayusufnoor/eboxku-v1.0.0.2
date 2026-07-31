@@ -31,61 +31,15 @@ class AuthServiceProvider extends ServiceProvider
         /**
          * Defining the user Roles
          */
-
-        Gate::define('isAdmin', function ($user) {
-            // if ($user->isAdmin()) {
-            //     return true;
-            // }
-
-            // for simplicity
-            return $user->type === 'admin';
-        });
-
-        Gate::define('isUser', function ($user) {
-            // if ($user->isUser()) {
-            //     return true;
-            // }
-
-            // for simplicity
-            return $user->type === 'user';
-        });
-
-        Gate::define('isPelayanan', function ($user) {
-
-            return $user->type === 'pelayanan';
-        });
-
-        Gate::define('isKredit', function ($user) {
-
-            return $user->type === 'kredit';
-        });
-        Gate::define('isAK', function ($user) {
-
-            return $user->type === 'akunting';
-        });
-        Gate::define('isUM', function ($user) {
-
-            return $user->type === 'umumpst';
-        });
-        Gate::define('isBisnis', function ($user) {
-
-            return $user->type === 'bisnis';
-        });
-        Gate::define('isSekdir', function ($user) {
-
-            return $user->type === 'sekdir';
-        });
-        Gate::define('isAK', function ($user) {
-
-            return $user->type === 'akunting';
-        });
-        Gate::define('isSkai', function ($user) {
-
-            return $user->type === 'skai';
-        });
-        Gate::define('isSdm', function ($user) {
-
-            return $user->type === 'sdm';
-        });
+        Gate::define('isAdmin', fn ($user) => $user->hasRole('admin'));
+        Gate::define('isUser', fn ($user) => $user->hasRole('user'));
+        Gate::define('isPelayanan', fn ($user) => $user->hasRole('pelayanan'));
+        Gate::define('isKredit', fn ($user) => $user->hasRole('kredit'));
+        Gate::define('isAK', fn ($user) => $user->hasRole('akunting'));
+        Gate::define('isUM', fn ($user) => $user->hasRole('umumpst'));
+        Gate::define('isBisnis', fn ($user) => $user->hasRole('bisnis'));
+        Gate::define('isSekdir', fn ($user) => $user->hasRole('sekdir'));
+        Gate::define('isSkai', fn ($user) => $user->hasRole('skai'));
+        Gate::define('isSdm', fn ($user) => $user->hasRole('sdm'));
     }
 }

@@ -1,46 +1,59 @@
-export default class Gate{
-
-    constructor(user){
+export default class Gate {
+    constructor(user) {
         this.user = user;
     }
 
-    isAdmin(){
-        return this.user.type === 'admin';
-    }
-
-    isUser(){
-        return this.user.type === 'user';
-    }
-
-    isPelayanan(){
-        return this.user.type === 'pelayanan';
-    }
-    isKredit(){
-        return this.user.type === 'kredit';
-    }
-    isAK(){
-        return this.user.type === 'akunting';
-    }
-    isUM(){
-        return this.user.type === 'umumpst';
-    }
-    isBisnis(){
-        return this.user.type === 'bisnis';
-    }
-    isSekdir(){
-        return this.user.type === 'sekdir';
-    }
-    isSkai(){
-        return this.user.type === 'skai';
-    }
-    isSdm(){
-        return this.user.type === 'sdm';
-    }
-
-    isAdminOrUser(){
-        if(this.user.type === 'sdm' || this.user.type === 'skai' || this.user.type === 'sekdir' || this.user.type === 'umumpst' || this.user.type === 'bisnis' || this.user.type === 'akunting' || this.user.type === 'kredit' || this.user.type === 'pelayanan' || this.user.type === 'user' || this.user.type === 'admin'){
-            return true;
+    hasRole(roles) {
+        if (!this.user || !this.user.type) return false;
+        if (Array.isArray(roles)) {
+            return roles.includes(this.user.type);
         }
+        return this.user.type === roles;
+    }
+
+    isAdmin() {
+        return this.hasRole('admin');
+    }
+
+    isUser() {
+        return this.hasRole('user');
+    }
+
+    isPelayanan() {
+        return this.hasRole('pelayanan');
+    }
+
+    isKredit() {
+        return this.hasRole('kredit');
+    }
+
+    isAK() {
+        return this.hasRole('akunting');
+    }
+
+    isUM() {
+        return this.hasRole('umumpst');
+    }
+
+    isBisnis() {
+        return this.hasRole('bisnis');
+    }
+
+    isSekdir() {
+        return this.hasRole('sekdir');
+    }
+
+    isSkai() {
+        return this.hasRole('skai');
+    }
+
+    isSdm() {
+        return this.hasRole('sdm');
+    }
+
+    isAdminOrUser() {
+        return !!(this.user && this.user.type);
     }
 }
+
 

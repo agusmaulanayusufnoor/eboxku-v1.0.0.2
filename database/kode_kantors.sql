@@ -1,64 +1,18 @@
--- phpMyAdmin SQL Dump
--- version 5.1.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1:3308
--- Waktu pembuatan: 18 Jan 2022 pada 17.43
--- Versi server: 10.4.22-MariaDB
--- Versi PHP: 7.4.27
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `bprku`
---
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `kode_kantors`
---
-
---
--- Dumping data untuk tabel `kode_kantors`
---
-
-INSERT INTO `kode_kantors` (`id`, `kode_kantor`, `nama_kantor`, `created_at`, `updated_at`) VALUES
-(1, '001', 'pusat', NULL, NULL),
-(2, '002', 'cab. cisalak', NULL, NULL),
-(3, '003', 'cab. kpo', NULL, NULL),
-(4, '004', 'cab. purwadadi', NULL, NULL),
-(5, '005', 'cab. pamanukan', NULL, NULL);
-
---
--- Indexes for dumped tables
---
-
---
--- Indeks untuk tabel `kode_kantors`
---
-ALTER TABLE `kode_kantors`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT untuk tabel yang dibuang
---
-
---
--- AUTO_INCREMENT untuk tabel `kode_kantors`
---
-ALTER TABLE `kode_kantors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+INSERT INTO `kode_kantors` (`id`, `kode_kantor`, `kode_kantor_slik`, `nama_kantor`, `created_at`, `updated_at`) VALUES (1, '001', '000', 'pusat', NULL, NULL);
+INSERT INTO `kode_kantors` (`id`, `kode_kantor`, `kode_kantor_slik`, `nama_kantor`, `created_at`, `updated_at`) VALUES (2, '002', '002', 'cab. cisalak', NULL, NULL);
+INSERT INTO `kode_kantors` (`id`, `kode_kantor`, `kode_kantor_slik`, `nama_kantor`, `created_at`, `updated_at`) VALUES (3, '003', '001', 'cab. kpo', NULL, NULL);
+INSERT INTO `kode_kantors` (`id`, `kode_kantor`, `kode_kantor_slik`, `nama_kantor`, `created_at`, `updated_at`) VALUES (4, '004', '003', 'cab. subang', NULL, '2024-06-05 10:54:35');
+INSERT INTO `kode_kantors` (`id`, `kode_kantor`, `kode_kantor_slik`, `nama_kantor`, `created_at`, `updated_at`) VALUES (5, '005', '004', 'cab. purwadadi', NULL, '2024-06-05 10:54:41');
+INSERT INTO `kode_kantors` (`id`, `kode_kantor`, `kode_kantor_slik`, `nama_kantor`, `created_at`, `updated_at`) VALUES (6, '006', '005', 'cab. pamanukan', '2024-06-05 10:55:09', '2024-06-05 10:55:09');
+INSERT INTO `kode_kantors` (`id`, `kode_kantor`, `kode_kantor_slik`, `nama_kantor`, `created_at`, `updated_at`) VALUES (7, '007', '007', 'cab. majalengka', NULL, NULL);
+INSERT INTO `kode_kantors` (`id`, `kode_kantor`, `kode_kantor_slik`, `nama_kantor`, `created_at`, `updated_at`) VALUES (8, '008', '008', 'cab. panyingkiran', NULL, NULL);
+INSERT INTO `kode_kantors` (`id`, `kode_kantor`, `kode_kantor_slik`, `nama_kantor`, `created_at`, `updated_at`) VALUES (9, '009', '009', 'cab. banjaran', NULL, NULL);
+INSERT INTO `kode_kantors` (`id`, `kode_kantor`, `kode_kantor_slik`, `nama_kantor`, `created_at`, `updated_at`) VALUES (10, '010', '010', 'cab. cingambul', NULL, NULL);
+INSERT INTO `kode_kantors` (`id`, `kode_kantor`, `kode_kantor_slik`, `nama_kantor`, `created_at`, `updated_at`) VALUES (11, '011', '011', 'cab. bekasi', NULL, NULL);
+INSERT INTO `kode_kantors` (`id`, `kode_kantor`, `kode_kantor_slik`, `nama_kantor`, `created_at`, `updated_at`) VALUES (12, '012', '012', 'cab. pondok gede', NULL, NULL);
+INSERT INTO `kode_kantors` (`id`, `kode_kantor`, `kode_kantor_slik`, `nama_kantor`, `created_at`, `updated_at`) VALUES (13, '013', '013', 'cab. cibitung', NULL, NULL);
+INSERT INTO `kode_kantors` (`id`, `kode_kantor`, `kode_kantor_slik`, `nama_kantor`, `created_at`, `updated_at`) VALUES (14, '014', '014', 'cab. setu', NULL, NULL);
+INSERT INTO `kode_kantors` (`id`, `kode_kantor`, `kode_kantor_slik`, `nama_kantor`, `created_at`, `updated_at`) VALUES (15, '015', '015', 'cab. cibarusah', NULL, NULL);
+INSERT INTO `kode_kantors` (`id`, `kode_kantor`, `kode_kantor_slik`, `nama_kantor`, `created_at`, `updated_at`) VALUES (16, '016', '016', 'cab. sukatani', NULL, NULL);
+INSERT INTO `kode_kantors` (`id`, `kode_kantor`, `kode_kantor_slik`, `nama_kantor`, `created_at`, `updated_at`) VALUES (17, '017', '017', 'cab. cimerak', NULL, NULL);
+INSERT INTO `kode_kantors` (`id`, `kode_kantor`, `kode_kantor_slik`, `nama_kantor`, `created_at`, `updated_at`) VALUES (18, '018', '018', 'cab. ciamis', NULL, NULL);

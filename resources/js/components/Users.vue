@@ -151,15 +151,9 @@
                     :class="{ 'is-invalid': form.errors.has('type') }"
                   >
                     <option value="">- Pilih Level User -</option>
-                    <option value="admin">Admin</option>
-                    <option value="pelayanan">Pelayanan</option>
-                    <option value="kredit">Kredit</option>
-                    <option value="akunting">Umum dan Akunting Cabang</option>
-                    <option value="umumpst">Umum Pusat</option>
-                    <option value="bisnis">Bisnis Pusat</option>
-                    <option value="sekdir">Sekretaris Direktur</option>
-                    <option value="skai">SKAI</option>
-                    <option value="sdm">SDM</option>
+                    <option v-for="role in roles" :key="role.id" :value="role.name">
+                      {{ role.description || role.name }}
+                    </option>
                   </select>
                   <has-error :form="form" field="type"></has-error>
                 </div>
@@ -285,6 +279,7 @@ export default {
       { text: "Edit - Hapus", value: "actions", sortable: false },
     ],
     users: [],
+    roles: [],
     form: new Form({
       id: "",
       name: "",
@@ -326,6 +321,9 @@ export default {
         axios.get("api/user").then((response) => {
           this.users = response.data.data;
           //console.log(this.users);
+        });
+        axios.get("api/role").then((response) => {
+          this.roles = response.data.data;
         });
       }
 

@@ -9,7 +9,7 @@
       <i class="fas fa-angle-left right"></i>
     </a>
     <ul class="nav nav-treeview">
-    @if((auth()->user()->type=='admin') || (auth()->user()->type=='bisnis'))
+    @if(auth()->user()->hasRole(['admin', 'bisnis']))
      <li class="nav-item">
         <router-link to="/permbisnis" class="nav-link">
          <i class="fas fa-money-check-alt nav-icon"></i>

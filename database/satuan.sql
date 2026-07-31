@@ -1,0 +1,9 @@
+INSERT INTO `satuan` (`id`, `namasatuan`, `created_at`, `updated_at`) VALUES (1, 'Blok', '2024-10-15 17:19:54', '2024-10-15 17:19:54');
+INSERT INTO `satuan` (`id`, `namasatuan`, `created_at`, `updated_at`) VALUES (2, 'Pack', '2024-10-17 10:04:44', '2024-10-17 10:05:13');
+INSERT INTO `satuan` (`id`, `namasatuan`, `created_at`, `updated_at`) VALUES (3, 'Buah', '2024-10-17 10:05:27', '2024-10-17 10:05:27');
+INSERT INTO `satuan` (`id`, `namasatuan`, `created_at`, `updated_at`) VALUES (4, 'Rim', '2024-10-17 10:05:41', '2024-10-17 10:05:41');
+INSERT INTO `satuan` (`id`, `namasatuan`, `created_at`, `updated_at`) VALUES (5, 'Set', '2024-10-17 10:20:17', '2024-10-17 10:20:17');
+INSERT INTO `satuan` (`id`, `namasatuan`, `created_at`, `updated_at`) VALUES (6, 'Pcs', '2024-10-17 10:20:36', '2024-10-17 10:20:36');
+INSERT INTO `satuan` (`id`, `namasatuan`, `created_at`, `updated_at`) VALUES (7, 'Ikat', '2024-10-17 10:20:47', '2024-10-17 10:20:47');
+INSERT INTO `satuan` (`id`, `namasatuan`, `created_at`, `updated_at`) VALUES (8, 'Lembar', '2024-10-17 10:21:00', '2024-10-17 10:21:00');
+INSERT INTO `satuan` (`id`, `namasatuan`, `created_at`, `updated_at`) VALUES (9, 'Box', '2024-10-17 10:21:14', '2024-10-17 10:21:14');

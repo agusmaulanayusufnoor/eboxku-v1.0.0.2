@@ -76,17 +76,61 @@ class User extends Authenticatable // implements MustVerifyEmail
         return $this->roles()->save($role);
     }
 
+    public function hasRole($roles)
+    {
+        if (is_array($roles)) {
+            return in_array($this->type, $roles);
+        }
+        return $this->type === $roles;
+    }
+
     public function isAdmin()
     {
-        return $this->roles()->where('name', 'Admin')->exists();
+        return $this->hasRole('admin');
     }
 
     public function isUser()
     {
-        return $this->roles()->where('name', 'User')->exists();
+        return $this->hasRole('user');
     }
+
     public function isPelayanan()
     {
-        return $this->roles()->where('name', 'Pelayanan')->exists();
+        return $this->hasRole('pelayanan');
+    }
+
+    public function isKredit()
+    {
+        return $this->hasRole('kredit');
+    }
+
+    public function isAkunting()
+    {
+        return $this->hasRole('akunting');
+    }
+
+    public function isUmumPusat()
+    {
+        return $this->hasRole('umumpst');
+    }
+
+    public function isBisnis()
+    {
+        return $this->hasRole('bisnis');
+    }
+
+    public function isSekdir()
+    {
+        return $this->hasRole('sekdir');
+    }
+
+    public function isSkai()
+    {
+        return $this->hasRole('skai');
+    }
+
+    public function isSdm()
+    {
+        return $this->hasRole('sdm');
     }
 }

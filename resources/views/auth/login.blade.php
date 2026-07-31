@@ -8,7 +8,7 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="wrapper">
-                            <div class="logo"> <img src="{{ url('images/logo.jpeg') }}" alt="" "> </div>
+                            <div class="logo"> <img src="{{ url('images/logo.png') }}" alt="" "> </div>
                             <div class="text-center mt-4 name"> BPRKU E-Box </div>
                             <form class="p-3 mt-3">
                                 <div class="form-field d-flex align-items-center">
