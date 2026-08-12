@@ -116,6 +116,10 @@ export default [
     { path: '/monitor', component: () => import(/* webpackPrefetch: true */'./components/skai/Monitor.vue') },
     { path: '/periksa', component: () => import(/* webpackPrefetch: true */'./components/skai/Periksa.vue') },
 
+    // ppk
+    { path: '/transaksi-manual', component: () => import(/* webpackPrefetch: true */'./components/ppk/TransaksiManual.vue') },
+    { path: '/laporan-ppk', component: () => import(/* webpackPrefetch: true */'./components/ppk/LaporanPpk.vue') },
+
     { path: '/kantor', component: () => import(/* webpackPrefetch: true */'./components/setting/Kantor.vue') },
     { path: '/mastersimpanan', component: () => import(/* webpackPrefetch: true */'./components/setting/Mastersimpanan.vue') },
     { path: '/satuan', component: () => import(/* webpackPrefetch: true */'./components/setting/Satuan.vue') },

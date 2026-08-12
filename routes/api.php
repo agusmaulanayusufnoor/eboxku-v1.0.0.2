@@ -152,6 +152,12 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('stockpromosi/filterbarang', 'StokbarangpromosiController@filterbarang');
 
 
+    // PPK - Transaksi Manual (custom routes HARUS sebelum apiResources agar tidak tertimpa show)
+    Route::get('transaksi-manual/template', 'TransaksiManualController@template');
+    Route::get('transaksi-manual/laporan',  'TransaksiManualController@laporan');
+    Route::put('transaksi-manual/{id}/status', 'TransaksiManualController@updateStatus');
+    Route::get('transaksi-manual/{id}/export', 'TransaksiManualController@export');
+
     Route::apiResources([
         //setting
         'satuan'        => 'SatuanController',
@@ -231,6 +237,8 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'monitor'     => 'MonitorController',
         'periksa'     => 'PeriksaController',
 
+        // ppk
+        'transaksi-manual' => 'TransaksiManualController',
 
     ]);
 });

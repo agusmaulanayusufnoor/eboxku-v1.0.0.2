@@ -133,4 +133,9 @@ class User extends Authenticatable // implements MustVerifyEmail
     {
         return $this->hasRole('sdm');
     }
+
+    public function isPpk()
+    {
+        return $this->hasRole('ppk');
+    }
 }

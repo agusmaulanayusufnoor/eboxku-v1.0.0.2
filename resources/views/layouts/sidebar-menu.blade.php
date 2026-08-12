@@ -57,6 +57,11 @@
             @include('layouts.menu.menu-sdm')
       @endif
 
+      @if(auth()->user()->hasRole(['admin', 'ppk']))
+            <!--  menu ppk  -->
+            @include('layouts.menu.menu-ppk')
+      @endif
+
 
 
       @can('isAdmin')
