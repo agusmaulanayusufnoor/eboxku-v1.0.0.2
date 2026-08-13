@@ -33,12 +33,12 @@ class StockController extends BaseController
         $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
 
-        if ($levelLogin === 'admin' || $levelLogin === 'akunting' || $levelLogin === 'cs') {
+        if ($levelLogin === 'admin') {
             $stock  = DB::table('stock')
             ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
             ->select('stock.id','stock.tanggal','stock.jml_stok_awal','stock.tambahan_stok','stock.jml_digunakan',
             'stock.jml_rusak','stock.jml_hilang','stock.jml_stok_akhir',
-            'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor as kode_kantor')
+            'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor as kode_kantor','kode_kantors.kode_kantor_slik as kode_kantor_slik')
             ->orderBy('stock.tanggal')
             ->get();
         } else {
@@ -47,7 +47,7 @@ class StockController extends BaseController
             ->where('stock.kantor_id', $id_kantor)
             ->select('stock.id','stock.tanggal','stock.jml_stok_awal','stock.tambahan_stok','stock.jml_digunakan',
             'stock.jml_rusak','stock.jml_hilang','stock.jml_stok_akhir',
-            'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor as kode_kantor')
+            'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor as kode_kantor','kode_kantors.kode_kantor_slik as kode_kantor_slik')
             ->orderBy('stock.id','desc')
             ->get();
         }
@@ -161,7 +161,7 @@ class StockController extends BaseController
         $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
 
-        if ($levelLogin === 'admin' || $levelLogin === 'akunting' || $levelLogin === 'cs') {
+        if ($levelLogin === 'admin') {
             $query = DB::table('stock')
                 ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id');
             if ($kantor_id != '') {
@@ -169,7 +169,7 @@ class StockController extends BaseController
             }
             $stock = $query->select('stock.id','stock.tanggal','stock.jml_stok_awal','stock.tambahan_stok','stock.jml_digunakan',
                 'stock.jml_rusak','stock.jml_hilang','stock.jml_stok_akhir',
-                'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor as kode_kantor')
+                'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor as kode_kantor','kode_kantors.kode_kantor_slik as kode_kantor_slik')
                 ->orderBy('stock.tanggal')
                 ->get();
         } else {
@@ -178,7 +178,7 @@ class StockController extends BaseController
                 ->where('stock.kantor_id', $id_kantor)
                 ->select('stock.id','stock.tanggal','stock.jml_stok_awal','stock.tambahan_stok','stock.jml_digunakan',
                 'stock.jml_rusak','stock.jml_hilang','stock.jml_stok_akhir',
-                'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor as kode_kantor')
+                'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor as kode_kantor','kode_kantors.kode_kantor_slik as kode_kantor_slik')
                 ->orderBy('stock.id','desc')
                 ->get();
         }
@@ -193,7 +193,7 @@ class StockController extends BaseController
          $id_kantor = Auth::user()->kantor_id;
          $levelLogin = Auth::user()->type;
 
-         if ($levelLogin === 'admin' || $levelLogin === 'akunting' || $levelLogin === 'cs') {
+         if ($levelLogin === 'admin') {
              $query = DB::table('stock')
                  ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
                  ->whereBetween('tanggal', [$fromtgl, $totgl]);
@@ -204,7 +204,7 @@ class StockController extends BaseController
 
              $stock = $query->select('stock.id','stock.tanggal','stock.jml_stok_awal','stock.tambahan_stok','stock.jml_digunakan',
              'stock.jml_rusak','stock.jml_hilang','stock.jml_stok_akhir',
-             'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor as kode_kantor')
+             'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor as kode_kantor','kode_kantors.kode_kantor_slik as kode_kantor_slik')
              ->orderBy('tanggal')
              ->get();
          } else {
@@ -214,7 +214,7 @@ class StockController extends BaseController
              ->whereBetween('tanggal', [$fromtgl, $totgl])
              ->select('stock.id','stock.tanggal','stock.jml_stok_awal','stock.tambahan_stok','stock.jml_digunakan',
              'stock.jml_rusak','stock.jml_hilang','stock.jml_stok_akhir',
-             'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor as kode_kantor')
+             'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor as kode_kantor','kode_kantors.kode_kantor_slik as kode_kantor_slik')
              ->orderBy('tanggal')
              ->get();
          }

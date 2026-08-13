@@ -71,7 +71,7 @@
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
                     <v-row>
-                      <v-col cols="12" sm="6" md="4" v-if="$gate.isAdmin() || $gate.isAK() || $gate.isCs()">
+                      <v-col cols="12" sm="6" md="4" v-if="$gate.isAdmin()">
                         <v-combobox
                           v-model="selectedKantor"
                           label="Filter Kantor"
@@ -202,7 +202,7 @@
         </v-col>
       </v-row>
 
-      <div v-if="!$gate.isAdmin() && !$gate.isAK()">
+      <div v-if="!$gate.isAdmin() && !$gate.isAK() && !$gate.isCs()">
         <not-found></not-found>
       </div>
 
@@ -521,7 +521,7 @@ export default {
     }),
     columnsExcel: [
       { label: "Jenis Stok", field: "jenis" },
-      { label: "Kode Kantor", field: "kode_kantor", align: "start" },
+      { label: "Kode Kantor", field: "kode_kantor_slik", align: "start" },
       {
         label: "Tanggal Stok",
         field: "tanggal",
@@ -688,7 +688,7 @@ export default {
       return `${day}/${month}/${year} ~ ${day}/${month}/${year}`;
     },
     getKantor() {
-      if (this.$gate.isAdmin() || this.$gate.isAK() || this.$gate.isCs()) {
+      if (this.$gate.isAdmin()) {
         axios
           .get("api/stock/getkantor")
           .then((response) => {
