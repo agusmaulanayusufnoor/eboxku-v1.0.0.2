@@ -31,7 +31,7 @@ mix.js('resources/js/app.js', 'public/js')
 */
 
 mix.config.webpackConfig.output = {
-    chunkFilename: 'js/[name].ebox.js',
+    chunkFilename: 'js/[name].[contenthash].ebox.js',
     publicPath: '/',
 };
 

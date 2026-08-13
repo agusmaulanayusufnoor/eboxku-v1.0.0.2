@@ -88,6 +88,12 @@ const router = new VueRouter({
     mode: 'history',
     routes
 });
+
+router.onError((error) => {
+    if (/loading chunk \d+ failed/i.test(error.message) || error.name === 'TypeError') {
+        window.location.reload();
+    }
+});
 // Routes End
 
 
