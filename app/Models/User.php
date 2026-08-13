@@ -138,4 +138,9 @@ class User extends Authenticatable // implements MustVerifyEmail
     {
         return $this->hasRole('ppk');
     }
+
+    public function isCs()
+    {
+        return $this->hasRole('cs');
+    }
 }

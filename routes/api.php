@@ -160,6 +160,11 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::put('transaksi-manual/{id}/status', 'TransaksiManualController@updateStatus');
     Route::get('transaksi-manual/{id}/export', 'TransaksiManualController@export');
 
+    // Kepuasan CS
+    Route::post('kepuasancs/vote', 'KepuasanCsController@vote');
+    Route::get('kepuasancs/today', 'KepuasanCsController@todayStats');
+    Route::get('kepuasancs/dashboard-summary', 'KepuasanCsController@dashboardSummary');
+
     Route::apiResources([
         //setting
         'satuan'        => 'SatuanController',
@@ -182,6 +187,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
         'deposito'    => 'DepositoController',
         'teller'      => 'TellerController',
         'cs'          => 'CsController',
+        'kepuasancs'  => 'KepuasanCsController',
         'permoperasional'  => 'PermoperasionalController',
         'permbisnis'  => 'PermbisnisController',
 

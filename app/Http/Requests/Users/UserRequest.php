@@ -38,7 +38,7 @@ class UserRequest extends FormRequest
     public function createRules(): array
     {
         return [
-            'type' => 'required|in:admin,user,pelayanan,kredit,akunting,umumpst,sekdir,skai,bisnis,sdm,ppk',
+            'type' => 'required|in:admin,user,pelayanan,kredit,akunting,umumpst,sekdir,skai,bisnis,sdm,ppk,cs',
             'name' => 'required|string|max:191',
             'username' => 'required|string|max:191|unique:users',
             'password' => 'required|string|min:6'
@@ -53,7 +53,7 @@ class UserRequest extends FormRequest
     public function updateRules(): array
     {
         return [
-            'type' => 'sometimes|in:admin,user,pelayanan,kredit,akunting,sdm,sekdir,skai,umumpst,bisnis,ppk',
+            'type' => 'sometimes|in:admin,user,pelayanan,kredit,akunting,sdm,sekdir,skai,umumpst,bisnis,ppk,cs',
             'name' => 'sometimes|string|max:191',
             'username' => 'sometimes|string|max:191'
         ];

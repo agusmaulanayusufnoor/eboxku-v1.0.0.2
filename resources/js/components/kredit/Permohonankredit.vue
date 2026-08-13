@@ -9,7 +9,8 @@
                             $gate.isAdmin() ||
                             $gate.isKredit() ||
                             $gate.isBisnis() ||
-                            $gate.isPelayanan()
+                            $gate.isPelayanan() ||
+                            $gate.isCs()
                         "
                     >
                         <v-toolbar src="images/banner-red.jpg" dark shaped>
@@ -25,7 +26,8 @@
                                 v-if="
                                     $gate.isAdmin() ||
                                     $gate.isKredit() ||
-                                    $gate.isPelayanan()
+                                    $gate.isPelayanan() ||
+                                    $gate.isCs()
                                 "
                             >
                                 <v-icon>mdi-file-upload</v-icon> Upload File
@@ -316,7 +318,8 @@
                     !$gate.isAdmin() &&
                     !$gate.isKredit() &&
                     !$gate.isBisnis() &&
-                    !$gate.isPelayanan()
+                    !$gate.isPelayanan() &&
+                    !$gate.isCs()
                 "
             >
                 <not-found></not-found>
@@ -1025,7 +1028,8 @@ export default {
                 this.$gate.isAdmin() ||
                 this.$gate.isKredit() ||
                 this.$gate.isBisnis() ||
-                this.$gate.isPelayanan()
+                this.$gate.isPelayanan() ||
+                this.$gate.isCs()
             ) {
                 const formData = new FormData();
                 formData.set("no_ktp", this.editedItem.no_ktp);
@@ -1126,7 +1130,8 @@ export default {
                     this.$gate.isAdmin() ||
                     this.$gate.isKredit() ||
                     this.$gate.isBisnis() ||
-                    this.$gate.isPelayanan()
+                    this.$gate.isPelayanan() ||
+                    this.$gate.isCs()
                 ) {
                     axios
                         .get("api/permohonankredit/filtertanggal", {
@@ -1174,7 +1179,8 @@ export default {
                 this.$gate.isAdmin() ||
                 this.$gate.isKredit() ||
                 this.$gate.isBisnis() ||
-                this.$gate.isPelayanan()
+                this.$gate.isPelayanan() ||
+                this.$gate.isCs()
             ) {
                 axios.get("api/permohonankredit").then((response) => {
                     this.permohonankredit = response.data.data;

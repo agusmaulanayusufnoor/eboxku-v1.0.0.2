@@ -9,7 +9,8 @@
               $gate.isAdmin() ||
               $gate.isKredit() ||
               $gate.isBisnis() ||
-              $gate.isPelayanan()
+              $gate.isPelayanan() ||
+              $gate.isCs()
             "
           >
             <v-toolbar
@@ -129,7 +130,8 @@
           !$gate.isAdmin() &&
           !$gate.isKredit() &&
           !$gate.isBisnis() &&
-          !$gate.isPelayanan()
+          !$gate.isPelayanan() &&
+          !$gate.isCs()
         "
       >
         <not-found></not-found>
@@ -450,7 +452,8 @@ export default {
         this.$gate.isAdmin() ||
         this.$gate.isKredit() ||
         this.$gate.isBisnis() ||
-        this.$gate.isPelayanan()
+        this.$gate.isPelayanan() ||
+        this.$gate.isCs()
       ) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
         axios.get("api/asuransikredit").then((response) => {

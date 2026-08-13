@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row no-gutters class="justify-content-md-center">
         <v-col cols="12">
-          <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isAK()">
+          <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isAK() || $gate.isCs()">
             <v-toolbar
               src="images/banner-biru-pelayanan.jpg"
               color="rgb(39,154,187)"
@@ -71,7 +71,7 @@
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
                     <v-row>
-                      <v-col cols="12" sm="6" md="4" v-if="$gate.isAdmin() || $gate.isAK()">
+                      <v-col cols="12" sm="6" md="4" v-if="$gate.isAdmin() || $gate.isAK() || $gate.isCs()">
                         <v-combobox
                           v-model="selectedKantor"
                           label="Filter Kantor"
@@ -688,7 +688,7 @@ export default {
       return `${day}/${month}/${year} ~ ${day}/${month}/${year}`;
     },
     getKantor() {
-      if (this.$gate.isAdmin() || this.$gate.isAK()) {
+      if (this.$gate.isAdmin() || this.$gate.isAK() || this.$gate.isCs()) {
         axios
           .get("api/stock/getkantor")
           .then((response) => {
@@ -728,7 +728,7 @@ export default {
       formData.set("fromtgl", this.fromTglText);
       formData.set("totgl", this.toTglText);
       if (this.fromTglText != "" && this.toTglText != "") {
-        if (this.$gate.isAdmin() || this.$gate.isAK()) {
+        if (this.$gate.isAdmin() || this.$gate.isAK() || this.$gate.isCs()) {
           const params = {
             fromtgl: this.fromTglText,
             totgl: this.toTglText,
@@ -772,7 +772,7 @@ export default {
     initialize() {
       this.$Progress.start();
 
-      if (this.$gate.isAdmin() || this.$gate.isAK()) {
+      if (this.$gate.isAdmin() || this.$gate.isAK() || this.$gate.isCs()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
         axios
           .get("api/stock")

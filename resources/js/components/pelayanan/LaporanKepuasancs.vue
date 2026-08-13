@@ -1,0 +1,476 @@
+<template>
+  <v-app>
+    <v-container fluid>
+      <v-row no-gutters class="justify-content-md-center">
+        <v-col cols="12" md="11">
+          <v-card class="pa-3 mx-auto" v-if="$gate.isAdmin() || $gate.isPelayanan() || $gate.isCs()">
+            <v-toolbar
+              src="images/banner-biru-pelayanan.jpg"
+              color="rgb(39,154,187)"
+              dark
+              shaped
+              class="mb-4"
+            >
+              <v-toolbar-title class="font-weight-bold">
+                <v-icon left large dark>mdi-file-chart</v-icon>
+                Laporan & Rekapitulasi Kepuasan Nasabah (CS)
+              </v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-btn small color="success" dark @click="initialize()">
+                <v-icon left>mdi-reload</v-icon> Refresh Data
+              </v-btn>
+            </v-toolbar>
+
+            <!-- STATISTIK RINGKASAN HARI INI -->
+            <v-row class="mb-4">
+              <v-col cols="12" sm="4">
+                <v-card class="pa-3 elevation-2 text-center" style="border-left: 6px solid #4CAF50; border-radius: 8px;">
+                  <div class="subtitle-2 grey--text text-uppercase font-weight-bold">Puas Hari Ini (Anda)</div>
+                  <div class="display-1 font-weight-bold success--text mt-1">
+                    {{ todayUserStats.puas }}
+                  </div>
+                  <div class="caption grey--text mt-1" v-if="todayUserStats.total > 0">
+                    {{ ((todayUserStats.puas / todayUserStats.total) * 100).toFixed(1) }}% dari total respon
+                  </div>
+                </v-card>
+              </v-col>
+
+              <v-col cols="12" sm="4">
+                <v-card class="pa-3 elevation-2 text-center" style="border-left: 6px solid #FF5252; border-radius: 8px;">
+                  <div class="subtitle-2 grey--text text-uppercase font-weight-bold">Tidak Puas Hari Ini (Anda)</div>
+                  <div class="display-1 font-weight-bold error--text mt-1">
+                    {{ todayUserStats.tidak_puas }}
+                  </div>
+                  <div class="caption grey--text mt-1" v-if="todayUserStats.total > 0">
+                    {{ ((todayUserStats.tidak_puas / todayUserStats.total) * 100).toFixed(1) }}% dari total respon
+                  </div>
+                </v-card>
+              </v-col>
+
+              <v-col cols="12" sm="4">
+                <v-card class="pa-3 elevation-2 text-center" style="border-left: 6px solid #2196F3; border-radius: 8px;">
+                  <div class="subtitle-2 grey--text text-uppercase font-weight-bold">Total Respon Hari Ini</div>
+                  <div class="display-1 font-weight-bold primary--text mt-1">
+                    {{ todayUserStats.total }}
+                  </div>
+                  <div class="caption grey--text mt-1">
+                    Keseluruhan CS: {{ todayAllStats.total }} Respon
+                  </div>
+                </v-card>
+              </v-col>
+            </v-row>
+
+            <!-- TABEL DATA LAPORAN -->
+            <div class="card-body table-responsive p-0">
+              <v-data-table
+                :headers="headers"
+                :items="kepuasanList"
+                :search="search"
+                :items-per-page="10"
+                dense
+                class="elevation-3"
+              >
+                <template v-slot:top>
+                  <v-toolbar flat class="py-2">
+                    <div class="d-flex align-center">
+                      <vue-excel-xlsx
+                        :data="kepuasanList"
+                        :columns="columnsExcel"
+                        :file-name="'Laporan_Kepuasan_CS'"
+                        :file-type="'xls'"
+                        :sheet-name="'Kepuasan_CS'"
+                        class="btn btn-success btn-sm mr-2"
+                      >
+                        <i class="fa-solid fa-file-excel mr-1"></i> Excel
+                      </vue-excel-xlsx>
+
+                      <v-btn color="error" small class="mr-2" @click="printPDF()">
+                        <v-icon left small>mdi-file-pdf-box</v-icon> Export / Print PDF
+                      </v-btn>
+                    </div>
+
+                    <v-spacer></v-spacer>
+
+                    <v-row class="align-center justify-end" style="max-width: 700px;">
+                      <v-col cols="12" sm="4" v-if="$gate.isAdmin() || $gate.isPelayanan()">
+                        <v-combobox
+                          v-model="selectedKantor"
+                          label="Filter Kantor"
+                          :items="namaKantorList"
+                          item-value="id"
+                          item-text="nama_kantor"
+                          placeholder="Pilih Kantor"
+                          single-line
+                          hide-details
+                          clearable
+                          dense
+                          outlined
+                          :return-object="false"
+                          @change="initialize()"
+                          @click="getKantor()"
+                        ></v-combobox>
+                      </v-col>
+
+                      <v-col cols="12" sm="3">
+                        <v-menu
+                          v-model="menuFrom"
+                          :close-on-content-click="false"
+                          transition="scale-transition"
+                          offset-y
+                          min-width="auto"
+                        >
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                              v-model="fromTglText"
+                              label="Dari Tanggal"
+                              append-icon="mdi-calendar"
+                              single-line
+                              hide-details
+                              dense
+                              outlined
+                              v-bind="attrs"
+                              v-on="on"
+                            ></v-text-field>
+                          </template>
+                          <v-date-picker
+                            v-model="fromTgl"
+                            @input="menuFrom = false"
+                            locale="id-ID"
+                          ></v-date-picker>
+                        </v-menu>
+                      </v-col>
+
+                      <v-col cols="12" sm="3">
+                        <v-menu
+                          v-model="menuTo"
+                          :close-on-content-click="false"
+                          transition="scale-transition"
+                          offset-y
+                          min-width="auto"
+                        >
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                              v-model="toTglText"
+                              label="Sampai Tanggal"
+                              append-icon="mdi-calendar"
+                              single-line
+                              hide-details
+                              dense
+                              outlined
+                              v-bind="attrs"
+                              v-on="on"
+                            ></v-text-field>
+                          </template>
+                          <v-date-picker
+                            v-model="toTgl"
+                            @input="menuTo = false"
+                            locale="id-ID"
+                          ></v-date-picker>
+                        </v-menu>
+                      </v-col>
+
+                      <v-col cols="auto">
+                        <v-btn fab dark color="indigo" x-small @click="initialize()">
+                          <v-icon>mdi-filter</v-icon>
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+
+                    <v-spacer></v-spacer>
+
+                    <v-text-field
+                      v-model="search"
+                      append-icon="mdi-magnify"
+                      label="Cari Rekap..."
+                      single-line
+                      hide-details
+                      loading="grey"
+                      style="max-width: 200px;"
+                    ></v-text-field>
+                  </v-toolbar>
+                </template>
+
+                <template v-slot:item.index="{ index }">
+                  {{ index + 1 }}
+                </template>
+
+                <template v-slot:item.tanggal="{ item }">
+                  {{ formatDate(item.tanggal) }}
+                </template>
+
+                <template v-slot:item.puas="{ item }">
+                  <v-chip color="success" text-color="white" small class="font-weight-bold">
+                    <v-icon left small>mdi-thumb-up</v-icon> {{ item.puas }}
+                  </v-chip>
+                </template>
+
+                <template v-slot:item.tidak_puas="{ item }">
+                  <v-chip color="error" text-color="white" small class="font-weight-bold">
+                    <v-icon left small>mdi-thumb-down</v-icon> {{ item.tidak_puas }}
+                  </v-chip>
+                </template>
+
+                <template v-slot:item.actions="{ item }">
+                  <v-icon small color="red" @click="deleteItem(item.id)">
+                    mdi-delete
+                  </v-icon>
+                </template>
+              </v-data-table>
+            </div>
+          </v-card>
+        </v-col>
+      </v-row>
+
+      <div v-if="!$gate.isAdmin() && !$gate.isPelayanan() && !$gate.isCs()">
+        <not-found></not-found>
+      </div>
+    </v-container>
+  </v-app>
+</template>
+
+<script>
+import moment from "moment";
+
+export default {
+  data: () => ({
+    search: "",
+    kepuasanList: [],
+    fromTgl: "",
+    toTgl: "",
+    menuFrom: false,
+    menuTo: false,
+    selectedKantor: null,
+    namaKantorList: [],
+
+    todayUserStats: {
+      puas: 0,
+      tidak_puas: 0,
+      total: 0,
+    },
+    todayAllStats: {
+      total_puas: 0,
+      total_tidak_puas: 0,
+      total: 0,
+    },
+
+    columnsExcel: [
+      { label: "Tanggal", field: "tanggal", dataFormat: (v) => moment(v).format("DD/MM/YYYY") },
+      { label: "Sandi Kantor", field: "kode_kantor_slik" },
+      { label: "Nama Kantor", field: "nama_kantor" },
+      { label: "Nama CS", field: "nama_cs" },
+      { label: "Jumlah Puas", field: "puas" },
+      { label: "Jumlah Tidak Puas", field: "tidak_puas" },
+      { label: "Total Respon", field: "total_respon" },
+    ],
+  }),
+
+  computed: {
+    headers() {
+      let headers = [
+        { text: "No", value: "index", align: "center", sortable: false },
+        { text: "Tanggal", value: "tanggal", align: "center" },
+        { text: "Sandi Kantor", value: "kode_kantor_slik", align: "center" },
+        { text: "Nama Kantor", value: "nama_kantor" },
+        { text: "Nama CS", value: "nama_cs" },
+        { text: "Puas (Thumbs Up)", value: "puas", align: "center" },
+        { text: "Tidak Puas (Thumbs Down)", value: "tidak_puas", align: "center" },
+        { text: "Total Respon", value: "total_respon", align: "center" },
+      ];
+
+      if (this.$gate.isAdmin()) {
+        headers.push({ text: "Hapus", value: "actions", sortable: false, align: "center" });
+      }
+      return headers;
+    },
+
+    fromTglText() {
+      return this.fromTgl ? moment(this.fromTgl).format("YYYY-MM-DD") : "";
+    },
+    toTglText() {
+      return this.toTgl ? moment(this.toTgl).format("YYYY-MM-DD") : "";
+    },
+  },
+
+  created() {
+    this.$Progress.start();
+    this.getTodayStats();
+    this.initialize();
+    this.getKantor();
+    this.$Progress.finish();
+  },
+
+  methods: {
+    formatDate(date) {
+      if (!date) return null;
+      return moment(date).format("DD/MM/YYYY");
+    },
+
+    getKantor() {
+      if (this.$gate.isAdmin() || this.$gate.isPelayanan()) {
+        axios
+          .get("api/stock/getkantor")
+          .then((response) => {
+            this.namaKantorList = response.data.data.map((item) => ({
+              id: item.id,
+              nama_kantor: `${item.kode_kantor_slik} - ${item.nama_kantor}`,
+            }));
+          })
+          .catch((err) => console.log(err));
+      }
+    },
+
+    getTodayStats() {
+      axios
+        .get("api/kepuasancs/today")
+        .then((response) => {
+          this.todayUserStats = response.data.data.user_today;
+          this.todayAllStats = response.data.data.all_today;
+        })
+        .catch((err) => console.log(err));
+    },
+
+    initialize() {
+      this.$Progress.start();
+      const params = {};
+      if (this.fromTglText) params.fromtgl = this.fromTglText;
+      if (this.toTglText) params.totgl = this.toTglText;
+      if (this.selectedKantor) params.kantor_id = this.selectedKantor;
+
+      axios
+        .get("api/kepuasancs", { params })
+        .then((response) => {
+          this.kepuasanList = response.data.data;
+        })
+        .catch((err) => console.log(err))
+        .finally(() => {
+          this.$Progress.finish();
+        });
+    },
+
+    deleteItem(id) {
+      Swal.fire({
+        title: "Yakin dihapus?",
+        text: "Data penilaian kepuasan ini akan dihapus permanen!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Ya, Hapus!",
+      }).then((result) => {
+        if (result.value) {
+          axios
+            .delete(`api/kepuasancs/${id}`)
+            .then(() => {
+              Swal.fire("Dihapus!", "Data telah dihapus.", "success");
+              this.initialize();
+              this.getTodayStats();
+            })
+            .catch(() => {
+              Swal.fire("Gagal!", "Gagal menghapus data", "error");
+            });
+        }
+      });
+    },
+
+    printPDF() {
+      const printableWindow = window.open("", "_blank");
+      let tableRows = "";
+      let totalPuas = 0;
+      let totalTidakPuas = 0;
+      let totalResponAll = 0;
+
+      this.kepuasanList.forEach((item, index) => {
+        totalPuas += parseInt(item.puas || 0);
+        totalTidakPuas += parseInt(item.tidak_puas || 0);
+        totalResponAll += parseInt(item.total_respon || 0);
+
+        tableRows += "<tr>" +
+          "<td style='text-align: center; border: 1px solid #ddd; padding: 8px;'>" + (index + 1) + "</td>" +
+          "<td style='text-align: center; border: 1px solid #ddd; padding: 8px;'>" + this.formatDate(item.tanggal) + "</td>" +
+          "<td style='text-align: center; border: 1px solid #ddd; padding: 8px;'>" + (item.kode_kantor_slik || "-") + "</td>" +
+          "<td style='border: 1px solid #ddd; padding: 8px;'>" + (item.nama_kantor || "-") + "</td>" +
+          "<td style='border: 1px solid #ddd; padding: 8px;'>" + (item.nama_cs || "-") + "</td>" +
+          "<td style='text-align: center; border: 1px solid #ddd; padding: 8px; font-weight: bold; color: green;'>" + item.puas + "</td>" +
+          "<td style='text-align: center; border: 1px solid #ddd; padding: 8px; font-weight: bold; color: red;'>" + item.tidak_puas + "</td>" +
+          "<td style='text-align: center; border: 1px solid #ddd; padding: 8px; font-weight: bold;'>" + item.total_respon + "</td>" +
+          "</tr>";
+      });
+
+      const todayStr = moment().format("DD/MM/YYYY HH:mm");
+      let periodeStr = "";
+      if (this.fromTglText) {
+        periodeStr = "<strong>Periode:</strong> " + this.formatDate(this.fromTglText) + " s/d " + this.formatDate(this.toTglText) + "<br/>";
+      }
+
+      const htmlContent =
+        "<!DOCTYPE html>" +
+        "<html>" +
+        "<head>" +
+        "<title>Laporan Kepuasan Nasabah CS - PT BPR JABAR PERSERODA</title>" +
+        "<style>" +
+        "body { font-family: Arial, sans-serif; margin: 20px; color: #333; }" +
+        ".header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #1976D2; padding-bottom: 10px; }" +
+        ".header h2 { margin: 0; color: #1976D2; }" +
+        ".header h4 { margin: 5px 0 0 0; color: #555; }" +
+        ".meta-info { margin-bottom: 15px; font-size: 13px; }" +
+        "table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }" +
+        "th { background-color: #f2f2f2; border: 1px solid #ddd; padding: 10px; text-align: center; }" +
+        "td { border: 1px solid #ddd; padding: 8px; }" +
+        "tfoot tr { background-color: #eaeff5; font-weight: bold; }" +
+        ".footer { margin-top: 30px; text-align: right; font-size: 12px; }" +
+        "@media print { @page { size: A4 landscape; margin: 15mm; } }" +
+        "</style>" +
+        "</head>" +
+        "<body>" +
+        "<div class='header'>" +
+        "<h2>PT BPR JABAR PERSERODA</h2>" +
+        "<h4>LAPORAN REKAPITULASI KEPUASAN NASABAH (CUSTOMER SERVICE)</h4>" +
+        "</div>" +
+        "<div class='meta-info'>" +
+        "<strong>Dicetak Tanggal:</strong> " + todayStr + "<br/>" +
+        periodeStr +
+        "<strong>Total Rekap Data:</strong> " + this.kepuasanList.length + " Baris" +
+        "</div>" +
+        "<table>" +
+        "<thead>" +
+        "<tr>" +
+        "<th>No</th>" +
+        "<th>Tanggal</th>" +
+        "<th>Sandi Kantor</th>" +
+        "<th>Nama Kantor</th>" +
+        "<th>Nama CS</th>" +
+        "<th>Puas 👍</th>" +
+        "<th>Tidak Puas 👎</th>" +
+        "<th>Total Respon</th>" +
+        "</tr>" +
+        "</thead>" +
+        "<tbody>" +
+        tableRows +
+        "</tbody>" +
+        "<tfoot>" +
+        "<tr>" +
+        "<td colspan='5' style='text-align: right; border: 1px solid #ddd; padding: 8px;'>TOTAL KESELURUHUN</td>" +
+        "<td style='text-align: center; border: 1px solid #ddd; padding: 8px; color: green;'>" + totalPuas + "</td>" +
+        "<td style='text-align: center; border: 1px solid #ddd; padding: 8px; color: red;'>" + totalTidakPuas + "</td>" +
+        "<td style='text-align: center; border: 1px solid #ddd; padding: 8px;'>" + totalResponAll + "</td>" +
+        "</tr>" +
+        "</tfoot>" +
+        "</table>" +
+        "<div class='footer'>" +
+        "<p>PT BPR JABAR PERSERODA</p>" +
+        "</div>" +
+        "<script>" +
+        "window.onload = function() { window.print(); };" +
+        "<\/script>" +
+        "</body>" +
+        "</html>";
+
+      printableWindow.document.write(htmlContent);
+      printableWindow.document.close();
+    },
+  },
+};
+</script>
+
+<style scoped>
+</style>

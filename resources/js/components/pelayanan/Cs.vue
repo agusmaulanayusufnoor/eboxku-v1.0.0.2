@@ -3,7 +3,7 @@
     <v-container fluid>
         <v-row no-gutters class="justify-content-md-center">
           <v-col cols="11">
-            <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isPelayanan()">
+            <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isPelayanan() || $gate.isCs()">
               <v-toolbar src="images/banner-biru-pelayanan.jpg"
               color="rgb(39,154,187)" dark shaped>
                 <v-toolbar-title>
@@ -98,7 +98,7 @@
           </v-col>
         </v-row>
 
-        <div v-if="!$gate.isAdmin() && !$gate.isPelayanan()">
+        <div v-if="!$gate.isAdmin() && !$gate.isPelayanan() && !$gate.isCs()">
             <not-found></not-found>
         </div>
 
@@ -422,7 +422,7 @@
       initialize() {
          this.$Progress.start();
 
-            if(this.$gate.isAdmin() || this.$gate.isPelayanan() ){
+            if(this.$gate.isAdmin() || this.$gate.isPelayanan() || this.$gate.isCs()){
 
                //axios.get("api/user").then((response) => {(this.users = response.data.data)});
              axios.get("api/cs")

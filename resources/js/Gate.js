@@ -55,6 +55,10 @@ export default class Gate {
         return this.hasRole('ppk');
     }
 
+    isCs() {
+        return this.hasRole('cs');
+    }
+
     isAdminOrUser() {
         return !!(this.user && this.user.type);
     }

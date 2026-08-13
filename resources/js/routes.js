@@ -68,6 +68,8 @@ export default [
     { path: '/deposito', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Deposito.vue') },
     { path: '/teller', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Teller.vue') },
     { path: '/cs', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Cs.vue') },
+    { path: '/kepuasancs', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Kepuasancs.vue') },
+    { path: '/laporan-kepuasancs', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/LaporanKepuasancs.vue') },
     { path: '/permoperasional', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Permoperasional.vue') },
     { path: '/permbisnis', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Permbisnis.vue') },
 

@@ -17,17 +17,17 @@
           </router-link>
         </li>
       @endcan
-      @if(auth()->user()->hasRole(['admin', 'pelayanan']))
+      @if(auth()->user()->hasRole(['admin', 'pelayanan', 'cs']))
             <!--  menu pelayanan  -->
             @include('layouts.menu.menu-pelayanan')
       @endif
 
-      @if(auth()->user()->hasRole(['admin', 'kredit', 'bisnis', 'pelayanan']))
+      @if(auth()->user()->hasRole(['admin', 'kredit', 'bisnis', 'pelayanan', 'cs']))
             <!--  menu kredit  -->
             @include('layouts.menu.menu-kredit')
       @endif
 
-      @if(auth()->user()->hasRole(['admin', 'akunting']))
+      @if(auth()->user()->hasRole(['admin', 'akunting', 'cs']))
             <!--  menu umum dan akunting cabang  -->
             @include('layouts.menu.menu-umum-akunting')
       @endif
