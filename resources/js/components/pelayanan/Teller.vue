@@ -5,7 +5,7 @@
         <v-col cols="11">
           <v-card
             class="pa-2 mx-auto"
-            v-if="$gate.isAdmin() || $gate.isPelayanan()"
+            v-if="$gate.isAdmin() || $gate.isPelayanan() || $gate.isTeller()"
           >
             <v-toolbar
               src="images/banner-biru-pelayanan.jpg"
@@ -141,7 +141,7 @@
         </v-col>
       </v-row>
 
-      <div v-if="!$gate.isAdmin() && !$gate.isPelayanan()">
+      <div v-if="!$gate.isAdmin() && !$gate.isPelayanan() && !$gate.isTeller()">
         <not-found></not-found>
       </div>
 
@@ -470,7 +470,7 @@ export default {
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     },
     getOtorisator() {
-      if (this.$gate.isAdmin() || this.$gate.isPelayanan()) {
+      if (this.$gate.isAdmin() || this.$gate.isPelayanan() || this.$gate.isTeller()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
         axios
           .get("api/teller/getotorisator")
@@ -550,7 +550,7 @@ export default {
       const formData = new FormData();
       formData.set("otorisator_id", this.otorisator_id);
       if (this.otorisator_id != "") {
-        if (this.$gate.isAdmin() || this.$gate.isPelayanan()) {
+        if (this.$gate.isAdmin() || this.$gate.isPelayanan() || this.$gate.isTeller()) {
           axios
             .get("api/teller/filterotorisator", {
               params: {
@@ -592,7 +592,7 @@ export default {
     refresh() {
       this.$Progress.start();
 
-      if (this.$gate.isAdmin() || this.$gate.isPelayanan()) {
+      if (this.$gate.isAdmin() || this.$gate.isPelayanan() || this.$gate.isTeller()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
         axios.get("api/teller").then((response) => {
           this.teller = response.data.data;
@@ -618,7 +618,7 @@ export default {
     initialize() {
       this.$Progress.start();
 
-      if (this.$gate.isAdmin() || this.$gate.isPelayanan()) {
+      if (this.$gate.isAdmin() || this.$gate.isPelayanan() || this.$gate.isTeller()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
         axios.get("api/teller").then((response) => {
           this.teller = response.data.data;

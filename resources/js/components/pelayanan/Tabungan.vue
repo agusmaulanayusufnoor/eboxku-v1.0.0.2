@@ -3,7 +3,7 @@
     <v-container fluid>
         <v-row no-gutters class="justify-content-md-center">
           <v-col cols="11">
-            <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isPelayanan() || $gate.isCs()">
+            <v-card class="pa-2 mx-auto" v-if="$gate.isAdmin() || $gate.isPelayanan() || $gate.isCs() || $gate.isTeller()">
               <v-toolbar src="images/banner-biru-pelayanan.jpg"
               color="rgb(39,154,187)" dark shaped>
                 <v-toolbar-title>
@@ -98,7 +98,7 @@
           </v-col>
         </v-row>
 
-        <div v-if="!$gate.isAdmin() && !$gate.isPelayanan() && !$gate.isCs()">
+        <div v-if="!$gate.isAdmin() && !$gate.isPelayanan() && !$gate.isCs() && !$gate.isTeller()">
             <not-found></not-found>
         </div>
 
@@ -380,7 +380,7 @@
 
     methods: {
       async cekNorek (){
-        if(this.$gate.isAdmin() || this.$gate.isPelayanan() || this.$gate.isCs()){
+        if(this.$gate.isAdmin() || this.$gate.isPelayanan() || this.$gate.isCs() || this.$gate.isTeller()){
           const formData = new FormData
           formData.set('no_rekening', this.no_rekening)
           //const response = await axios.get('api/tabungan/ceknama')
@@ -440,7 +440,7 @@
       initialize() {
          this.$Progress.start();
 
-            if(this.$gate.isAdmin() || this.$gate.isPelayanan() || this.$gate.isCs()){
+            if(this.$gate.isAdmin() || this.$gate.isPelayanan() || this.$gate.isCs() || this.$gate.isTeller()){
 
                //axios.get("api/user").then((response) => {(this.users = response.data.data)});
              axios.get("api/tabungan")

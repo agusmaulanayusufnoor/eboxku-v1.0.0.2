@@ -17,7 +17,7 @@
           </router-link>
         </li>
       @endcan
-      @if(auth()->user()->hasRole(['admin', 'pelayanan', 'cs']))
+      @if(auth()->user()->hasRole(['admin', 'pelayanan', 'cs', 'teller']))
             <!--  menu pelayanan  -->
             @include('layouts.menu.menu-pelayanan')
       @endif

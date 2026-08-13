@@ -74,25 +74,43 @@
              </div>
          </li>
 
-         <li class="nav-item">
-             <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                 <i class="fas fa-expand-arrows-alt"></i>
-             </a>
-         </li>
-         <!-- <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
-      </li>  -->
-         <li class="nav-item">
-             <a href="{{ route('logout') }}" class="nav-link"
-                 onclick="event.preventDefault();
-            document.getElementById('logout-form').submit();"><i
-                     class="fa fa-sign-out-alt"></i>Keluar</a>
-             <form class="form-inline" id="logout-form" action="{{ route('logout') }}" method="POST">
-                 @csrf
-             </form>
-         </li>
-     </ul>
- </nav>
- <!-- /.navbar -->
+          <li class="nav-item">
+              <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                  <i class="fas fa-expand-arrows-alt"></i>
+              </a>
+          </li>
+          <!-- <li class="nav-item">
+         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+           <i class="fas fa-th-large"></i>
+         </a>
+       </li>  -->
+          <li class="nav-item">
+              <a href="{{ route('logout') }}" class="nav-link"
+                  onclick="event.preventDefault();
+             document.getElementById('logout-form').submit();"><i
+                      class="fa fa-sign-out-alt"></i>Keluar</a>
+              <form class="form-inline" id="logout-form" action="{{ route('logout') }}" method="POST">
+                  @csrf
+              </form>
+          </li>
+      </ul>
+  </nav>
+  <!-- /.navbar -->
+
+<script>
+(function() {
+    function onFullscreenChange() {
+        var isFS = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+        if (isFS) {
+            document.body.classList.add('sidebar-hidden');
+        } else {
+            document.body.classList.remove('sidebar-hidden');
+        }
+    }
+
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+    document.addEventListener('mozfullscreenchange', onFullscreenChange);
+    document.addEventListener('MSFullscreenChange', onFullscreenChange);
+})();
+</script>

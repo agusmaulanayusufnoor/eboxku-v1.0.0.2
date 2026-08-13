@@ -108,7 +108,7 @@
       <b>Version</b> 1.0.0.2
     </div>
     {{-- Default to the left --}}
-    <strong>Copyright &copy; 2023 <a href="https://bprku.com">BPRKU</a>.</strong>
+    <strong>Copyright &copy; 2026 <a href="https://bprjabar.com">PT BPR JABAR PERSERODA</a>.</strong>
     CODE BY SUGA
   </footer>
 </div>
@@ -121,6 +121,36 @@
 </script>
 @endauth
 <script src="{{ mix('/js/app.js') }}"></script>
+
+<style>
+/* Ketika mode fullscreen aktif dan class sidebar-hidden menempel di body */
+body.sidebar-hidden .main-sidebar,
+:fullscreen .main-sidebar,
+:-webkit-full-screen .main-sidebar,
+:-moz-full-screen .main-sidebar,
+:-ms-fullscreen .main-sidebar {
+  display: none !important; /* Menghilangkan sidebar secara total */
+}
+
+body.sidebar-hidden .content-wrapper,
+body.sidebar-hidden .main-footer,
+body.sidebar-hidden .main-header,
+:fullscreen .content-wrapper,
+:-webkit-full-screen .content-wrapper,
+:-moz-full-screen .content-wrapper,
+:-ms-fullscreen .content-wrapper,
+:fullscreen .main-footer,
+:-webkit-full-screen .main-footer,
+:-moz-full-screen .main-footer,
+:-ms-fullscreen .main-footer,
+:fullscreen .main-header,
+:-webkit-full-screen .main-header,
+:-moz-full-screen .main-header,
+:-ms-fullscreen .main-header {
+  margin-left: 0 !important; /* Menggeser konten ke paling kiri layar */
+  width: 100% !important;
+}
+</style>
 
 </body>
 </html>

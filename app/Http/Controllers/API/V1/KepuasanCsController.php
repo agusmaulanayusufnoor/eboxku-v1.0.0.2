@@ -30,6 +30,7 @@ class KepuasanCsController extends BaseController
                 'kepuasan_cs.tidak_puas',
                 DB::raw('(kepuasan_cs.puas + kepuasan_cs.tidak_puas) as total_respon'),
                 'users.name as nama_cs',
+                'users.type as role',
                 'users.id as user_id',
                 'kode_kantors.nama_kantor',
                 'kode_kantors.kode_kantor_slik'
@@ -43,6 +44,10 @@ class KepuasanCsController extends BaseController
             $query->where('kepuasan_cs.kantor_id', $request->kantor_id);
         }
 
+        if ($request->has('role') && $request->role != '') {
+            $query->where('users.type', $request->role);
+        }
+
         if (!in_array($user->type, ['admin', 'pelayanan', 'akunting'])) {
             $query->where('kepuasan_cs.user_id', $user->id);
         }
@@ -51,11 +56,11 @@ class KepuasanCsController extends BaseController
             ->orderBy('kepuasan_cs.id', 'desc')
             ->get();
 
-        return $this->sendResponse($data, 'Daftar Kepuasan CS');
+        return $this->sendResponse($data, 'Daftar Kepuasan CS & Teller');
     }
 
     /**
-     * Increment vote PUAS or TIDAK PUAS for today for the logged-in CS user.
+     * Increment vote PUAS or TIDAK PUAS for today for the logged-in user.
      */
     public function vote(Request $request)
     {
@@ -118,17 +123,24 @@ class KepuasanCsController extends BaseController
     }
 
     /**
-     * Dashboard Summary endpoint: Summary per CS & Summary per day in current month.
+     * Dashboard Summary endpoint with filter for Role, Month, and Year.
      */
     public function dashboardSummary(Request $request)
     {
         $currentMonth = $request->input('month', date('m'));
         $currentYear = $request->input('year', date('Y'));
+        $roleFilter = $request->input('role', '');
 
-        // 1. Today summary (All CS)
-        $todayData = DB::table('kepuasan_cs')
-            ->where('tanggal', date('Y-m-d'))
-            ->selectRaw('SUM(puas) as total_puas, SUM(tidak_puas) as total_tidak_puas')
+        // 1. Today summary
+        $todayQuery = DB::table('kepuasan_cs')
+            ->join('users', 'kepuasan_cs.user_id', '=', 'users.id')
+            ->where('kepuasan_cs.tanggal', date('Y-m-d'));
+
+        if ($roleFilter != '') {
+            $todayQuery->where('users.type', $roleFilter);
+        }
+
+        $todayData = $todayQuery->selectRaw('SUM(kepuasan_cs.puas) as total_puas, SUM(kepuasan_cs.tidak_puas) as total_tidak_puas')
             ->first();
 
         $todayPuas = (int) ($todayData->total_puas ?? 0);
@@ -136,22 +148,28 @@ class KepuasanCsController extends BaseController
         $todayTotal = $todayPuas + $todayTidakPuas;
         $todayPercentage = $todayTotal > 0 ? round(($todayPuas / $todayTotal) * 100, 1) : 0;
 
-        // 2. Summary per CS for the current month
-        $perCs = DB::table('kepuasan_cs')
+        // 2. Summary per User (CS / Teller) for the specified month & year & role
+        $perUserQuery = DB::table('kepuasan_cs')
             ->join('users', 'kepuasan_cs.user_id', '=', 'users.id')
             ->join('kode_kantors', 'kepuasan_cs.kantor_id', '=', 'kode_kantors.id')
             ->whereMonth('kepuasan_cs.tanggal', $currentMonth)
-            ->whereYear('kepuasan_cs.tanggal', $currentYear)
-            ->select(
+            ->whereYear('kepuasan_cs.tanggal', $currentYear);
+
+        if ($roleFilter != '') {
+            $perUserQuery->where('users.type', $roleFilter);
+        }
+
+        $perUser = $perUserQuery->select(
                 'users.id as user_id',
                 'users.name as nama_cs',
+                'users.type as role',
                 'kode_kantors.nama_kantor',
                 'kode_kantors.kode_kantor_slik',
                 DB::raw('SUM(kepuasan_cs.puas) as total_puas'),
                 DB::raw('SUM(kepuasan_cs.tidak_puas) as total_tidak_puas'),
                 DB::raw('SUM(kepuasan_cs.puas + kepuasan_cs.tidak_puas) as total_respon')
             )
-            ->groupBy('users.id', 'users.name', 'kode_kantors.nama_kantor', 'kode_kantors.kode_kantor_slik')
+            ->groupBy('users.id', 'users.name', 'users.type', 'kode_kantors.nama_kantor', 'kode_kantors.kode_kantor_slik')
             ->orderBy('total_puas', 'desc')
             ->get()
             ->map(function ($item) {
@@ -161,18 +179,24 @@ class KepuasanCsController extends BaseController
                 return $item;
             });
 
-        // 3. Summary per Day in the current month
-        $perDay = DB::table('kepuasan_cs')
-            ->whereMonth('tanggal', $currentMonth)
-            ->whereYear('tanggal', $currentYear)
-            ->select(
-                'tanggal',
-                DB::raw('SUM(puas) as total_puas'),
-                DB::raw('SUM(tidak_puas) as total_tidak_puas'),
-                DB::raw('SUM(puas + tidak_puas) as total_respon')
+        // 3. Summary per Day in the specified month & year & role
+        $perDayQuery = DB::table('kepuasan_cs')
+            ->join('users', 'kepuasan_cs.user_id', '=', 'users.id')
+            ->whereMonth('kepuasan_cs.tanggal', $currentMonth)
+            ->whereYear('kepuasan_cs.tanggal', $currentYear);
+
+        if ($roleFilter != '') {
+            $perDayQuery->where('users.type', $roleFilter);
+        }
+
+        $perDay = $perDayQuery->select(
+                'kepuasan_cs.tanggal',
+                DB::raw('SUM(kepuasan_cs.puas) as total_puas'),
+                DB::raw('SUM(kepuasan_cs.tidak_puas) as total_tidak_puas'),
+                DB::raw('SUM(kepuasan_cs.puas + kepuasan_cs.tidak_puas) as total_respon')
             )
-            ->groupBy('tanggal')
-            ->orderBy('tanggal', 'desc')
+            ->groupBy('kepuasan_cs.tanggal')
+            ->orderBy('kepuasan_cs.tanggal', 'desc')
             ->get()
             ->map(function ($item) {
                 $total = (int) $item->total_respon;
@@ -182,8 +206,8 @@ class KepuasanCsController extends BaseController
             });
 
         // 4. Overall Month Total
-        $monthPuas = $perCs->sum('total_puas');
-        $monthTidakPuas = $perCs->sum('total_tidak_puas');
+        $monthPuas = $perUser->sum('total_puas');
+        $monthTidakPuas = $perUser->sum('total_tidak_puas');
         $monthTotal = $monthPuas + $monthTidakPuas;
         $monthPercentage = $monthTotal > 0 ? round(($monthPuas / $monthTotal) * 100, 1) : 0;
 
@@ -195,15 +219,15 @@ class KepuasanCsController extends BaseController
                 'persentase' => $todayPercentage,
             ],
             'month' => [
-                'month_name' => date('F Y', mktime(0, 0, 0, $currentMonth, 1, $currentYear)),
+                'month_name' => date('F Y', mktime(0, 0, 0, (int)$currentMonth, 1, (int)$currentYear)),
                 'puas' => $monthPuas,
                 'tidak_puas' => $monthTidakPuas,
                 'total' => $monthTotal,
                 'persentase' => $monthPercentage,
             ],
-            'per_cs' => $perCs,
+            'per_cs' => $perUser,
             'per_day' => $perDay,
-        ], 'Dashboard Summary Kepuasan CS');
+        ], 'Dashboard Summary Kepuasan');
     }
 
     /**
@@ -235,6 +259,6 @@ class KepuasanCsController extends BaseController
         $record = KepuasanCs::findOrFail($id);
         $record->delete();
 
-        return $this->sendResponse(null, 'Data kepuasan CS berhasil dihapus');
+        return $this->sendResponse(null, 'Data kepuasan berhasil dihapus');
     }
 }

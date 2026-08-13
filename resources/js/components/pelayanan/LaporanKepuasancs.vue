@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row no-gutters class="justify-content-md-center">
         <v-col cols="12" md="11">
-          <v-card class="pa-3 mx-auto" v-if="$gate.isAdmin() || $gate.isPelayanan() || $gate.isCs()">
+          <v-card class="pa-3 mx-auto" v-if="$gate.isAdmin() || $gate.isPelayanan() || $gate.isCs() || $gate.isTeller()">
             <v-toolbar
               src="images/banner-biru-pelayanan.jpg"
               color="rgb(39,154,187)"
@@ -13,7 +13,7 @@
             >
               <v-toolbar-title class="font-weight-bold">
                 <v-icon left large dark>mdi-file-chart</v-icon>
-                Laporan & Rekapitulasi Kepuasan Nasabah (CS)
+                Laporan & Rekapitulasi Kepuasan Nasabah (CS & Teller)
               </v-toolbar-title>
               <v-spacer></v-spacer>
               <v-btn small color="success" dark @click="initialize()">
@@ -54,7 +54,7 @@
                     {{ todayUserStats.total }}
                   </div>
                   <div class="caption grey--text mt-1">
-                    Keseluruhan CS: {{ todayAllStats.total }} Respon
+                    Keseluruhan Staff: {{ todayAllStats.total }} Respon
                   </div>
                 </v-card>
               </v-col>
@@ -76,9 +76,9 @@
                       <vue-excel-xlsx
                         :data="kepuasanList"
                         :columns="columnsExcel"
-                        :file-name="'Laporan_Kepuasan_CS'"
+                        :file-name="'Laporan_Kepuasan_Pelayanan'"
                         :file-type="'xls'"
-                        :sheet-name="'Kepuasan_CS'"
+                        :sheet-name="'Kepuasan_Pelayanan'"
                         class="btn btn-success btn-sm mr-2"
                       >
                         <i class="fa-solid fa-file-excel mr-1"></i> Excel
@@ -91,8 +91,25 @@
 
                     <v-spacer></v-spacer>
 
-                    <v-row class="align-center justify-end" style="max-width: 700px;">
-                      <v-col cols="12" sm="4" v-if="$gate.isAdmin() || $gate.isPelayanan()">
+                    <v-row class="align-center justify-end" style="max-width: 850px;">
+                      <!-- FILTER ROLE -->
+                      <v-col cols="12" sm="3" v-if="$gate.isAdmin() || $gate.isPelayanan()">
+                        <v-select
+                          v-model="selectedRole"
+                          :items="rolesList"
+                          item-text="text"
+                          item-value="value"
+                          label="Filter Role"
+                          single-line
+                          hide-details
+                          dense
+                          outlined
+                          @change="initialize()"
+                        ></v-select>
+                      </v-col>
+
+                      <!-- FILTER KANTOR -->
+                      <v-col cols="12" sm="3" v-if="$gate.isAdmin() || $gate.isPelayanan()">
                         <v-combobox
                           v-model="selectedKantor"
                           label="Filter Kantor"
@@ -111,6 +128,7 @@
                         ></v-combobox>
                       </v-col>
 
+                      <!-- FILTER DARI TANGGAL -->
                       <v-col cols="12" sm="3">
                         <v-menu
                           v-model="menuFrom"
@@ -140,6 +158,7 @@
                         </v-menu>
                       </v-col>
 
+                      <!-- FILTER SAMPAI TANGGAL -->
                       <v-col cols="12" sm="3">
                         <v-menu
                           v-model="menuTo"
@@ -185,7 +204,7 @@
                       single-line
                       hide-details
                       loading="grey"
-                      style="max-width: 200px;"
+                      style="max-width: 180px;"
                     ></v-text-field>
                   </v-toolbar>
                 </template>
@@ -196,6 +215,17 @@
 
                 <template v-slot:item.tanggal="{ item }">
                   {{ formatDate(item.tanggal) }}
+                </template>
+
+                <template v-slot:item.role="{ item }">
+                  <v-chip
+                    x-small
+                    :color="item.role === 'cs' ? 'success' : item.role === 'teller' ? 'info' : 'grey'"
+                    text-color="white"
+                    class="font-weight-bold text-uppercase"
+                  >
+                    {{ item.role === 'cs' ? 'CS' : (item.role === 'teller' ? 'Teller' : item.role) }}
+                  </v-chip>
                 </template>
 
                 <template v-slot:item.puas="{ item }">
@@ -221,7 +251,7 @@
         </v-col>
       </v-row>
 
-      <div v-if="!$gate.isAdmin() && !$gate.isPelayanan() && !$gate.isCs()">
+      <div v-if="!$gate.isAdmin() && !$gate.isPelayanan() && !$gate.isCs() && !$gate.isTeller()">
         <not-found></not-found>
       </div>
     </v-container>
@@ -240,7 +270,14 @@ export default {
     menuFrom: false,
     menuTo: false,
     selectedKantor: null,
+    selectedRole: "",
     namaKantorList: [],
+
+    rolesList: [
+      { text: "Semua Role", value: "" },
+      { text: "Customer Service (CS)", value: "cs" },
+      { text: "Teller", value: "teller" },
+    ],
 
     todayUserStats: {
       puas: 0,
@@ -257,7 +294,8 @@ export default {
       { label: "Tanggal", field: "tanggal", dataFormat: (v) => moment(v).format("DD/MM/YYYY") },
       { label: "Sandi Kantor", field: "kode_kantor_slik" },
       { label: "Nama Kantor", field: "nama_kantor" },
-      { label: "Nama CS", field: "nama_cs" },
+      { label: "Role", field: "role", dataFormat: (v) => (v === "cs" ? "CS" : v === "teller" ? "Teller" : v) },
+      { label: "Nama Staff", field: "nama_cs" },
       { label: "Jumlah Puas", field: "puas" },
       { label: "Jumlah Tidak Puas", field: "tidak_puas" },
       { label: "Total Respon", field: "total_respon" },
@@ -271,7 +309,8 @@ export default {
         { text: "Tanggal", value: "tanggal", align: "center" },
         { text: "Sandi Kantor", value: "kode_kantor_slik", align: "center" },
         { text: "Nama Kantor", value: "nama_kantor" },
-        { text: "Nama CS", value: "nama_cs" },
+        { text: "Role", value: "role", align: "center" },
+        { text: "Nama Staff", value: "nama_cs" },
         { text: "Puas (Thumbs Up)", value: "puas", align: "center" },
         { text: "Tidak Puas (Thumbs Down)", value: "tidak_puas", align: "center" },
         { text: "Total Respon", value: "total_respon", align: "center" },
@@ -335,6 +374,7 @@ export default {
       if (this.fromTglText) params.fromtgl = this.fromTglText;
       if (this.toTglText) params.totgl = this.toTglText;
       if (this.selectedKantor) params.kantor_id = this.selectedKantor;
+      if (this.selectedRole) params.role = this.selectedRole;
 
       axios
         .get("api/kepuasancs", { params })
@@ -384,11 +424,15 @@ export default {
         totalTidakPuas += parseInt(item.tidak_puas || 0);
         totalResponAll += parseInt(item.total_respon || 0);
 
-        tableRows += "<tr>" +
+        const roleName = item.role === "cs" ? "CS" : item.role === "teller" ? "Teller" : item.role;
+
+        tableRows +=
+          "<tr>" +
           "<td style='text-align: center; border: 1px solid #ddd; padding: 8px;'>" + (index + 1) + "</td>" +
           "<td style='text-align: center; border: 1px solid #ddd; padding: 8px;'>" + this.formatDate(item.tanggal) + "</td>" +
           "<td style='text-align: center; border: 1px solid #ddd; padding: 8px;'>" + (item.kode_kantor_slik || "-") + "</td>" +
           "<td style='border: 1px solid #ddd; padding: 8px;'>" + (item.nama_kantor || "-") + "</td>" +
+          "<td style='text-align: center; border: 1px solid #ddd; padding: 8px; font-weight: bold;'>" + roleName + "</td>" +
           "<td style='border: 1px solid #ddd; padding: 8px;'>" + (item.nama_cs || "-") + "</td>" +
           "<td style='text-align: center; border: 1px solid #ddd; padding: 8px; font-weight: bold; color: green;'>" + item.puas + "</td>" +
           "<td style='text-align: center; border: 1px solid #ddd; padding: 8px; font-weight: bold; color: red;'>" + item.tidak_puas + "</td>" +
@@ -402,11 +446,16 @@ export default {
         periodeStr = "<strong>Periode:</strong> " + this.formatDate(this.fromTglText) + " s/d " + this.formatDate(this.toTglText) + "<br/>";
       }
 
+      let roleFilterStr = "";
+      if (this.selectedRole) {
+        roleFilterStr = "<strong>Filter Role:</strong> " + (this.selectedRole === "cs" ? "Customer Service" : "Teller") + "<br/>";
+      }
+
       const htmlContent =
         "<!DOCTYPE html>" +
         "<html>" +
         "<head>" +
-        "<title>Laporan Kepuasan Nasabah CS - PT BPR JABAR PERSERODA</title>" +
+        "<title>Laporan Kepuasan Pelayanan - PT BPR JABAR PERSERODA</title>" +
         "<style>" +
         "body { font-family: Arial, sans-serif; margin: 20px; color: #333; }" +
         ".header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #1976D2; padding-bottom: 10px; }" +
@@ -424,11 +473,12 @@ export default {
         "<body>" +
         "<div class='header'>" +
         "<h2>PT BPR JABAR PERSERODA</h2>" +
-        "<h4>LAPORAN REKAPITULASI KEPUASAN NASABAH (CUSTOMER SERVICE)</h4>" +
+        "<h4>LAPORAN REKAPITULASI KEPUASAN NASABAH (PELAYANAN)</h4>" +
         "</div>" +
         "<div class='meta-info'>" +
         "<strong>Dicetak Tanggal:</strong> " + todayStr + "<br/>" +
         periodeStr +
+        roleFilterStr +
         "<strong>Total Rekap Data:</strong> " + this.kepuasanList.length + " Baris" +
         "</div>" +
         "<table>" +
@@ -438,7 +488,8 @@ export default {
         "<th>Tanggal</th>" +
         "<th>Sandi Kantor</th>" +
         "<th>Nama Kantor</th>" +
-        "<th>Nama CS</th>" +
+        "<th>Role</th>" +
+        "<th>Nama Staff</th>" +
         "<th>Puas 👍</th>" +
         "<th>Tidak Puas 👎</th>" +
         "<th>Total Respon</th>" +
@@ -449,7 +500,7 @@ export default {
         "</tbody>" +
         "<tfoot>" +
         "<tr>" +
-        "<td colspan='5' style='text-align: right; border: 1px solid #ddd; padding: 8px;'>TOTAL KESELURUHUN</td>" +
+        "<td colspan='6' style='text-align: right; border: 1px solid #ddd; padding: 8px;'>TOTAL KESELURUHUN</td>" +
         "<td style='text-align: center; border: 1px solid #ddd; padding: 8px; color: green;'>" + totalPuas + "</td>" +
         "<td style='text-align: center; border: 1px solid #ddd; padding: 8px; color: red;'>" + totalTidakPuas + "</td>" +
         "<td style='text-align: center; border: 1px solid #ddd; padding: 8px;'>" + totalResponAll + "</td>" +

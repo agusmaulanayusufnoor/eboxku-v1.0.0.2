@@ -9,7 +9,7 @@
     <ul class="nav nav-treeview">
 
       {{-- menu BA Kas --}}
-      @if(auth()->user()->hasRole(['admin', 'pelayanan']))
+      @if(auth()->user()->hasRole(['admin', 'pelayanan', 'teller']))
       <li class="nav-item">
         <router-link to="/bakas" class="nav-link">
           <i class="nav-icon fa-regular fa-file-lines"></i>
@@ -42,7 +42,7 @@
       </li>
 
       {{-- menu teller --}}
-      @if(auth()->user()->hasRole(['admin', 'pelayanan']))
+      @if(auth()->user()->hasRole(['admin', 'pelayanan', 'teller']))
       <li class="nav-item">
         <router-link to="/teller" class="nav-link">
           <i class="nav-icon fas fa-cash-register"></i>
@@ -51,24 +51,31 @@
       </li>
       @endif
 
+      @if(auth()->user()->hasRole(['admin', 'pelayanan', 'cs']))
       <li class="nav-item">
         <router-link to="/cs" class="nav-link">
           <i class="nav-icon fa-regular fa-file-archive"></i>
           <p>File CS</p>
         </a>
       </li>
+      @endif
 
-      @if(auth()->user()->hasRole(['admin', 'pelayanan', 'cs']))
+      {{-- Input Kepuasan hanya untuk Frontline (CS & Teller) --}}
+      @if(auth()->user()->hasRole(['cs', 'teller']))
       <li class="nav-item">
         <router-link to="/kepuasancs" class="nav-link">
           <i class="nav-icon fas fa-thumbs-up green"></i>
-          <p>Input Kepuasan CS</p>
+          <p>Input Kepuasan</p>
         </a>
       </li>
+      @endif
+
+      {{-- Laporan Kepuasan untuk Admin, Pelayanan, CS, Teller --}}
+      @if(auth()->user()->hasRole(['admin', 'pelayanan', 'cs', 'teller']))
       <li class="nav-item">
         <router-link to="/laporan-kepuasancs" class="nav-link">
           <i class="nav-icon fas fa-chart-bar cyan"></i>
-          <p>Laporan Kepuasan CS</p>
+          <p>Laporan Kepuasan</p>
         </a>
       </li>
       @endif

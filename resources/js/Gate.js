@@ -59,6 +59,10 @@ export default class Gate {
         return this.hasRole('cs');
     }
 
+    isTeller() {
+        return this.hasRole('teller');
+    }
+
     isAdminOrUser() {
         return !!(this.user && this.user.type);
     }

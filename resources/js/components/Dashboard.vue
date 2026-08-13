@@ -2,33 +2,101 @@
   <section class="content py-3">
     <v-container fluid>
       <!-- HEADER BANNER CENTERED -->
-      <v-row class="mb-4">
+      <v-row class="mb-4" justify="center">
         <v-col cols="12" class="text-center">
-          <v-card class="pa-6 elevation-2" style="border-radius: 16px; background: #ffffff;">
+          <v-card class="pa-5 elevation-2" style="border-radius: 16px; background: #ffffff;">
             <h1 class="font-weight-black primary--text mb-1" style="font-size: 2rem; letter-spacing: 0.5px;">
               PT BPR JABAR PERSERODA
             </h1>
-            <div class="subtitle-1 grey--text text--darken-2 font-weight-medium mb-3">
-              Dashboard Analytic Kepuasan Nasabah (Customer Service)
-            </div>
-            <div>
-              <v-btn
-                small
-                rounded
-                color="primary"
-                dark
-                class="px-4 font-weight-bold elevation-2"
-                @click="fetchDashboardData"
-              >
-                <v-icon left small>mdi-refresh</v-icon> Refresh Data
-              </v-btn>
+            <div class="subtitle-1 grey--text text--darken-2 font-weight-medium">
+              Dashboard Analytic Kepuasan Nasabah (Pelayanan)
             </div>
           </v-card>
         </v-col>
       </v-row>
 
+      <!-- FILTER BAR CENTERED & SPACED OUT -->
+      <v-card class="elevation-2 mb-5" style="padding: 24px 32px !important; border-radius: 16px; background: #ffffff;">
+        <v-row align="center" justify="center">
+          <!-- FILTER ROLE STAFF -->
+          <v-col cols="12" sm="3" class="px-3">
+            <div class="caption font-weight-bold text-uppercase grey--text text--darken-2 mb-1 text-center">
+              Filter Role Staff
+            </div>
+            <v-select
+              v-model="selectedRole"
+              :items="rolesList"
+              item-text="text"
+              item-value="value"
+              dense
+              outlined
+              hide-details
+              class="centered-select"
+              @change="fetchDashboardData"
+            ></v-select>
+          </v-col>
+
+          <!-- FILTER BULAN -->
+          <v-col cols="12" sm="3" class="px-3">
+            <div class="caption font-weight-bold text-uppercase grey--text text--darken-2 mb-1 text-center">
+              Filter Bulan
+            </div>
+            <v-select
+              v-model="selectedMonth"
+              :items="monthsList"
+              item-text="text"
+              item-value="value"
+              dense
+              outlined
+              hide-details
+              class="centered-select"
+              @change="fetchDashboardData"
+            ></v-select>
+          </v-col>
+
+          <!-- FILTER TAHUN -->
+          <v-col cols="12" sm="2" class="px-3">
+            <div class="caption font-weight-bold text-uppercase grey--text text--darken-2 mb-1 text-center">
+              Filter Tahun
+            </div>
+            <v-select
+              v-model="selectedYear"
+              :items="yearsList"
+              dense
+              outlined
+              hide-details
+              class="centered-select"
+              @change="fetchDashboardData"
+            ></v-select>
+          </v-col>
+
+          <!-- TOMBOL FILTER & REFRESH DATA SIDE BY SIDE -->
+          <v-col cols="12" sm="4" class="px-3 pt-6 d-flex align-center justify-center" style="gap: 10px;">
+            <v-btn
+              dark
+              color="primary"
+              class="font-weight-bold elevation-2 white--text"
+              @click="fetchDashboardData"
+              style="height: 40px; border-radius: 8px; background-color: #1976d2 !important; color: #ffffff !important;"
+            >
+              <v-icon left small color="white">mdi-filter</v-icon> Filter
+            </v-btn>
+
+            <v-btn
+              dark
+              color="success"
+              class="font-weight-bold elevation-2 white--text"
+              @click="fetchDashboardData"
+              style="height: 40px; border-radius: 8px; background-color: #2e7d32 !important; color: #ffffff !important;"
+            >
+              <v-icon left small color="white">mdi-refresh</v-icon> Refresh Data
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card>
+
       <!-- STAT CARDS (4 WIDGETS CENTERED) -->
-      <v-row class="mb-4">
+      <v-row class="mb-4" justify="center">
         <!-- PUAS HARI INI -->
         <v-col cols="12" sm="6" md="3">
           <v-card class="pa-4 elevation-3 text-center stat-card" style="border-top: 5px solid #4CAF50; border-radius: 12px; background: #ffffff;">
@@ -102,17 +170,17 @@
         </v-col>
       </v-row>
 
-      <!-- DETAIL REKAP BULANAN (PER CS & PER HARI) -->
-      <v-row>
-        <!-- TABLE SUMMARY PER CS -->
-        <v-col cols="12" md="6">
-          <v-card class="pa-4 elevation-3" style="border-radius: 12px;">
-            <div class="d-flex align-center justify-space-between mb-3">
-              <h3 class="subtitle-1 font-weight-bold primary--text mb-0">
-                <v-icon left color="primary">mdi-account-star</v-icon> Summary Per CS ({{ month.month_name }})
+      <!-- DETAIL REKAP BULANAN (PER STAFF & PER HARI) -->
+      <v-row justify="center">
+        <!-- TABLE SUMMARY PER STAFF -->
+        <v-col cols="12" md="6" class="pa-2">
+          <v-card class="pa-4 elevation-3" style="border-radius: 16px;">
+            <div class="text-center mb-4">
+              <h3 class="subtitle-1 font-weight-bold primary--text mb-1">
+                <v-icon left color="primary">mdi-account-star</v-icon> Summary Per Staff ({{ month.month_name }})
               </h3>
-              <v-chip small color="primary" label class="font-weight-bold">
-                {{ perCsList.length }} Staff CS
+              <v-chip x-small color="primary" label class="font-weight-bold">
+                {{ perCsList.length }} Staff Terdaftar
               </v-chip>
             </div>
 
@@ -121,10 +189,21 @@
               :items="perCsList"
               :items-per-page="5"
               dense
-              class="elevation-1"
+              class="elevation-1 text-center"
             >
               <template v-slot:item.index="{ index }">
                 {{ index + 1 }}
+              </template>
+
+              <template v-slot:item.role="{ item }">
+                <v-chip
+                  x-small
+                  :color="item.role === 'cs' ? 'success' : item.role === 'teller' ? 'info' : 'grey'"
+                  text-color="white"
+                  class="font-weight-bold text-uppercase"
+                >
+                  {{ item.role === 'cs' ? 'CS' : (item.role === 'teller' ? 'Teller' : item.role) }}
+                </v-chip>
               </template>
 
               <template v-slot:item.total_puas="{ item }">
@@ -150,13 +229,13 @@
         </v-col>
 
         <!-- TABLE SUMMARY PER HARI IN THIS MONTH -->
-        <v-col cols="12" md="6">
-          <v-card class="pa-4 elevation-3" style="border-radius: 12px;">
-            <div class="d-flex align-center justify-space-between mb-3">
-              <h3 class="subtitle-1 font-weight-bold primary--text mb-0">
+        <v-col cols="12" md="6" class="pa-2">
+          <v-card class="pa-4 elevation-3" style="border-radius: 16px;">
+            <div class="text-center mb-4">
+              <h3 class="subtitle-1 font-weight-bold primary--text mb-1">
                 <v-icon left color="primary">mdi-calendar-month</v-icon> Summary Per Hari ({{ month.month_name }})
               </h3>
-              <v-chip small color="info" label class="font-weight-bold">
+              <v-chip x-small color="info" label class="font-weight-bold">
                 {{ perDayList.length }} Hari Transaksi
               </v-chip>
             </div>
@@ -166,7 +245,7 @@
               :items="perDayList"
               :items-per-page="5"
               dense
-              class="elevation-1"
+              class="elevation-1 text-center"
             >
               <template v-slot:item.index="{ index }">
                 {{ index + 1 }}
@@ -200,6 +279,33 @@ import moment from "moment";
 
 export default {
   data: () => ({
+    selectedRole: "",
+    selectedMonth: new Date().getMonth() + 1,
+    selectedYear: new Date().getFullYear(),
+
+    rolesList: [
+      { text: "Semua Role", value: "" },
+      { text: "Customer Service (CS)", value: "cs" },
+      { text: "Teller", value: "teller" },
+    ],
+
+    monthsList: [
+      { text: "Januari", value: 1 },
+      { text: "Februari", value: 2 },
+      { text: "Maret", value: 3 },
+      { text: "April", value: 4 },
+      { text: "Mei", value: 5 },
+      { text: "Juni", value: 6 },
+      { text: "Juli", value: 7 },
+      { text: "Agustus", value: 8 },
+      { text: "September", value: 9 },
+      { text: "Oktober", value: 10 },
+      { text: "November", value: 11 },
+      { text: "Desember", value: 12 },
+    ],
+
+    yearsList: [2024, 2025, 2026, 2027],
+
     today: {
       puas: 0,
       tidak_puas: 0,
@@ -218,8 +324,9 @@ export default {
 
     csHeaders: [
       { text: "No", value: "index", align: "center", sortable: false },
-      { text: "Nama CS", value: "nama_cs" },
-      { text: "Kantor", value: "nama_kantor" },
+      { text: "Role", value: "role", align: "center" },
+      { text: "Nama Staff", value: "nama_cs", align: "center" },
+      { text: "Kantor", value: "nama_kantor", align: "center" },
       { text: "Puas 👍", value: "total_puas", align: "center" },
       { text: "Tidak Puas 👎", value: "total_tidak_puas", align: "center" },
       { text: "Total", value: "total_respon", align: "center" },
@@ -249,7 +356,13 @@ export default {
     fetchDashboardData() {
       this.$Progress.start();
       axios
-        .get("api/kepuasancs/dashboard-summary")
+        .get("api/kepuasancs/dashboard-summary", {
+          params: {
+            role: this.selectedRole,
+            month: this.selectedMonth,
+            year: this.selectedYear,
+          },
+        })
         .then((response) => {
           const data = response.data.data;
           this.today = data.today;
@@ -275,5 +388,9 @@ export default {
 .stat-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+}
+.centered-select .v-select__selection {
+  text-align: center;
+  width: 100%;
 }
 </style>

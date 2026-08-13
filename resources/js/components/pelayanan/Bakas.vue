@@ -5,7 +5,7 @@
         <v-col cols="11">
           <v-card
             class="pa-2 mx-auto"
-            v-if="$gate.isAdmin() || $gate.isPelayanan()"
+            v-if="$gate.isAdmin() || $gate.isPelayanan() || $gate.isTeller()"
           >
             <v-toolbar
               src="images/banner-biru-pelayanan.jpg"
@@ -98,7 +98,7 @@
         </v-col>
       </v-row>
 
-      <div v-if="!$gate.isAdmin() && !$gate.isPelayanan()">
+      <div v-if="!$gate.isAdmin() && !$gate.isPelayanan() && !$gate.isTeller()">
         <not-found></not-found>
       </div>
 
@@ -388,7 +388,7 @@ export default {
 
   methods: {
     async cekTgl() {
-      if (this.$gate.isAdmin() || this.$gate.isPelayanan()) {
+      if (this.$gate.isAdmin() || this.$gate.isPelayanan() || this.$gate.isTeller()) {
         const formData = new FormData();
         formData.set("kantor_id", this.kantor_id);
         formData.set("tanggal", this.tanggal);
@@ -440,7 +440,7 @@ export default {
     initialize() {
       this.$Progress.start();
 
-      if (this.$gate.isAdmin() || this.$gate.isPelayanan()) {
+      if (this.$gate.isAdmin() || this.$gate.isPelayanan() || this.$gate.isTeller()) {
         //axios.get("api/user").then((response) => {(this.users = response.data.data)});
         axios.get("api/bakas").then((response) => {
           this.bakas = response.data.data;

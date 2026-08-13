@@ -13,7 +13,6 @@
                 warningTimer: null,
                 logoutTimer: null,
                 warningZone: false
-
             }
         },
 
@@ -33,26 +32,61 @@
             this.resetTimers();
         },
 
+        watch: {
+            $route(to, from) {
+                if (to && to.path === '/kepuasancs') {
+                    this.resetTimers();
+                } else {
+                    this.resetTimer();
+                }
+            }
+        },
+
         methods: {
+            isKioskMode: function () {
+                return (this.$route && this.$route.path === '/kepuasancs');
+            },
+
             setTimers: function () {
-                this.warningTimer = setTimeout(this.warningMessage, 12 * 60 * 1000); // 4 detik (x 60 jika ingin ke menit)
-                this.logoutTimer = setTimeout(this.logoutUser, 15 * 60 * 1000); // 4 detik (x 60 jika ingin ke menit)
+                if (this.isKioskMode()) {
+                    this.resetTimers();
+                    return;
+                }
+
+                this.warningTimer = setTimeout(this.warningMessage, 12 * 60 * 1000); // 12 menit
+                this.logoutTimer = setTimeout(this.logoutUser, 15 * 60 * 1000); // 15 menit
 
                 this.warningZone = false;
             },
 
             warningMessage: function () {
+                if (this.isKioskMode()) return;
                 this.warningZone = true;
             },
 
             logoutUser: function () {
-                document.getElementById('logout-form').submit();
+                if (this.isKioskMode()) return;
+                const logoutForm = document.getElementById('logout-form');
+                if (logoutForm) {
+                    logoutForm.submit();
+                }
+            },
+
+            resetTimers: function () {
+                clearTimeout(this.warningTimer);
+                clearTimeout(this.logoutTimer);
+                this.warningTimer = null;
+                this.logoutTimer = null;
+                this.warningZone = false;
             },
 
             resetTimer: function () {
-                clearTimeout(this.warningTimer);
-                clearTimeout(this.logoutTimer);
+                if (this.isKioskMode()) {
+                    this.resetTimers();
+                    return;
+                }
 
+                this.resetTimers();
                 this.setTimers();
             }
         }

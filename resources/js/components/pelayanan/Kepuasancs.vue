@@ -4,7 +4,7 @@
       <v-row justify="center" align="center" class="w-100" style="max-width: 900px;">
         <v-col cols="12">
           <v-card
-            v-if="$gate.isAdmin() || $gate.isPelayanan() || $gate.isCs()"
+            v-if="$gate.isCs() || $gate.isTeller()"
             class="pa-6 mx-auto elevation-8 text-center"
             style="border-radius: 24px; background: #ffffff;"
           >
@@ -15,7 +15,7 @@
                 PT BPR JABAR PERSERODA
               </h2>
               <h4 class="grey--text text--darken-2 font-weight-medium">
-                Survei Kepuasan Pelayanan Customer Service
+                Survei Kepuasan Pelayanan Nasabah
               </h4>
             </div>
 
@@ -86,6 +86,8 @@ export default {
   data: () => ({
     loadingVote: false,
   }),
+
+
 
   methods: {
     submitVote(voteType) {

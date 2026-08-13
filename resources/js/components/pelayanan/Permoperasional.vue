@@ -5,12 +5,12 @@
         <v-col cols="11">
           <v-card
             class="pa-2 mx-auto"
-            v-if="$gate.isAdmin() || $gate.isPelayanan() || $gate.isBisnis() || $gate.isCs()"
+            v-if="$gate.isAdmin() || $gate.isPelayanan() || $gate.isBisnis() || $gate.isCs() || $gate.isTeller()"
           >
             <v-toolbar src="images/banner-biru-pelayanan.jpg" dark shaped>
               <v-toolbar-title> Permohonan ke Divisi Operasional </v-toolbar-title>
               <v-spacer></v-spacer>
-              <v-btn small color="indigo" dark @click="newModal" v-if="$gate.isAdmin() || $gate.isPelayanan() || $gate.isCs()">
+              <v-btn small color="indigo" dark @click="newModal" v-if="$gate.isAdmin() || $gate.isPelayanan() || $gate.isCs() || $gate.isTeller()">
                 <v-icon>mdi-file-upload</v-icon> Upload File
               </v-btn>
             </v-toolbar>
@@ -107,7 +107,7 @@
         </v-col>
       </v-row>
 
-      <div v-if="!$gate.isAdmin() && !$gate.isPelayanan() && !$gate.isBisnis() && !$gate.isCs()">
+      <div v-if="!$gate.isAdmin() && !$gate.isPelayanan() && !$gate.isBisnis() && !$gate.isCs() && !$gate.isTeller()">
         <not-found></not-found>
       </div>
 
@@ -476,7 +476,7 @@ export default {
     initialize() {
       this.$Progress.start();
 
-      if (this.$gate.isAdmin() || this.$gate.isPelayanan() || this.$gate.isBisnis() || this.$gate.isCs()) {
+      if (this.$gate.isAdmin() || this.$gate.isPelayanan() || this.$gate.isBisnis() || this.$gate.isCs() || this.$gate.isTeller()) {
         axios.get("api/permoperasional").then((response) => {
           this.permoperasional = response.data.data;
           this.editedItem.kantor_id = this.$kantor_id;
