@@ -25,7 +25,7 @@ class Kode_kantorController extends BaseController
      */
     public function index()
     {
-        $kantor  = Kode_kantor::get();
+        $kantor  = Kode_kantor::orderBy('kode_kantor_slik', 'asc')->get();
 
         return $this->sendResponse($kantor, 'Daftar Kantor');
     }

@@ -130,6 +130,8 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('monitor/download/{monitor}', 'MonitorController@downloadfile');
     Route::get('periksa/download/{periksa}', 'PeriksaController@downloadfile');
     Route::post('stock/{stock}', 'StockController@updateData');
+    Route::get('stock/getkantor', 'Kode_kantorController@index');
+    Route::get('stock/filterkantor', 'StockController@filterkantor');
     Route::get('stock/filtertanggal', 'StockController@filtertanggal');
     Route::post('satuan/{stock}', 'SatuanController@updateData');
     Route::post('barang/{stock}', 'BarangController@updateData');

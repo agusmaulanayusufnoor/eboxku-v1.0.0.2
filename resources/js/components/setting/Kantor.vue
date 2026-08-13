@@ -58,6 +58,52 @@
                 </template>
 
                 <!-- edit table -->
+                <template v-slot:item.kode_kantor="{ item }">
+                     <v-edit-dialog
+                        @save="save"
+                        @cancel="cancel"
+                        @open="open(item)"
+                        @close="close"
+                        >
+                        {{ item.kode_kantor }}
+                        <template v-slot:input>
+                            <div class="mt-4 text-h6">
+                            Edit Kode Kantor
+                            </div>
+                            <v-text-field
+                            v-model="editedItem.kode_kantor"
+                            :rules="[max100chars]"
+                            label="Edit Kode Kantor"
+                            single-line
+                            counter
+                            ></v-text-field>
+                        </template>
+                     </v-edit-dialog>
+                </template>
+
+                <template v-slot:item.kode_kantor_slik="{ item }">
+                     <v-edit-dialog
+                        @save="save"
+                        @cancel="cancel"
+                        @open="open(item)"
+                        @close="close"
+                        >
+                        {{ item.kode_kantor_slik }}
+                        <template v-slot:input>
+                            <div class="mt-4 text-h6">
+                            Edit Kode Kantor SLIK
+                            </div>
+                            <v-text-field
+                            v-model="editedItem.kode_kantor_slik"
+                            :rules="[max100chars]"
+                            label="Edit Kode Kantor SLIK"
+                            single-line
+                            counter
+                            ></v-text-field>
+                        </template>
+                     </v-edit-dialog>
+                </template>
+
                 <template v-slot:item.nama_kantor="{ item }">
                      <v-edit-dialog
 
@@ -160,7 +206,7 @@
                              <v-text-field
                                 v-model="editedItem.kode_kantor"
                                 :rules="editedItem.kodeRules"
-                                label="Kode Kantor Slik"
+                                label="Kode Kantor"
                                 name="kode_kantor"
                                 placeholder="input"
                                 outlined
@@ -171,7 +217,7 @@
                             <v-text-field
                                 v-model="editedItem.kode_kantor_slik"
                                 :rules="editedItem.kodeRules"
-                                label="Kode Kantor Slik"
+                                label="Kode Kantor SLIK"
                                 name="kode_kantor_slik"
                                 placeholder="input"
                                 outlined
@@ -238,6 +284,8 @@
     editedIndex: -1,
     editedItem : {
         id : '',
+        kode_kantor: '',
+        kode_kantor_slik: '',
         nama_kantor:'',
         nama_kantorEdit:'',
         kantorRules: [
@@ -271,11 +319,15 @@
                 sortable: false
                 },
                 {
-                text: 'kode kantor',
+                text: 'Kode Kantor',
                 value: 'kode_kantor',
                 },
                 {
-                text: 'kantor',
+                text: 'Kode Kantor SLIK',
+                value: 'kode_kantor_slik',
+                },
+                {
+                text: 'Nama Kantor',
                 value: 'nama_kantor',
                 },
 
@@ -317,6 +369,8 @@
         this.snackColor = 'info'
         this.snackText = 'Enter = Simpan'
         this.editedItem.id = item.id
+        this.editedItem.kode_kantor = item.kode_kantor
+        this.editedItem.kode_kantor_slik = item.kode_kantor_slik
         this.editedItem.nama_kantor = item.nama_kantor
 
         //console.log(this.item.nama_kantor);
@@ -360,6 +414,8 @@
 
         this.editedIndex = this.kantor.indexOf(item)
         this.item.id = item.id
+        this.item.kode_kantor = item.kode_kantor
+        this.item.kode_kantor_slik = item.kode_kantor_slik
         this.item.nama_kantor = item.nama_kantor
 
         console.log(this.item.id);
@@ -369,6 +425,8 @@
         this.editmode = false;
         $('#addNew').modal('show');
         this.$refs.form.reset()
+        this.editedItem.kode_kantor = '';
+        this.editedItem.kode_kantor_slik = '';
         this.editedItem.nama_kantor = '';
     },
 
@@ -381,9 +439,9 @@
             }
             // //this.append('file', this.file);
             const formData = new FormData
-            formData.set('kode_kantor', this.editedItem.kode_kantor)
-            formData.set('kode_kantor_slik', this.editedItem.kode_kantor_slik)
-            formData.set('nama_kantor', this.editedItem.nama_kantor)
+            formData.set('kode_kantor', this.editedItem.kode_kantor || '')
+            formData.set('kode_kantor_slik', this.editedItem.kode_kantor_slik || '')
+            formData.set('nama_kantor', this.editedItem.nama_kantor || '')
 
             axios.post('api/kantor',formData,config)
               .then((response)=>{
@@ -421,7 +479,9 @@
                 this.$Progress.start();
                 //alert(this.editedItem.nama_kantor);
                  const formData = new FormData
-            formData.set('nama_kantor', this.editedItem.nama_kantor)
+            formData.set('kode_kantor', this.editedItem.kode_kantor || '')
+            formData.set('kode_kantor_slik', this.editedItem.kode_kantor_slik || '')
+            formData.set('nama_kantor', this.editedItem.nama_kantor || '')
             formData.append("_method", "PUT");
                 axios.post('api/kantor/'+this.editedItem.id,formData)
                 .then((response) => {

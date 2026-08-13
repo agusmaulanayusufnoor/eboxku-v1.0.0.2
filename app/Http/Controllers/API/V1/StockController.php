@@ -32,28 +32,25 @@ class StockController extends BaseController
     {
         $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
-       // $stock=stock::all();
-       $stock= $this->stock->latest()->get();
-        if($levelLogin === 'admin'){
+
+        if ($levelLogin === 'admin' || $levelLogin === 'akunting') {
             $stock  = DB::table('stock')
             ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
             ->select('stock.id','stock.tanggal','stock.jml_stok_awal','stock.tambahan_stok','stock.jml_digunakan',
             'stock.jml_rusak','stock.jml_hilang','stock.jml_stok_akhir',
-            'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor')
-           // ->orderBy('stock.id','desc')
-           ->orderBy('stock.tanggal')
+            'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor_slik as kode_kantor')
+            ->orderBy('stock.tanggal')
             ->get();
-        }else{
+        } else {
             $stock  = DB::table('stock')
             ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
-            ->where('kantor_id', $id_kantor)
+            ->where('stock.kantor_id', $id_kantor)
             ->select('stock.id','stock.tanggal','stock.jml_stok_awal','stock.tambahan_stok','stock.jml_digunakan',
             'stock.jml_rusak','stock.jml_hilang','stock.jml_stok_akhir',
-            'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor')
+            'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor_slik as kode_kantor')
             ->orderBy('stock.id','desc')
             ->get();
         }
-        //dd($stock);
 
         return $this->sendResponse($stock, 'stock list');
     }
@@ -133,16 +130,10 @@ class StockController extends BaseController
     public function updateData(Request $request, $id)
     {
         $stock = Stock::findOrFail($id);
-        //dd($request->get('jml_stok_awal'));
-
-       // $stock->update($request->all());
-
-        //return $this->sendResponse($stock, 'Data User Diubah!');
     }
     public function update(Request $request, $id)
     {
         $stock = Stock::findOrFail($id);
-        //dd($request->all());
 
         $stock->update($request->all());
 
@@ -157,49 +148,77 @@ class StockController extends BaseController
      */
     public function destroy($id)
     {
-       // $this->authorize('isAdmin');
-
         $stock = $this->stock->findOrFail($id);
 
         $stock->delete();
 
         return $this->sendResponse($stock, 'Stock sudah dihapus!');
-
-
     }
-    public function filtertanggal(Request $request)
-    {
-        //dd($request->all());
-         $fromtgl   = $request->fromtgl;
-         $totgl     = $request->totgl;
 
-        
-    $id_kantor  = Auth::user()->kantor_id;
+    public function filterkantor(Request $request)
+    {
+        $kantor_id  = $request->kantor_id;
+        $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
-       // $stock=stock::all();
-       $stock= $this->stock->latest()->get();
-        if($levelLogin === 'admin'){
+
+        if ($levelLogin === 'admin' || $levelLogin === 'akunting') {
+            $query = DB::table('stock')
+                ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id');
+            if ($kantor_id != '') {
+                $query->where('stock.kantor_id', $kantor_id);
+            }
+            $stock = $query->select('stock.id','stock.tanggal','stock.jml_stok_awal','stock.tambahan_stok','stock.jml_digunakan',
+                'stock.jml_rusak','stock.jml_hilang','stock.jml_stok_akhir',
+                'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor_slik as kode_kantor')
+                ->orderBy('stock.tanggal')
+                ->get();
+        } else {
             $stock  = DB::table('stock')
-            ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
-            ->whereBetween('tanggal',[$fromtgl,$totgl])
-            ->select('stock.id','stock.tanggal','stock.jml_stok_awal','stock.tambahan_stok','stock.jml_digunakan',
-            'stock.jml_rusak','stock.jml_hilang','stock.jml_stok_akhir',
-            'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor')
-            ->orderBy('tanggal')
-            ->get();
-        }else{
-            $stock  = DB::table('stock')
-            ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
-            ->where('kantor_id', $id_kantor)
-            ->whereBetween('tanggal',[$fromtgl,$totgl])
-            ->select('stock.id','stock.tanggal','stock.jml_stok_awal','stock.tambahan_stok','stock.jml_digunakan',
-            'stock.jml_rusak','stock.jml_hilang','stock.jml_stok_akhir',
-            'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor')
-            ->orderBy('tanggal')
-            ->get();
+                ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
+                ->where('stock.kantor_id', $id_kantor)
+                ->select('stock.id','stock.tanggal','stock.jml_stok_awal','stock.tambahan_stok','stock.jml_digunakan',
+                'stock.jml_rusak','stock.jml_hilang','stock.jml_stok_akhir',
+                'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor_slik as kode_kantor')
+                ->orderBy('stock.id','desc')
+                ->get();
         }
-        //dd($stock);
 
         return $this->sendResponse($stock, 'stock list');
+    }
+
+    public function filtertanggal(Request $request)
+    {
+         $fromtgl   = $request->fromtgl;
+         $totgl     = $request->totgl;
+         $id_kantor = Auth::user()->kantor_id;
+         $levelLogin = Auth::user()->type;
+
+         if ($levelLogin === 'admin' || $levelLogin === 'akunting') {
+             $query = DB::table('stock')
+                 ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
+                 ->whereBetween('tanggal', [$fromtgl, $totgl]);
+
+             if ($request->has('kantor_id') && $request->kantor_id != '') {
+                 $query->where('stock.kantor_id', $request->kantor_id);
+             }
+
+             $stock = $query->select('stock.id','stock.tanggal','stock.jml_stok_awal','stock.tambahan_stok','stock.jml_digunakan',
+             'stock.jml_rusak','stock.jml_hilang','stock.jml_stok_akhir',
+             'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor_slik as kode_kantor')
+             ->orderBy('tanggal')
+             ->get();
+         } else {
+             $stock  = DB::table('stock')
+             ->join('kode_kantors', 'stock.kantor_id', '=', 'kode_kantors.id')
+             ->where('stock.kantor_id', $id_kantor)
+             ->whereBetween('tanggal', [$fromtgl, $totgl])
+             ->select('stock.id','stock.tanggal','stock.jml_stok_awal','stock.tambahan_stok','stock.jml_digunakan',
+             'stock.jml_rusak','stock.jml_hilang','stock.jml_stok_akhir',
+             'stock.jenis','stock.kantor_id','kode_kantors.kode_kantor_slik as kode_kantor')
+             ->orderBy('tanggal')
+             ->get();
+         }
+
+         return $this->sendResponse($stock, 'stock list');
     }
 }

@@ -71,7 +71,25 @@
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
                     <v-row>
-                      <v-col cols="12" sm="6" md="5">
+                      <v-col cols="12" sm="6" md="4" v-if="$gate.isAdmin() || $gate.isAK()">
+                        <v-combobox
+                          v-model="selectedKantor"
+                          label="Filter Kantor"
+                          :items="namaKantor"
+                          item-value="id"
+                          item-text="nama_kantor"
+                          placeholder="Pilih Kantor"
+                          single-line
+                          hide-details
+                          clearable
+                          dense
+                          outlined
+                          :return-object="false"
+                          @change="filterKantor()"
+                          @click="getKantor()"
+                        ></v-combobox>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="4">
                         <v-menu
                           ref="menu2"
                           v-model="menu2"
@@ -102,7 +120,7 @@
                           </v-date-picker>
                         </v-menu>
                       </v-col>
-                      <v-col cols="12" sm="6" md="5">
+                      <v-col cols="12" sm="6" md="4">
                         <v-menu
                           ref="menu3"
                           v-model="menu3"
@@ -133,21 +151,19 @@
                           </v-date-picker>
                         </v-menu>
                       </v-col>
-                      <v-col>
-                        <v-btn
-                          @click="filterTanggal()"
-                          class="mx-3"
-                          fab
-                          dark
-                          color="indigo"
-                          x-small
-                          fixed
-                          bottom
-                        >
-                          <v-icon> mdi-filter </v-icon>
-                        </v-btn>
-                      </v-col>
                     </v-row>
+                    <v-col cols="auto">
+                      <v-btn
+                        @click="filterTanggal()"
+                        class="mx-3"
+                        fab
+                        dark
+                        color="indigo"
+                        x-small
+                      >
+                        <v-icon> mdi-filter </v-icon>
+                      </v-btn>
+                    </v-col>
                     <v-spacer></v-spacer>
 
                     <v-text-field
@@ -488,6 +504,8 @@ export default {
     menu2: false,
     menu3: false,
     pesaneror: "",
+    selectedKantor: null,
+    namaKantor: [],
 
     form: new Form({
       id: "",
@@ -613,6 +631,7 @@ export default {
   created() {
     this.$Progress.start();
 
+    this.getKantor();
     this.initialize();
     this.$Progress.finish();
   },
@@ -668,6 +687,41 @@ export default {
       const [year, month, day] = date.split("-");
       return `${day}/${month}/${year} ~ ${day}/${month}/${year}`;
     },
+    getKantor() {
+      if (this.$gate.isAdmin() || this.$gate.isAK()) {
+        axios
+          .get("api/stock/getkantor")
+          .then((response) => {
+            this.namaKantor = response.data.data.map((item) => ({
+              id: item.id,
+              nama_kantor: `${item.kode_kantor_slik} - ${item.nama_kantor}`,
+            }));
+          })
+          .catch((error) => {
+            console.log(error.response ? error.response.data : error);
+          });
+      }
+    },
+    filterKantor() {
+      this.$Progress.start();
+      if (this.selectedKantor) {
+        axios
+          .get("api/stock/filterkantor", {
+            params: {
+              kantor_id: this.selectedKantor,
+            },
+          })
+          .then((response) => {
+            this.stock = response.data.data;
+          })
+          .catch((error) => {
+            console.log(error.response ? error.response.data : error);
+          });
+      } else {
+        this.initialize();
+      }
+      this.$Progress.finish();
+    },
     filterTanggal() {
       this.$Progress.start();
       const formData = new FormData();
@@ -675,19 +729,20 @@ export default {
       formData.set("totgl", this.toTglText);
       if (this.fromTglText != "" && this.toTglText != "") {
         if (this.$gate.isAdmin() || this.$gate.isAK()) {
+          const params = {
+            fromtgl: this.fromTglText,
+            totgl: this.toTglText,
+          };
+          if (this.selectedKantor) {
+            params.kantor_id = this.selectedKantor;
+          }
           axios
             .get("api/stock/filtertanggal", {
-              params: {
-                fromtgl: this.fromTglText,
-                totgl: this.toTglText,
-              },
+              params: params,
             })
             .then((response) => {
               this.stock = response.data.data;
               this.editedItem.kantor_id = this.$kantor_id;
-              // this.form.fill
-              //console.log(this.stock);
-              //console.log(this.kantor_id)
             })
             .catch((error) => {
               console.log(error.response.data);
