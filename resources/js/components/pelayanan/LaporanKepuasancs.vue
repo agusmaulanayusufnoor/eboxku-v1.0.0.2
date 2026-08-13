@@ -372,7 +372,7 @@ export default {
           .then((response) => {
             this.namaKantorList = response.data.data.map((item) => ({
               id: item.id,
-              nama_kantor: `${item.kode_kantor} - ${item.nama_kantor}`,
+              nama_kantor: `${item.kode_kantor_slik} - ${item.nama_kantor}`,
             }));
           })
           .catch((err) => console.log(err));
