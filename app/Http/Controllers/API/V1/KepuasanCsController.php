@@ -33,7 +33,7 @@ class KepuasanCsController extends BaseController
                 'users.type as role',
                 'users.id as user_id',
                 'kode_kantors.nama_kantor',
-                'kode_kantors.kode_kantor_slik'
+                'kode_kantors.kode_kantor'
             );
 
         if ($request->has('fromtgl') && $request->fromtgl != '' && $request->has('totgl') && $request->totgl != '') {
@@ -164,12 +164,12 @@ class KepuasanCsController extends BaseController
                 'users.name as nama_cs',
                 'users.type as role',
                 'kode_kantors.nama_kantor',
-                'kode_kantors.kode_kantor_slik',
+                'kode_kantors.kode_kantor',
                 DB::raw('SUM(kepuasan_cs.puas) as total_puas'),
                 DB::raw('SUM(kepuasan_cs.tidak_puas) as total_tidak_puas'),
                 DB::raw('SUM(kepuasan_cs.puas + kepuasan_cs.tidak_puas) as total_respon')
             )
-            ->groupBy('users.id', 'users.name', 'users.type', 'kode_kantors.nama_kantor', 'kode_kantors.kode_kantor_slik')
+            ->groupBy('users.id', 'users.name', 'users.type', 'kode_kantors.nama_kantor', 'kode_kantors.kode_kantor')
             ->orderBy('total_puas', 'desc')
             ->get()
             ->map(function ($item) {

@@ -93,6 +93,14 @@
               </router-link>
             </li>
             <li class="nav-item">
+              <router-link to="/pincab" class="nav-link">
+                  <i class="nav-icon fas fa-user-tie white"></i>
+                  <p>
+                      Pincab
+                  </p>
+              </router-link>
+            </li>
+            <li class="nav-item">
                 <router-link to="/mastersimpanan" class="nav-link">
                     <i class="nav-icon fas fa-wallet white"></i>
                     <p>

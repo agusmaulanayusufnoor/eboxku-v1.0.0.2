@@ -521,7 +521,7 @@ export default {
     }),
     columnsExcel: [
       { label: "Jenis Stok", field: "jenis" },
-      { label: "Sandi Kantor", field: "kode_kantor", align: "start" },
+      { label: "Kode Kantor", field: "kode_kantor", align: "start" },
       {
         label: "Tanggal Stok",
         field: "tanggal",
@@ -556,7 +556,7 @@ export default {
           sortable: false,
         },
         { text: "Jenis Stok", value: "jenis", align: "start" },
-        { text: "Sandi Kantor", value: "kode_kantor", align: "start" },
+        { text: "Kode Kantor", value: "kode_kantor", align: "start" },
         { text: "Tanggal Stok", value: "tanggal" },
         { text: "Jumlah StokAwal", value: "jml_stok_awal", align: "center" },
         { text: "Tambahan Stok", value: "tambahan_stok", align: "center" },
@@ -694,7 +694,7 @@ export default {
           .then((response) => {
             this.namaKantor = response.data.data.map((item) => ({
               id: item.id,
-              nama_kantor: `${item.kode_kantor_slik} - ${item.nama_kantor}`,
+              nama_kantor: `${item.kode_kantor} - ${item.nama_kantor}`,
             }));
           })
           .catch((error) => {

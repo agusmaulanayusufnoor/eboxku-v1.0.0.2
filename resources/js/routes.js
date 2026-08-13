@@ -123,6 +123,7 @@ export default [
     { path: '/laporan-ppk', component: () => import(/* webpackPrefetch: true */'./components/ppk/LaporanPpk.vue') },
 
     { path: '/kantor', component: () => import(/* webpackPrefetch: true */'./components/setting/Kantor.vue') },
+    { path: '/pincab', component: () => import(/* webpackPrefetch: true */'./components/setting/Pincab.vue') },
     { path: '/mastersimpanan', component: () => import(/* webpackPrefetch: true */'./components/setting/Mastersimpanan.vue') },
     { path: '/satuan', component: () => import(/* webpackPrefetch: true */'./components/setting/Satuan.vue') },
     { path: '/barang', component: () => import(/* webpackPrefetch: true */'./components/setting/Barang.vue') },

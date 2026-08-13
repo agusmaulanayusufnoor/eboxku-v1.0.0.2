@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SatuanSeeder::class);
         $this->call(BarangSeeder::class);
         $this->call(RoleSeeder::class);
+        $this->call(PincabSeeder::class);
         //$this->call(CategoriesTableSeeder::class);
         //$this->call(TagsTableSeeder::class);
         //$this->call(ProductsTableSeeder::class);

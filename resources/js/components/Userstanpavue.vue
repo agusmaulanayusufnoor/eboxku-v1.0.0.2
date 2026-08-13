@@ -117,12 +117,9 @@
                             <label>Kantor</label>
                             <select name="kantor_id" v-model="form.kantor_id" id="kantor_id" class="form-control" :class="{ 'is-invalid': form.errors.has('kantor_id') }">
                                 <option value="">- Pilih Kantor -</option>
-                                    <option value="1">001 - Pusat</option>
-                                    <option value="2">002 - Cab. Cisalak</option>
-                                    <option value="3">003 - Cab. KPO</option>
-                                    <option value="4">004 - Cab. Subang</option>
-                                    <option value="5">004 - Cab. Purwadadi</option>
-                                    <option value="6">006 - Cab. Pamanukan</option>
+                                <option v-for="k in kantors" :key="k.id" :value="k.id">
+                                    {{ k.kode_kantor }} - {{ k.nama_kantor }}
+                                </option>
                             </select>
                             <has-error :form="form" field="kantor_id"></has-error>
                         </div>
@@ -146,6 +143,7 @@
             return {
                 editmode: false,
                 users : {},
+                kantors: [],
                 form: new Form({
                     id : '',
                     name: '',
@@ -229,6 +227,7 @@
 
             if(this.$gate.isAdmin()){
               axios.get("api/user").then(({ data }) => (this.users = data.data));
+              axios.get("api/kantor").then(({ data }) => (this.kantors = data.data));
             }
 
             this.$Progress.finish();

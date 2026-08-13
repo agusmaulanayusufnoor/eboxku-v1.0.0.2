@@ -80,12 +80,13 @@
                         :file-type="'xls'"
                         :sheet-name="'Kepuasan_Pelayanan'"
                         class="btn btn-success btn-sm mr-2"
+                        title="Export Excel"
                       >
-                        <i class="fa-solid fa-file-excel mr-1"></i> Excel
+                        <i class="fa-solid fa-file-excel"></i>
                       </vue-excel-xlsx>
 
-                      <v-btn color="error" small class="mr-2" @click="printPDF()">
-                        <v-icon left small>mdi-file-pdf-box</v-icon> Export / Print PDF
+                      <v-btn color="error" small class="mr-2" @click="printPDF()" title="Export / Print PDF" min-width="0">
+                        <v-icon small>mdi-file-pdf-box</v-icon>
                       </v-btn>
                     </div>
 
@@ -273,6 +274,9 @@ export default {
     selectedRole: "",
     namaKantorList: [],
 
+    pincabList: [],
+    namaPimpinanCabang: "",
+
     rolesList: [
       { text: "Semua Role", value: "" },
       { text: "Customer Service (CS)", value: "cs" },
@@ -292,7 +296,7 @@ export default {
 
     columnsExcel: [
       { label: "Tanggal", field: "tanggal", dataFormat: (v) => moment(v).format("DD/MM/YYYY") },
-      { label: "Sandi Kantor", field: "kode_kantor_slik" },
+      { label: "Kode Kantor", field: "kode_kantor" },
       { label: "Nama Kantor", field: "nama_kantor" },
       { label: "Role", field: "role", dataFormat: (v) => (v === "cs" ? "CS" : v === "teller" ? "Teller" : v) },
       { label: "Nama Staff", field: "nama_cs" },
@@ -307,7 +311,7 @@ export default {
       let headers = [
         { text: "No", value: "index", align: "center", sortable: false },
         { text: "Tanggal", value: "tanggal", align: "center" },
-        { text: "Sandi Kantor", value: "kode_kantor_slik", align: "center" },
+        { text: "Kode Kantor", value: "kode_kantor", align: "center" },
         { text: "Nama Kantor", value: "nama_kantor" },
         { text: "Role", value: "role", align: "center" },
         { text: "Nama Staff", value: "nama_cs" },
@@ -335,6 +339,7 @@ export default {
     this.getTodayStats();
     this.initialize();
     this.getKantor();
+    this.getPincabData();
     this.$Progress.finish();
   },
 
@@ -344,6 +349,22 @@ export default {
       return moment(date).format("DD/MM/YYYY");
     },
 
+    getPincabData() {
+      axios.get("api/pincab/user-kantor")
+        .then((res) => {
+          if (res.data && res.data.data && res.data.data.nama_pimpinan) {
+            this.namaPimpinanCabang = res.data.data.nama_pimpinan;
+          }
+        })
+        .catch((err) => console.log(err));
+
+      axios.get("api/pincab")
+        .then((res) => {
+          this.pincabList = res.data.data || [];
+        })
+        .catch((err) => console.log(err));
+    },
+
     getKantor() {
       if (this.$gate.isAdmin() || this.$gate.isPelayanan()) {
         axios
@@ -351,7 +372,7 @@ export default {
           .then((response) => {
             this.namaKantorList = response.data.data.map((item) => ({
               id: item.id,
-              nama_kantor: `${item.kode_kantor_slik} - ${item.nama_kantor}`,
+              nama_kantor: `${item.kode_kantor} - ${item.nama_kantor}`,
             }));
           })
           .catch((err) => console.log(err));
@@ -419,6 +440,59 @@ export default {
       let totalTidakPuas = 0;
       let totalResponAll = 0;
 
+      const loggedInUser = window.user || {};
+      const userNama = loggedInUser.name || "Staff";
+      const userType = (loggedInUser.type || "").toLowerCase();
+
+      let userRoleLabel = "Staf Pelayanan";
+      if (userType === "cs") {
+        userRoleLabel = "Staf CS";
+      } else if (userType === "teller") {
+        userRoleLabel = "Staf Teller";
+      } else if (userType === "admin") {
+        userRoleLabel = "Administrator";
+      } else if (userType === "pelayanan") {
+        userRoleLabel = "Staf Pelayanan";
+      } else if (userType) {
+        userRoleLabel = "Staf " + userType.toUpperCase();
+      }
+
+      let pincabNameText = "";
+      if (this.selectedKantor) {
+        const foundKantor = this.namaKantorList.find((k) => k.id === this.selectedKantor);
+        if (foundKantor) {
+          const kodeSLIK = foundKantor.nama_kantor.split("-")[0].trim();
+          const matchedPincab = this.pincabList.find(
+            (p) => p.kode_kantor === kodeSLIK || p.kode_kantor === String(kodeSLIK).padStart(3, "0")
+          );
+          if (matchedPincab) {
+            pincabNameText = matchedPincab.nama_pimpinan;
+          }
+        }
+      }
+
+      if (!pincabNameText && this.kepuasanList && this.kepuasanList.length > 0) {
+        const firstRowKode = this.kepuasanList[0].kode_kantor || this.kepuasanList[0].kode_kantor_slik;
+        if (firstRowKode) {
+          const padded = String(firstRowKode).padStart(3, "0");
+          const matchedPincab = this.pincabList.find(
+            (p) => p.kode_kantor === String(firstRowKode) || p.kode_kantor === padded
+          );
+          if (matchedPincab) {
+            pincabNameText = matchedPincab.nama_pimpinan;
+          }
+        }
+      }
+
+      if (!pincabNameText && this.namaPimpinanCabang) {
+        pincabNameText = this.namaPimpinanCabang;
+      }
+
+      const isBlankPincab = !pincabNameText;
+      if (!pincabNameText) {
+        pincabNameText = "( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )";
+      }
+
       this.kepuasanList.forEach((item, index) => {
         totalPuas += parseInt(item.puas || 0);
         totalTidakPuas += parseInt(item.tidak_puas || 0);
@@ -430,7 +504,7 @@ export default {
           "<tr>" +
           "<td style='text-align: center; border: 1px solid #ddd; padding: 8px;'>" + (index + 1) + "</td>" +
           "<td style='text-align: center; border: 1px solid #ddd; padding: 8px;'>" + this.formatDate(item.tanggal) + "</td>" +
-          "<td style='text-align: center; border: 1px solid #ddd; padding: 8px;'>" + (item.kode_kantor_slik || "-") + "</td>" +
+          "<td style='text-align: center; border: 1px solid #ddd; padding: 8px;'>" + (item.kode_kantor || "-") + "</td>" +
           "<td style='border: 1px solid #ddd; padding: 8px;'>" + (item.nama_kantor || "-") + "</td>" +
           "<td style='text-align: center; border: 1px solid #ddd; padding: 8px; font-weight: bold;'>" + roleName + "</td>" +
           "<td style='border: 1px solid #ddd; padding: 8px;'>" + (item.nama_cs || "-") + "</td>" +
@@ -451,6 +525,10 @@ export default {
         roleFilterStr = "<strong>Filter Role:</strong> " + (this.selectedRole === "cs" ? "Customer Service" : "Teller") + "<br/>";
       }
 
+      const pincabStyleAttr = isBlankPincab
+        ? "font-weight: bold; font-size: 13px; margin: 0;"
+        : "font-weight: bold; text-decoration: underline; font-size: 13px; margin: 0; text-transform: uppercase;";
+
       const htmlContent =
         "<!DOCTYPE html>" +
         "<html>" +
@@ -466,7 +544,11 @@ export default {
         "th { background-color: #f2f2f2; border: 1px solid #ddd; padding: 10px; text-align: center; }" +
         "td { border: 1px solid #ddd; padding: 8px; }" +
         "tfoot tr { background-color: #eaeff5; font-weight: bold; }" +
-        ".footer { margin-top: 30px; text-align: right; font-size: 12px; }" +
+        ".signature-container { margin-top: 50px; display: flex; justify-content: space-between; page-break-inside: avoid; }" +
+        ".signature-box { text-align: center; width: 250px; }" +
+        ".signature-title { margin-bottom: 60px; font-size: 13px; }" +
+        ".signature-name-user { font-weight: bold; text-decoration: underline; font-size: 13px; margin: 0; text-transform: uppercase; }" +
+        ".signature-role { font-size: 12px; margin-top: 4px; color: #333; }" +
         "@media print { @page { size: A4 landscape; margin: 15mm; } }" +
         "</style>" +
         "</head>" +
@@ -486,7 +568,7 @@ export default {
         "<tr>" +
         "<th>No</th>" +
         "<th>Tanggal</th>" +
-        "<th>Sandi Kantor</th>" +
+        "<th>Kode Kantor</th>" +
         "<th>Nama Kantor</th>" +
         "<th>Role</th>" +
         "<th>Nama Staff</th>" +
@@ -507,8 +589,17 @@ export default {
         "</tr>" +
         "</tfoot>" +
         "</table>" +
-        "<div class='footer'>" +
-        "<p>PT BPR JABAR PERSERODA</p>" +
+        "<div class='signature-container'>" +
+        "<div class='signature-box'>" +
+        "<p class='signature-title'>Dibuat oleh,</p>" +
+        "<p class='signature-name-user'>" + userNama + "</p>" +
+        "<p class='signature-role'>" + userRoleLabel + "</p>" +
+        "</div>" +
+        "<div class='signature-box'>" +
+        "<p class='signature-title'>Mengetahui,</p>" +
+        "<p style='" + pincabStyleAttr + "'>" + pincabNameText + "</p>" +
+        "<p class='signature-role'>Pemimpin Cabang</p>" +
+        "</div>" +
         "</div>" +
         "<script>" +
         "window.onload = function() { window.print(); };" +

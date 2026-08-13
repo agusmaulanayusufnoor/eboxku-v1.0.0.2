@@ -165,12 +165,15 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('kepuasancs/today', 'KepuasanCsController@todayStats');
     Route::get('kepuasancs/dashboard-summary', 'KepuasanCsController@dashboardSummary');
 
+    Route::get('pincab/user-kantor', 'PincabController@getByUserKantor');
+
     Route::apiResources([
         //setting
         'satuan'        => 'SatuanController',
         'barang'        => 'BarangController',
         'otorisator'    => 'OtorisatorController',
         'kantor'        => 'Kode_kantorController',
+        'pincab'        => 'PincabController',
         'jabatan'       => 'JabatanController',
         'pendidikan'    => 'PendidikanController',
         'statuspegawai' => 'StatuspegawaiController',
