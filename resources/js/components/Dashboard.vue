@@ -87,7 +87,7 @@
                 dark
                 color="success"
                 class="font-weight-bold elevation-2 white--text"
-                @click="fetchDashboardData"
+                @click="refreshData"
                 style="height: 40px; border-radius: 8px; background-color: #2e7d32 !important; color: #ffffff !important;"
               >
                 <v-icon left small color="white">mdi-refresh</v-icon> Refresh Data
@@ -353,6 +353,13 @@ export default {
     formatDate(date) {
       if (!date) return "";
       return moment(date).format("DD/MM/YYYY");
+    },
+
+    refreshData() {
+      this.selectedRole = "";
+      this.selectedMonth = new Date().getMonth() + 1;
+      this.selectedYear = new Date().getFullYear();
+      this.fetchDashboardData();
     },
 
     fetchDashboardData() {

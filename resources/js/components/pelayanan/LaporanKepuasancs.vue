@@ -230,19 +230,61 @@
                 </template>
 
                 <template v-slot:item.puas="{ item }">
-                  <v-chip color="success" text-color="white" small class="font-weight-bold">
+                  <v-edit-dialog
+                    v-if="$gate.isAdmin()"
+                    @save="saveInline(item)"
+                    @cancel="cancelInline"
+                    @open="openInline(item)"
+                    @close="closeInline"
+                  >
+                    <v-chip color="success" text-color="white" small class="font-weight-bold" style="cursor: pointer;">
+                      <v-icon left small>mdi-thumb-up</v-icon> {{ item.puas }}
+                    </v-chip>
+                    <template v-slot:input>
+                      <div class="mt-4 text-h6">Edit Suara Puas</div>
+                      <v-text-field
+                        v-model.number="editedItem.puas"
+                        label="Jumlah Puas"
+                        type="number"
+                        min="0"
+                        single-line
+                      ></v-text-field>
+                    </template>
+                  </v-edit-dialog>
+                  <v-chip v-else color="success" text-color="white" small class="font-weight-bold">
                     <v-icon left small>mdi-thumb-up</v-icon> {{ item.puas }}
                   </v-chip>
                 </template>
 
                 <template v-slot:item.tidak_puas="{ item }">
-                  <v-chip color="error" text-color="white" small class="font-weight-bold">
+                  <v-edit-dialog
+                    v-if="$gate.isAdmin()"
+                    @save="saveInline(item)"
+                    @cancel="cancelInline"
+                    @open="openInline(item)"
+                    @close="closeInline"
+                  >
+                    <v-chip color="error" text-color="white" small class="font-weight-bold" style="cursor: pointer;">
+                      <v-icon left small>mdi-thumb-down</v-icon> {{ item.tidak_puas }}
+                    </v-chip>
+                    <template v-slot:input>
+                      <div class="mt-4 text-h6">Edit Suara Tidak Puas</div>
+                      <v-text-field
+                        v-model.number="editedItem.tidak_puas"
+                        label="Jumlah Tidak Puas"
+                        type="number"
+                        min="0"
+                        single-line
+                      ></v-text-field>
+                    </template>
+                  </v-edit-dialog>
+                  <v-chip v-else color="error" text-color="white" small class="font-weight-bold">
                     <v-icon left small>mdi-thumb-down</v-icon> {{ item.tidak_puas }}
                   </v-chip>
                 </template>
 
                 <template v-slot:item.actions="{ item }">
-                  <v-icon small color="red" @click="deleteItem(item.id)">
+                  <v-icon v-if="$gate.isAdmin()" small color="red" @click="deleteItem(item.id)">
                     mdi-delete
                   </v-icon>
                 </template>
@@ -255,6 +297,21 @@
       <div v-if="!$gate.isAdmin() && !$gate.isPelayanan() && !$gate.isCs() && !$gate.isTeller()">
         <not-found></not-found>
       </div>
+
+      <v-snackbar
+        v-model="snack"
+        :timeout="3000"
+        :color="snackColor"
+        top
+        right
+      >
+        {{ snackText }}
+        <template v-slot:action="{ attrs }">
+          <v-btn v-bind="attrs" text @click="snack = false">
+            Tutup
+          </v-btn>
+        </template>
+      </v-snackbar>
     </v-container>
   </v-app>
 </template>
@@ -264,6 +321,14 @@ import moment from "moment";
 
 export default {
   data: () => ({
+    snack: false,
+    snackColor: "",
+    snackText: "",
+    editedItem: {
+      id: null,
+      puas: 0,
+      tidak_puas: 0,
+    },
     search: "",
     kepuasanList: [],
     fromTgl: "",
@@ -408,7 +473,51 @@ export default {
         });
     },
 
+    openInline(item) {
+      this.snack = true;
+      this.snackColor = "info";
+      this.snackText = "Tekan Enter atau klik centang untuk menyimpan";
+      this.editedItem.id = item.id;
+      this.editedItem.puas = item.puas;
+      this.editedItem.tidak_puas = item.tidak_puas;
+    },
+
+    cancelInline() {
+      this.snack = true;
+      this.snackColor = "error";
+      this.snackText = "Perubahan dibatalkan";
+    },
+
+    closeInline() {},
+
+    saveInline(item) {
+      this.$Progress.start();
+      axios
+        .put(`api/kepuasancs/${item.id}`, {
+          puas: this.editedItem.puas,
+          tidak_puas: this.editedItem.tidak_puas,
+        })
+        .then((response) => {
+          this.snack = true;
+          this.snackColor = "success";
+          this.snackText = "Data kepuasan berhasil diperbarui";
+          this.$Progress.finish();
+          this.initialize();
+          this.getTodayStats();
+        })
+        .catch((error) => {
+          this.snack = true;
+          this.snackColor = "error";
+          this.snackText = "Gagal memperbarui data";
+          this.$Progress.fail();
+        });
+    },
+
     deleteItem(id) {
+      if (!this.$gate.isAdmin()) {
+        Swal.fire("Akses Ditolak!", "Hanya role Admin yang diperbolehkan menghapus data.", "error");
+        return;
+      }
       Swal.fire({
         title: "Yakin dihapus?",
         text: "Data penilaian kepuasan ini akan dihapus permanen!",

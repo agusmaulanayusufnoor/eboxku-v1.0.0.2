@@ -252,10 +252,38 @@ class KepuasanCsController extends BaseController
     }
 
     /**
-     * Delete a kepuasan record.
+     * Update a kepuasan record (for Admin).
+     */
+    public function update(Request $request, $id)
+    {
+        $user = Auth::user();
+        if ($user->type !== 'admin') {
+            return $this->sendError('Unauthorized access', [], 403);
+        }
+
+        $request->validate([
+            'puas' => 'required|integer|min:0',
+            'tidak_puas' => 'required|integer|min:0',
+        ]);
+
+        $record = KepuasanCs::findOrFail($id);
+        $record->puas = (int) $request->puas;
+        $record->tidak_puas = (int) $request->tidak_puas;
+        $record->save();
+
+        return $this->sendResponse($record, 'Data kepuasan berhasil diperbarui');
+    }
+
+    /**
+     * Delete a kepuasan record (for Admin).
      */
     public function destroy($id)
     {
+        $user = Auth::user();
+        if ($user->type !== 'admin') {
+            return $this->sendError('Unauthorized access', [], 403);
+        }
+
         $record = KepuasanCs::findOrFail($id);
         $record->delete();
 
