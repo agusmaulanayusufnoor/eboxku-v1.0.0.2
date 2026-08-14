@@ -26,27 +26,28 @@ class KreditController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
 
-        if($levelLogin === 'admin' || $levelLogin === 'bisnis' ){
-            $kredit  = DB::table('kredit')
+        $query = DB::table('kredit')
             ->join('kode_kantors', 'kredit.kantor_id', '=', 'kode_kantors.id')
-            ->select('kredit.id','kredit.no_rekening','kredit.namafile','kredit.tanggal','kredit.file',
-            'kredit.kantor_id','kode_kantors.nama_kantor')
-            ->orderBy('id','desc')
-            ->get();
-        }else{
-            $kredit  = DB::table('kredit')
-            ->join('kode_kantors', 'kredit.kantor_id', '=', 'kode_kantors.id')
-            ->where('kantor_id', $id_kantor)
-            ->select('kredit.id','kredit.no_rekening','kredit.namafile','kredit.tanggal','kredit.file',
-            'kredit.kantor_id','kode_kantors.nama_kantor')
-            ->orderBy('id','desc')
-            ->get();
+            ->select('kredit.id', 'kredit.no_rekening', 'kredit.namafile', 'kredit.tanggal', 'kredit.file', 'kredit.kantor_id', 'kode_kantors.nama_kantor');
+
+        if ($levelLogin === 'admin' || $levelLogin === 'bisnis') {
+            if ($request->has('kantor_id') && $request->kantor_id != '') {
+                $query->where('kredit.kantor_id', $request->kantor_id);
+            }
+        } else {
+            $query->where('kredit.kantor_id', $id_kantor);
         }
+
+        if ($request->has('fromtgl') && $request->fromtgl != '' && $request->has('totgl') && $request->totgl != '') {
+            $query->whereRaw("STR_TO_DATE(kredit.tanggal, '%d/%m/%Y') BETWEEN ? AND ?", [$request->fromtgl, $request->totgl]);
+        }
+
+        $kredit = $query->orderBy('kredit.id', 'desc')->get();
 
         return $this->sendResponse($kredit, 'File kredit list');
     }

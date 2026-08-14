@@ -27,27 +27,29 @@ class CsController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
-        //$cs= $this->cs->latest()->get();
-        if($levelLogin === 'admin'){
-            $cs  = DB::table('cs')
+
+        $query = DB::table('cs')
             ->join('kode_kantors', 'cs.kantor_id', '=', 'kode_kantors.id')
-            ->select('cs.id','cs.namafile','cs.tanggal','cs.file',
-            'cs.kantor_id','kode_kantors.nama_kantor')
-            ->orderBy('id','desc')
-            ->get();
-        }else{
-            $cs  = DB::table('cs')
-            ->join('kode_kantors', 'cs.kantor_id', '=', 'kode_kantors.id')
-            ->where('kantor_id', $id_kantor)
-            ->select('cs.id','cs.namafile','cs.tanggal','cs.file',
-            'cs.kantor_id','kode_kantors.nama_kantor')
-            ->orderBy('id','desc')
-            ->get();
+            ->select('cs.id', 'cs.namafile', 'cs.tanggal', 'cs.file',
+                     'cs.kantor_id', 'kode_kantors.nama_kantor');
+
+        if ($levelLogin !== 'admin') {
+            $query->where('cs.kantor_id', $id_kantor);
+        } else {
+            if ($request->has('kantor_id') && $request->kantor_id != '') {
+                $query->where('cs.kantor_id', $request->kantor_id);
+            }
         }
+
+        if ($request->has('fromtgl') && $request->fromtgl != '' && $request->has('totgl') && $request->totgl != '') {
+            $query->whereRaw("STR_TO_DATE(cs.tanggal, '%d/%m/%Y') BETWEEN ? AND ?", [$request->fromtgl, $request->totgl]);
+        }
+
+        $cs = $query->orderBy('cs.id', 'desc')->get();
 
         return $this->sendResponse($cs, 'Cs list');
     }

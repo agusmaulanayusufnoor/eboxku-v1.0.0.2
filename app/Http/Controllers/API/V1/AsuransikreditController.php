@@ -26,27 +26,28 @@ class AsuransikreditController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
-        //$asuransikredit= $this->asuransikredit->latest()->get();
-        if($levelLogin === 'admin' || $levelLogin === 'bisnis'){
-            $asuransikredit  = DB::table('asuransikredit')
+
+        $query = DB::table('asuransikredit')
             ->join('kode_kantors', 'asuransikredit.kantor_id', '=', 'kode_kantors.id')
-            ->select('asuransikredit.id','asuransikredit.namafile','asuransikredit.tanggal','asuransikredit.file',
-            'asuransikredit.kantor_id','kode_kantors.nama_kantor')
-            ->orderBy('id','desc')
-            ->get();
-        }else{
-            $asuransikredit  = DB::table('asuransikredit')
-            ->join('kode_kantors', 'asuransikredit.kantor_id', '=', 'kode_kantors.id')
-            ->where('kantor_id', $id_kantor)
-            ->select('asuransikredit.id','asuransikredit.namafile','asuransikredit.tanggal','asuransikredit.file',
-            'asuransikredit.kantor_id','kode_kantors.nama_kantor')
-            ->orderBy('id','desc')
-            ->get();
+            ->select('asuransikredit.id', 'asuransikredit.namafile', 'asuransikredit.tanggal', 'asuransikredit.file', 'asuransikredit.kantor_id', 'kode_kantors.nama_kantor');
+
+        if ($levelLogin === 'admin' || $levelLogin === 'bisnis') {
+            if ($request->has('kantor_id') && $request->kantor_id != '') {
+                $query->where('asuransikredit.kantor_id', $request->kantor_id);
+            }
+        } else {
+            $query->where('asuransikredit.kantor_id', $id_kantor);
         }
+
+        if ($request->has('fromtgl') && $request->fromtgl != '' && $request->has('totgl') && $request->totgl != '') {
+            $query->whereRaw("STR_TO_DATE(asuransikredit.tanggal, '%d/%m/%Y') BETWEEN ? AND ?", [$request->fromtgl, $request->totgl]);
+        }
+
+        $asuransikredit = $query->orderBy('asuransikredit.id', 'desc')->get();
 
         return $this->sendResponse($asuransikredit, 'asuransikredit list');
     }

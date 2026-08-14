@@ -26,27 +26,29 @@ class DepositoController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
 
-        if($levelLogin === 'admin'){
-            $deposito  = DB::table('deposito')
+        $query = DB::table('deposito')
             ->join('kode_kantors', 'deposito.kantor_id', '=', 'kode_kantors.id')
-            ->select('deposito.id','deposito.no_rekening','deposito.namafile','deposito.tanggal','deposito.file',
-            'deposito.kantor_id','kode_kantors.nama_kantor')
-            ->orderBy('id','desc')
-            ->get();
-        }else{
-            $deposito  = DB::table('deposito')
-            ->join('kode_kantors', 'deposito.kantor_id', '=', 'kode_kantors.id')
-            ->where('kantor_id', $id_kantor)
-            ->select('deposito.id','deposito.no_rekening','deposito.namafile','deposito.tanggal','deposito.file',
-            'deposito.kantor_id','kode_kantors.nama_kantor')
-            ->orderBy('id','desc')
-            ->get();
+            ->select('deposito.id', 'deposito.no_rekening', 'deposito.namafile', 'deposito.tanggal', 'deposito.file',
+                     'deposito.kantor_id', 'kode_kantors.nama_kantor');
+
+        if ($levelLogin !== 'admin') {
+            $query->where('deposito.kantor_id', $id_kantor);
+        } else {
+            if ($request->has('kantor_id') && $request->kantor_id != '') {
+                $query->where('deposito.kantor_id', $request->kantor_id);
+            }
         }
+
+        if ($request->has('fromtgl') && $request->fromtgl != '' && $request->has('totgl') && $request->totgl != '') {
+            $query->whereRaw("STR_TO_DATE(deposito.tanggal, '%d/%m/%Y') BETWEEN ? AND ?", [$request->fromtgl, $request->totgl]);
+        }
+
+        $deposito = $query->orderBy('deposito.id', 'desc')->get();
 
         return $this->sendResponse($deposito, 'File deposito list');
     }

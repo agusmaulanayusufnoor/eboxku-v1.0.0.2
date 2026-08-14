@@ -25,27 +25,29 @@ class TabunganController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
 
-        if($levelLogin === 'admin'){
-            $tabungan  = DB::table('tabungan')
+        $query = DB::table('tabungan')
             ->join('kode_kantors', 'tabungan.kantor_id', '=', 'kode_kantors.id')
-            ->select('tabungan.id','tabungan.no_rekening','tabungan.namafile','tabungan.tanggal','tabungan.file',
-            'tabungan.kantor_id','kode_kantors.nama_kantor')
-            ->orderBy('id','desc')
-            ->get();
-        }else{
-            $tabungan  = DB::table('tabungan')
-            ->join('kode_kantors', 'tabungan.kantor_id', '=', 'kode_kantors.id')
-            ->where('kantor_id', $id_kantor)
-            ->select('tabungan.id','tabungan.no_rekening','tabungan.namafile','tabungan.tanggal','tabungan.file',
-            'tabungan.kantor_id','kode_kantors.nama_kantor')
-            ->orderBy('id','desc')
-            ->get();
+            ->select('tabungan.id', 'tabungan.no_rekening', 'tabungan.namafile', 'tabungan.tanggal', 'tabungan.file',
+                     'tabungan.kantor_id', 'kode_kantors.nama_kantor');
+
+        if ($levelLogin !== 'admin') {
+            $query->where('tabungan.kantor_id', $id_kantor);
+        } else {
+            if ($request->has('kantor_id') && $request->kantor_id != '') {
+                $query->where('tabungan.kantor_id', $request->kantor_id);
+            }
         }
+
+        if ($request->has('fromtgl') && $request->fromtgl != '' && $request->has('totgl') && $request->totgl != '') {
+            $query->whereRaw("STR_TO_DATE(tabungan.tanggal, '%d/%m/%Y') BETWEEN ? AND ?", [$request->fromtgl, $request->totgl]);
+        }
+
+        $tabungan = $query->orderBy('tabungan.id', 'desc')->get();
 
         return $this->sendResponse($tabungan, 'File Tabungan list');
     }

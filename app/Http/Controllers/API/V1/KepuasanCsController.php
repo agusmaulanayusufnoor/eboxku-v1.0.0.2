@@ -130,6 +130,7 @@ class KepuasanCsController extends BaseController
         $currentMonth = $request->input('month', date('m'));
         $currentYear = $request->input('year', date('Y'));
         $roleFilter = $request->input('role', '');
+        $kantorFilter = $request->input('kantor_id', '');
 
         // 1. Today summary
         $todayQuery = DB::table('kepuasan_cs')
@@ -138,6 +139,9 @@ class KepuasanCsController extends BaseController
 
         if ($roleFilter != '') {
             $todayQuery->where('users.type', $roleFilter);
+        }
+        if ($kantorFilter != '') {
+            $todayQuery->where('kepuasan_cs.kantor_id', $kantorFilter);
         }
 
         $todayData = $todayQuery->selectRaw('SUM(kepuasan_cs.puas) as total_puas, SUM(kepuasan_cs.tidak_puas) as total_tidak_puas')
@@ -148,7 +152,7 @@ class KepuasanCsController extends BaseController
         $todayTotal = $todayPuas + $todayTidakPuas;
         $todayPercentage = $todayTotal > 0 ? round(($todayPuas / $todayTotal) * 100, 1) : 0;
 
-        // 2. Summary per User (CS / Teller) for the specified month & year & role
+        // 2. Summary per User (CS / Teller) for the specified month & year & role & kantor
         $perUserQuery = DB::table('kepuasan_cs')
             ->join('users', 'kepuasan_cs.user_id', '=', 'users.id')
             ->join('kode_kantors', 'kepuasan_cs.kantor_id', '=', 'kode_kantors.id')
@@ -157,6 +161,9 @@ class KepuasanCsController extends BaseController
 
         if ($roleFilter != '') {
             $perUserQuery->where('users.type', $roleFilter);
+        }
+        if ($kantorFilter != '') {
+            $perUserQuery->where('kepuasan_cs.kantor_id', $kantorFilter);
         }
 
         $perUser = $perUserQuery->select(
@@ -179,7 +186,7 @@ class KepuasanCsController extends BaseController
                 return $item;
             });
 
-        // 3. Summary per Day in the specified month & year & role
+        // 3. Summary per Day in the specified month & year & role & kantor
         $perDayQuery = DB::table('kepuasan_cs')
             ->join('users', 'kepuasan_cs.user_id', '=', 'users.id')
             ->whereMonth('kepuasan_cs.tanggal', $currentMonth)
@@ -187,6 +194,9 @@ class KepuasanCsController extends BaseController
 
         if ($roleFilter != '') {
             $perDayQuery->where('users.type', $roleFilter);
+        }
+        if ($kantorFilter != '') {
+            $perDayQuery->where('kepuasan_cs.kantor_id', $kantorFilter);
         }
 
         $perDay = $perDayQuery->select(

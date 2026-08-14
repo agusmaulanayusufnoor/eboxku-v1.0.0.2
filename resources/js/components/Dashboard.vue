@@ -19,8 +19,30 @@
         <!-- FILTER BAR CENTERED & SPACED OUT -->
         <v-card class="elevation-2 mb-5" style="padding: 24px 32px !important; border-radius: 16px; background: #ffffff;">
           <v-row align="center" justify="center">
+            <!-- FILTER KANTOR (ROLE ADMIN ONLY) -->
+            <v-col cols="12" sm="3" class="px-3" v-if="$gate.isAdmin()">
+              <div class="caption font-weight-bold text-uppercase grey--text text--darken-2 mb-1 text-center">
+                Filter Kantor
+              </div>
+              <v-combobox
+                v-model="selectedKantor"
+                :items="namaKantorList"
+                item-value="id"
+                item-text="nama_kantor"
+                placeholder="Pilih Kantor"
+                dense
+                outlined
+                hide-details
+                clearable
+                :return-object="false"
+                class="centered-select"
+                @change="fetchDashboardData"
+                @click="getKantor"
+              ></v-combobox>
+            </v-col>
+
             <!-- FILTER ROLE STAFF -->
-            <v-col cols="12" sm="3" class="px-3">
+            <v-col cols="12" :sm="$gate.isAdmin() ? 3 : 4" class="px-3">
               <div class="caption font-weight-bold text-uppercase grey--text text--darken-2 mb-1 text-center">
                 Filter Role Staff
               </div>
@@ -37,42 +59,42 @@
               ></v-select>
             </v-col>
 
-            <!-- FILTER BULAN -->
-            <v-col cols="12" sm="3" class="px-3">
+            <!-- FILTER PERIODE (BULAN & TAHUN GABUNG) -->
+            <v-col cols="12" :sm="$gate.isAdmin() ? 3 : 4" class="px-3">
               <div class="caption font-weight-bold text-uppercase grey--text text--darken-2 mb-1 text-center">
-                Filter Bulan
+                Filter Periode
               </div>
-              <v-select
-                v-model="selectedMonth"
-                :items="monthsList"
-                item-text="text"
-                item-value="value"
-                dense
-                outlined
-                hide-details
-                class="centered-select"
-                @change="fetchDashboardData"
-              ></v-select>
-            </v-col>
-
-            <!-- FILTER TAHUN -->
-            <v-col cols="12" sm="2" class="px-3">
-              <div class="caption font-weight-bold text-uppercase grey--text text--darken-2 mb-1 text-center">
-                Filter Tahun
-              </div>
-              <v-select
-                v-model="selectedYear"
-                :items="yearsList"
-                dense
-                outlined
-                hide-details
-                class="centered-select"
-                @change="fetchDashboardData"
-              ></v-select>
+              <v-menu
+                v-model="menuPeriode"
+                :close-on-content-click="false"
+                transition="scale-transition"
+                offset-y
+                min-width="auto"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="periodeTglText"
+                    readonly
+                    dense
+                    outlined
+                    hide-details
+                    append-icon="mdi-calendar"
+                    class="centered-select"
+                    v-bind="attrs"
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker
+                  v-model="periodeTgl"
+                  type="month"
+                  @input="menuPeriode = false; fetchDashboardData();"
+                  locale="id-ID"
+                ></v-date-picker>
+              </v-menu>
             </v-col>
 
             <!-- TOMBOL FILTER & REFRESH DATA SIDE BY SIDE -->
-            <v-col cols="12" sm="4" class="px-3 pt-6 d-flex align-center justify-center" style="gap: 10px;">
+            <v-col cols="12" :sm="$gate.isAdmin() ? 3 : 4" class="px-3 pt-6 d-flex align-center justify-center" style="gap: 10px;">
               <v-btn
                 dark
                 color="primary"
@@ -282,31 +304,16 @@ import moment from "moment";
 export default {
   data: () => ({
     selectedRole: "",
-    selectedMonth: new Date().getMonth() + 1,
-    selectedYear: new Date().getFullYear(),
+    selectedKantor: null,
+    namaKantorList: [],
+    periodeTgl: new Date().toISOString().substr(0, 7),
+    menuPeriode: false,
 
     rolesList: [
       { text: "Semua Role", value: "" },
       { text: "Customer Service (CS)", value: "cs" },
       { text: "Teller", value: "teller" },
     ],
-
-    monthsList: [
-      { text: "Januari", value: 1 },
-      { text: "Februari", value: 2 },
-      { text: "Maret", value: 3 },
-      { text: "April", value: 4 },
-      { text: "Mei", value: 5 },
-      { text: "Juni", value: 6 },
-      { text: "Juli", value: 7 },
-      { text: "Agustus", value: 8 },
-      { text: "September", value: 9 },
-      { text: "Oktober", value: 10 },
-      { text: "November", value: 11 },
-      { text: "Desember", value: 12 },
-    ],
-
-    yearsList: [2024, 2025, 2026, 2027],
 
     today: {
       puas: 0,
@@ -345,7 +352,20 @@ export default {
     ],
   }),
 
+  computed: {
+    periodeTglText() {
+      return this.periodeTgl ? moment(this.periodeTgl).format("MMMM YYYY") : "";
+    },
+    selectedMonth() {
+      return this.periodeTgl ? moment(this.periodeTgl).month() + 1 : new Date().getMonth() + 1;
+    },
+    selectedYear() {
+      return this.periodeTgl ? moment(this.periodeTgl).year() : new Date().getFullYear();
+    },
+  },
+
   created() {
+    this.getKantor();
     this.fetchDashboardData();
   },
 
@@ -355,10 +375,24 @@ export default {
       return moment(date).format("DD/MM/YYYY");
     },
 
+    getKantor() {
+      if (this.$gate.isAdmin() && this.namaKantorList.length === 0) {
+        axios
+          .get("api/stock/getkantor")
+          .then((response) => {
+            this.namaKantorList = response.data.data.map((item) => ({
+              id: item.id,
+              nama_kantor: `${item.kode_kantor_slik} - ${item.nama_kantor}`,
+            }));
+          })
+          .catch((err) => console.log(err));
+      }
+    },
+
     refreshData() {
       this.selectedRole = "";
-      this.selectedMonth = new Date().getMonth() + 1;
-      this.selectedYear = new Date().getFullYear();
+      this.selectedKantor = null;
+      this.periodeTgl = new Date().toISOString().substr(0, 7);
       this.fetchDashboardData();
     },
 
@@ -368,6 +402,7 @@ export default {
         .get("api/kepuasancs/dashboard-summary", {
           params: {
             role: this.selectedRole,
+            kantor_id: this.selectedKantor,
             month: this.selectedMonth,
             year: this.selectedYear,
           },

@@ -27,49 +27,41 @@ class PermoperasionalController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
 
-        if ($levelLogin === 'admin' || $levelLogin === 'bisnis') {
-            $permoperasional  = DB::table('permoperasional')
-                ->join('kode_kantors', 'permoperasional.kantor_id', '=', 'kode_kantors.id')
-                ->join('statuspermohonan', 'permoperasional.status_id', '=', 'statuspermohonan.id')
-                ->select(
-                    'permoperasional.id',
-                    'permoperasional.namafile',
-                    'permoperasional.tgl_permohonan',
-                    'permoperasional.tgl_setujutolak',
-                    'permoperasional.tgl_acc',
-                    'permoperasional.file',
-                    'permoperasional.kantor_id',
-                    'kode_kantors.nama_kantor',
-                    'statuspermohonan.statuspermohonan'
-                )
-                ->orderBy('id', 'desc')
-                ->get();
+        $query = DB::table('permoperasional')
+            ->join('kode_kantors', 'permoperasional.kantor_id', '=', 'kode_kantors.id')
+            ->join('statuspermohonan', 'permoperasional.status_id', '=', 'statuspermohonan.id')
+            ->select(
+                'permoperasional.id',
+                'permoperasional.namafile',
+                'permoperasional.tgl_permohonan',
+                'permoperasional.tgl_setujutolak',
+                'permoperasional.tgl_acc',
+                'permoperasional.file',
+                'permoperasional.kantor_id',
+                'kode_kantors.nama_kantor',
+                'statuspermohonan.statuspermohonan'
+            );
+
+        if ($levelLogin !== 'admin' && $levelLogin !== 'bisnis') {
+            $query->where('permoperasional.kantor_id', $id_kantor);
         } else {
-            $permoperasional  = DB::table('permoperasional')
-                ->join('kode_kantors', 'permoperasional.kantor_id', '=', 'kode_kantors.id')
-                ->join('statuspermohonan', 'permoperasional.status_id', '=', 'statuspermohonan.id')
-                ->where('kantor_id', $id_kantor)
-                ->select(
-                    'permoperasional.id',
-                    'permoperasional.namafile',
-                    'permoperasional.tgl_permohonan',
-                    'permoperasional.tgl_setujutolak',
-                    'permoperasional.tgl_acc',
-                    'permoperasional.file',
-                    'permoperasional.kantor_id',
-                    'kode_kantors.nama_kantor',
-                    'statuspermohonan.statuspermohonan'
-                )
-                ->orderBy('id', 'desc')
-                ->get();
+            if ($request->has('kantor_id') && $request->kantor_id != '') {
+                $query->where('permoperasional.kantor_id', $request->kantor_id);
+            }
         }
 
-        return $this->sendResponse($permoperasional, 'File permoperasional list');
+        if ($request->has('fromtgl') && $request->fromtgl != '' && $request->has('totgl') && $request->totgl != '') {
+            $query->whereRaw("STR_TO_DATE(permoperasional.tgl_permohonan, '%d/%m/%Y') BETWEEN ? AND ?", [$request->fromtgl, $request->totgl]);
+        }
+
+        $permoperasional = $query->orderBy('permoperasional.id', 'desc')->get();
+
+        return $this->sendResponse($permoperasional, 'Permoperasional list');
     }
 
     /**

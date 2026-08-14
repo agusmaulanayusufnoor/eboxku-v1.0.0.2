@@ -26,33 +26,29 @@ class PelunasanController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
 
-        // if($levelLogin === 'admin'){
-        //     $pelunasan  = DB::table('pelunasan')
-        //     ->join('kode_kantors', 'pelunasan.kantor_id', '=', 'kode_kantors.id')
-        //     ->select('pelunasan.id','pelunasan.no_rekening','pelunasan.namafile','pelunasan.tanggal','pelunasan.file',
-        //     'pelunasan.kantor_id','kode_kantors.nama_kantor')
-        //     ->orderBy('id','desc')
-        //     ->get();
-        // }else{
-        //     $pelunasan  = DB::table('pelunasan')
-        //     ->join('kode_kantors', 'pelunasan.kantor_id', '=', 'kode_kantors.id')
-        //     ->where('kantor_id', $id_kantor)
-        //     ->select('pelunasan.id','pelunasan.no_rekening','pelunasan.namafile','pelunasan.tanggal','pelunasan.file',
-        //     'pelunasan.kantor_id','kode_kantors.nama_kantor')
-        //     ->orderBy('id','desc')
-        //     ->get();
-        // }
-        $pelunasan  = DB::table('pelunasan')
+        $query = DB::table('pelunasan')
             ->join('kode_kantors', 'pelunasan.kantor_id', '=', 'kode_kantors.id')
-            ->select('pelunasan.id','pelunasan.no_rekening','pelunasan.namafile','pelunasan.tanggal','pelunasan.file',
-            'pelunasan.kantor_id','kode_kantors.nama_kantor')
-            ->orderBy('id','desc')
-            ->get();
+            ->select('pelunasan.id', 'pelunasan.no_rekening', 'pelunasan.namafile', 'pelunasan.tanggal', 'pelunasan.file', 'pelunasan.kantor_id', 'kode_kantors.nama_kantor');
+
+        if ($levelLogin === 'admin') {
+            if ($request->has('kantor_id') && $request->kantor_id != '') {
+                $query->where('pelunasan.kantor_id', $request->kantor_id);
+            }
+        } else {
+            $query->where('pelunasan.kantor_id', $id_kantor);
+        }
+
+        if ($request->has('fromtgl') && $request->fromtgl != '' && $request->has('totgl') && $request->totgl != '') {
+            $query->whereRaw("STR_TO_DATE(pelunasan.tanggal, '%d/%m/%Y') BETWEEN ? AND ?", [$request->fromtgl, $request->totgl]);
+        }
+
+        $pelunasan = $query->orderBy('pelunasan.id', 'desc')->get();
+
         return $this->sendResponse($pelunasan, 'File pelunasan list');
     }
 

@@ -25,27 +25,29 @@ class FeedbackController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
-        //$feedback= $this->feedback->latest()->get();
-        if($levelLogin === 'admin'){
-            $feedback  = DB::table('feedback')
+
+        $query = DB::table('feedback')
             ->join('kode_kantors', 'feedback.kantor_id', '=', 'kode_kantors.id')
-            ->select('feedback.id','feedback.namafile','feedback.tanggal','feedback.file','feedback.view',
-            'feedback.kantor_id','kode_kantors.nama_kantor')
-            ->orderBy('id','desc')
-            ->get();
-        }else{
-            $feedback  = DB::table('feedback')
-            ->join('kode_kantors', 'feedback.kantor_id', '=', 'kode_kantors.id')
-            ->where('kantor_id', $id_kantor)
-            ->select('feedback.id','feedback.namafile','feedback.tanggal','feedback.file','feedback.view',
-            'feedback.kantor_id','kode_kantors.nama_kantor')
-            ->orderBy('id','desc')
-            ->get();
+            ->select('feedback.id', 'feedback.namafile', 'feedback.tanggal', 'feedback.file', 'feedback.view',
+                     'feedback.kantor_id', 'kode_kantors.nama_kantor');
+
+        if ($levelLogin !== 'admin') {
+            $query->where('feedback.kantor_id', $id_kantor);
+        } else {
+            if ($request->has('kantor_id') && $request->kantor_id != '') {
+                $query->where('feedback.kantor_id', $request->kantor_id);
+            }
         }
+
+        if ($request->has('fromtgl') && $request->fromtgl != '' && $request->has('totgl') && $request->totgl != '') {
+            $query->whereRaw("STR_TO_DATE(feedback.tanggal, '%d/%m/%Y') BETWEEN ? AND ?", [$request->fromtgl, $request->totgl]);
+        }
+
+        $feedback = $query->orderBy('feedback.id', 'desc')->get();
 
         return $this->sendResponse($feedback, 'Feedback list');
     }

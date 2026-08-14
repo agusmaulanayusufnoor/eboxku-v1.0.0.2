@@ -20,6 +20,113 @@
               </v-btn>
             </v-toolbar>
             <!-- /.card-header -->
+
+            <!-- FILTER SECTION (1 BARIS SEJAJAR, NO OVERFLOW) -->
+            <div class="px-4 pt-6 pb-2">
+              <v-row align="center">
+                <!-- FILTER KANTOR (ROLE ADMIN ONLY) -->
+                <v-col cols="12" sm="3" md="2" v-if="$gate.isAdmin()">
+                  <v-combobox
+                    v-model="selectedKantor"
+                    label="Filter Kantor"
+                    :items="namaKantorList"
+                    item-value="id"
+                    item-text="nama_kantor"
+                    placeholder="Pilih Kantor"
+                    hide-details
+                    clearable
+                    dense
+                    outlined
+                    :return-object="false"
+                    @change="initialize()"
+                    @click="getKantor()"
+                  ></v-combobox>
+                </v-col>
+
+                <!-- FILTER DARI TANGGAL -->
+                <v-col cols="12" sm="3" md="2">
+                  <v-menu
+                    v-model="menuFrom"
+                    :close-on-content-click="false"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        v-model="fromTglText"
+                        label="Dari Tanggal"
+                        append-icon="mdi-calendar"
+                        hide-details
+                        dense
+                        outlined
+                        v-bind="attrs"
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                      v-model="fromTgl"
+                      @input="menuFrom = false"
+                      locale="id-ID"
+                    ></v-date-picker>
+                  </v-menu>
+                </v-col>
+
+                <!-- FILTER SAMPAI TANGGAL -->
+                <v-col cols="12" sm="3" md="2">
+                  <v-menu
+                    v-model="menuTo"
+                    :close-on-content-click="false"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        v-model="toTglText"
+                        label="Sampai Tanggal"
+                        append-icon="mdi-calendar"
+                        hide-details
+                        dense
+                        outlined
+                        v-bind="attrs"
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                      v-model="toTgl"
+                      @input="menuTo = false"
+                      locale="id-ID"
+                    ></v-date-picker>
+                  </v-menu>
+                </v-col>
+
+                <!-- TOMBOL FILTER & RESET -->
+                <v-col cols="auto" class="d-flex align-center">
+                  <v-btn color="indigo" dark small class="px-2" @click="initialize()">
+                    <v-icon left small>mdi-filter</v-icon> Filter
+                  </v-btn>
+                  <v-btn color="warning" dark small class="px-2 ml-1" @click="resetFilter()">
+                    <v-icon left small>mdi-reload</v-icon> Reset
+                  </v-btn>
+                </v-col>
+
+                <v-spacer></v-spacer>
+
+                <!-- CARI FILE -->
+                <v-col cols="12" sm="3" md="2">
+                  <v-text-field
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                    label="Cari File"
+                    hide-details
+                    dense
+                    outlined
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </div>
+
             <div class="card-body table-responsive p-0">
               <v-data-table
                 :headers="headers"
@@ -40,26 +147,6 @@
                     Refresh
                     <v-icon right dark> mdi-reload </v-icon>
                   </v-btn>
-                </template>
-                <template v-slot:item.index="{ index }">
-                  {{ index + 1 }}
-                </template>
-
-                <template v-slot:top>
-                  <v-toolbar flat>
-                    <v-spacer></v-spacer>
-                    <v-spacer></v-spacer>
-                    <v-spacer></v-spacer>
-                    <v-spacer></v-spacer>
-                    <v-text-field
-                      v-model="search"
-                      append-icon="mdi-magnify"
-                      label="Cari File"
-                      single-line
-                      hide-details
-                      loading="grey"
-                    ></v-text-field>
-                  </v-toolbar>
                 </template>
 
                 <!-- tombol download -->
@@ -272,8 +359,16 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   data: (vm) => ({
+    selectedKantor: null,
+    namaKantorList: [],
+    fromTgl: "",
+    toTgl: "",
+    menuFrom: false,
+    menuTo: false,
     csrf: document
       .querySelector('meta[name="csrf-token"]')
       .getAttribute("content"),
@@ -329,6 +424,12 @@ export default {
   }),
 
   computed: {
+    fromTglText() {
+      return this.fromTgl ? moment(this.fromTgl).format("YYYY-MM-DD") : "";
+    },
+    toTglText() {
+      return this.toTgl ? moment(this.toTgl).format("YYYY-MM-DD") : "";
+    },
     headers() {
       let headers = [
         {
@@ -437,21 +538,42 @@ export default {
       const [day, month, year] = tanggal.split("/");
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     },
+    getKantor() {
+      if (this.$gate.isAdmin() && this.namaKantorList.length === 0) {
+        axios
+          .get("api/stock/getkantor")
+          .then((response) => {
+            this.namaKantorList = response.data.data.map((item) => ({
+              id: item.id,
+              nama_kantor: `${item.kode_kantor_slik} - ${item.nama_kantor}`,
+            }));
+          })
+          .catch((err) => console.log(err));
+      }
+    },
+    resetFilter() {
+      this.selectedKantor = null;
+      this.fromTgl = "";
+      this.toTgl = "";
+      this.search = "";
+      this.initialize();
+    },
     initialize() {
       this.$Progress.start();
 
       if (this.$gate.isAdmin() || this.$gate.isPelayanan() || this.$gate.isTeller()) {
-        //axios.get("api/user").then((response) => {(this.users = response.data.data)});
-        axios.get("api/bakas").then((response) => {
+        const params = {};
+        if (this.fromTglText) params.fromtgl = this.fromTglText;
+        if (this.toTglText) params.totgl = this.toTglText;
+        if (this.selectedKantor) params.kantor_id = this.selectedKantor;
+
+        axios.get("api/bakas", { params }).then((response) => {
           this.bakas = response.data.data;
           this.kantor_id = this.$kantor_id;
-          // this.form.fill
-          //console.log(this.bakas);
-          //console.log(this.kantor_id)
+        }).finally(() => {
+          this.$Progress.finish();
         });
       }
-
-      this.$Progress.finish();
     },
     editModal(item) {
       this.editmode = true;

@@ -27,51 +27,41 @@ class PermbisnisController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $id_kantor  = Auth::user()->kantor_id;
         $levelLogin = Auth::user()->type;
 
-        if ($levelLogin === 'admin' || $levelLogin === 'bisnis') {
-            $permbisnis  = DB::table('permbisnis')
-                ->join('kode_kantors', 'permbisnis.kantor_id', '=', 'kode_kantors.id')
-                ->join('statuspermohonan', 'permbisnis.status_id', '=', 'statuspermohonan.id')
-                ->select(
-                    'permbisnis.id',
-                    'permbisnis.namafile',
-                    'permbisnis.tgl_permohonan',
-                    'permbisnis.tgl_setujutolak',
-                    'permbisnis.tgl_acc',
-                    'permbisnis.tgl_selesai',
-                    'permbisnis.file',
-                    'permbisnis.file_memo',
-                    'permbisnis.kantor_id',
-                    'kode_kantors.nama_kantor',
-                    'statuspermohonan.statuspermohonan'
-                )
-                ->orderBy('id', 'desc')
-                ->get();
+        $query = DB::table('permbisnis')
+            ->join('kode_kantors', 'permbisnis.kantor_id', '=', 'kode_kantors.id')
+            ->join('statuspermohonan', 'permbisnis.status_id', '=', 'statuspermohonan.id')
+            ->select(
+                'permbisnis.id',
+                'permbisnis.namafile',
+                'permbisnis.tgl_permohonan',
+                'permbisnis.tgl_setujutolak',
+                'permbisnis.tgl_acc',
+                'permbisnis.tgl_selesai',
+                'permbisnis.file',
+                'permbisnis.file_memo',
+                'permbisnis.kantor_id',
+                'kode_kantors.nama_kantor',
+                'statuspermohonan.statuspermohonan'
+            );
+
+        if ($levelLogin !== 'admin' && $levelLogin !== 'bisnis') {
+            $query->where('permbisnis.kantor_id', $id_kantor);
         } else {
-            $permbisnis  = DB::table('permbisnis')
-                ->join('kode_kantors', 'permbisnis.kantor_id', '=', 'kode_kantors.id')
-                ->join('statuspermohonan', 'permbisnis.status_id', '=', 'statuspermohonan.id')
-                ->where('kantor_id', $id_kantor)
-                ->select(
-                    'permbisnis.id',
-                    'permbisnis.namafile',
-                    'permbisnis.tgl_permohonan',
-                    'permbisnis.tgl_setujutolak',
-                    'permbisnis.tgl_acc',
-                    'permbisnis.tgl_selesai',
-                    'permbisnis.file',
-                    'permbisnis.file_memo',
-                    'permbisnis.kantor_id',
-                    'kode_kantors.nama_kantor',
-                    'statuspermohonan.statuspermohonan'
-                )
-                ->orderBy('id', 'desc')
-                ->get();
+            if ($request->has('kantor_id') && $request->kantor_id != '') {
+                $query->where('permbisnis.kantor_id', $request->kantor_id);
+            }
         }
+
+        if ($request->has('fromtgl') && $request->fromtgl != '' && $request->has('totgl') && $request->totgl != '') {
+            $query->whereRaw("STR_TO_DATE(permbisnis.tgl_permohonan, '%d/%m/%Y') BETWEEN ? AND ?", [$request->fromtgl, $request->totgl]);
+        }
+
+        $permbisnis = $query->orderBy('permbisnis.id', 'desc')->get();
 
         return $this->sendResponse($permbisnis, 'File permbisnis list');
     }
