@@ -120,6 +120,23 @@
     //console.log(window.userlogin);
 </script>
 @endauth
+<script>
+(function() {
+    function onFullscreenChange() {
+        var isFS = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+        if (isFS) {
+            document.body.classList.add('sidebar-hidden');
+        } else {
+            document.body.classList.remove('sidebar-hidden');
+        }
+    }
+
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+    document.addEventListener('mozfullscreenchange', onFullscreenChange);
+    document.addEventListener('MSFullscreenChange', onFullscreenChange);
+})();
+</script>
 <script src="{{ mix('/js/app.js') }}"></script>
 
 <style>

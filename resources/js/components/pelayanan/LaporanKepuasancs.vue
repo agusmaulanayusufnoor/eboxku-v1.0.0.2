@@ -60,6 +60,140 @@
               </v-col>
             </v-row>
 
+            <!-- EXPORT BUTTONS -->
+            <div class="px-4 pb-2 d-flex align-center">
+              <vue-excel-xlsx
+                :data="kepuasanList"
+                :columns="columnsExcel"
+                :file-name="'Laporan_Kepuasan_Pelayanan'"
+                :file-type="'xls'"
+                :sheet-name="'Kepuasan_Pelayanan'"
+                class="btn btn-success btn-sm mr-2"
+                title="Export Excel"
+              >
+                <i class="fa-solid fa-file-excel"></i>
+              </vue-excel-xlsx>
+              <v-btn color="error" small class="mr-2" @click="printPDF()" title="Export / Print PDF">
+                <v-icon small>mdi-file-pdf-box</v-icon>
+              </v-btn>
+            </div>
+
+            <!-- FILTER SECTION -->
+            <div class="px-4 pt-4 pb-2">
+              <v-row align="center" no-gutters class="flex-nowrap">
+                <v-col v-if="$gate.isAdmin() || $gate.isPelayanan()" cols="auto" class="px-1 flex-grow-0">
+                  <v-select
+                    v-model="selectedRole"
+                    :items="rolesList"
+                    item-text="text"
+                    item-value="value"
+                    label="Role"
+                    hide-details
+                    dense
+                    outlined
+                    style="min-width:160px; max-width:200px"
+                    @change="initialize()"
+                  ></v-select>
+                </v-col>
+
+                <v-col v-if="$gate.isAdmin() || $gate.isPelayanan()" cols="auto" class="px-1 flex-grow-0">
+                  <v-select
+                    v-model="selectedKantor"
+                    :items="namaKantorList"
+                    item-value="id"
+                    item-text="nama_kantor"
+                    label="Kantor"
+                    hide-details
+                    clearable
+                    dense
+                    outlined
+                    :return-object="false"
+                    style="min-width:160px; max-width:200px"
+                    @change="initialize()"
+                    @click="getKantor()"
+                  ></v-select>
+                </v-col>
+
+                <v-col cols="auto" class="px-1 flex-grow-0">
+                  <v-menu
+                    v-model="menuFrom"
+                    :close-on-content-click="false"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        v-model="fromTglText"
+                        label="Dari"
+                        append-icon="mdi-calendar"
+                        hide-details
+                        dense
+                        outlined
+                        readonly
+                        style="min-width:160px; max-width:200px"
+                        v-bind="attrs"
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                      v-model="fromTgl"
+                      @input="menuFrom = false"
+                      locale="id-ID"
+                    ></v-date-picker>
+                  </v-menu>
+                </v-col>
+
+                <v-col cols="auto" class="px-1 flex-grow-0">
+                  <v-menu
+                    v-model="menuTo"
+                    :close-on-content-click="false"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        v-model="toTglText"
+                        label="Sampai"
+                        append-icon="mdi-calendar"
+                        hide-details
+                        dense
+                        outlined
+                        readonly
+                        style="min-width:160px; max-width:200px"
+                        v-bind="attrs"
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                      v-model="toTgl"
+                      @input="menuTo = false"
+                      locale="id-ID"
+                    ></v-date-picker>
+                  </v-menu>
+                </v-col>
+
+                <v-col cols="auto" class="px-1 d-flex align-center flex-grow-0">
+                  <v-btn icon small color="indigo" @click="initialize()">
+                    <v-icon small>mdi-filter</v-icon>
+                  </v-btn>
+                </v-col>
+
+                <v-col cols="auto" class="px-1 flex-grow-0">
+                  <v-text-field
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                    label="Cari"
+                    hide-details
+                    dense
+                    outlined
+                    style="min-width:160px; max-width:200px"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </div>
+
             <!-- TABEL DATA LAPORAN -->
             <div class="card-body table-responsive p-0">
               <v-data-table
@@ -70,145 +204,6 @@
                 dense
                 class="elevation-3"
               >
-                <template v-slot:top>
-                  <v-toolbar flat class="py-2">
-                    <div class="d-flex align-center">
-                      <vue-excel-xlsx
-                        :data="kepuasanList"
-                        :columns="columnsExcel"
-                        :file-name="'Laporan_Kepuasan_Pelayanan'"
-                        :file-type="'xls'"
-                        :sheet-name="'Kepuasan_Pelayanan'"
-                        class="btn btn-success btn-sm mr-2"
-                        title="Export Excel"
-                      >
-                        <i class="fa-solid fa-file-excel"></i>
-                      </vue-excel-xlsx>
-
-                      <v-btn color="error" small class="mr-2" @click="printPDF()" title="Export / Print PDF" min-width="0">
-                        <v-icon small>mdi-file-pdf-box</v-icon>
-                      </v-btn>
-                    </div>
-
-                    <v-spacer></v-spacer>
-
-                    <v-row class="align-center justify-end" style="max-width: 850px;">
-                      <!-- FILTER ROLE -->
-                      <v-col cols="12" sm="3" v-if="$gate.isAdmin() || $gate.isPelayanan()">
-                        <v-select
-                          v-model="selectedRole"
-                          :items="rolesList"
-                          item-text="text"
-                          item-value="value"
-                          label="Filter Role"
-                          single-line
-                          hide-details
-                          dense
-                          outlined
-                          @change="initialize()"
-                        ></v-select>
-                      </v-col>
-
-                      <!-- FILTER KANTOR -->
-                      <v-col cols="12" sm="3" v-if="$gate.isAdmin() || $gate.isPelayanan()">
-                        <v-combobox
-                          v-model="selectedKantor"
-                          label="Filter Kantor"
-                          :items="namaKantorList"
-                          item-value="id"
-                          item-text="nama_kantor"
-                          placeholder="Pilih Kantor"
-                          single-line
-                          hide-details
-                          clearable
-                          dense
-                          outlined
-                          :return-object="false"
-                          @change="initialize()"
-                          @click="getKantor()"
-                        ></v-combobox>
-                      </v-col>
-
-                      <!-- FILTER DARI TANGGAL -->
-                      <v-col cols="12" sm="3">
-                        <v-menu
-                          v-model="menuFrom"
-                          :close-on-content-click="false"
-                          transition="scale-transition"
-                          offset-y
-                          min-width="auto"
-                        >
-                          <template v-slot:activator="{ on, attrs }">
-                            <v-text-field
-                              v-model="fromTglText"
-                              label="Dari Tanggal"
-                              append-icon="mdi-calendar"
-                              single-line
-                              hide-details
-                              dense
-                              outlined
-                              v-bind="attrs"
-                              v-on="on"
-                            ></v-text-field>
-                          </template>
-                          <v-date-picker
-                            v-model="fromTgl"
-                            @input="menuFrom = false"
-                            locale="id-ID"
-                          ></v-date-picker>
-                        </v-menu>
-                      </v-col>
-
-                      <!-- FILTER SAMPAI TANGGAL -->
-                      <v-col cols="12" sm="3">
-                        <v-menu
-                          v-model="menuTo"
-                          :close-on-content-click="false"
-                          transition="scale-transition"
-                          offset-y
-                          min-width="auto"
-                        >
-                          <template v-slot:activator="{ on, attrs }">
-                            <v-text-field
-                              v-model="toTglText"
-                              label="Sampai Tanggal"
-                              append-icon="mdi-calendar"
-                              single-line
-                              hide-details
-                              dense
-                              outlined
-                              v-bind="attrs"
-                              v-on="on"
-                            ></v-text-field>
-                          </template>
-                          <v-date-picker
-                            v-model="toTgl"
-                            @input="menuTo = false"
-                            locale="id-ID"
-                          ></v-date-picker>
-                        </v-menu>
-                      </v-col>
-
-                      <v-col cols="auto">
-                        <v-btn fab dark color="indigo" x-small @click="initialize()">
-                          <v-icon>mdi-filter</v-icon>
-                        </v-btn>
-                      </v-col>
-                    </v-row>
-
-                    <v-spacer></v-spacer>
-
-                    <v-text-field
-                      v-model="search"
-                      append-icon="mdi-magnify"
-                      label="Cari Rekap..."
-                      single-line
-                      hide-details
-                      loading="grey"
-                      style="max-width: 180px;"
-                    ></v-text-field>
-                  </v-toolbar>
-                </template>
 
                 <template v-slot:item.index="{ index }">
                   {{ index + 1 }}

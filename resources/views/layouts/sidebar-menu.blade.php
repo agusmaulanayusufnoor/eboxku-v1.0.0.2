@@ -180,6 +180,14 @@
                     </p>
                 </router-link>
               </li>
+              <li class="nav-item">
+                <router-link to="/pengaturan-operasional" class="nav-link">
+                    <i class="nav-icon fas fa-cogs white"></i>
+                    <p>
+                        Pengaturan Operasional
+                    </p>
+                </router-link>
+              </li>
         </ul>
       </li>
 

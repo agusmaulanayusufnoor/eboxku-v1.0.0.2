@@ -167,6 +167,11 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
 
     Route::get('pincab/user-kantor', 'PincabController@getByUserKantor');
 
+    // Nota Pemindahbukuan (custom routes sebelum apiResources)
+    Route::get('nota-pemindahbukuan/cetak/{id}', 'NotaPemindahbukuanController@cetak');
+    Route::get('nota-pemindahbukuan/filter', 'NotaPemindahbukuanController@filter');
+    Route::get('nota-pemindahbukuan/filterkantor', 'NotaPemindahbukuanController@filterkantor');
+
     Route::apiResources([
         //setting
         'satuan'        => 'SatuanController',
@@ -250,6 +255,12 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
 
         // ppk
         'transaksi-manual' => 'TransaksiManualController',
+
+        // nota pemindahbukuan
+        'nota-pemindahbukuan' => 'NotaPemindahbukuanController',
+
+        // pengaturan operasional
+        'pengaturan-operasional' => 'PengaturanOperasionalController',
 
     ]);
 });

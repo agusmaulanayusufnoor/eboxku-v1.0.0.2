@@ -14,6 +14,8 @@ class Kode_kantor extends Model
         'id',
         'kode_kantor',
         'kode_kantor_slik',
+        'kode_cabang',
         'nama_kantor',
+        'kota_kantor',
     ];
 }
