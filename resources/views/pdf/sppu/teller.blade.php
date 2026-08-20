@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        @media print {
+            @page { size: A4 portrait; margin: 5mm; }
+        }
+        html, body {
+            background: #FFFFFF;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000;
+        }
+        .nota-box {
+            width: 200mm;
+            border: 1.5pt solid #000;
+            padding: 0;
+            margin: 4mm auto;
+            font-size: 12pt;
+        }
+        .nota-head { display: table; width: 100%; border-bottom: 1pt solid #000; }
+        .nota-head > div { display: table-cell; vertical-align: middle; padding: 6px 10px; }
+        .nota-logo { width: 16%; }
+        .nota-title { width: 62%; text-align: center; vertical-align: bottom !important; padding-bottom: 4px; }
+        .nota-nomor { width: 22%; border-left: 1pt solid #000; padding: 0 !important; }
+
+        .nota-logo b { font-size: 16pt; letter-spacing: 1px; }
+        .nota-logo img { height: 75px; width: auto; vertical-align: middle; }
+        .nota-title b { font-size: 14pt; }
+
+        .nomor-label { border-bottom: 1pt solid #000; text-align: center; padding: 4px; font-size: 11pt; }
+        .nomor-value { text-align: center; padding: 10px 4px; font-size: 12pt; font-weight: bold; min-height: 24px; }
+
+        .nota-body { padding: 10px 14px; }
+        .nota-row { margin: 6px 0; }
+        .fill { border-bottom: 1pt solid #000; display: inline-block; padding: 0 6px; }
+
+        .terbilang {
+            background: rgba(200, 200, 200, 0.5);
+            padding: 6px 14px;
+            font-size: 11pt;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .nota-foot { display: table; width: 100%; margin-top: 14px; }
+        .nota-foot > div { display: table-cell; width: 33%; vertical-align: top; text-align: center; }
+        .nota-foot .kiri { padding-top: 10mm; }
+        .nota-foot .tengah { padding-top: 10mm; }
+        .nota-foot .kanan { padding-top: 5mm; }
+        .ttd-space { height: 22mm; }
+        .ttd-space-pincab { height: 22mm; }
+    </style>
+</head>
+<body>
+<?php
+    $kodeKantor = $kodeKantor;
+    $namaKantor = $namaKantor;
+    $tanggal = $tanggal;
+    $notaData = $nota;
+    $nominalRupiah = $nominalRupiah;
+    $pincab = $pincab;
+    $stafTeller = $stafTeller;
+    $keterangan = $nota->keterangan ?: '-';
+    $penerimaUang = $nota->penerima_uang;
+?>
+
+<div class="nota-box">
+    <div class="nota-head">
+        <div class="nota-logo">
+            <img src="{{ public_path('images/logo_bprjabar.png') }}"
+                 onerror="this.style.display='none'" alt=""/>
+        </div>
+        <div class="nota-title">
+            <b>SURAT PERINTAH PENGELUARAN UANG</b>
+        </div>
+        <div class="nota-nomor">
+            <div class="nomor-label">NOMOR</div>
+            <div class="nomor-value"></div>
+        </div>
+    </div>
+
+    <div class="nota-body">
+        <div class="nota-row" style="margin-top: 8px; margin-bottom: 14px;">
+            <div style="margin-bottom: 8px;">Pemegang Kas PT BPR Jabar Perseroda harap memberikan uang kepada :</div>
+            <div style="white-space:nowrap;">
+                Tn./Ny./Sdr. : <span class="fill" style="min-width:80mm;"><?php echo htmlspecialchars($penerimaUang); ?></span>
+                &nbsp; Nominal Rp. <span class="fill" style="min-width:38mm; text-align:right;"><?php echo htmlspecialchars($nominalRupiah); ?></span>
+            </div>
+        </div>
+
+        <div class="terbilang" style="margin-top: 10px; margin-bottom: 12px;">
+            === <?php echo htmlspecialchars($terbilang); ?> Rupiah ===
+        </div>
+
+        <div class="nota-row" style="margin-top: 12px; margin-bottom: 12px;">
+            Keterangan : <span class="fill" style="min-width:160mm;"><?php echo htmlspecialchars($keterangan); ?></span>
+        </div>
+
+        <div class="nota-foot">
+            <div class="kiri">
+                Penerima Uang,
+                <div class="ttd-space"></div>
+                <span class="fill" style="min-width:50mm;"><strong><?php echo htmlspecialchars(strtoupper($penerimaUang)); ?></strong></span><br/>
+                {{-- <small>Staf Teller</small> --}}
+            </div>
+            <div class="tengah">
+            </div>
+            <div class="kanan">
+                <?php echo htmlspecialchars($kotaKantor . ', ' . $tanggal); ?><br/>
+                Diketahui,
+                <div class="ttd-space-pincab"></div>
+                <span class="fill" style="min-width:50mm;"><strong><?php echo htmlspecialchars(strtoupper($pincab)); ?></strong></span><br/>
+                <small>Pemimpin Cabang</small>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

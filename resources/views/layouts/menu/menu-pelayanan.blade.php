@@ -80,6 +80,16 @@
       </li>
       @endif
 
+      {{-- SPPU --}}
+      @if(auth()->user()->hasRole(['admin', 'pelayanan', 'teller']))
+      <li class="nav-item">
+        <router-link to="/sppu" class="nav-link">
+          <i class="nav-icon fas fa-file-invoice-dollar"></i>
+          <p>SPPU</p>
+        </router-link>
+      </li>
+      @endif
+
       {{-- Laporan Kepuasan untuk Admin, Pelayanan, CS, Teller --}}
       @if(auth()->user()->hasRole(['admin', 'pelayanan', 'cs', 'teller']))
       <li class="nav-item">

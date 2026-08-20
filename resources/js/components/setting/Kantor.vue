@@ -104,6 +104,29 @@
                      </v-edit-dialog>
                 </template>
 
+                <template v-slot:item.kode_cabang="{ item }">
+                     <v-edit-dialog
+                        @save="save"
+                        @cancel="cancel"
+                        @open="open(item)"
+                        @close="close"
+                        >
+                        {{ item.kode_cabang }}
+                        <template v-slot:input>
+                            <div class="mt-4 text-h6">
+                            Edit Kode Cabang
+                            </div>
+                            <v-text-field
+                            v-model="editedItem.kode_cabang"
+                            :rules="[max100chars]"
+                            label="Edit Kode Cabang"
+                            single-line
+                            counter
+                            ></v-text-field>
+                        </template>
+                     </v-edit-dialog>
+                </template>
+
                 <template v-slot:item.nama_kantor="{ item }">
                      <v-edit-dialog
 
@@ -128,6 +151,29 @@
                         </template>
                         </v-edit-dialog>
                     </template>
+
+                <template v-slot:item.kota_kantor="{ item }">
+                     <v-edit-dialog
+                        @save="save"
+                        @cancel="cancel"
+                        @open="open(item)"
+                        @close="close"
+                        >
+                        {{ item.kota_kantor }}
+                        <template v-slot:input>
+                            <div class="mt-4 text-h6">
+                            Edit Kota Kantor
+                            </div>
+                            <v-text-field
+                            v-model="editedItem.kota_kantor"
+                            :rules="[max100chars]"
+                            label="Edit Kota Kantor"
+                            single-line
+                            counter
+                            ></v-text-field>
+                        </template>
+                     </v-edit-dialog>
+                </template>
 
       <!-- end edit table -->
                </v-data-table>
@@ -225,6 +271,17 @@
                                 dense
                                 prepend-icon="mdi-barcode"
                             ></v-text-field>
+                            <v-text-field
+                                v-model="editedItem.kode_cabang"
+                                :rules="editedItem.kodeRules"
+                                label="Kode Cabang"
+                                name="kode_cabang"
+                                placeholder="input"
+                                outlined
+                                required
+                                dense
+                                prepend-icon="mdi-barcode"
+                            ></v-text-field>
                              <v-text-field
                                 v-model="editedItem.nama_kantor"
                                 :rules="editedItem.kantorRules"
@@ -235,6 +292,15 @@
                                 required
                                 dense
                                 prepend-icon="mdi-office-building-cog"
+                            ></v-text-field>
+                            <v-text-field
+                                v-model="editedItem.kota_kantor"
+                                label="Kota Kantor"
+                                name="kota_kantor"
+                                placeholder="input"
+                                outlined
+                                dense
+                                prepend-icon="mdi-map-marker"
                             ></v-text-field>
                             <!-- <has-error :form="form" field="kantor"></has-error> -->
 
@@ -286,7 +352,9 @@
         id : '',
         kode_kantor: '',
         kode_kantor_slik: '',
+        kode_cabang: '',
         nama_kantor:'',
+        kota_kantor: '',
         nama_kantorEdit:'',
         kantorRules: [
         v => !!v || 'Nama kantor belum diisi',
@@ -327,8 +395,16 @@
                 value: 'kode_kantor_slik',
                 },
                 {
+                text: 'Kode Cabang',
+                value: 'kode_cabang',
+                },
+                {
                 text: 'Nama Kantor',
                 value: 'nama_kantor',
+                },
+                {
+                text: 'Kota Kantor',
+                value: 'kota_kantor',
                 },
 
       ]
@@ -371,7 +447,9 @@
         this.editedItem.id = item.id
         this.editedItem.kode_kantor = item.kode_kantor
         this.editedItem.kode_kantor_slik = item.kode_kantor_slik
+        this.editedItem.kode_cabang = item.kode_cabang
         this.editedItem.nama_kantor = item.nama_kantor
+        this.editedItem.kota_kantor = item.kota_kantor
 
         //console.log(this.item.nama_kantor);
         //alert(this.item.id)
@@ -427,7 +505,9 @@
         this.$refs.form.reset()
         this.editedItem.kode_kantor = '';
         this.editedItem.kode_kantor_slik = '';
+        this.editedItem.kode_cabang = '';
         this.editedItem.nama_kantor = '';
+        this.editedItem.kota_kantor = '';
     },
 
      createUser(){
@@ -441,7 +521,9 @@
             const formData = new FormData
             formData.set('kode_kantor', this.editedItem.kode_kantor || '')
             formData.set('kode_kantor_slik', this.editedItem.kode_kantor_slik || '')
+            formData.set('kode_cabang', this.editedItem.kode_cabang || '')
             formData.set('nama_kantor', this.editedItem.nama_kantor || '')
+            formData.set('kota_kantor', this.editedItem.kota_kantor || '')
 
             axios.post('api/kantor',formData,config)
               .then((response)=>{
@@ -481,7 +563,9 @@
                  const formData = new FormData
             formData.set('kode_kantor', this.editedItem.kode_kantor || '')
             formData.set('kode_kantor_slik', this.editedItem.kode_kantor_slik || '')
+            formData.set('kode_cabang', this.editedItem.kode_cabang || '')
             formData.set('nama_kantor', this.editedItem.nama_kantor || '')
+            formData.set('kota_kantor', this.editedItem.kota_kantor || '')
             formData.append("_method", "PUT");
                 axios.post('api/kantor/'+this.editedItem.id,formData)
                 .then((response) => {

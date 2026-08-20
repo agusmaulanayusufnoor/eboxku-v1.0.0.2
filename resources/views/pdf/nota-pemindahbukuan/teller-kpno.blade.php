@@ -36,6 +36,14 @@
         .nota-row { margin: 6px 0; }
         .fill { border-bottom: 1pt solid #000; display: inline-block; padding: 0 6px; }
 
+        .terbilang {
+            background: rgba(200, 200, 200, 0.5);
+            padding: 6px 14px;
+            font-size: 11pt;
+            font-style: italic;
+            text-align: center;
+        }
+
         .nota-foot { display: table; width: 100%; margin-top: 14px; }
         .nota-foot > div { display: table-cell; width: 33%; vertical-align: top; text-align: center; }
         .nota-foot .col1 { padding-top: 10mm; }
@@ -75,9 +83,13 @@
     </div>
 
     <div class="nota-body">
-        <div class="nota-row" style="white-space:nowrap;">
+         <div class="nota-row" style="white-space:nowrap;">
             Jenis Transaksi : <span class="fill" style="min-width:80mm;"><?php echo htmlspecialchars($jenisTransaksi); ?></span>
             &nbsp; Nominal Rp. <span class="fill" style="min-width:38mm; text-align:right;"><?php echo htmlspecialchars($nominalRupiah); ?></span>
+        </div>
+
+        <div class="terbilang" style="margin-top: 6px;">
+            === <?php echo htmlspecialchars($terbilang); ?> Rupiah ===
         </div>
 
         <div class="nota-row">
@@ -88,13 +100,13 @@
             <div class="col1">
                 Yang Membukukan,
                 <div class="ttd-space"></div>
-                <span class="fill" style="min-width:45mm;"><strong><?php echo htmlspecialchars(strtoupper($stafTeller)); ?></strong></span><br/>
-                <small>Staf Umum</small>
+                <span class="fill" style="min-width:50mm;"><strong><?php echo htmlspecialchars(strtoupper($stafTeller)); ?></strong></span><br/>
+                <small>Staf Teller</small>
             </div>
             <div class="col2">
                 Diperiksa,
                 <div class="ttd-space"></div>
-                <span class="fill" style="min-width:45mm;"><strong><?php echo htmlspecialchars(strtoupper($manajerOperasional)); ?></strong></span><br/>
+                <span class="fill" style="min-width:50mm;"><strong><?php echo htmlspecialchars(strtoupper($manajerOperasional)); ?></strong></span><br/>
                 <small>Manajer Operasional</small>
             </div>
             <div class="col3">

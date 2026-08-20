@@ -37,9 +37,18 @@
         .nota-row { margin: 6px 0; }
         .fill { border-bottom: 1pt solid #000; display: inline-block; padding: 0 6px; }
 
+        .terbilang {
+            background: rgba(200, 200, 200, 0.5);
+            padding: 6px 14px;
+            font-size: 11pt;
+            font-style: italic;
+            text-align: center;
+        }
+
         .nota-foot { display: table; width: 100%; margin-top: 14px; }
-        .nota-foot > div { display: table-cell; width: 50%; vertical-align: top; text-align: center; }
+        .nota-foot > div { display: table-cell; width: 33%; vertical-align: top; text-align: center; }
         .nota-foot .kiri { padding-top: 10mm; }
+        .nota-foot .tengah { padding-top: 10mm; }
         .nota-foot .kanan { padding-top: 5mm; }
         .ttd-space { height: 22mm; }
         .ttd-space-pincab { height: 22mm; }
@@ -65,7 +74,7 @@
                  onerror="this.style.display='none'" alt=""/>
         </div>
         <div class="nota-title">
-            <b>NOTA PEMINDAHBUKUAN</b>
+           <b>NOTA PEMINDAHBUKUAN</b>
         </div>
         <div class="nota-nomor">
             <div class="nomor-label">NOMOR</div>
@@ -79,6 +88,10 @@
             &nbsp; Nominal Rp. <span class="fill" style="min-width:38mm; text-align:right;"><?php echo htmlspecialchars($nominalRupiah); ?></span>
         </div>
 
+        <div class="terbilang" style="margin-top: 6px;">
+            === <?php echo htmlspecialchars($terbilang); ?> Rupiah ===
+        </div>
+
         <div class="nota-row">
             Keterangan : <span class="fill" style="min-width:160mm;"><?php echo htmlspecialchars($keterangan); ?></span>
         </div>
@@ -87,14 +100,16 @@
             <div class="kiri">
                 Yang Membukukan,
                 <div class="ttd-space"></div>
-                <span class="fill" style="min-width:70mm;"><strong><?php echo htmlspecialchars(strtoupper($manajerOperasional)); ?></strong></span><br/>
+                <span class="fill" style="min-width:50mm;"><strong><?php echo htmlspecialchars(strtoupper($manajerOperasional)); ?></strong></span><br/>
                 <small>Manajer Operasional</small>
+            </div>
+            <div class="tengah">
             </div>
             <div class="kanan">
                 <?php echo htmlspecialchars($kotaKantor . ', ' . $tanggal); ?><br/>
                 Diketahui,
                 <div class="ttd-space-pincab"></div>
-                <span class="fill" style="min-width:70mm;"><strong><?php echo htmlspecialchars(strtoupper($pincab)); ?></strong></span><br/>
+                <span class="fill" style="min-width:50mm;"><strong><?php echo htmlspecialchars(strtoupper($pincab)); ?></strong></span><br/>
                 <small>Pemimpin Cabang</small>
             </div>
         </div>

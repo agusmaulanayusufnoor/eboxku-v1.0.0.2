@@ -41,7 +41,9 @@ class Kode_kantorController extends BaseController
         $kantor = Kode_kantor::create([
             'kode_kantor'       => $request['kode_kantor'],
             'kode_kantor_slik'  => $request['kode_kantor_slik'],
+            'kode_cabang'       => $request['kode_cabang'],
             'nama_kantor'       => $request['nama_kantor'],
+            'kota_kantor'       => $request['kota_kantor'],
         ]);
         return $this->sendResponse($kantor, 'Kantor Ditambahkan');
     }

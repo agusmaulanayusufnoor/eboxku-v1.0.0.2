@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Helpers\Terbilang;
 
 class NotaPemindahbukuanController extends BaseController
 {
@@ -175,6 +176,7 @@ class NotaPemindahbukuanController extends BaseController
             'pimpinanDivisi' => $pimpinanDivisiOperasional,
             'manajerOperasional' => $manajerOperasional,
             'user' => $notaUser,
+            'terbilang' => Terbilang::convert($nota->nominal),
         ];
 
         if ($levelLogin === 'pelayanan') {

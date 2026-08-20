@@ -73,6 +73,7 @@ export default [
     { path: '/permoperasional', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Permoperasional.vue') },
     { path: '/permbisnis', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Permbisnis.vue') },
     { path: '/nota-pemindahbukuan', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/NotaPemindahbukuan.vue') },
+    { path: '/sppu', component: () => import(/* webpackPrefetch: true */'./components/pelayanan/Sppu.vue') },
 
     { path: '/permohonankredit', component: () => import(/* webpackPrefetch: true */'./components/kredit/Permohonankredit.vue') },
     { path: '/kredit', component: () => import(/* webpackPrefetch: true */'./components/kredit/Kredit.vue') },

@@ -80,8 +80,8 @@
 
             <!-- FILTER SECTION -->
             <div class="px-4 pt-4 pb-2">
-              <v-row align="center" no-gutters class="flex-nowrap">
-                <v-col v-if="$gate.isAdmin() || $gate.isPelayanan()" cols="auto" class="px-1 flex-grow-0">
+              <v-row align="center">
+                <v-col v-if="$gate.isAdmin() || $gate.isPelayanan()" cols="12" sm="4" md="2">
                   <v-select
                     v-model="selectedRole"
                     :items="rolesList"
@@ -91,12 +91,11 @@
                     hide-details
                     dense
                     outlined
-                    style="min-width:160px; max-width:200px"
                     @change="initialize()"
                   ></v-select>
                 </v-col>
 
-                <v-col v-if="$gate.isAdmin() || $gate.isPelayanan()" cols="auto" class="px-1 flex-grow-0">
+                <v-col v-if="$gate.isAdmin() || $gate.isPelayanan()" cols="12" sm="4" md="2">
                   <v-select
                     v-model="selectedKantor"
                     :items="namaKantorList"
@@ -108,13 +107,12 @@
                     dense
                     outlined
                     :return-object="false"
-                    style="min-width:160px; max-width:200px"
                     @change="initialize()"
                     @click="getKantor()"
                   ></v-select>
                 </v-col>
 
-                <v-col cols="auto" class="px-1 flex-grow-0">
+                <v-col cols="12" sm="4" md="2">
                   <v-menu
                     v-model="menuFrom"
                     :close-on-content-click="false"
@@ -131,7 +129,6 @@
                         dense
                         outlined
                         readonly
-                        style="min-width:160px; max-width:200px"
                         v-bind="attrs"
                         v-on="on"
                       ></v-text-field>
@@ -144,7 +141,7 @@
                   </v-menu>
                 </v-col>
 
-                <v-col cols="auto" class="px-1 flex-grow-0">
+                <v-col cols="12" sm="4" md="2">
                   <v-menu
                     v-model="menuTo"
                     :close-on-content-click="false"
@@ -161,7 +158,6 @@
                         dense
                         outlined
                         readonly
-                        style="min-width:160px; max-width:200px"
                         v-bind="attrs"
                         v-on="on"
                       ></v-text-field>
@@ -174,13 +170,15 @@
                   </v-menu>
                 </v-col>
 
-                <v-col cols="auto" class="px-1 d-flex align-center flex-grow-0">
+                <v-col cols="auto" class="d-flex align-center">
                   <v-btn icon small color="indigo" @click="initialize()">
                     <v-icon small>mdi-filter</v-icon>
                   </v-btn>
                 </v-col>
 
-                <v-col cols="auto" class="px-1 flex-grow-0">
+                <v-spacer></v-spacer>
+
+                <v-col cols="12" sm="4" md="2">
                   <v-text-field
                     v-model="search"
                     append-icon="mdi-magnify"
@@ -188,12 +186,10 @@
                     hide-details
                     dense
                     outlined
-                    style="min-width:160px; max-width:200px"
                   ></v-text-field>
                 </v-col>
               </v-row>
             </div>
-
             <!-- TABEL DATA LAPORAN -->
             <div class="card-body table-responsive p-0">
               <v-data-table

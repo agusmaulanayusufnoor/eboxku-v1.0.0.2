@@ -172,6 +172,11 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('nota-pemindahbukuan/filter', 'NotaPemindahbukuanController@filter');
     Route::get('nota-pemindahbukuan/filterkantor', 'NotaPemindahbukuanController@filterkantor');
 
+    // SPPU (custom routes sebelum apiResources)
+    Route::get('sppu/cetak/{id}', 'SppuController@cetak');
+    Route::get('sppu/filter', 'SppuController@filter');
+    Route::get('sppu/filterkantor', 'SppuController@filterkantor');
+
     Route::apiResources([
         //setting
         'satuan'        => 'SatuanController',
@@ -258,6 +263,9 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
 
         // nota pemindahbukuan
         'nota-pemindahbukuan' => 'NotaPemindahbukuanController',
+
+        // sppu
+        'sppu' => 'SppuController',
 
         // pengaturan operasional
         'pengaturan-operasional' => 'PengaturanOperasionalController',
